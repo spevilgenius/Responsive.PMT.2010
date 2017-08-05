@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ProjectItem Type="Microsoft.VisualStudio.SharePoint.Module" DefaultFile="Elements.xml" SupportedTrustLevels="All" SupportedDeploymentScopes="Web, Site" xmlns="http://schemas.microsoft.com/VisualStudio/2010/SharePointTools/SharePointProjectItemModel">
+  <Files>
+    <ProjectItemFile Source="Elements.xml" Target="MaterPageGallery\" Type="ElementManifest" />
+    <ProjectItemFile Source="AAODashboardLayout.aspx" Target="MaterPageGallery\" Type="ElementFile" />
+    <ProjectItemFile Source="SAPMyDashboard.aspx" Target="MaterPageGallery\" Type="ElementFile" />
+    <ProjectItemFile Source="SAPBlankWebPartPageFull.aspx" Target="MaterPageGallery\" Type="ElementFile" />
+    <ProjectItemFile Source="HomePageLayout.aspx" Target="MaterPageGallery\" Type="ElementFile" />
+    <ProjectItemFile Source="BlankWebPartPage.aspx" Target="MaterPageGallery\" Type="ElementFile" />
+    <ProjectItemFile Source="MyDashboardLayout.aspx" Target="MaterPageGallery\" Type="ElementFile" />
+    <ProjectItemFile Source="PMTDashboardLayout.aspx" Target="MaterPageGallery\" Type="ElementFile" />
+    <ProjectItemFile Source="PMTDashboardLayout2.aspx" Target="MaterPageGallery\" Type="ElementFile" />
+  </Files>
+</ProjectItem>

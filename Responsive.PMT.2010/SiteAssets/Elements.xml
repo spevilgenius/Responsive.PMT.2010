@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="SiteAssets">
+    <File Path="SiteAssets\css\dashboard.css" Url="SiteAssets/css/dashboard.css" />
+    <File Path="SiteAssets\css\directives.css" Url="SiteAssets/css/directives.css" />
+    <File Path="SiteAssets\css\docsethomepage.css" Url="SiteAssets/css/docsethomepage.css" />
+    <File Path="SiteAssets\css\homepage.css" Url="SiteAssets/css/homepage.css" />
+    <File Path="SiteAssets\css\mydashboard.css" Url="SiteAssets/css/mydashboard.css" />
+    <File Path="SiteAssets\html\CEWP_Dashboard.html" Url="SiteAssets/html/CEWP_Dashboard.html" />
+    <File Path="SiteAssets\html\CEWP_DocSetHomePage.html" Url="SiteAssets/html/CEWP_DocSetHomePage.html" />
+    <File Path="SiteAssets\html\CEWP_HomePage.html" Url="SiteAssets/html/CEWP_HomePage.html" />
+    <File Path="SiteAssets\html\CEWP_MyDashboard.html" Url="SiteAssets/html/CEWP_MyDashboard.html" />
+    <File Path="SiteAssets\html\directives.html" Url="SiteAssets/html/directives.html" />
+    <File Path="SiteAssets\js\images\NOPII.png" Url="SiteAssets/js/images/NOPII.png" />
+    <File Path="SiteAssets\js\CEWP_Dashboard.js" Url="SiteAssets/js/CEWP_Dashboard.js" />
+    <File Path="SiteAssets\js\CEWP_DocSetHomePage.js" Url="SiteAssets/js/CEWP_DocSetHomePage.js" />
+    <File Path="SiteAssets\js\CEWP_HomePage.js" Url="SiteAssets/js/CEWP_HomePage.js" />
+    <File Path="SiteAssets\js\CEWP_MyDashboard.js" Url="SiteAssets/js/CEWP_MyDashboard.js" />
+    <File Path="SiteAssets\css\staffaction.css" Url="SiteAssets/css/staffaction.css" />
+    <File Path="SiteAssets\html\staffaction.html" Url="SiteAssets/html/staffaction.html" />
+    <File Path="SiteAssets\js\ndu.sap.overrides - Copy.js" Url="SiteAssets/js/ndu.sap.overrides - Copy.js" />
+    <File Path="SiteAssets\css\common.css" Url="SiteAssets/css/common.css" />
+    <File Path="SiteAssets\css\homepagelayout.css" Url="SiteAssets/css/homepagelayout.css" />
+    <File Path="SiteAssets\css\CEWP_KM_Map.css" Url="SiteAssets/css/CEWP_KM_Map.css" />
+    <File Path="SiteAssets\js\CEWP_KM_Map.js" Url="SiteAssets/js/CEWP_KM_Map.js" />
+    <File Path="SiteAssets\html\CEWP_KM_Map.html" Url="SiteAssets/html/CEWP_KM_Map.html" />
+    <File Path="SiteAssets\js\ocko.overrides.js" Url="SiteAssets/js/ocko.overrides.js" />
+    <File Path="SiteAssets\js\ocko.overrides.scriptlink.js" Url="SiteAssets/js/ocko.overrides.scriptlink.js" />
+    <File Path="SiteAssets\html\CEWP_KM_Chart.html" Url="SiteAssets/html/CEWP_KM_Chart.html" />
+    <File Path="SiteAssets\html\CEWP_KM_TotalChart.html" Url="SiteAssets/html/CEWP_KM_TotalChart.html" />
+    <File Path="SiteAssets\html\dbDirectivesII.html" Url="SiteAssets/html/dbDirectivesII.html" />
+    <File Path="SiteAssets\js\PMT.js" Url="SiteAssets/js/PMT.js" />
+    <File Path="SiteAssets\js\SPHelper.js" Url="SiteAssets/js/SPHelper.js" />
+    <File Path="SiteAssets\js\CEWP_KM_Chart.js" Url="SiteAssets/js/CEWP_KM_Chart.js" />
+    <File Path="SiteAssets\js\CEWP_KM_TotalChart.js" Url="SiteAssets/js/CEWP_KM_TotalChart.js" />
+    <File Path="SiteAssets\html\CEWP_Directives.html" Url="SiteAssets/html/CEWP_Directives.html" />
+    <File Path="SiteAssets\html\DirectivesHTML1.html" Url="SiteAssets/html/DirectivesHTML1.html" />
+    <File Path="SiteAssets\html\dbAuthority.html" Url="SiteAssets/html/dbAuthority.html" />
+    <File Path="SiteAssets\html\dbAuthority.widget" Url="SiteAssets/html/dbAuthority.widget" />
+    <File Path="SiteAssets\js\cko.forms.overrides.js" Url="SiteAssets/js/cko.forms.overrides.js" />
+    <File Path="SiteAssets\html\CEWP_FORMS_EditOrgForm.html" Url="SiteAssets/html/CEWP_FORMS_EditOrgForm.html" />
+    <File Path="SiteAssets\js\CEWP_FORMS_EditOrgForm.js" Url="SiteAssets/js/CEWP_FORMS_EditOrgForm.js" />
+    <File Path="SiteAssets\html\CEWP_UserCustomActions.html" Url="SiteAssets/html/CEWP_UserCustomActions.html" />
+    <File Path="SiteAssets\js\CEWP_UserCustomActions.js" Url="SiteAssets/js/CEWP_UserCustomActions.js" />
+    <File Path="SiteAssets\html\CEWP_PMTCustomActions.html" Url="SiteAssets/html/CEWP_PMTCustomActions.html" />
+    <File Path="SiteAssets\js\CEWP_PMTCustomActions.js" Url="SiteAssets/js/CEWP_PMTCustomActions.js" />
+    <File Path="SiteAssets\js\CEWP_Directives.js" Url="SiteAssets/js/CEWP_Directives.js" />
+    <File Path="SiteAssets\css\cascomstyles1.css" Url="SiteAssets/css/cascomstyles1.css" />
+    <File Path="SiteAssets\html\CEWP_PMTMigrations.html" Url="SiteAssets/html/CEWP_PMTMigrations.html" />
+    <File Path="SiteAssets\js\CEWP_PMTMigrations.js" Url="SiteAssets/js/CEWP_PMTMigrations.js" />
+    <File Path="SiteAssets\js\Directives.json" Url="SiteAssets/js/Directives.json" />
+    <File Path="SiteAssets\html\CEWP_Forms_NewActionForm.html" Url="SiteAssets/html/CEWP_Forms_NewActionForm.html" />
+    <File Path="SiteAssets\js\CEWP_Forms_NewActionForm.js" Url="SiteAssets/js/CEWP_Forms_NewActionForm.js" />
+    <File Path="SiteAssets\html\CEWP_MyActions.html" Url="SiteAssets/html/CEWP_MyActions.html" />
+    <File Path="SiteAssets\js\CEWP_MyActions.js" Url="SiteAssets/js/CEWP_MyActions.js" />
+    <File Path="SiteAssets\css\myactions.css" Url="SiteAssets/css/myactions.css" />
+    <File Path="SiteAssets\css\CEWP_Forms_NewActionForm.css" Url="SiteAssets/css/CEWP_Forms_NewActionForm.css" />
+    <File Path="SiteAssets\html\CEWP_Forms_EditActionForm.html" Url="SiteAssets/html/CEWP_Forms_EditActionForm.html" />
+    <File Path="SiteAssets\css\CEWP_Forms_ActionForms.css" Url="SiteAssets/css/CEWP_Forms_ActionForms.css" />
+    <File Path="SiteAssets\js\CEWP_Forms_EditActionForm.js" Url="SiteAssets/js/CEWP_Forms_EditActionForm.js" />
+  </Module>
+</Elements>

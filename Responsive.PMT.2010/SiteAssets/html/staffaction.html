@@ -1,0 +1,131 @@
+<div id="StaffAction" class="container-fluid">
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="container-fluid nomargin nopadding">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="txtControlNumber">Control Number</label>
+                        <div class="col-sm-8">
+                            <input class="form-control field disabled" id="txtControlNumber" data-type="text" disabled="disabled" data-field="ControlNumber" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="txtWorkPhone">Phone</label>
+                        <div class="col-sm-8">
+                            <input class="form-control field disabled" id="txtWorkPhone" data-type="text" disabled="disabled" data-field="WorkPhone" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="txtSuspenseDate">Suspense Date</label>
+                        <div class="col-sm-8">
+                            <input class="form-control field date disabled" id="txtSuspenseDate" data-type="date" disabled="disabled" data-field="SuspenseDate" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="txtFrom">From</label>
+                        <div class="col-sm-8">
+                            <input class="form-control field disabled" id="txtFrom" data-type="user" disabled="disabled" data-field="From1" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="txtComponent">Component</label>
+                        <div class="col-sm-8">
+                            <input class="form-control field disabled" id="txtComponent" data-type="text" disabled="disabled" data-field="Component" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="txtType">Staff Action Type</label>
+                        <div class="col-sm-8">
+                            <input class="form-control field disabled" id="txtType" data-type="text" disabled="disabled" data-field="StaffActionsType" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="txtStatus">Status</label>
+                        <div class="col-sm-8">
+                            <input class="form-control field disabled" id="txtStatus" data-type="text" disabled="disabled" data-field="Status" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="divApprovers">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="txtApprovers">Approvers</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control field disabled" id="txtApprovers" data-type="Approvers" disabled="disabled" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Guidance</label>
+                        <div class="col-sm-8 flex-control">
+                            <a href="https://portal.ndu.edu/coo/AdminActions/Documents/DoD_Issuances_Standards.pdf">DoD Issuance Standards</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-8">
+            <div class="container-fluid nomargin nopadding">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="taPurpose">Purpose</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control field disabled" id="taPurpose" data-type="text" disabled="disabled" rows="3" data-field="Purpose1"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="taDiscussion">Discussion</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control field disabled" id="taDiscussion" data-type="text" disabled="disabled" rows="3" data-field="Discussion"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="taBackground">Background</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control field disabled" id="taBackground" data-type="text" disabled="disabled" rows="3" data-field="Background"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="taRecommendation">Recommendation</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control field disabled" id="taRecommendation" data-type="text" disabled="disabled" rows="3" data-field="Recommendation"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="taHistory">History</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control field disabled" id="taHistory" data-type="text" disabled="disabled" rows="3" data-field="History"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row centercontent">
+        <a class="btn btn-lg btn-default" id="btnUpload" href="#" data-toggle="tooltip" data-placement="top" title="Upload a Supporting or Signed Document">Upload A Document</a>
+        <a class="btn btn-lg btn-default" id="btnUpdate" href="#" data-toggle="tooltip" data-placement="top" title="Update Stakeholders, Approval Type, and set Suspense Date">Update SAP</a>
+        <a class="btn btn-lg btn-default" id="btnSubmit" data-type="StaffAction" href="#" data-toggle="tooltip" data-placement="top" title="Submit to AAO for Approval">Submit For Approval</a>
+        <a class="btn btn-lg btn-default" id="btnEmail" href="#" data-toggle="tooltip" data-placement="top" title="Provide Submitter Feedback or Ask a Question">Email Submitter</a>
+        <a class="btn btn-lg btn-default" id="btnReject" href="#" data-toggle="tooltip" data-placement="top" title="Return to sender and stop workflow">Reject</a>
+    </div>
+</div>

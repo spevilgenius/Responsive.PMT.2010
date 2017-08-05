@@ -1,0 +1,24 @@
+﻿<script language="javascript" type="text/javascript">
+    jQuery(document).ready(function () {
+        var site =  L_Menu_BaseUrl;
+        console.log("Site = " + site);
+		SP.SOD.executeOrDelayUntilScriptLoaded(function () {
+		    SP.SOD.registerSod('CEWP_PMTCustomActions.js', site + "/SiteAssets/js/CEWP_PMTCustomActions.js");
+		    SP.SOD.registerSod('core.js', site + "/_layouts/1033/core.js");
+		    RegisterSodDep('core.js', 'sp.js');
+		    RegisterSodDep('CEWP_PMTCustomActions.js', 'core.js');
+		    EnsureScriptFunc("CEWP_PMTCustomActions.js", null, function () {
+		        PMTCustomActions(site);
+		    });
+		}, "sp.js");        
+    });
+</script>
+
+
+<div class="container-fluid" style="margin-top: 30px;">
+    <div class="row">
+        <div class="col-xs-12">
+            <button type="button" id="btnExpended" class="btn btn-success">Update Expended Hours (Directives)</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ProjectItem Type="Microsoft.VisualStudio.SharePoint.Module" DefaultFile="Elements.xml" SupportedTrustLevels="All" SupportedDeploymentScopes="Web, Site" xmlns="http://schemas.microsoft.com/VisualStudio/2010/SharePointTools/SharePointProjectItemModel">
+  <Files>
+    <ProjectItemFile Source="Elements.xml" Target="SiteAssets\" Type="ElementManifest" />
+    <ProjectItemFile Source="css\dashboard.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="css\directives.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="css\docsethomepage.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="css\homepage.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="css\mydashboard.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Dashboard.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_DocSetHomePage.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_HomePage.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_MyDashboard.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\directives.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\images\NOPII.png" Target="SiteAssets\js\images\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Dashboard.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_DocSetHomePage.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_HomePage.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_MyDashboard.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="css\staffaction.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="html\staffaction.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ndu.sap.overrides - Copy.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="css\common.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="css\homepagelayout.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="css\CEWP_KM_Map.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_KM_Map.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_KM_Map.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ocko.overrides.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ocko.overrides.scriptlink.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_KM_Chart.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_KM_TotalChart.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\dbDirectivesII.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\PMT.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\SPHelper.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_KM_Chart.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_KM_TotalChart.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Directives.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\DirectivesHTML1.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\dbAuthority.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\dbAuthority.widget" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\cko.forms.overrides.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_FORMS_EditOrgForm.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_FORMS_EditOrgForm.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_UserCustomActions.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_UserCustomActions.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_PMTCustomActions.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_PMTCustomActions.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Directives.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="css\cascomstyles1.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_PMTMigrations.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_PMTMigrations.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\Directives.json" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Forms_NewActionForm.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Forms_NewActionForm.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_MyActions.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_MyActions.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="css\myactions.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="css\CEWP_Forms_NewActionForm.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Forms_EditActionForm.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="css\CEWP_Forms_ActionForms.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Forms_EditActionForm.js" Target="SiteAssets\js\" Type="ElementFile" />
+  </Files>
+</ProjectItem>

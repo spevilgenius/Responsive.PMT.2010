@@ -1,0 +1,50 @@
+﻿<script language="javascript" type="text/javascript">
+    jQuery(document).ready(function () {
+        var site =  L_Menu_BaseUrl;
+        console.log("Site = " + site);
+		SP.SOD.executeOrDelayUntilScriptLoaded(function () {
+		    SP.SOD.registerSod('CEWP_PMTMigrations.js', site + "/SiteAssets/js/CEWP_PMTMigrations.js");
+		    SP.SOD.registerSod('core.js', site + "/_layouts/1033/core.js");
+		    RegisterSodDep('core.js', 'sp.js');
+		    RegisterSodDep('CEWP_PMTMigrations.js', 'core.js');
+		    EnsureScriptFunc("CEWP_PMTMigrations.js", null, function () {
+		        PMTMigrations(site);
+		    });
+		}, "sp.js");        
+    });
+</script>
+
+
+<div class="container-fluid" style="margin-top: 30px;">
+    <div class="row">
+        <div class="col-xs-12">
+            <button type="button" id="btnMigrateDirectives" class="btn btn-success">Migrate Directives</button>
+            &nbsp;
+            <button type="button" id="btnMigrateStandards" class="btn btn-success">Migrate Standards</button>
+            &nbsp;
+            <button type="button" id="btnMigrateActions" class="btn btn-success">Migrate Actions</button>
+            &nbsp;
+            <button type="button" id="btnUpdateActionsSA" class="btn btn-success">Update Actions SA</button>
+            &nbsp;
+            <button type="button" id="btnUpdateActionsUsers" class="btn btn-success">Update Actions Users</button>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-xs-12">
+            From:&nbsp;<input type="text" id="txtFrom" />&nbsp;To:&nbsp;<input type="text" id="txtTo" />
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-xs-12">
+            List:&nbsp;<input type="text" id="txtList" />
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-xs-12">
+            <textarea cols="200" rows="40" id="txtResults" name="txtResults" style="display: none;"></textarea>
+        </div>
+    </div>
+</div>

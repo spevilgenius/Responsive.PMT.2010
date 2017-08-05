@@ -1,0 +1,2 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="7ab8e36c-8602-4c46-9b91-822f24967c18" solutionId="7ab8e36c-8602-4c46-9b91-822f24967c18" resetWebServer="false" sharePointProductVersion="15.0" name="NDU.Responsive.SAP.2010" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel" />

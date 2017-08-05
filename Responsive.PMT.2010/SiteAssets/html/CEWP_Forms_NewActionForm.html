@@ -1,0 +1,99 @@
+﻿<style type="text/css">
+    .hidden { display: none; }
+</style>
+
+<script language="javascript" type="text/javascript">
+    SP.SOD.executeOrDelayUntilScriptLoaded(function () {
+        var SLASH = "/";
+        var tp1 = new String(window.location.protocol);
+        var tp2 = new String(window.location.host);
+        var tp3 = L_Menu_BaseUrl;
+        var site = tp1 + SLASH + SLASH + tp2 + tp3;
+        SP.SOD.registerSod('CEWP_Forms_NewActionForm.js', site + "/SiteAssets/js/CEWP_Forms_NewActionForm.js");
+        EnsureScriptFunc("CEWP_Forms_NewActionForm.js", null, function () {
+            FormInit(site);
+        });
+    }, "sp.js");
+</script>
+
+<div data-role="form" style="display:none">
+    <div class="container-fluid" id="NewForm">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Work Type</label>
+                <div class="col-sm-10">
+                    <div data-field="EffortType"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Objective</label>
+                <div class="col-sm-10">
+                    <select id="ddStandard" class="form-control"></select>
+                    <select id="ddDirective" class="form-control" style="display: none;"></select>
+                    <div data-field="Title"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Support Alignment</label>
+                <div class="col-sm-10">
+                    <select id="ddAlignment" class="form-control"></select>
+                    <div data-field="SupportAlignment"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Date Completed</label>
+                <div class="col-sm-10">
+                    <div data-field="Date Completed"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Function</label>
+                <div class="col-sm-10">
+                    <select id="ddFunction" class="form-control"></select>
+                    <div data-field="Function" class="hidden"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Enabler</label>
+                <div class="col-sm-10">
+                    <select id="ddEnabler" class="form-control"></select>
+                    <div data-field="Enabler" class="hidden"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Other Enabler</label>
+                <div class="col-sm-10">
+                    <div data-field="OtherEnabler"></div>
+                </div>
+            </div>
+            <!--<div class="form-group">
+                <div class="col-sm-2">
+                    Customer
+                </div>
+                <div class="col-sm-10">
+
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Time</label>
+                <div class="col-sm-10">
+                    <div data-field="Expended"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Comments</label>
+                <div class="col-sm-10">
+                    <textarea cols="50" rows="3" id="taComments" name="taComments" class="form-control"></textarea>
+                    <div data-field="ActionComments" class="hidden"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <button type="button" id="btnSave" class="btn btn-default">Save</button>
+                    <button type="button" id="btnCancel" class="btn btn-default">Cancel</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

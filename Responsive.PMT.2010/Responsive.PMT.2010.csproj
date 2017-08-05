@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7AB13227-655C-4C75-84E0-770226E0C1E5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NDU.Responsive.SAP</RootNamespace>
+    <AssemblyName>NDU.Responsive.SAP</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetOfficeVersion>15.0</TargetOfficeVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{C1CDDADD-2546-481F-9697-4EA41081F2FC};{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SandboxedSolution>False</SandboxedSolution>
+    <ActiveDeploymentConfiguration>No Activation</ActiveDeploymentConfiguration>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SharePoint.Publishing, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.SharePoint" />
+    <Reference Include="Microsoft.SharePoint.Client.ServerRuntime" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MaterPageGallery\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{cfdaeb14-e31f-42fb-a493-6609b94f85e3}</SharePointProjectItemId>
+    </None>
+    <None Include="Package\Package.package">
+      <PackageId>{67e49c77-2309-4dab-b9db-12cbf50dd3d9}</PackageId>
+    </None>
+    <None Include="SiteAssets\html\dbAuthority.widget" />
+    <None Include="SiteAssets\js\Directives.json" />
+    <None Include="SiteAssets\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{ac5096c7-822a-477f-ba2a-1eadadfc7c2a}</SharePointProjectItemId>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MaterPageGallery\AAODashboardLayout.aspx" />
+    <Content Include="MaterPageGallery\HomePageLayout.aspx" />
+    <Content Include="MaterPageGallery\Elements.xml" />
+    <Content Include="MaterPageGallery\MyDashboardLayout.aspx" />
+    <Content Include="MaterPageGallery\SAPBlankWebPartPageFull.aspx" />
+    <Content Include="MaterPageGallery\SAPMyDashboard.aspx" />
+    <Content Include="Package\Package.Template.xml">
+      <DependentUpon>Package.package</DependentUpon>
+    </Content>
+    <Content Include="SiteAssets\css\cascomstyles1.css" />
+    <Content Include="SiteAssets\css\common.css" />
+    <Content Include="SiteAssets\css\dashboard.css" />
+    <Content Include="SiteAssets\css\homepagelayout.css" />
+    <Content Include="SiteAssets\css\staffaction.css" />
+    <Content Include="SiteAssets\css\directives.css" />
+    <Content Include="SiteAssets\css\docsethomepage.css" />
+    <Content Include="SiteAssets\css\homepage.css" />
+    <Content Include="SiteAssets\css\mydashboard.css" />
+    <Content Include="SiteAssets\Elements.xml" />
+    <Content Include="SiteAssets\html\CEWP_Dashboard.html" />
+    <Content Include="SiteAssets\html\CEWP_Directives.html" />
+    <Content Include="SiteAssets\html\CEWP_DocSetHomePage.html" />
+    <Content Include="SiteAssets\html\CEWP_Forms_NewActionForm.html" />
+    <Content Include="SiteAssets\html\CEWP_HomePage.html" />
+    <Content Include="SiteAssets\html\CEWP_KM_Chart.html" />
+    <Content Include="SiteAssets\html\CEWP_FORMS_EditOrgForm.html" />
+    <Content Include="SiteAssets\html\CEWP_KM_Map.html" />
+    <Content Include="SiteAssets\html\CEWP_KM_TotalChart.html" />
+    <Content Include="SiteAssets\html\CEWP_MyDashboard.html" />
+    <Content Include="SiteAssets\html\CEWP_PMTCustomActions.html" />
+    <Content Include="SiteAssets\html\CEWP_PMTMigrations.html" />
+    <Content Include="SiteAssets\html\CEWP_UserCustomActions.html" />
+    <Content Include="SiteAssets\html\dbAuthority.html" />
+    <Content Include="SiteAssets\html\dbDirectivesII.html" />
+    <Content Include="SiteAssets\html\DirectivesHTML1.html" />
+    <Content Include="SiteAssets\html\staffaction.html" />
+    <Content Include="SiteAssets\html\directives.html" />
+    <Content Include="SiteAssets\images\NOPII.png" />
+    <Content Include="SiteAssets\js\CEWP_Dashboard.js" />
+    <Content Include="SiteAssets\js\CEWP_DocSetHomePage.js" />
+    <Content Include="SiteAssets\js\CEWP_Forms_NewActionForm.js" />
+    <Content Include="SiteAssets\js\CEWP_HomePage.js" />
+    <Content Include="SiteAssets\js\CEWP_KM_Chart.js" />
+    <Content Include="SiteAssets\js\CEWP_FORMS_EditOrgForm.js" />
+    <Content Include="SiteAssets\js\CEWP_Directives.js" />
+    <Content Include="SiteAssets\js\CEWP_KM_Map.js" />
+    <Content Include="SiteAssets\js\CEWP_KM_TotalChart.js" />
+    <Content Include="SiteAssets\js\CEWP_MyDashboard.js" />
+    <Content Include="SiteAssets\js\CEWP_PMTCustomActions.js" />
+    <Content Include="SiteAssets\js\CEWP_PMTMigrations.js" />
+    <Content Include="SiteAssets\js\CEWP_UserCustomActions.js" />
+    <Content Include="SiteAssets\js\cko.forms.overrides.js" />
+    <Content Include="SiteAssets\js\PMT.js" />
+    <Content Include="SiteAssets\js\SPHelper.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Features\" />
+    <Folder Include="SiteAssets\fonts\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\SharePointTools\Microsoft.VisualStudio.SharePoint.targets" Condition="'$(VSToolsPath)' != ''" />
+</Project>

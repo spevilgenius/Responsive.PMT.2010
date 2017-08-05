@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="MaterPageGallery">
+    <File Path="MaterPageGallery\AAODashboardLayout.aspx" Url="MaterPageGallery/AAODashboardLayout.aspx" />
+    <File Path="MaterPageGallery\SAPMyDashboard.aspx" Url="MaterPageGallery/SAPMyDashboard.aspx" />
+    <File Path="MaterPageGallery\SAPBlankWebPartPageFull.aspx" Url="MaterPageGallery/SAPBlankWebPartPageFull.aspx" />
+    <File Path="MaterPageGallery\HomePageLayout.aspx" Url="MaterPageGallery/HomePageLayout.aspx" />
+    <File Path="MaterPageGallery\BlankWebPartPage.aspx" Url="MaterPageGallery/BlankWebPartPage.aspx" />
+    <File Path="MaterPageGallery\MyDashboardLayout.aspx" Url="MaterPageGallery/MyDashboardLayout.aspx" />
+    <File Path="MaterPageGallery\PMTDashboardLayout.aspx" Url="MaterPageGallery/PMTDashboardLayout.aspx" />
+    <File Path="MaterPageGallery\PMTDashboardLayout2.aspx" Url="MaterPageGallery/PMTDashboardLayout2.aspx" />
+  </Module>
+</Elements>

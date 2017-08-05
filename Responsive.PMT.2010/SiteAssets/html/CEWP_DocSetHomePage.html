@@ -1,0 +1,14 @@
+<script language="javascript" type="text/javascript">
+    jQuery(document).ready(function () {
+        var site = L_Menu_BaseUrl;
+        SP.SOD.registerSod('CEWP_DocSetHomePage.js', site + "/SiteAssets/js/CEWP_DocSetHomePage.js");
+        SP.SOD.registerSod('core.js', site + "/_layouts/1033/core.js");
+        RegisterSodDep('core.js', 'sp.js');
+        RegisterSodDep('CEWP_DocSetHomePage.js', 'core.js');
+        EnsureScriptFunc("CEWP_DocSetHomePage.js", null, function () {
+            Start(site);
+        });
+    });
+</script>
+<div id="docsethomepage"></div>
+<textarea style="width: 98%; display: none;" contenteditable="false" id="txtresult" rows="12"></textarea>
