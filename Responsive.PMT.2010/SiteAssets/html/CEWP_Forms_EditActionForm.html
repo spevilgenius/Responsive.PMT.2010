@@ -11,22 +11,22 @@
         var site = tp1 + SLASH + SLASH + tp2 + tp3;
         SP.SOD.registerSod('CEWP_Forms_EditActionForm.js', site + "/SiteAssets/js/CEWP_Forms_EditActionForm.js");
         EnsureScriptFunc("CEWP_Forms_EditActionForm.js", null, function () {
-            FormInit(site);
+            CKO.FORMS.EditForm().Init(site);
         });
     }, "sp.js");
 </script>
 
 <div data-role="form" style="display:none">
-    <div class="container-fluid" id="EditForm">
+    <div class="container-fluid" id="NewForm">
         <div class="form-horizontal">
             <div class="form-group">
-                <label class="col-sm-2 control-label">Work Type</label>
+                <label class="col-sm-2 control-label">Work Type<span title="This is a required field." class="ms-formvalidation"> *</span></label>
                 <div class="col-sm-10">
                     <div data-field="EffortType"></div>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Objective</label>
+                <label class="col-sm-2 control-label">Objective<span title="This is a required field." class="ms-formvalidation"> *</span></label>
                 <div class="col-sm-10">
                     <select id="ddStandard" class="form-control"></select>
                     <select id="ddDirective" class="form-control" style="display: none;"></select>
@@ -34,27 +34,27 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Support Alignment</label>
+                <label class="col-sm-2 control-label">Support Alignment<span title="This is a required field." class="ms-formvalidation"> *</span></label>
                 <div class="col-sm-10">
                     <select id="ddAlignment" class="form-control"></select>
-                    <div data-field="SupportAlignment"></div>
+                    <div data-field="SupportAlignment" class="hidden"></div>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Date Completed</label>
+                <label class="col-sm-2 control-label">Date Completed<span title="This is a required field." class="ms-formvalidation"> *</span></label>
                 <div class="col-sm-10">
                     <div data-field="Date Completed"></div>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Function</label>
+                <label class="col-sm-2 control-label">Function<span title="This is a required field." class="ms-formvalidation"> *</span></label>
                 <div class="col-sm-10">
                     <select id="ddFunction" class="form-control"></select>
                     <div data-field="Function" class="hidden"></div>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Enabler</label>
+                <label class="col-sm-2 control-label">Enabler<span title="This is a required field." class="ms-formvalidation"> *</span></label>
                 <div class="col-sm-10">
                     <select id="ddEnabler" class="form-control"></select>
                     <div data-field="Enabler" class="hidden"></div>
@@ -66,25 +66,23 @@
                     <div data-field="OtherEnabler"></div>
                 </div>
             </div>
-            <!--<div class="form-group">
-                <div class="col-sm-2">
-                    Customer
-                </div>
+            <div class="form-group hidden">
+                <label class="col-sm-2 control-label">Customer</label>
                 <div class="col-sm-10">
-
+                    <select id="ddCustomer" class="form-control"></select>
+                    <div data-field="Customer"></div>
                 </div>
-            </div>-->
+            </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Time</label>
+                <label class="col-sm-2 control-label">Time<span title="This is a required field." class="ms-formvalidation"> *</span></label>
                 <div class="col-sm-10">
                     <div data-field="Expended"></div>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Comments</label>
+                <label class="col-sm-2 control-label">Comments<span title="This is a required field." class="ms-formvalidation"> *</span></label>
                 <div class="col-sm-10">
-                    <textarea cols="50" rows="3" id="taComments" name="taComments" class="form-control"></textarea>
-                    <div data-field="ActionComments" class="hidden"></div>
+                    <div data-field="ActionComments"></div>
                 </div>
             </div>
             <div class="form-group">
@@ -93,7 +91,13 @@
                     <button type="button" id="btnCancel" class="btn btn-default">Cancel</button>
                 </div>
             </div>
+            <div class="form-group hidden">
+                <label class="col-sm-2 control-label">User Info</label>
+                <div class="col-sm-10">
+                    <div id="divUserInfo"></div>
+                    <div data-field="PMTUser"></div>
+                </div>
+            </div>
         </div>
-        
     </div>
 </div>

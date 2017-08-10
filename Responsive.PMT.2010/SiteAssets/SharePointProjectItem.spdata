@@ -34,7 +34,7 @@
     <ProjectItemFile Source="js\SPHelper.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_KM_Chart.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_KM_TotalChart.js" Target="SiteAssets\js\" Type="ElementFile" />
-    <ProjectItemFile Source="html\CEWP_Directives.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Dashboard_Directives.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="html\DirectivesHTML1.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="html\dbAuthority.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="html\dbAuthority.widget" Target="SiteAssets\html\" Type="ElementFile" />
@@ -45,7 +45,6 @@
     <ProjectItemFile Source="js\CEWP_UserCustomActions.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_PMTCustomActions.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_PMTCustomActions.js" Target="SiteAssets\js\" Type="ElementFile" />
-    <ProjectItemFile Source="js\CEWP_Directives.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="css\cascomstyles1.css" Target="SiteAssets\css\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_PMTMigrations.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_PMTMigrations.js" Target="SiteAssets\js\" Type="ElementFile" />
@@ -59,5 +58,7 @@
     <ProjectItemFile Source="html\CEWP_Forms_EditActionForm.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="css\CEWP_Forms_ActionForms.css" Target="SiteAssets\css\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Forms_EditActionForm.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Dashboard_Directives.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="css\CEWP_Dashboard_Directives.css" Target="SiteAssets\css\" Type="ElementFile" />
   </Files>
 </ProjectItem>

@@ -85,9 +85,12 @@
       <DependentUpon>Package.package</DependentUpon>
     </Content>
     <Content Include="SiteAssets\css\cascomstyles1.css" />
+    <Content Include="SiteAssets\css\CEWP_Dashboard_Directives.css" />
+    <Content Include="SiteAssets\css\CEWP_Forms_ActionForms.css" />
     <Content Include="SiteAssets\css\common.css" />
     <Content Include="SiteAssets\css\dashboard.css" />
     <Content Include="SiteAssets\css\homepagelayout.css" />
+    <Content Include="SiteAssets\css\myactions.css" />
     <Content Include="SiteAssets\css\staffaction.css" />
     <Content Include="SiteAssets\css\directives.css" />
     <Content Include="SiteAssets\css\docsethomepage.css" />
@@ -95,8 +98,9 @@
     <Content Include="SiteAssets\css\mydashboard.css" />
     <Content Include="SiteAssets\Elements.xml" />
     <Content Include="SiteAssets\html\CEWP_Dashboard.html" />
-    <Content Include="SiteAssets\html\CEWP_Directives.html" />
+    <Content Include="SiteAssets\html\CEWP_Dashboard_Directives.html" />
     <Content Include="SiteAssets\html\CEWP_DocSetHomePage.html" />
+    <Content Include="SiteAssets\html\CEWP_Forms_EditActionForm.html" />
     <Content Include="SiteAssets\html\CEWP_Forms_NewActionForm.html" />
     <Content Include="SiteAssets\html\CEWP_HomePage.html" />
     <Content Include="SiteAssets\html\CEWP_KM_Chart.html" />
@@ -114,12 +118,13 @@
     <Content Include="SiteAssets\html\directives.html" />
     <Content Include="SiteAssets\images\NOPII.png" />
     <Content Include="SiteAssets\js\CEWP_Dashboard.js" />
+    <Content Include="SiteAssets\js\CEWP_Dashboard_Directives.js" />
     <Content Include="SiteAssets\js\CEWP_DocSetHomePage.js" />
+    <Content Include="SiteAssets\js\CEWP_Forms_EditActionForm.js" />
     <Content Include="SiteAssets\js\CEWP_Forms_NewActionForm.js" />
     <Content Include="SiteAssets\js\CEWP_HomePage.js" />
     <Content Include="SiteAssets\js\CEWP_KM_Chart.js" />
     <Content Include="SiteAssets\js\CEWP_FORMS_EditOrgForm.js" />
-    <Content Include="SiteAssets\js\CEWP_Directives.js" />
     <Content Include="SiteAssets\js\CEWP_KM_Map.js" />
     <Content Include="SiteAssets\js\CEWP_KM_TotalChart.js" />
     <Content Include="SiteAssets\js\CEWP_MyDashboard.js" />

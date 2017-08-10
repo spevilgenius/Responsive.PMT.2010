@@ -33,7 +33,7 @@
     <File Path="SiteAssets\js\SPHelper.js" Url="SiteAssets/js/SPHelper.js" />
     <File Path="SiteAssets\js\CEWP_KM_Chart.js" Url="SiteAssets/js/CEWP_KM_Chart.js" />
     <File Path="SiteAssets\js\CEWP_KM_TotalChart.js" Url="SiteAssets/js/CEWP_KM_TotalChart.js" />
-    <File Path="SiteAssets\html\CEWP_Directives.html" Url="SiteAssets/html/CEWP_Directives.html" />
+    <File Path="SiteAssets\html\CEWP_Dashboard_Directives.html" Url="SiteAssets/html/CEWP_Dashboard_Directives.html" />
     <File Path="SiteAssets\html\DirectivesHTML1.html" Url="SiteAssets/html/DirectivesHTML1.html" />
     <File Path="SiteAssets\html\dbAuthority.html" Url="SiteAssets/html/dbAuthority.html" />
     <File Path="SiteAssets\html\dbAuthority.widget" Url="SiteAssets/html/dbAuthority.widget" />
@@ -44,7 +44,6 @@
     <File Path="SiteAssets\js\CEWP_UserCustomActions.js" Url="SiteAssets/js/CEWP_UserCustomActions.js" />
     <File Path="SiteAssets\html\CEWP_PMTCustomActions.html" Url="SiteAssets/html/CEWP_PMTCustomActions.html" />
     <File Path="SiteAssets\js\CEWP_PMTCustomActions.js" Url="SiteAssets/js/CEWP_PMTCustomActions.js" />
-    <File Path="SiteAssets\js\CEWP_Directives.js" Url="SiteAssets/js/CEWP_Directives.js" />
     <File Path="SiteAssets\css\cascomstyles1.css" Url="SiteAssets/css/cascomstyles1.css" />
     <File Path="SiteAssets\html\CEWP_PMTMigrations.html" Url="SiteAssets/html/CEWP_PMTMigrations.html" />
     <File Path="SiteAssets\js\CEWP_PMTMigrations.js" Url="SiteAssets/js/CEWP_PMTMigrations.js" />
@@ -58,5 +57,7 @@
     <File Path="SiteAssets\html\CEWP_Forms_EditActionForm.html" Url="SiteAssets/html/CEWP_Forms_EditActionForm.html" />
     <File Path="SiteAssets\css\CEWP_Forms_ActionForms.css" Url="SiteAssets/css/CEWP_Forms_ActionForms.css" />
     <File Path="SiteAssets\js\CEWP_Forms_EditActionForm.js" Url="SiteAssets/js/CEWP_Forms_EditActionForm.js" />
+    <File Path="SiteAssets\js\CEWP_Dashboard_Directives.js" Url="SiteAssets/js/CEWP_Dashboard_Directives.js" />
+    <File Path="SiteAssets\css\CEWP_Dashboard_Directives.css" Url="SiteAssets/css/CEWP_Dashboard_Directives.css" />
   </Module>
 </Elements>

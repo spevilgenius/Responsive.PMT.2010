@@ -100,7 +100,7 @@ function LoadMyActions() {
                     dhtml += "<tr><td>Hours</td><td>" + event.Hours + "</td></tr>";
                     dhtml += "<tr><td>Enabler</td><td>" + event.Enabler + "</td></tr>";
                     dhtml += "<tr><td>Comments</td><td>" + event.Comments + "</td></tr>";
-                    dhtml += "<tr><td>Tools</td><td><a href='#' type='button' data-actionid='" + event.id + "' class='btn btn-success btncopy'>Copy Action</a></td></tr>";
+                    dhtml += "<tr><td>Tools</td><td><a href='#' type='button' data-actionid='" + event.id + "' class='btn btn-default btncopy'>Copy Action</a>&nbsp;<a href='#' type='button' data-actionid='" + event.id + "' class='btn btn-success btnedit'>Edit Action</a></td></tr>";
                     dhtml += "</table>";
                     $("#PMTModalBody").html('').append(dhtml);
                     $("#PMTModalTitle").html('').append(event.title);
@@ -114,6 +114,11 @@ function LoadMyActions() {
                         e.preventDefault();
                         alert("You clicked it: " + $(this).attr("data-actionid"));
                     });
+                    $(".btnedit").on("click", function (e) {
+                        e.preventDefault();
+                        var zurl = fixurl('/Lists/' + alist + '/EditForm.aspx?ID=' + $(this).attr("data-actionid") + '&IsDlg=1');
+                        CKODialog(zurl, 'Edit Action', '800', '700', 'NotificationCallback');
+                    });
                 },
                 viewRender: function (view) {
                     if (view.name == 'month') {
@@ -124,7 +129,7 @@ function LoadMyActions() {
                         });
                         $(".btnadd").on("click", function (e) {
                             e.preventDefault();
-                            var zurl = fixurl('/Lists/Actions/NewForm.aspx?Date=' + $(this).attr("data-date") + '&IsDlg=1');
+                            var zurl = fixurl('/Lists/' + alist + '/NewForm.aspx?Date=' + $(this).attr("data-date") + '&IsDlg=1');
                             CKODialog(zurl, 'Add New Action', '800', '700', 'NotificationCallback');
                         });
                     }
