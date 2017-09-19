@@ -1,34 +1,34 @@
 ﻿var CKO = CKO || {};
 CKO.AJAX = CKO.AJAX || {};
 CKO.FORMS = CKO.FORMS || {};
-CKO.FORMS.VARIABLES = CKO.FORMS.VARIABLES || {};
+CKO.FORMS.ACTIONS = CKO.FORMS.ACTIONS || {};
 
-CKO.FORMS.VARIABLES = {
+CKO.FORMS.ACTIONS.VARIABLES = {
     newform: null,
     site: null,
     loc: String(window.location),
     waitmsg: null,
-    title: null,
     ctx: null,
     web: null,
     list: null,
     listitem: null,
     user: null,
     userID: null,
-    FirstName: null,        // used to support determination of current user being a moderator or other role
-    LastName: null,         // used to support determination of current user being a moderator or other role
     Org: null,
     customer: null,
+    directives: null,
+    standards: null,
     alignmentrequired: true,
     actiondate: jQuery.QueryString["Date"]
 }
 
-CKO.FORMS.EditForm = function () {
+CKO.FORMS.ACTIONS.EditForm = function () {
 
-    var v = CKO.FORMS.VARIABLES;
+    var v = CKO.FORMS.ACTIONS.VARIABLES;
 
     function Init(site) {
         SP.SOD.executeOrDelayUntilScriptLoaded(function () {
+            $().SPSTools_Notify({ type: 'wait', content: 'Loading Form...Please wait...' });
             RegisterSod('core.js', site + "/_layouts/1033/core.js");
             RegisterSod('cko.forms.overrides.js', site + "/SiteAssets/js/cko.forms.overrides.js");
             RegisterSodDep('core.js', 'sp.js');
@@ -42,25 +42,8 @@ CKO.FORMS.EditForm = function () {
 
     function FormLoaded(site) {
         loadCSS(site + '/SiteAssets/css/CEWP_Forms_ActionForms.css');
-        qsdate = jQuery.QueryString["Date"];
-        v.userID = _spPageContextInfo.userId;
-        console.log("userID = " + v.UserID);
-
-        // get user info step 1
-        v.ctx = new SP.ClientContext.get_current();
-        v.web = v.ctx.get_web();
-        v.user = v.web.get_currentUser();
-        v.ctx.load(v.user);
-        v.ctx.executeQueryAsync(GetUserDataSucceeded, GetUserDataFailed);
-    }
-
-    function GetUserDataSucceeded() {
-        // Have user info so now fill out the PMTUser field
-        //var thisdiv = $("div[data-field='PMTUser']");
-        //var thisContents = thisdiv.find("div[name='upLevelDiv']");
-        //var thisCheckNames = thisdiv.find("img[Title='Check Names']:first");
-        //thisContents.html(v.user.get_loginName());
-        //thisCheckNames.click();
+        v.directives = new Array();
+        v.standards = new Array();
         $("input").addClass("form-control");
         $("select").addClass("form-control");
         $("div[role='textbox']").addClass("form-control");
@@ -68,10 +51,153 @@ CKO.FORMS.EditForm = function () {
         var monkey = LoadDropdowns();
         jQuery.when.apply(null, monkey).done(function () {
             logit("LoadDropdowns complete.");
-            //Load Directives From REST to filter archived ones out
-            var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Directives?";
-            urlString += "$select=Id,Directive,DirectiveStatusValue";
-            urlString += "&$filter=(DirectiveStatusValue ne 'Archived')";
+            $("input[title='Title Required Field']").hide();
+            $("select[title='EffortType']").on("change", function () {
+                var type = $("#" + $(this).attr("id") + " option:selected").val();
+                switch (type) {
+                    case "Directive":
+                        GetDirectives();
+                        $("#ddDirective").show();
+                        $("#ddStandard").hide();
+                        $("#ddAlignment").parent().parent().hide();
+                        break;
+
+                    case "Standard":
+                        GetStandards();
+                        $("#ddDirective").hide();
+                        $("#ddStandard").show();
+                        $("#ddAlignment").parent().parent().show();
+                        break;
+                }
+            });
+            // Now load either the standards or directives based on the selected effortype
+            var et = $("select[title='EffortType'] option:selected").val();
+            switch (et) {
+                case "Directive":
+                    GetDirectives();
+                    $("#ddDirective").show();
+                    $("#ddStandard").hide();
+                    $("#ddAlignment").parent().parent().hide();
+                    break;
+
+                case "Standard":
+                    GetStandards();
+                    $("#ddDirective").hide();
+                    $("#ddStandard").show();
+                    $("#ddAlignment").parent().parent().show();
+                    break;
+            }
+            DataLoaded();
+        });
+    }
+
+    function GetStandards() {
+        // Load Standards from REST
+        var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Standards?";
+        urlString += "$select=Id,Standard,Task,StandardStatusValue,SupportParagraph,SupportedOrg,SupportedSubOrg";
+        urlString += "&$filter=(StandardStatusValue eq 'Ongoing')";
+        urlString += "&$orderby=Standard";
+
+        jQuery.ajax({
+            url: urlString,
+            method: "GET",
+            headers: { 'accept': 'application/json; odata=verbose' },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // to do implement logging to a central list
+                logit("Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
+            },
+            success: function (data) {
+                var results = data.d.results;
+                var j = jQuery.parseJSON(JSON.stringify(results));
+                var numitems = data.d.results.length;
+                logit("Standards Count: " + numitems);
+                var opts = "<option value='666'>Select...</option>";
+                for (var i = 0, length = j.length; i < length; i++) {
+                    // Add to standard array so that we can display info based on selected standard
+                    v.standards.push({
+                        "standard": j[i]["Standard"],
+                        "description": j[i]["Task"],
+                        "status": j[i]["StandardStatusValue"],
+                        "paragraph": j[i]["SupportParagraph"],
+                        "org": j[i]["SupportedOrg"],
+                        "suborg": j[i]["SupportedSubOrg"]
+                    });
+                }
+                // Now just loop back through the array to create the dropdown and pass the index as the value so we know which standard to get data for.
+                for (var i = 0; i < v.standards.length; i++) {
+                    // if the title matches the option, select it
+                    if (v.standards[i]["standard"] == $("input[title='Title Required Field']").val()) {
+                        opts += "<option selected value='" + i + "'>" + v.standards[i]["standard"] + "</option>";
+                        // also need to set the description field
+                        $("#divDescription").html("").append(v.standards[i]["description"]);
+                    }
+                    else {
+                        opts += "<option value='" + i + "'>" + v.standards[i]["standard"] + "</option>";
+                    }
+                }
+                $("#ddStandard").html("").append(opts);
+                GetAlignments();
+            }
+        });
+    }
+
+    function GetDirectives() {
+        // Load Directives From REST
+        var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Directives?";
+        urlString += "$select=Id,Directive,DirectiveDescription,DirectiveStatusValue,ProjectedManHours,Expended";
+        urlString += "&$filter=(DirectiveStatusValue eq 'InProgress') or (DirectiveStatusValue eq 'Complete')";
+        urlString += "&$orderby=Directive";
+
+        jQuery.ajax({
+            url: urlString,
+            method: "GET",
+            headers: { 'accept': 'application/json; odata=verbose' },
+            error: function (jqXHR, textStatus, errorThrown) {
+                //to do implement logging to a central list
+                logit("Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
+            },
+            success: function (data) {
+                var results = data.d.results;
+                var j = jQuery.parseJSON(JSON.stringify(results));
+                var numitems = data.d.results.length;
+                logit("Directives Count: " + numitems);
+                var opts = "<option selected value='Select...'>Select...</option>";
+                for (var i = 0, length = j.length; i < length; i++) {
+                    // Add to directive array so that we can display info based on selected directive
+                    v.directives.push({
+                        "directive": j[i]["Directive"],
+                        "description": j[i]["DirectiveDescription"],
+                        "status": j[i]["DirectiveStatusValue"]
+                    });
+                }
+                // Now just loop back through the array to create the dropdown and pass the index as the value so we know which directive to get data for.
+                for (var i = 0; i < v.directives.length; i++) {
+                    // if the title matches the option, select it
+                    if (v.directives[i]["directive"] = $("input[title='Title Required Field']").val()) {
+                        opts += "<option selected value='" + i + "'>" + v.directives[i]["directive"] + "</option>";
+                        // also need to set the description field
+                        $("#divDescription").html("").append(v.directives[i]["description"]);
+                    }
+                    else {
+                        opts += "<option value='" + i + "'>" + v.directives[i]["directive"] + "</option>";
+                    }
+                }
+                $("#ddDirective").html("").append(opts);
+            }
+        });
+    }
+
+    function GetAlignments() {
+        var idx = $("#ddStandard option:selected").val();
+        var standard = v.standards[idx]["standard"];
+        var paragraph = v.standards[idx]["paragraph"];
+        logit("GetAlignments: standard-" + standard + ", paragraph-" + paragraph);
+        if (standard != "N/A") {
+            // Now get the support alignments from the Alignments table using REST
+            var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Alignments?";
+            urlString += "$select=Id,Parent,Paragraph,Reference,ShortDescription";
+            urlString += "&$filter=(Parent eq '" + paragraph + "')";
+            logit("Alignments urlString: " + urlString);
 
             jQuery.ajax({
                 url: urlString,
@@ -85,195 +211,51 @@ CKO.FORMS.EditForm = function () {
                     var results = data.d.results;
                     var j = jQuery.parseJSON(JSON.stringify(results));
                     var numitems = data.d.results.length;
-                    logit("Directives Count: " + numitems);
-                    var opts = "<option selected value='Select...'>Select...</option>";
-                    for (var i = 0, length = j.length; i < length; i++) {
-                        opts += "<option value='" + j[i]["Directive"] + "'>" + j[i]["Directive"] + "</option>";
+                    logit("Alignments Count: " + numitems);
+                    var alignment = String($("input[title='SupportAlignment']").val());
+                    var opts = "";
+                    if (alignment != "undefined" && alignment != "null" && alignment != "") {
+                        for (var i = 0, length = j.length; i < length; i++) {
+                            var opt = j[i]["Paragraph"] + "-" + j[i]["ShortDescription"];
+                            if (opt == alignment) {
+                                opts += "<option selected value='" + opt + "'>" + j[i]["ShortDescription"] + "</option>";
+                            }
+                            else {
+                                opts += "<option value='" + opt + "'>" + j[i]["ShortDescription"] + "</option>";
+                            }
+                        }
                     }
-                    $("#ddDirective").html("").append(opts);
-                    DataLoaded();
+                    else {
+                        opts += "<option selected value='Select...'>Select...</option>";
+                        for (var i = 0, length = j.length; i < length; i++) {
+                            var opt = j[i]["Paragraph"] + "-" + j[i]["ShortDescription"];
+                            opts += "<option value='" + opt + "'>" + j[i]["ShortDescription"] + "</option>";
+                            
+                        }
+                    }
+                    $("#ddAlignment").html("").append(opts);
+                    AlignmentsLoaded();
                 }
             });
-        });
-    }
-
-    function GetUserDataFailed(sender, args) {
-        alert("GetUserDataFailed: " + args.get_message());
+        }
+        else {
+            // Support alignment would not be required for this standard
+            v.alignmentrequired = false;
+        }
     }
 
     function LoadDropdowns() {
         var deferreds = [];
-        deferreds.push($.when(CKO.CSOM.GetLookupData.getvalueswithfields("current", "Standards", "Standard", ["Standard", "SupportParagraph"])).then(function (items) { CKO.CSOM.FillDropdownsMergeFields(items, ["SupportParagraph", "Standard"], "-", "Standard", true, ["ddStandard"]); }, function (sender, args) { logit("GetLookupData Failed 1, " + args.get_message()); }));
-        deferreds.push($.when(CKO.CSOM.GetLookupData.getvalueswithfields("current", "Standards", "Standard", ["Standard", "SupportedOrg", "SupportedSubOrg"])).then(function (items) { CKO.CSOM.FillDropdownsMergeFields(items, ["Standard", "SupportedOrg", "SupportedSubOrg"], "-", "Standard", false, ["ddCustomer"]); }, function (sender, args) { logit("GetLookupData Failed 2, " + args.get_message()); }));
-        deferreds.push($.when(CKO.CSOM.GetLookupData.getvalues("current", "Functions", "Title")).then(function (items) { CKO.CSOM.FillDropdowns(items, "Title", ["ddFunction"]); }, function (sender, args) { logit("GetLookupData Failed 3, " + args.get_message()); }));
-        deferreds.push($.when(CKO.CSOM.GetLookupData.getvalues("current", "Enablers", "Title")).then(function (items) { CKO.CSOM.FillDropdowns(items, "Title", ["ddEnabler"]); }, function (sender, args) { logit("GetLookupData Failed 4, " + args.get_message()); }));
+        deferreds.push($.when(CKO.CSOM.GetLookupData.getvalues("current", "Functions", "Title")).then(function (items) { CKO.CSOM.FillDropdowns2(items, "Title", ["ddFunction"], "Function"); }, function (sender, args) { logit("GetLookupData Failed 1, " + args.get_message()); }));
+        deferreds.push($.when(CKO.CSOM.GetLookupData.getvalues("current", "Enablers", "Title")).then(function (items) { CKO.CSOM.FillDropdowns2(items, "Title", ["ddEnabler"], "Enabler"); }, function (sender, args) { logit("GetLookupData Failed 2, " + args.get_message()); }));
         return deferreds;
     }
 
     function DataLoaded() {
         logit("Data Loaded");
-        $("input[title='Title Required Field']").hide(); // hide for testing
-        if (v.actiondate != null) { $("input[title*='Date Completed']").val(moment(v.actiondate).format("MM/DD/YYYY")); }
-        // Force EffortType to be selected to Standard
-        //$("select[title='EffortType'] option").each(function () {
-        //    tp1 = new String($(this).html());
-        //    if (tp1 == "Standard") {
-        //        $(this).prop('selected', true);
-        //    }
-        //});
-
-        // Fill out the selected dropdowns based on the text in the fields
-        // Was it a standard or directive
-        switch ($("select[title='EffortType'] option:selected").val()) {
-            case "Standard":
-                $("#ddStandard option").each(function () {
-                    tp1 = new String($(this).val());
-                    if (tp1 == $("input[title='Title Required Field']").val()) {
-                        $(this).prop('selected', true);
-                    }
-                });
-                $("#ddDirective").hide();
-                $("#ddStandard").show();
-                // Have to get the Alignments loaded here so that we can select the proper one
-                var parent = $("input[title='Title Required Field']").val();
-                v.title = $("input[title='Title Required Field']").val();
-                parent = parent.split("-");
-                var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Alignments?";
-                urlString += "$select=Id,Parent,Paragraph,Reference,ShortDescription";
-                urlString += "&$filter=(Parent eq '" + parent[0] + "')";
-                logit("urlString: " + urlString);
-                $("#ddAlignment").parent().parent().hide();
-                if (parent[0] != "N/A") {
-                    $("#ddAlignment").parent().parent().show();
-                    jQuery.ajax({
-                        url: urlString,
-                        method: "GET",
-                        headers: { 'accept': 'application/json; odata=verbose' },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            //to do implement logging to a central list
-                            logit("Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
-                        },
-                        success: function (data) {
-                            var results = data.d.results;
-                            var j = jQuery.parseJSON(JSON.stringify(results));
-                            var numitems = data.d.results.length;
-                            logit("Alignments Count: " + numitems);
-                            var opts = "<option value='Select...'>Select...</option>";
-                            var sa = $("input[title='SupportAlignment']").val();
-                            for (var i = 0, length = j.length; i < length; i++) {
-                                var opt = j[i]["Paragraph"] + "-" + j[i]["ShortDescription"];
-                                opt = opt.trim();
-                                if (opt == sa) {
-                                    opts += "<option selected value='" + opt + "'>" + j[i]["ShortDescription"] + "</option>";
-                                }
-                                else {
-                                    opts += "<option value='" + opt + "'>" + j[i]["ShortDescription"] + "</option>";
-                                }
-                            }
-                            $("#ddAlignment").html("").append(opts);
-                            AlignmentsLoaded();
-                        }
-                    });
-                }
-                break;
-
-            case "Directive":
-                $("#ddDirective option").each(function () {
-                    tp1 = new String($(this).val());
-                    if (tp1 == $("input[title='Title Required Field']").val()) {
-                        $(this).prop('selected', true);
-                    }
-                });
-                $("#ddDirective").show();
-                $("#ddStandard").hide();
-                $("#ddAlignment").parent().parent().hide();
-                break;
-        }
-        // Functions and Enablers
-        $("#ddFunction option").each(function () {
-            tp1 = new String($(this).html());
-            if (tp1 == $("input[title='Function Required Field']").val()) {
-                $(this).prop('selected', true);
-            }
-        });
-        $("#ddEnabler option").each(function () {
-            tp1 = new String($(this).html());
-            if (tp1 == $("input[title='Enabler Required Field']").val()) {
-                $(this).prop('selected', true);
-            }
-        });
-
-        $("select[title='EffortType']").on("change", function () {
-            var type = $("#" + $(this).attr("id") + " option:selected").val();
-            switch (type) {
-                case "Directive":
-                    $("#ddDirective").show();
-                    $("#ddStandard").hide();
-                    $("#ddAlignment").parent().parent().hide();
-                    break;
-
-                case "Standard":
-                    $("#ddDirective").hide();
-                    $("#ddStandard").show();
-                    $("#ddAlignment").parent().parent().show();
-                    break;
-            }
-        });
-        $("#ddDirective").on("change", function () {
-            $("input[title='Title Required Field']").val($("#ddDirective option:selected").val());
-        });
-        $("#ddEnabler").on("change", function () {
-            $("input[title='Enabler Required Field']").val($("#ddEnabler option:selected").val());
-        });
-        $("#ddFunction").on("change", function () {
-            $("input[title='Function Required Field']").val($("#ddFunction option:selected").val());
-        });
-        $("#ddStandard").on("change", function () {
-            var standard = $("#ddStandard option:selected").val();
-            $("input[title='Title Required Field']").val(standard);
-            standard = standard.split("-");
-            // Now select the customer using the Standard. TODO: Should this even be stored in the Actions table at all? The Standard contains this data so should a user ever be able to add/change customer value.
-            $("#ddCustomer option").each(function () {
-                tp1 = new String($(this).html());
-                if (tp1 == standard[1]) {
-                    $(this).prop('selected', true);
-                    $("input[title*='Customer']").val($(this).val());
-                }
-            });
-            if (standard[0] != "N/A") {
-                // Now get the support alignments from the Alignments table using REST
-                var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Alignments?";
-                urlString += "$select=Id,Parent,Paragraph,Reference,ShortDescription";
-                urlString += "&$filter=(Parent eq '" + standard[0] + "')";
-                logit("urlString: " + urlString);
-
-                jQuery.ajax({
-                    url: urlString,
-                    method: "GET",
-                    headers: { 'accept': 'application/json; odata=verbose' },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        //to do implement logging to a central list
-                        logit("Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
-                    },
-                    success: function (data) {
-                        var results = data.d.results;
-                        var j = jQuery.parseJSON(JSON.stringify(results));
-                        var numitems = data.d.results.length;
-                        logit("Alignments Count: " + numitems);
-                        var opts = "<option selected value='Select...'>Select...</option>";
-                        for (var i = 0, length = j.length; i < length; i++) {
-                            var opt = j[i]["Paragraph"] + "-" + j[i]["ShortDescription"];
-                            opts += "<option value='" + opt + "'>" + j[i]["ShortDescription"] + "</option>";
-                        }
-                        $("#ddAlignment").html("").append(opts);
-                        AlignmentsLoaded();
-                    }
-                });
-            }
-            else {
-                // Support alignment would not be required for this standard
-                v.alignmentrequired = false;
-            }
+        // 
+        $("#SPSTools_Notify").fadeOut("2500", function () {
+            $("#SPSTools_Notify").html("");
         });
         $("#btnSave").click(function () {
             $("#FormError").remove();
@@ -342,8 +324,37 @@ CKO.FORMS.EditForm = function () {
         });
     }
 
+    function changeme(obj) {
+        switch (obj.id) {
+            case "ddStandard":
+                // Set the hidden title field to the selected Standard
+                var idx = $("#" + obj.id + " option:selected").val();
+                var standard = v.standards[idx]["standard"];
+                $("input[title='Title Required Field']").val(standard);
+                $("#divDescription").html("").append(v.standards[idx]["description"]);
+                GetAlignments();
+                break;
+
+            case "ddDirective":
+                // Set the hidden title field to the selected Directive and display the description
+                var idx = $("#" + obj.id + " option:selected").val();
+                $("input[title='Title Required Field']").val(v.directives[idx]["directive"]);
+                $("#divDescription").html("").append(v.directives[idx]["description"]);
+                break;
+
+            case "ddEnabler":
+                $("input[title='Enabler Required Field']").val($("#ddEnabler option:selected").val());
+                break;
+
+            case "ddFunction":
+                $("input[title='Function Required Field']").val($("#ddFunction option:selected").val());
+                break;
+        }
+    }
+
     return {
-        Init: Init
+        Init: Init,
+        changeme: changeme
     }
 }
 

@@ -13,9 +13,7 @@
 				<SharePointWebControls:CssRegistration name="<% $SPUrl:~sitecollection/Style Library/~language/Core Styles/edit-mode-21.css %>" After="<% $SPUrl:~sitecollection/Style Library/~language/Core Styles/page-layouts-21.css %>" runat="server"/>
 			</PublishingWebControls:EditModePanel>
             <SharePointWebControls:ScriptLink Language="javascript" Name="~sitecollection/SiteAssets/js/highcharts.js" Defer="true" runat="server" Localizable="false" />
-			<SharePointWebControls:ScriptLink Language="javascript" Name="~sitecollection/SiteAssets/js/exporting.js" Defer="true" runat="server" Localizable="false" />
-            <SharePointWebControls:ScriptLink Language="javascript" Name="~site/SiteAssets/js/jquery.dataTables.min.js" Defer="true" runat="server" Localizable="false" />
-            <SharePointWebControls:ScriptLink Language="javascript" Name="~site/SiteAssets/js/dataTables.bootstrap.min.js" Defer="true" runat="server" Localizable="false" />	
+			<SharePointWebControls:ScriptLink Language="javascript" Name="~sitecollection/SiteAssets/js/exporting.js" Defer="true" runat="server" Localizable="false" />	
             <style type="text/css">
                 body #s4-leftpanel {
                     display: none !important;
@@ -46,34 +44,9 @@
     	    </div>
         </div>
         <div class="row">
-    	    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 text-center webpartcontainer">
+    	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center webpartcontainer">
     		    <WebPartPages:WebPartZone runat="server" Title="R2C1" ID="WPZR2C1"><ZoneTemplate></ZoneTemplate></WebPartPages:WebPartZone>
     	    </div>
-    	    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-4 text-center webpartcontainer">
-    		    <WebPartPages:WebPartZone runat="server" Title="R2C2" ID="WPZR2C2"><ZoneTemplate></ZoneTemplate></WebPartPages:WebPartZone>
-    	    </div>
-        </div>
-        <div class="row">
-		    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center webpartcontainer">
-			    <WebPartPages:WebPartZone runat="server" Title="R3C1" ID="WPZR3C1"><ZoneTemplate></ZoneTemplate></WebPartPages:WebPartZone>
-		    </div>
-		    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center webpartcontainer">
-			    <WebPartPages:WebPartZone runat="server" Title="R3C2" ID="WPZR3C2"><ZoneTemplate></ZoneTemplate></WebPartPages:WebPartZone>
-		    </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center webpartcontainer">
-			    <WebPartPages:WebPartZone runat="server" Title="R3C3" ID="WPZR3C3"><ZoneTemplate></ZoneTemplate></WebPartPages:WebPartZone>
-		    </div>
-        </div>
-        <div class="row">
-		    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center webpartcontainer">
-			    <WebPartPages:WebPartZone runat="server" Title="R4C1" ID="WPZR4C1"><ZoneTemplate></ZoneTemplate></WebPartPages:WebPartZone>
-		    </div>
-		    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center webpartcontainer">
-			    <WebPartPages:WebPartZone runat="server" Title="R4C2" ID="WPZR4C2"><ZoneTemplate></ZoneTemplate></WebPartPages:WebPartZone>
-		    </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center webpartcontainer">
-			    <WebPartPages:WebPartZone runat="server" Title="R4C3" ID="WPZR4C3"><ZoneTemplate></ZoneTemplate></WebPartPages:WebPartZone>
-		    </div>
         </div>
     </div>
     <div id="PMTModal" class="modal pmtmodal">

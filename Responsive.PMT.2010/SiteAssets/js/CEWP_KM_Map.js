@@ -27,9 +27,9 @@ var pinned;
 function MapInit(site) {
     SP.SOD.executeOrDelayUntilScriptLoaded(function () {
         RegisterSod('core.js', site + "/_layouts/1033/core.js");
-        RegisterSod('proj4.js', site + "/SiteAssets/js/highmaps/modules/proj4.js");
-        RegisterSod('map.js', site + "/SiteAssets/js/highmaps/modules/map.js");
-        RegisterSod('usall.js', site + "/SiteAssets/js/highmaps/maps/usall.js");
+        RegisterSod('proj4.js', site + "/SiteAssets/js/proj4.js");
+        RegisterSod('map.js', site + "/SiteAssets/js/map.js");
+        RegisterSod('usall.js', site + "/SiteAssets/js/usall.js");
         RegisterSod('CEWP_KM_Map.js', site + "/SiteAssets/js/CEWP_KM_Map.js");
         RegisterSodDep('core.js', 'sp.js');
         RegisterSodDep('proj4.js', 'core.js');
@@ -96,7 +96,7 @@ function getOrgData() {
     xml += "</ViewFields>";
     xml += "</View>";
 	
-	deferreds.push($.when(CKO.CSOM.GetListItems.getitemsfilteredcomplex("parent", "Organization", xml, inc)).then(function (items) {
+    deferreds.push($.when(CKO.CSOM.GetListItems.getitemsfilteredcomplex("current", "Organization", xml, inc)).then(function (items) {
         if (items.get_count() > 0) { //get map data
             mapenum = items.getEnumerator();
             while (mapenum.moveNext()) {
@@ -124,7 +124,7 @@ function getMapPopupData() {
 	var deferreds = [];
 	for (i = 0; i < mapitems.length; i++) {
 		var base = mapitems[i].Base;
-		deferreds.push($.when(CKO.CSOM.GetListItems.getitemsfilteredorderedandpasstoelement("parent", "Organization", "Base", base , "ChartOrder", i)).then(function (items, i) {
+		deferreds.push($.when(CKO.CSOM.GetListItems.getitemsfilteredorderedandpasstoelement("current", "Organization", "Base", base, "ChartOrder", i)).then(function (items, i) {
 	    	if (items.get_count() > 0) {
 	    		var enumerator = items.getEnumerator();
 				var cnt = 0;
@@ -266,7 +266,7 @@ function minidashboard(obj) {
 	var tmp1, tmp2, tmp3;
 	tmp1 = $("#" + obj.id).attr('data-org');
 	ahtml = '';
-	$.when(CKO.CSOM.GetListItems.getitemsfiltered("parent", "Organization", "Title", tmp1)).then(function (items) {
+	$.when(CKO.CSOM.GetListItems.getitemsfiltered("current", "Organization", "Title", tmp1)).then(function (items) {
         var alertitems = items.getEnumerator();
         while (alertitems.moveNext()) {
         	var alertitem = alertitems.get_current();

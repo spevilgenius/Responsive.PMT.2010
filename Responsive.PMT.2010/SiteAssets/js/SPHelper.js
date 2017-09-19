@@ -553,7 +553,8 @@
 			webURL: $.fn.SPHelper.GetCurrentSite(),
 			CAMLQueryOptions: "<QueryOptions><ExpandUserField>True</ExpandUserField></QueryOptions>",
 			CAMLViewFields: "<ViewFields><FieldRef Name='ID' /><FieldRef Name='Title' /></ViewFields>",
-			CAMLQuery: "<Query><OrderBy><FieldRef Name='Title' Ascending = 'TRUE'/></OrderBy></Query>",
+			//CAMLQuery: "<Query><OrderBy><FieldRef Name='Title' Ascending = 'TRUE'/></OrderBy></Query>",
+			CAMLQuery: "",
 			debug: false		
 		}
 
@@ -573,38 +574,40 @@
 
 			if(lclOptions.selectText == null){ lclOptions.selectText = "[Select "+ lclOptions.field +"]"; }
 			if(lclOptions.useRecordID){	lclOptions.fieldValue = "ID"; }		
-			
-			if(!(/Title/.test(lclOptions.field))){
-				lclOptions.CAMLViewFields = "<ViewFields><FieldRef Name='ID' /><FieldRef Name='"+ lclOptions.field +"' /></ViewFields>";
-				if(!(/Title/.test(lclOptions.fieldValue))){
-					if(lclOptions.fieldValue === lclOptions.field){
-						lclOptions.CAMLViewFields = "<ViewFields><FieldRef Name='ID' /><FieldRef Name='"+ lclOptions.field +"' /></ViewFields>";
-					}else{
-						lclOptions.CAMLViewFields = "<ViewFields><FieldRef Name='ID' /><FieldRef Name='"+ lclOptions.fieldValue +"' /><FieldRef Name='"+ lclOptions.field +"' /></ViewFields>";
-					}
-				}
-				lclOptions.CAMLQuery = "<Query><OrderBy><FieldRef Name='"+ lclOptions.field +"' Ascending = 'TRUE'/></OrderBy></Query>";
-			}
-			//Build the <WHERE> clause
-			if((lclOptions.filterField != null) && (lclOptions.filterValue != null)){
-				lclOptions.CAMLQuery = "<Query><OrderBy><FieldRef Name='"+ lclOptions.field +"' Ascending = 'TRUE'/></OrderBy>";
-				if((lclOptions.filterValue == "Empty")||(lclOptions.filterValue == "empty")){
-					lclOptions.CAMLQuery += "<Where><IsNull><FieldRef Name='"+ lclOptions.filterField +"'/></IsNull></Where></Query>";
-				}else{
-					if(lclOptions.filterTwoFields && isArray(lclOptions.filterField)){
-						if(lclOptions.useCAMLContains){
-							lclOptions.CAMLQuery += "<Where><And><Contains><FieldRef Name='"+ lclOptions.filterField[0] +"'/><Value Type='Text'>"+ lclOptions.filterValue[0] +"</Value></Contains><Contains><FieldRef Name='"+ lclOptions.filterField[1] +"'/><Value Type='Text'>"+ lclOptions.filterValue[1] +"</Value></Contains></And></Where></Query>";
-						}else{
-							lclOptions.CAMLQuery += "<Where><And><Eq><FieldRef Name='"+ lclOptions.filterField[0] +"'/><Value Type='Text'>"+ lclOptions.filterValue[0] +"</Value></Eq><Eq><FieldRef Name='"+ lclOptions.filterField[1] +"'/><Value Type='Text'>"+ lclOptions.filterValue[1] +"</Value></Eq></And></Where></Query>";
-						}
-					}else{
-						if(lclOptions.useCAMLContains){
-							lclOptions.CAMLQuery += "<Where><Contains><FieldRef Name='"+ lclOptions.filterField +"'/><Value Type='Text'>"+ lclOptions.filterValue +"</Value></Contains></Where></Query>";
-						}else{
-							lclOptions.CAMLQuery += "<Where><Eq><FieldRef Name='"+ lclOptions.filterField +"'/><Value Type='Text'>"+ lclOptions.filterValue +"</Value></Eq></Where></Query>";
-						}
-					}
-				}
+			if (lclOptions.CAMLQuery == "") {
+			    if (!(/Title/.test(lclOptions.field))) {
+			        lclOptions.CAMLViewFields = "<ViewFields><FieldRef Name='ID' /><FieldRef Name='" + lclOptions.field + "' /></ViewFields>";
+			        if (!(/Title/.test(lclOptions.fieldValue))) {
+			            if (lclOptions.fieldValue === lclOptions.field) {
+			                lclOptions.CAMLViewFields = "<ViewFields><FieldRef Name='ID' /><FieldRef Name='" + lclOptions.field + "' /></ViewFields>";
+			            } else {
+			                lclOptions.CAMLViewFields = "<ViewFields><FieldRef Name='ID' /><FieldRef Name='" + lclOptions.fieldValue + "' /><FieldRef Name='" + lclOptions.field + "' /></ViewFields>";
+			            }
+			        }
+			        lclOptions.CAMLQuery = "<Query><OrderBy><FieldRef Name='" + lclOptions.field + "' Ascending = 'TRUE'/></OrderBy></Query>";
+			    }
+			    //Build the <WHERE> clause
+			    if ((lclOptions.filterField != null) && (lclOptions.filterValue != null)) {
+			        lclOptions.CAMLQuery = "<Query><OrderBy><FieldRef Name='" + lclOptions.field + "' Ascending = 'TRUE'/></OrderBy>";
+			        if ((lclOptions.filterValue == "Empty") || (lclOptions.filterValue == "empty")) {
+			            lclOptions.CAMLQuery += "<Where><IsNull><FieldRef Name='" + lclOptions.filterField + "'/></IsNull></Where></Query>";
+			        } else {
+			            if (lclOptions.filterTwoFields && isArray(lclOptions.filterField)) {
+			                if (lclOptions.useCAMLContains) {
+			                    lclOptions.CAMLQuery += "<Where><And><Contains><FieldRef Name='" + lclOptions.filterField[0] + "'/><Value Type='Text'>" + lclOptions.filterValue[0] + "</Value></Contains><Contains><FieldRef Name='" + lclOptions.filterField[1] + "'/><Value Type='Text'>" + lclOptions.filterValue[1] + "</Value></Contains></And></Where></Query>";
+			                } else {
+			                    lclOptions.CAMLQuery += "<Where><And><Eq><FieldRef Name='" + lclOptions.filterField[0] + "'/><Value Type='Text'>" + lclOptions.filterValue[0] + "</Value></Eq><Eq><FieldRef Name='" + lclOptions.filterField[1] + "'/><Value Type='Text'>" + lclOptions.filterValue[1] + "</Value></Eq></And></Where></Query>";
+			                }
+			            } else {
+			                if (lclOptions.useCAMLContains) {
+			                    lclOptions.CAMLQuery += "<Where><Contains><FieldRef Name='" + lclOptions.filterField + "'/><Value Type='Text'>" + lclOptions.filterValue + "</Value></Contains></Where></Query>";
+			                }
+			                else {
+			                    lclOptions.CAMLQuery += "<Where><Eq><FieldRef Name='" + lclOptions.filterField + "'/><Value Type='Text'>" + lclOptions.filterValue + "</Value></Eq></Where></Query>";
+			                }
+			            }
+			        }
+			    }
 			}
 
 	debug(lclOptions.CAMLViewFields);

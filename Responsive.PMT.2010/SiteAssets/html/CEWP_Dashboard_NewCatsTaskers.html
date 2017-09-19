@@ -6,15 +6,15 @@
             var tp2 = new String(window.location.host);
             var tp3 = L_Menu_BaseUrl;
             var site = tp1 + SLASH + SLASH + tp2 + tp3;
-            SP.SOD.registerSod('CEWP_Dashboard_Directives.js', site + "/SiteAssets/js/CEWP_Dashboard_Directives.js");
-            EnsureScriptFunc("CEWP_Dashboard_Directives.js", null, function () {
-                CKO.DASHBOARD.Directives().Init(site);
+            SP.SOD.registerSod('CEWP_Dashboard_NewCatsTaskers.js', site + "/SiteAssets/js/CEWP_Dashboard_NewCatsTaskers.js");
+            EnsureScriptFunc("CEWP_Dashboard_NewCatsTaskers.js", null, function () {
+                CKO.DASHBOARD.TASKERS.NewTaskers().Init(site);
             });
         }, "sp.js");
     });
 </script>
 
-<div id="Directives">
+<div id="NewTaskers">
     <table style="height:100%;width:100%;">
         <tr><td align='center'><img src='/_layouts/images/gears_an.gif' /></td></tr>
         <tr><td align='center'><div style='margin-top: 10px; font-size: 16px;'>Getting Data...Please wait.</div></td></tr>

@@ -35,7 +35,7 @@ CKO.FORMS.OVERRIDES = function () {
             var target = $(this);
             $("td.ms-formbody").each(function (idx) {
                 if (this.innerHTML.indexOf('FieldName="' + field + '"') != -1) {
-                    $(this).contents().appendTo(target);
+                    $(this).contents().appendTo(target);                
                 }
             });      
         });

@@ -71,11 +71,22 @@ function getExpendedHoursByDirective() {
                 var total = 0;
                 while (enumerator.moveNext()) { 
                     var current = enumerator.get_current();
-                    total += current.get_item("Hours");
+                    var hours = current.get_item("Hours");
+                    //logit("Action id: " + current.get_id() + ", hours: " + hours + ", type: " + typeof hours);
+                    if (isNaN(hours)) {
+                        logit("Action id: " + current.get_id() + " does not contain a valid hour entry. Entry: " + hours);
+                    }
+                    else {
+                        total += hours;
+                    }
                 }
                 directives[i].Expended = total;
                 //directives[i].PercentExpended = ((total / directives[i].PMH) * 100).toFixed(1);
-                directives[i].PercentExpended = parseFloat((total / directives[i].PMH).toFixed(1));
+                if (directives[i].PMH == "" || directives[i].PMH == null) { }
+                else {
+                    var pe = parseFloat((total / directives[i].PMH).toFixed(1));
+                    directives[i].PercentExpended = pe;
+                }
             }
         }, function (sender, args) {
             logit("Error getting data from KnowledgeMap list: " + args.get_message());

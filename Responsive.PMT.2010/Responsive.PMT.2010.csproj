@@ -74,7 +74,13 @@
     </None>
     <None Include="Scripts\jquery-3.1.1.min.map" />
     <None Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <None Include="SiteAssets\fonts\fontawesome-webfont.eot" />
+    <None Include="SiteAssets\fonts\fontawesome-webfont.ttf" />
+    <None Include="SiteAssets\fonts\fontawesome-webfont.woff" />
+    <None Include="SiteAssets\fonts\fontawesome-webfont.woff2" />
+    <None Include="SiteAssets\fonts\FontAwesome.otf" />
     <None Include="SiteAssets\html\dbAuthority.widget" />
+    <None Include="SiteAssets\js\CATS.widget" />
     <None Include="SiteAssets\js\Directives.json" />
     <None Include="SiteAssets\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{ac5096c7-822a-477f-ba2a-1eadadfc7c2a}</SharePointProjectItemId>
@@ -242,6 +248,9 @@
     <Content Include="MaterPageGallery\HomePageLayout.aspx" />
     <Content Include="MaterPageGallery\Elements.xml" />
     <Content Include="MaterPageGallery\MyDashboardLayout.aspx" />
+    <Content Include="MaterPageGallery\PMTKnowledgeMapLayout.aspx" />
+    <Content Include="MaterPageGallery\PMTDashboardLayout.aspx" />
+    <Content Include="MaterPageGallery\PMTDashboardLayout2.aspx" />
     <Content Include="MaterPageGallery\SAPBlankWebPartPageFull.aspx" />
     <Content Include="MaterPageGallery\SAPMyDashboard.aspx" />
     <Content Include="Package\Package.Template.xml">
@@ -330,9 +339,13 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="SiteAssets\css\cascomstyles1.css" />
     <Content Include="SiteAssets\css\CEWP_Dashboard_Directives.css" />
+    <Content Include="SiteAssets\css\CEWP_Forms_DirectiveForms.css" />
     <Content Include="SiteAssets\css\CEWP_Forms_ActionForms.css" />
+    <Content Include="SiteAssets\css\color-theme.css" />
     <Content Include="SiteAssets\css\common.css" />
     <Content Include="SiteAssets\css\dashboard.css" />
+    <Content Include="SiteAssets\css\font-awesome.css" />
+    <Content Include="SiteAssets\css\font-awesome.min.css" />
     <Content Include="SiteAssets\css\homepagelayout.css" />
     <Content Include="SiteAssets\css\myactions.css" />
     <Content Include="SiteAssets\css\staffaction.css" />
@@ -340,12 +353,23 @@
     <Content Include="SiteAssets\css\docsethomepage.css" />
     <Content Include="SiteAssets\css\homepage.css" />
     <Content Include="SiteAssets\css\mydashboard.css" />
+    <Content Include="SiteAssets\css\webslidemenu.css" />
     <Content Include="SiteAssets\Elements.xml" />
+    <Content Include="SiteAssets\fonts\fontawesome-webfont.svg" />
     <Content Include="SiteAssets\html\CEWP_Dashboard.html" />
+    <Content Include="SiteAssets\html\CEWP_Dashboard_Charts_Authority.html" />
+    <Content Include="SiteAssets\html\CEWP_Dashboard_Charts_Functions.html" />
+    <Content Include="SiteAssets\html\CEWP_Dashboard_Charts_SVD.html" />
+    <Content Include="SiteAssets\html\CEWP_Dashboard_NewCatsTaskers.html" />
+    <Content Include="SiteAssets\html\CEWP_Dashboard_CatsTaskers.html" />
     <Content Include="SiteAssets\html\CEWP_Dashboard_Directives.html" />
     <Content Include="SiteAssets\html\CEWP_DocSetHomePage.html" />
+    <Content Include="SiteAssets\html\CEWP_Forms_EditStandardForm.html" />
+    <Content Include="SiteAssets\html\CEWP_Forms_NewDirectiveForm.html" />
+    <Content Include="SiteAssets\html\CEWP_Forms_EditDirectiveForm.html" />
     <Content Include="SiteAssets\html\CEWP_Forms_EditActionForm.html" />
     <Content Include="SiteAssets\html\CEWP_Forms_NewActionForm.html" />
+    <Content Include="SiteAssets\html\CEWP_Forms_NewStandardForm.html" />
     <Content Include="SiteAssets\html\CEWP_HomePage.html" />
     <Content Include="SiteAssets\html\CEWP_KM_Chart.html" />
     <Content Include="SiteAssets\html\CEWP_FORMS_EditOrgForm.html" />
@@ -358,30 +382,45 @@
     <Content Include="SiteAssets\html\dbAuthority.html" />
     <Content Include="SiteAssets\html\dbDirectivesII.html" />
     <Content Include="SiteAssets\html\DirectivesHTML1.html" />
+    <Content Include="SiteAssets\html\SiteNavigation.html" />
     <Content Include="SiteAssets\html\staffaction.html" />
     <Content Include="SiteAssets\html\directives.html" />
     <Content Include="SiteAssets\images\NOPII.png" />
+    <Content Include="SiteAssets\js\Actions_NewForm.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard.js" />
+    <Content Include="SiteAssets\js\CEWP_Dashboard_Charts_Authority.js" />
+    <Content Include="SiteAssets\js\CEWP_Dashboard_Charts_Functions.js" />
+    <Content Include="SiteAssets\js\CEWP_Dashboard_Charts_SVD.js" />
+    <Content Include="SiteAssets\js\CEWP_Dashboard_NewCatsTaskers.js" />
+    <Content Include="SiteAssets\js\CEWP_Dashboard_CatsTaskers.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_Directives.js" />
     <Content Include="SiteAssets\js\CEWP_DocSetHomePage.js" />
+    <Content Include="SiteAssets\js\CEWP_Forms_EditStandardForm.js" />
+    <Content Include="SiteAssets\js\CEWP_Forms_NewDirectiveForm.js" />
+    <Content Include="SiteAssets\js\CEWP_Forms_EditDirectiveForm.js" />
     <Content Include="SiteAssets\js\CEWP_Forms_EditActionForm.js" />
     <Content Include="SiteAssets\js\CEWP_Forms_NewActionForm.js" />
+    <Content Include="SiteAssets\js\CEWP_Forms_NewStandardForm.js" />
     <Content Include="SiteAssets\js\CEWP_HomePage.js" />
     <Content Include="SiteAssets\js\CEWP_KM_Chart.js" />
     <Content Include="SiteAssets\js\CEWP_FORMS_EditOrgForm.js" />
     <Content Include="SiteAssets\js\CEWP_KM_Map.js" />
     <Content Include="SiteAssets\js\CEWP_KM_TotalChart.js" />
+    <Content Include="SiteAssets\js\CEWP_MyActions.js" />
     <Content Include="SiteAssets\js\CEWP_MyDashboard.js" />
     <Content Include="SiteAssets\js\CEWP_PMTCustomActions.js" />
     <Content Include="SiteAssets\js\CEWP_PMTMigrations.js" />
     <Content Include="SiteAssets\js\CEWP_UserCustomActions.js" />
     <Content Include="SiteAssets\js\cko.forms.overrides.js" />
+    <Content Include="SiteAssets\js\Directive_EditForm.js" />
+    <Content Include="SiteAssets\js\Directive_NewForm.js" />
+    <Content Include="SiteAssets\js\HCHelper.js" />
     <Content Include="SiteAssets\js\PMT.js" />
+    <Content Include="SiteAssets\js\SiteNavigation.js" />
     <Content Include="SiteAssets\js\SPHelper.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\" />
-    <Folder Include="SiteAssets\fonts\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

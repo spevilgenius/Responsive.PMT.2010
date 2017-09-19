@@ -32,7 +32,7 @@ function GetDirectives() {
     var userId = _spPageContextInfo.userId;
     var urlString = "https://hq.tradoc.army.mil/sites/PMT/_vti_bin/listdata.svc/Directives?";
     //urlString += "$select=*";
-    urlString += "$select=Id,Objective,Expended,PercentExpended,ProjectedManHours,AvailableManHours,ReportValue,Comments,Description,OtherOrganization,LeadAssessmentValue,EquippedValue,TrainedValue,SuspenseDate,CompletionDate,StaffLead,StaffAssist,StatusValue,MOEQualitative,MOEQuantitative,LU_Organization,LU_SubOrganization,PMTOrganization/Title,OBJAlignment,OBJAlignment/Authority,OBJAlignment/Reference,SPTAlignment,SPTAlignment/ParaLine,SPTAlignment/Reference";
+    urlString += "$select=Id,Objective,Expended,PercentExpended,ProjectedManHours,AvailableManHours,ReportValue,Comments,Description,OtherOrganization,LeadAssessmentValue,EquippedValue,TrainedValue,SuspenseDate,CompletionDate,StartDate,StaffLead,StaffAssist,StatusValue,MOEQualitative,MOEQuantitative,LU_Organization,LU_SubOrganization,PMTOrganization/Title,OBJAlignment,OBJAlignment/Authority,OBJAlignment/Reference,SPTAlignment,SPTAlignment/ParaLine,SPTAlignment/Reference";
     urlString += "&$expand=StaffLead,StaffAssist,PMTOrganization,OBJAlignment,SPTAlignment,LU_Organization,LU_SubOrganization";
 
     jQuery.ajax({
@@ -49,9 +49,6 @@ function GetDirectives() {
             jQuery("#txtResults").text(JSON.stringify(results));
             var numitems = data.d.results.length;
             logit("Directives Count: " + numitems);
-            var test = moment(results[0]['SuspenseDate']);
-            test = test.format('M/D/YYYY');
-            logit("First Directive: Title: " + results[0]['Objective'] + ", MOMENT: " + test + ", Formatted: " + formatme(results[0]['SuspenseDate'], "shortdate1"));
             // Now we need to loop through the returned Directives and add them to the new Directives list
             var additems = [];
             ctx = SP.ClientContext.get_current();
@@ -77,8 +74,8 @@ function GetDirectives() {
                 item.set_item("LeadAssessment", j[i]["LeadAssessmentValue"]);
                 item.set_item("Equipped", j[i]["EquippedValue"]);
                 item.set_item("Trained", j[i]["TrainedValue"]);
-                if (j[i]["SuspenseDate"] != null) { item.set_item("SuspenseDate", formatme(j[i]["SuspenseDate"], "shortdate1")); }
-                if (j[i]["CompletionDate"] != null) { item.set_item("DateCompleted", formatme(j[i]["CompletionDate"], "shortdate1")); }
+                if (j[i]["SuspenseDate"] != null) { item.set_item("SuspenseDate", dateformat(j[i]["SuspenseDate"], "isofull")); }
+                if (j[i]["CompletionDate"] != null) { item.set_item("DateCompleted", dateformat(j[i]["CompletionDate"], "isofull")); }
                 item.set_item("SupportingOrg", j[i]["PMTOrganization"]["Title"]);
                 item.set_item("SupportedOrg", j[i]["LU_Organization"]["Title"]);
                 if (j[i]["LU_SubOrganization"] != null) { item.set_item("SupportedSubOrg", j[i]["LU_SubOrganization"]["Title"]); }
@@ -90,9 +87,9 @@ function GetDirectives() {
                 item.set_item("MOEQuantitative", j[i]["MOEQuantitative"]);
                 item.set_item("PercentExpended", j[i]["PercentExpended"]);
                 item.set_item("ReportRequired", j[i]["ReportValue"]);
-                item.set_item("SupportParagraph", j[i]["SPTAlignment"]["ParaLine"]);
-                item.set_item("SupportReference", j[i]["SPTAlignment"]["Reference"]);
-                if (j[i]["StartDate"] != null) { item.set_item("StartDate", formatme(j[i]["StartDate"], "shortdate1")); }
+                if (j[i]["SPTAlignment"] != null) { item.set_item("SupportParagraph", j[i]["SPTAlignment"]["ParaLine"]); }
+                if (j[i]["SPTAlignment"] != null) { item.set_item("SupportReference", j[i]["SPTAlignment"]["Reference"]); }
+                if (j[i]["StartDate"] != null) { item.set_item("StartDate", dateformat(j[i]["StartDate"], "isofull")); }
                 item.set_item("LeadComments", j[i]["Comments"]);
                 item.set_item("DirectiveDescription", j[i]["Description"]);
                 item.update();
@@ -149,7 +146,7 @@ function GetStandards() {
                 item.set_item("Trained", j[i]["TrainedValue"]);
                 item.set_item("Frequency", j[i]["FrequencyValue"]);
                 item.set_item("Task", j[i]["TaskAction"]);
-                if (j[i]["StandardDate"] != null) { item.set_item("StartDate", formatme(j[i]["StandardDate"], "shortdate1")); }
+                if (j[i]["StandardDate"] != null) { item.set_item("StartDate", dateformat(j[i]["StandardDate"], "isofull")); }
                 if (j[i]["Competency"] != null) { item.set_item("Competency", j[i]["Competency"]["Title"]); }
                 item.set_item("SupportedOrg", j[i]["LU_Organization"]["Title"]);
                 if (j[i]["LU_SubOrganization"] != null) { item.set_item("SupportedSubOrg", j[i]["LU_SubOrganization"]["Title"]); }
@@ -163,7 +160,7 @@ function GetStandards() {
                 item.set_item("ReportRequired", j[i]["ReportValue"]);
                 item.set_item("SupportParagraph", j[i]["SPTAlignment"]["ParaLine"]);
                 item.set_item("SupportReference", j[i]["SPTAlignment"]["Reference"]);
-                if (j[i]["LastValidated"] != null) { item.set_item("LastValidated", formatme(j[i]["LastValidated"], "shortdate1")); }
+                if (j[i]["LastValidated"] != null) { item.set_item("LastValidated", dateformat(j[i]["LastValidated"], "isofull")); }
                 item.set_item("LeadComments", j[i]["Comments"]);
                 item.update();
                 additems[i] = item;
@@ -404,17 +401,17 @@ function formatme(dtf, type) {
 
 function AddItemsSucceeded() {
     logit("Finished Migrating...");
-    //SP.UI.Notify.removeNotification(waitmsg);
+    SP.UI.Notify.removeNotification(waitmsg);
     //SP.UI.Notify.addNotification("Finished.", false);
-    //$("#SPSTools_Notify").fadeOut("2500", function () {
-    //    $("#SPSTools_Notify").html("");
-    //});
+    $("#SPSTools_Notify").fadeOut("2500", function () {
+        $("#SPSTools_Notify").html("");
+    });
 }
 
 function AddItemsFailed(sender, args) {
-    //$("#SPSTools_Notify").fadeOut("2500", function () {
-    //    $("#SPSTools_Notify").html("");
-    //});
+    $("#SPSTools_Notify").fadeOut("2500", function () {
+        $("#SPSTools_Notify").html("");
+    });
     logit("AddItemsFailed: " + args.get_message());
     return false;
 }

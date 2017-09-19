@@ -27,7 +27,8 @@ function LoadMyActions() {
     logit("userID: " + userId + ", startdate: " + getISODate(startdate) + ", calstart: " + calstart + ", calend: " + calend);
 
     //var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions?";
-    var alist = window.prompt("Input list to draw calendar:", "Actions");
+    //var alist = window.prompt("Input list to draw calendar:", "Actions");
+    var alist = "ActionsA";  // TODO: Change back to Actions after testing.
     var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/";
     urlString += alist;
     urlString += "?";

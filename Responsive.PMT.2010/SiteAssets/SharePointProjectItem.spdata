@@ -60,5 +60,44 @@
     <ProjectItemFile Source="js\CEWP_Forms_EditActionForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Dashboard_Directives.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="css\CEWP_Dashboard_Directives.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Forms_EditDirectiveForm.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Forms_EditDirectiveForm.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="css\CEWP_Forms_DirectiveForms.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Dashboard_Charts_SVD.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Dashboard_Charts_SVD.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\HCHelper.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Dashboard_Charts_Functions.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Dashboard_Charts_Functions.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Dashboard_Charts_Authority.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Dashboard_Charts_Authority.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Dashboard_Legend.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="css\CEWP_Dashboard_Legend.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Dashboard_Legend.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\SiteNavigation.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="css\webslidemenu.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="css\color-theme.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="fonts\FontAwesome.otf" Target="SiteAssets\fonts\" Type="ElementFile" />
+    <ProjectItemFile Source="fonts\fontawesome-webfont.eot" Target="SiteAssets\fonts\" Type="ElementFile" />
+    <ProjectItemFile Source="fonts\fontawesome-webfont.svg" Target="SiteAssets\fonts\" Type="ElementFile" />
+    <ProjectItemFile Source="fonts\fontawesome-webfont.ttf" Target="SiteAssets\fonts\" Type="ElementFile" />
+    <ProjectItemFile Source="fonts\fontawesome-webfont.woff" Target="SiteAssets\fonts\" Type="ElementFile" />
+    <ProjectItemFile Source="fonts\fontawesome-webfont.woff2" Target="SiteAssets\fonts\" Type="ElementFile" />
+    <ProjectItemFile Source="css\font-awesome.min.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="js\SiteNavigation.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="css\font-awesome.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CATS.widget" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Dashboard_CatsTaskers.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Dashboard_NewCatsTaskers.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Dashboard_CatsTaskers.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Dashboard_NewCatsTaskers.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\Actions_NewForm.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\Directive_NewForm.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\Directive_EditForm.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Forms_NewDirectiveForm.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Forms_NewDirectiveForm.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Forms_NewStandardForm.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Forms_EditStandardForm.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Forms_NewStandardForm.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Forms_EditStandardForm.js" Target="SiteAssets\js\" Type="ElementFile" />
   </Files>
 </ProjectItem>

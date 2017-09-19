@@ -50,7 +50,7 @@ function getTCOrgData() {
     xml += "</ViewFields>";
     xml += "</View>";
 	
-	deferreds.push($.when(CKO.CSOM.GetListItems.getitemsfilteredcomplex("parent", "Organization", xml, inc)).then(function (items) {
+    deferreds.push($.when(CKO.CSOM.GetListItems.getitemsfilteredcomplex("current", "Organization", xml, inc)).then(function (items) {
         if (items.get_count() > 0) {
             totalchartenum = items.getEnumerator();
             while (totalchartenum.moveNext()) {
@@ -75,7 +75,7 @@ function getTotalChartData() {
 	var deferreds = [];
 	for (i = 0; i < totalchartitems.length; i++) {
     	var title = totalchartitems[i].Title
-    	deferreds.push($.when(CKO.CSOM.GetListItems.getitemsfilteredandpasstoelement("parent", "Knowledge Map", "Organization", title , i)).then(function (items, i) {
+    	deferreds.push($.when(CKO.CSOM.GetListItems.getitemsfilteredandpasstoelement("current", "Knowledge Map", "Organization", title, i)).then(function (items, i) {
 	    	if (items.get_count() > 0) {
 	    		var enumerator = items.getEnumerator();
 	    		var con = 0, mil = 0, civ = 0,cnt = 0;
