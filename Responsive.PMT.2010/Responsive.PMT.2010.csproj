@@ -341,6 +341,7 @@
     <Content Include="SiteAssets\css\CEWP_Dashboard_Directives.css" />
     <Content Include="SiteAssets\css\CEWP_Forms_DirectiveForms.css" />
     <Content Include="SiteAssets\css\CEWP_Forms_ActionForms.css" />
+    <Content Include="SiteAssets\css\CEWP_Forms_StandardForms.css" />
     <Content Include="SiteAssets\css\color-theme.css" />
     <Content Include="SiteAssets\css\common.css" />
     <Content Include="SiteAssets\css\dashboard.css" />
@@ -372,7 +373,6 @@
     <Content Include="SiteAssets\html\CEWP_Forms_NewStandardForm.html" />
     <Content Include="SiteAssets\html\CEWP_HomePage.html" />
     <Content Include="SiteAssets\html\CEWP_KM_Chart.html" />
-    <Content Include="SiteAssets\html\CEWP_FORMS_EditOrgForm.html" />
     <Content Include="SiteAssets\html\CEWP_KM_Map.html" />
     <Content Include="SiteAssets\html\CEWP_KM_TotalChart.html" />
     <Content Include="SiteAssets\html\CEWP_MyDashboard.html" />

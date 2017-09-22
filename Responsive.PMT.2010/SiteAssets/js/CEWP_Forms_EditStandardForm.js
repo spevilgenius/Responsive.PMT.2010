@@ -43,7 +43,8 @@ CKO.FORMS.STANDARDS.EditForm = function () {
     }
 
     function FormLoaded(site) {
-        loadCSS(site + '/SiteAssets/css/CEWP_Forms_DirectiveForms.css');
+        resizeModalDialog();
+        loadCSS(site + '/SiteAssets/css/CEWP_Forms_StandardForms.css');
         loadCSS(site + '/SiteAssets/css/responsive.bootstrap.min.css');
         loadscript(site + '/SiteAssets/js/jquery.dataTables.min.js', function () {
             loadscript(site + '/SiteAssets/js/dataTables.bootstrap.min.js', function () {
@@ -53,6 +54,7 @@ CKO.FORMS.STANDARDS.EditForm = function () {
     }
 
     function LoadData() {
+        resizeModalDialog(); // just to be sure!!
         v.directive = $("input[title*='Directive']").val();
         logit("Directive=" + v.directive);
         v.userID = _spPageContextInfo.userId;
@@ -62,9 +64,6 @@ CKO.FORMS.STANDARDS.EditForm = function () {
             $("input").addClass("form-control");
             $("select").addClass("form-control");
             $("div[role='textbox']").addClass("form-control");
-            $("div[data-field='PercentExpended']").html($("div[data-field='PercentExpended']").html().replace("%", ""));
-            $("input[Title='Expended']").prop('disabled', true);
-            $("input[Title='PercentExpended']").prop('disabled', true);
             v.selects = new Array();
             // First build an array for the select controls for cascading functions
 

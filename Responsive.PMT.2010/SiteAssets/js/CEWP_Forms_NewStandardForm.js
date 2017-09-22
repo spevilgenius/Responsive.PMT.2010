@@ -43,7 +43,8 @@ CKO.FORMS.STANDARDS.NewForm = function () {
     }
 
     function FormLoaded(site) {
-        loadCSS(site + '/SiteAssets/css/CEWP_Forms_DirectiveForms.css');
+        resizeModalDialog();
+        loadCSS(site + '/SiteAssets/css/CEWP_Forms_StandardForms.css');
         loadCSS(site + '/SiteAssets/css/responsive.bootstrap.min.css');
         loadscript(site + '/SiteAssets/js/jquery.dataTables.min.js', function () {
             loadscript(site + '/SiteAssets/js/dataTables.bootstrap.min.js', function () {
@@ -53,6 +54,7 @@ CKO.FORMS.STANDARDS.NewForm = function () {
     }
 
     function LoadData() {
+        resizeModalDialog(); // just to be sure!!
         v.userID = _spPageContextInfo.userId;
         var monkey = LoadDropdowns();
         jQuery.when.apply(null, monkey).done(function () {

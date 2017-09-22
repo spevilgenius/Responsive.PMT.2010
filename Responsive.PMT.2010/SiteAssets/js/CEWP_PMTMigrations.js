@@ -236,7 +236,7 @@ function GetActions() {
 
 function UpdateActionsSAs() {
     // The SA's are only identified by lookupID and therefore not going to be correct so we need to update each one in the list so it is correct
-    // There are about 150 SA's so just loop this way and then update all the items that have this SA
+    // There are about 260 SA's so just loop this way and then update all the items that have this SA
     // Get the SupportAlignment items...
     alignments = new Array();
     var inc = "Include(";

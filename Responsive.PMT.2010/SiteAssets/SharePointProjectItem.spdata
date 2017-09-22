@@ -39,7 +39,6 @@
     <ProjectItemFile Source="html\dbAuthority.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="html\dbAuthority.widget" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\cko.forms.overrides.js" Target="SiteAssets\js\" Type="ElementFile" />
-    <ProjectItemFile Source="html\CEWP_FORMS_EditOrgForm.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_FORMS_EditOrgForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_UserCustomActions.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_UserCustomActions.js" Target="SiteAssets\js\" Type="ElementFile" />
@@ -99,5 +98,6 @@
     <ProjectItemFile Source="html\CEWP_Forms_EditStandardForm.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Forms_NewStandardForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Forms_EditStandardForm.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="css\CEWP_Forms_StandardForms.css" Target="SiteAssets\css\" Type="ElementFile" />
   </Files>
 </ProjectItem>

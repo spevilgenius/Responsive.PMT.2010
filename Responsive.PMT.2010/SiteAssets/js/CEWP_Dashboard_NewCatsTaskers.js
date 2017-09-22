@@ -55,12 +55,24 @@ CKO.DASHBOARD.TASKERS.NewTaskers = function () {
                 for (var i = 0, length = j.length; i < length; i++) {
                     v.newtaskers.push({
                         "cn": String(j[i]["ControlNumber"]).trim(),
+                        "lead": contains(String(j[i]["TaskerLeads"]).trim(), "CKO"),
+                        "assist": contains(String(j[i]["TaskerAssists"]).trim(), "CKO"),
+                        "info": contains(String(j[i]["TaskerInfo"]).trim(), "CKO"),
                         "new": true
                     });
                 }
                 LoadCurrentTaskers();
             }
         });
+    }
+
+    function contains(obj, check) {
+        if (obj.indexOf(check) >= 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     function LoadCurrentTaskers() {
@@ -91,13 +103,16 @@ CKO.DASHBOARD.TASKERS.NewTaskers = function () {
                 for (var x = 0; x < v.newtaskers.length; x++) {
                     tmp1 = v.newtaskers[x]["cn"];
                     tmp3 = true;
-                    //logit("Control Number: " + tmp1);
+                    logit("Control Number: " + tmp1 + ", Lead: " + v.newtaskers[x]["lead"] + ", Assist: " + v.newtaskers[x]["assist"] + ", Info: " + v.newtaskers[x]["info"]);
                     for (var y = 0; y < v.currenttaskers.length; y++) {
                         tmp2 = v.currenttaskers[y]["cn"];
                         if (tmp2 == tmp1) {
                             logit("Control Number: " + tmp1 + " exists.");
                             v.newtaskers[y]["new"] = false;
                             tmp3 = false;
+                        }
+                        else {
+                            logit("Control Number: " + tmp1 + " does not exist.");
                         }
                     }
                     if (tmp3 == true) { v.taskercount += 1; }

@@ -38,7 +38,6 @@
     <File Path="SiteAssets\html\dbAuthority.html" Url="SiteAssets/html/dbAuthority.html" />
     <File Path="SiteAssets\html\dbAuthority.widget" Url="SiteAssets/html/dbAuthority.widget" />
     <File Path="SiteAssets\js\cko.forms.overrides.js" Url="SiteAssets/js/cko.forms.overrides.js" />
-    <File Path="SiteAssets\html\CEWP_FORMS_EditOrgForm.html" Url="SiteAssets/html/CEWP_FORMS_EditOrgForm.html" />
     <File Path="SiteAssets\js\CEWP_FORMS_EditOrgForm.js" Url="SiteAssets/js/CEWP_FORMS_EditOrgForm.js" />
     <File Path="SiteAssets\html\CEWP_UserCustomActions.html" Url="SiteAssets/html/CEWP_UserCustomActions.html" />
     <File Path="SiteAssets\js\CEWP_UserCustomActions.js" Url="SiteAssets/js/CEWP_UserCustomActions.js" />
@@ -98,5 +97,6 @@
     <File Path="SiteAssets\html\CEWP_Forms_EditStandardForm.html" Url="SiteAssets/html/CEWP_Forms_EditStandardForm.html" />
     <File Path="SiteAssets\js\CEWP_Forms_NewStandardForm.js" Url="SiteAssets/js/CEWP_Forms_NewStandardForm.js" />
     <File Path="SiteAssets\js\CEWP_Forms_EditStandardForm.js" Url="SiteAssets/js/CEWP_Forms_EditStandardForm.js" />
+    <File Path="SiteAssets\css\CEWP_Forms_StandardForms.css" Url="SiteAssets/css/CEWP_Forms_StandardForms.css" />
   </Module>
 </Elements>

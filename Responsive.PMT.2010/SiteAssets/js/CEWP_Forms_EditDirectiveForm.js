@@ -43,6 +43,7 @@ CKO.FORMS.DIRECTIVES.EditForm = function () {
     }
 
     function FormLoaded(site) {
+        resizeModalDialog();
         loadCSS(site + '/SiteAssets/css/CEWP_Forms_DirectiveForms.css');
         loadCSS(site + '/SiteAssets/css/responsive.bootstrap.min.css');
         loadscript(site + '/SiteAssets/js/jquery.dataTables.min.js', function () {
@@ -53,6 +54,7 @@ CKO.FORMS.DIRECTIVES.EditForm = function () {
     }
 
     function LoadData() {
+        resizeModalDialog(); // just to be sure!!
         v.directive = $("input[title*='Directive']").val();
         logit("Directive=" + v.directive);
         v.userID = _spPageContextInfo.userId;
