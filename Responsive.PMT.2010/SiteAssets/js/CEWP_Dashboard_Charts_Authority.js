@@ -16,6 +16,7 @@ CKO.DASHBOARD.CHARTS.VARIABLES.Authority = {
     chartdata: null,
     authorities: null,
     standards: null,
+    qry: null,
     directives: null
 }
 
@@ -37,6 +38,7 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
             v.data = [];
             v.json = null;
             v.url = null;
+            v.qry = qry;
             var monkey = LoadLists();
             jQuery.when.apply(null, monkey).done(function () {
                 ListsLoaded();
@@ -207,6 +209,7 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
             })
         }
         DrawPieChart();
+        $("#Authority").find("text:contains(" + v.qry + ")").parent().find(".highcharts-button-box").attr("fill", "#ff0000");
     }
 
     function DrawPieChart() {
@@ -224,24 +227,80 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
                     },
                     yearButton: {
                         text: 'Y',
+                        theme: {
+                            'stroke-width': 1,
+                            stroke: 'black',
+                            fill: '#cccccc',
+                            r: 1,
+                            states: {
+                                hover: {
+                                    fill: '#ff0000'
+                                },
+                                select: {
+                                    fill: '#ff0000'
+                                }
+                            }
+                        },
                         onclick: function () {
                             CKO.DASHBOARD.CHARTS.Authority().Init(v.site, 'Y');
                         }
                     },
                     quarterButton: {
                         text: 'Q',
+                        theme: {
+                            'stroke-width': 1,
+                            stroke: 'black',
+                            fill: '#cccccc',
+                            r: 1,
+                            states: {
+                                hover: {
+                                    fill: '#ff0000'
+                                },
+                                select: {
+                                    fill: '#ff0000'
+                                }
+                            }
+                        },
                         onclick: function () {
                             CKO.DASHBOARD.CHARTS.Authority().Init(v.site, 'Q');
                         }
                     },
                     monthButton: {
                         text: 'M',
+                        theme: {
+                            'stroke-width': 1,
+                            stroke: 'black',
+                            fill: '#cccccc',
+                            r: 1,
+                            states: {
+                                hover: {
+                                    fill: '#ff0000'
+                                },
+                                select: {
+                                    fill: '#ff0000'
+                                }
+                            }
+                        },
                         onclick: function () {
                             CKO.DASHBOARD.CHARTS.Authority().Init(v.site, 'M');
                         }
                     },
                     weekButton: {
                         text: 'W',
+                        theme: {
+                            'stroke-width': 1,
+                            stroke: 'black',
+                            fill: '#cccccc',
+                            r: 1,
+                            states: {
+                                hover: {
+                                    fill: '#ff0000'
+                                },
+                                select: {
+                                    fill: '#ff0000'
+                                }
+                            }
+                        },
                         onclick: function () {
                             CKO.DASHBOARD.CHARTS.Authority().Init(v.site, 'W');
                         }

@@ -20,6 +20,7 @@ CKO.DASHBOARD.CHARTS.VARIABLES.SVD = {
     user: null,
     userID: null,
     site: null,
+    qry: null,
     html: ""
 }
 
@@ -38,6 +39,7 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
             v.site = site;
             v.data = [];
             v.json = null;
+            v.qry = qry;
             LoadActions(qry, null);
         }
     }
@@ -120,6 +122,7 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
             }
         }
         DrawPieChart();
+        $("#SVD").find("text:contains(" + v.qry + ")").parent().find(".highcharts-button-box").addClass("active").attr("fill", "#ff0000");
     }
 
     function DrawPieChart() {
@@ -137,24 +140,80 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
                     },
                     yearButton: {
                         text: 'Y',
+                        theme: {
+                            'stroke-width': 1,
+                            stroke: 'black',
+                            fill: '#cccccc',
+                            r: 1,
+                            states: {
+                                hover: {
+                                    fill: '#ff0000'
+                                },
+                                select: {
+                                    fill: '#ff0000'
+                                }
+                            }
+                        },
                         onclick: function () {
                             CKO.DASHBOARD.CHARTS.SVD().Init(v.site, 'Y');
                         }
                     },
                     quarterButton: {
                         text: 'Q',
+                        theme: {
+                            'stroke-width': 1,
+                            stroke: 'black',
+                            fill: '#cccccc',
+                            r: 1,
+                            states: {
+                                hover: {
+                                    fill: '#ff0000'
+                                },
+                                select: {
+                                    fill: '#ff0000'
+                                }
+                            }
+                        },
                         onclick: function () {
                             CKO.DASHBOARD.CHARTS.SVD().Init(v.site, 'Q');
                         }
                     },
                     monthButton: {
                         text: 'M',
+                        theme: {
+                            'stroke-width': 1,
+                            stroke: 'black',
+                            fill: '#cccccc',
+                            r: 1,
+                            states: {
+                                hover: {
+                                    fill: '#ff0000'
+                                },
+                                select: {
+                                    fill: '#ff0000'
+                                }
+                            }
+                        },
                         onclick: function () {
                             CKO.DASHBOARD.CHARTS.SVD().Init(v.site, 'M');
                         }
                     },
                     weekButton: {
                         text: 'W',
+                        theme: {
+                            'stroke-width': 1,
+                            stroke: 'black',
+                            fill: '#cccccc',
+                            r: 1,
+                            states: {
+                                hover: {
+                                    fill: '#ff0000'
+                                },
+                                select: {
+                                    fill: '#ff0000'
+                                }
+                            }
+                        },
                         onclick: function () {
                             CKO.DASHBOARD.CHARTS.SVD().Init(v.site, 'W');
                         }

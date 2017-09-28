@@ -18,6 +18,7 @@ CKO.FORMS.ACTIONS.VARIABLES = {
     customer: null,
     directives: null,
     standards: null,
+    errortext: "Please fill out the fields: ",
     alignmentrequired: true,
     actiondate: jQuery.QueryString["Date"]
 }
@@ -28,7 +29,6 @@ CKO.FORMS.ACTIONS.NewForm = function () {
 
     function Init(site) {
         SP.SOD.executeOrDelayUntilScriptLoaded(function () {
-            $().SPSTools_Notify({ type: 'wait', content: 'Loading Form...Please wait...' });
             RegisterSod('core.js', site + "/_layouts/1033/core.js");
             RegisterSod('cko.forms.overrides.js', site + "/SiteAssets/js/cko.forms.overrides.js");
             RegisterSodDep('core.js', 'sp.js');
@@ -45,6 +45,14 @@ CKO.FORMS.ACTIONS.NewForm = function () {
         qsdate = jQuery.QueryString["Date"];
         v.userID = _spPageContextInfo.userId;
         console.log("userID = " + v.UserID);
+
+        $("#btnSave").on("click", function () {
+            SaveAction();
+        });
+
+        $("#btnCancel").on("click", function () {
+            CancelAction();
+        });
         
         // get user info step 1
         v.ctx = new SP.ClientContext.get_current();
@@ -195,66 +203,63 @@ CKO.FORMS.ACTIONS.NewForm = function () {
 
     function DataLoaded() {
         logit("Data Loaded");
-        $("#SPSTools_Notify").fadeOut("2500", function () {
-            $("#SPSTools_Notify").html("");
-        });
-        $("#btnSave").click(function () {
-            $("#FormError").remove();
-            var goon = true;
-            if ($("input[title='SupportAlignment']").val() == "" && $("select[title='EffortType'] option:selected").val() == "Standard") {
-                if (v.alignmentrequired == true) {
-                    goon = false;
-                }
-                else {
-                    $("input[title='SupportAlignment']").val("N/A").parent().parent().hide(); // just set the support alignment to NA
-                }
-            }
-            if ($("#ddStandard option:selected").val() == "Select..." && $("select[title='EffortType'] option:selected").val() == "Standard") {
-                goon = false;
-            }
-            if ($("#ddDirective option:selected").val() == "Select..." && $("select[title='EffortType'] option:selected").val() == "Directive") {
-                goon = false;
-            }
-            if ($("#ddEnabler option:selected").val() == "Select...") {
-                goon = false;
-            }
-            if ($("#ddFunction option:selected").val() == "Select...") {
-                goon = false;
-            }
-            if ($("input[title='Enabler Required Field']").val() == "Select..." || $("input[title='Enabler Required Field']").val() == "") {
-                goon = false;
-            }
-            if ($("input[title='Function Required Field']").val() == "Select..." || $("input[title='Function Required Field']").val() == "") {
-                goon = false;
-            }
-            if ($("div[role='textbox']").html() == "<p>​</p>") {
-                goon = false;
-            }
-            if ($("input[title*='Date Completed']").val() == "") {
-                goon = false;
-            }
-            if ($("input[title*='Expended']").val() == "") {
-                goon = false;
-            }
-            if (goon == true) {
-                $(window).on('unload', function () {
-                    var returndata = [];
-                    returndata[0] = "Refresh";
-                    returndata[1] = "Action Added";
-                    SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.OK, returndata);
-                });
-                $("input[id*='SaveItem']").trigger('click');
-            }
-            else {
-                var ehtml = "<li id='FormError' class='ms-cui-group' style='width: 400px; background-color: red;'>";
-                ehtml += "<div class='container-fluid' style='padding: 36px; text-align: center; color: black; font-size: 16px;'>";
-                ehtml += "Not all required fields have been filled out.</div></li>";
-                $("ul[id='Ribbon.ListForm.Edit']").append(ehtml); 
-            }
-        });
-        $("#btnCancel").click(function () { // Cancel and Close the popup
-            SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.cancel);
-        });
+        //$("#btnSave").click(function () {
+        //    $("#FormError").remove();
+        //    var goon = true;
+        //    if ($("input[title='SupportAlignment']").val() == "" && $("select[title='EffortType'] option:selected").val() == "Standard") {
+        //        if (v.alignmentrequired == true) {
+        //            goon = false;
+        //        }
+        //        else {
+        //            $("input[title='SupportAlignment']").val("N/A").parent().parent().hide(); // just set the support alignment to NA
+        //        }
+        //    }
+        //    if ($("#ddStandard option:selected").val() == "Select..." && $("select[title='EffortType'] option:selected").val() == "Standard") {
+        //        goon = false;
+        //    }
+        //    if ($("#ddDirective option:selected").val() == "Select..." && $("select[title='EffortType'] option:selected").val() == "Directive") {
+        //        goon = false;
+        //    }
+        //    if ($("#ddEnabler option:selected").val() == "Select...") {
+        //        goon = false;
+        //    }
+        //    if ($("#ddFunction option:selected").val() == "Select...") {
+        //        goon = false;
+        //    }
+        //    if ($("input[title='Enabler Required Field']").val() == "Select..." || $("input[title='Enabler Required Field']").val() == "") {
+        //        goon = false;
+        //    }
+        //    if ($("input[title='Function Required Field']").val() == "Select..." || $("input[title='Function Required Field']").val() == "") {
+        //        goon = false;
+        //    }
+        //    if ($("div[role='textbox']").html() == "<p>​</p>") {
+        //        goon = false;
+        //    }
+        //    if ($("input[title*='Date Completed']").val() == "") {
+        //        goon = false;
+        //    }
+        //    if ($("input[title*='Expended']").val() == "") {
+        //        goon = false;
+        //    }
+        //    if (goon == true) {
+        //        $(window).on('unload', function () {
+        //            var returndata = [];
+        //            returndata[0] = "Refresh";
+        //            returndata[1] = "Action Added";
+        //            SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.OK, returndata);
+        //        });
+        //        $("input[id*='SaveItem']").trigger('click');
+        //    }
+        //    else {
+        //        var ehtml = "<li id='FormError' class='ms-cui-group' style='width: 400px; background-color: red;'>";
+        //        ehtml += "<div class='container-fluid' style='padding: 36px; text-align: center; color: black; font-size: 16px;'>";
+        //        ehtml += "Not all required fields have been filled out.</div></li>";
+        //        $("ul[id='Ribbon.ListForm.Edit']").append(ehtml); 
+        //    }
+        //});
+        //$("#btnCancel").click(function () { // Cancel and Close the popup
+        //    SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.cancel);
+        //});
     }
 
     function AlignmentsLoaded() {
@@ -271,7 +276,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                 // Set the hidden title field to the selected Standard
                 var idx = $("#" + obj.id + " option:selected").val();
                 var standard = v.standards[idx]["standard"];
-                $("input[title='Title Required Field']").val(standard);
+                $("input[title^='Title']").val(standard);
                 $("#divDescription").html("").append(v.standards[idx]["description"]);
                 if (standard != "N/A") {
                     // Now get the support alignments from the Alignments table using REST
@@ -312,18 +317,92 @@ CKO.FORMS.ACTIONS.NewForm = function () {
             case "ddDirective":
                 // Set the hidden title field to the selected Directive and display the description
                 var idx = $("#" + obj.id + " option:selected").val();
-                $("input[title='Title Required Field']").val(v.directives[idx]["directive"]);
+                $("input[title^='Title']").val(v.directives[idx]["directive"]);
                 $("#divDescription").html("").append(v.directives[idx]["description"]);
                 break;
 
             case "ddEnabler":
-                $("input[title='Enabler']").val($("#ddEnabler option:selected").val());
+                $("input[title^='Enabler']").val($("#ddEnabler option:selected").val());
                 break;
 
             case "ddFunction":
-                $("input[title='Function']").val($("#ddFunction option:selected").val());
+                $("input[title^='Function']").val($("#ddFunction option:selected").val());
                 break;
         }
+    }
+
+    function SaveAction() {
+        $("#FormError").remove();
+        var goon = true;
+        if ($("input[title='SupportAlignment']").val() == "" && $("select[title='EffortType'] option:selected").val() == "Standard") {
+            if (v.alignmentrequired == true) {
+                goon = false;
+                v.errortext += "Support Alignment ";
+            }
+            else {
+                $("input[title='SupportAlignment']").val("N/A").parent().parent().hide(); // just set the support alignment to NA
+            }
+        }
+        if ($("#ddStandard option:selected").val() == "Select..." && $("select[title='EffortType'] option:selected").val() == "Standard") {
+            goon = false;
+            v.errortext += "Objective ";
+        }
+        if ($("#ddDirective option:selected").val() == "Select..." && $("select[title='EffortType'] option:selected").val() == "Directive") {
+            goon = false;
+            v.errortext += "Objective ";
+        }
+        //if ($("#ddEnabler option:selected").val() == "Select...") {
+        //    goon = false;
+        //    v.errortext += "Enabler ";
+        //}
+        //if ($("#ddFunction option:selected").val() == "Select...") {
+        //    goon = false;
+        //    v.errortext += "Function ";
+        //}
+        if ($("input[title='Enabler Required Field']").val() == "Select..." || $("input[title='Enabler Required Field']").val() == "") {
+            goon = false;
+            v.errortext += "Enabler ";
+        }
+        if ($("input[title='Function Required Field']").val() == "Select..." || $("input[title='Function Required Field']").val() == "") {
+            goon = false;
+            v.errortext += "Function ";
+        }
+        //if ($("div[role='textbox']").html() == "<p>​</p>") {
+        //    goon = false;
+        //    v.errortext += "Comments ";
+        //}
+        if ($("textarea[title*='Comments']").val().trim().length <= 5) {
+            goon = false;
+            v.errortext += "Comments ";
+        }
+        if ($("input[title*='Date Completed']").val() == "") {
+            goon = false;
+            v.errortext += "Date Completed ";
+        }
+        if ($("input[title*='Expended']").val() == "") {
+            goon = false;
+            v.errortext += "Time ";
+        }
+        if (goon == true) {
+            $(window).on('unload', function () {
+                var returndata = [];
+                returndata[0] = "Refresh";
+                returndata[1] = "Action Added";
+                SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.OK, returndata);
+            });
+            $("input[id*='SaveItem']").trigger('click');
+        }
+        else {
+            var ehtml = "<li id='FormError' class='ms-cui-group' style='width: 400px; background-color: red;'>";
+            ehtml += "<div class='container-fluid' style='padding: 36px; text-align: center; color: black; font-size: 16px;'>";
+            ehtml += v.errortext + "</div></li>";
+            $("ul[id='Ribbon.ListForm.Edit']").append(ehtml);
+            v.errortext = "Please fill out the fields: ";
+        }
+    }
+
+    function CancelAction() {
+        SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.cancel);
     }
 
     return {

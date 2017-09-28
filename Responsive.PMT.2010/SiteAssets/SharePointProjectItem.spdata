@@ -13,7 +13,6 @@
     <ProjectItemFile Source="html\CEWP_MyDashboard.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="html\directives.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\images\NOPII.png" Target="SiteAssets\js\images\" Type="ElementFile" />
-    <ProjectItemFile Source="js\CEWP_Dashboard.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_DocSetHomePage.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_HomePage.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_MyDashboard.js" Target="SiteAssets\js\" Type="ElementFile" />
@@ -99,5 +98,12 @@
     <ProjectItemFile Source="js\CEWP_Forms_NewStandardForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Forms_EditStandardForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="css\CEWP_Forms_StandardForms.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Taskers_NewTaskers.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ckoTask_DisplayTask.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Taskers_NewTaskers.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Forms_NewTaskerForm.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Forms_NewTaskerForm.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Pages_MyTasks_AllTasks.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Pages_MyTasks_AllTasks.html" Target="SiteAssets\html\" Type="ElementFile" />
   </Files>
 </ProjectItem>

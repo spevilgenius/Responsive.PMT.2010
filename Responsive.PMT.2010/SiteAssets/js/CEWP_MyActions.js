@@ -15,6 +15,8 @@ function LoadMyActions() {
     logit("My Actions Code loaded.");
     standards = [];
     directives = [];
+    var now = moment().format("YYYY-MM-DD[T]HH:MM:SS");
+    logit("NOW: " + now);
     var startdate = new Date();
     var starttext = (startdate.getMonth() + 1) + "/1/" + startdate.getFullYear();
     startdate = new Date(starttext);

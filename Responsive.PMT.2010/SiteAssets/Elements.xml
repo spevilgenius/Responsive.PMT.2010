@@ -12,7 +12,6 @@
     <File Path="SiteAssets\html\CEWP_MyDashboard.html" Url="SiteAssets/html/CEWP_MyDashboard.html" />
     <File Path="SiteAssets\html\directives.html" Url="SiteAssets/html/directives.html" />
     <File Path="SiteAssets\js\images\NOPII.png" Url="SiteAssets/js/images/NOPII.png" />
-    <File Path="SiteAssets\js\CEWP_Dashboard.js" Url="SiteAssets/js/CEWP_Dashboard.js" />
     <File Path="SiteAssets\js\CEWP_DocSetHomePage.js" Url="SiteAssets/js/CEWP_DocSetHomePage.js" />
     <File Path="SiteAssets\js\CEWP_HomePage.js" Url="SiteAssets/js/CEWP_HomePage.js" />
     <File Path="SiteAssets\js\CEWP_MyDashboard.js" Url="SiteAssets/js/CEWP_MyDashboard.js" />
@@ -98,5 +97,12 @@
     <File Path="SiteAssets\js\CEWP_Forms_NewStandardForm.js" Url="SiteAssets/js/CEWP_Forms_NewStandardForm.js" />
     <File Path="SiteAssets\js\CEWP_Forms_EditStandardForm.js" Url="SiteAssets/js/CEWP_Forms_EditStandardForm.js" />
     <File Path="SiteAssets\css\CEWP_Forms_StandardForms.css" Url="SiteAssets/css/CEWP_Forms_StandardForms.css" />
+    <File Path="SiteAssets\js\CEWP_Taskers_NewTaskers.js" Url="SiteAssets/js/CEWP_Taskers_NewTaskers.js" />
+    <File Path="SiteAssets\js\ckoTask_DisplayTask.js" Url="SiteAssets/js/ckoTask_DisplayTask.js" />
+    <File Path="SiteAssets\html\CEWP_Taskers_NewTaskers.html" Url="SiteAssets/html/CEWP_Taskers_NewTaskers.html" />
+    <File Path="SiteAssets\html\CEWP_Forms_NewTaskerForm.html" Url="SiteAssets/html/CEWP_Forms_NewTaskerForm.html" />
+    <File Path="SiteAssets\js\CEWP_Forms_NewTaskerForm.js" Url="SiteAssets/js/CEWP_Forms_NewTaskerForm.js" />
+    <File Path="SiteAssets\js\CEWP_Pages_MyTasks_AllTasks.js" Url="SiteAssets/js/CEWP_Pages_MyTasks_AllTasks.js" />
+    <File Path="SiteAssets\html\CEWP_Pages_MyTasks_AllTasks.html" Url="SiteAssets/html/CEWP_Pages_MyTasks_AllTasks.html" />
   </Module>
 </Elements>

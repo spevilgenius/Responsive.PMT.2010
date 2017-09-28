@@ -96,7 +96,7 @@ CKO.DASHBOARD.TASKERS.Taskers = function () {
             placement: "n"
         });
         // Now sort the table by triggering the click for the date column.
-
+        $("td[aria-label*='OCKO Suspense']").click();
     }
 
     return {

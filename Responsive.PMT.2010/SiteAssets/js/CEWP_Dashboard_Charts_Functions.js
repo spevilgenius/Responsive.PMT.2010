@@ -14,6 +14,7 @@ CKO.DASHBOARD.CHARTS.VARIABLES.Functions = {
     data: null,
     json: null,
     chartdata: null,
+    qry: null,
     functions: null
 }
 
@@ -33,6 +34,7 @@ CKO.DASHBOARD.CHARTS.Functions = function () {
             v.data = [];
             v.json = null;
             v.url = null;
+            v.qry = qry;
             var zebra = LoadFunctions();
             jQuery.when.apply(null, zebra).done(function () {
                 FunctionsLoaded();
@@ -141,6 +143,7 @@ CKO.DASHBOARD.CHARTS.Functions = function () {
             })
         }
         DrawPieChart();
+        $("#Functions").find("text:contains(" + v.qry + ")").parent().find(".highcharts-button-box").attr("fill", "#ff0000");
     }
 
     function DrawPieChart() {
@@ -158,24 +161,80 @@ CKO.DASHBOARD.CHARTS.Functions = function () {
                     },
                     yearButton: {
                         text: 'Y',
+                        theme: {
+                            'stroke-width': 1,
+                            stroke: 'black',
+                            fill: '#cccccc',
+                            r: 1,
+                            states: {
+                                hover: {
+                                    fill: '#ff0000'
+                                },
+                                select: {
+                                    fill: '#ff0000'
+                                }
+                            }
+                        },
                         onclick: function () {
                             CKO.DASHBOARD.CHARTS.Functions().Init(v.site, 'Y');
                         }
                     },
                     quarterButton: {
                         text: 'Q',
+                        theme: {
+                            'stroke-width': 1,
+                            stroke: 'black',
+                            fill: '#cccccc',
+                            r: 1,
+                            states: {
+                                hover: {
+                                    fill: '#ff0000'
+                                },
+                                select: {
+                                    fill: '#ff0000'
+                                }
+                            }
+                        },
                         onclick: function () {
                             CKO.DASHBOARD.CHARTS.Functions().Init(v.site, 'Q');
                         }
                     },
                     monthButton: {
                         text: 'M',
+                        theme: {
+                            'stroke-width': 1,
+                            stroke: 'black',
+                            fill: '#cccccc',
+                            r: 1,
+                            states: {
+                                hover: {
+                                    fill: '#ff0000'
+                                },
+                                select: {
+                                    fill: '#ff0000'
+                                }
+                            }
+                        },
                         onclick: function () {
                             CKO.DASHBOARD.CHARTS.Functions().Init(v.site, 'M');
                         }
                     },
                     weekButton: {
                         text: 'W',
+                        theme: {
+                            'stroke-width': 1,
+                            stroke: 'black',
+                            fill: '#cccccc',
+                            r: 1,
+                            states: {
+                                hover: {
+                                    fill: '#ff0000'
+                                },
+                                select: {
+                                    fill: '#ff0000'
+                                }
+                            }
+                        },
                         onclick: function () {
                             CKO.DASHBOARD.CHARTS.Functions().Init(v.site, 'W');
                         }

@@ -361,6 +361,9 @@
     <Content Include="SiteAssets\html\CEWP_Dashboard_Charts_Authority.html" />
     <Content Include="SiteAssets\html\CEWP_Dashboard_Charts_Functions.html" />
     <Content Include="SiteAssets\html\CEWP_Dashboard_Charts_SVD.html" />
+    <Content Include="SiteAssets\html\CEWP_Dashboard_Legend.html" />
+    <Content Include="SiteAssets\html\CEWP_Forms_NewTaskerForm.html" />
+    <Content Include="SiteAssets\html\CEWP_Taskers_NewTaskers.html" />
     <Content Include="SiteAssets\html\CEWP_Dashboard_NewCatsTaskers.html" />
     <Content Include="SiteAssets\html\CEWP_Dashboard_CatsTaskers.html" />
     <Content Include="SiteAssets\html\CEWP_Dashboard_Directives.html" />
@@ -387,10 +390,10 @@
     <Content Include="SiteAssets\html\directives.html" />
     <Content Include="SiteAssets\images\NOPII.png" />
     <Content Include="SiteAssets\js\Actions_NewForm.js" />
-    <Content Include="SiteAssets\js\CEWP_Dashboard.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_Charts_Authority.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_Charts_Functions.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_Charts_SVD.js" />
+    <Content Include="SiteAssets\js\CEWP_Dashboard_Legend.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_NewCatsTaskers.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_CatsTaskers.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_Directives.js" />
@@ -401,6 +404,7 @@
     <Content Include="SiteAssets\js\CEWP_Forms_EditActionForm.js" />
     <Content Include="SiteAssets\js\CEWP_Forms_NewActionForm.js" />
     <Content Include="SiteAssets\js\CEWP_Forms_NewStandardForm.js" />
+    <Content Include="SiteAssets\js\CEWP_Forms_NewTaskerForm.js" />
     <Content Include="SiteAssets\js\CEWP_HomePage.js" />
     <Content Include="SiteAssets\js\CEWP_KM_Chart.js" />
     <Content Include="SiteAssets\js\CEWP_FORMS_EditOrgForm.js" />
@@ -412,12 +416,14 @@
     <Content Include="SiteAssets\js\CEWP_PMTMigrations.js" />
     <Content Include="SiteAssets\js\CEWP_UserCustomActions.js" />
     <Content Include="SiteAssets\js\cko.forms.overrides.js" />
+    <Content Include="SiteAssets\js\ckoTask_DisplayTask.js" />
     <Content Include="SiteAssets\js\Directive_EditForm.js" />
     <Content Include="SiteAssets\js\Directive_NewForm.js" />
     <Content Include="SiteAssets\js\HCHelper.js" />
     <Content Include="SiteAssets\js\PMT.js" />
     <Content Include="SiteAssets\js\SiteNavigation.js" />
     <Content Include="SiteAssets\js\SPHelper.js" />
+    <Content Include="SiteAssets\js\CEWP_Taskers_NewTaskers.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\" />
