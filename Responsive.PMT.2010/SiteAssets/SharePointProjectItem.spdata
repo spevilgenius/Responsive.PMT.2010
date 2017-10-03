@@ -22,7 +22,7 @@
     <ProjectItemFile Source="css\common.css" Target="SiteAssets\css\" Type="ElementFile" />
     <ProjectItemFile Source="css\homepagelayout.css" Target="SiteAssets\css\" Type="ElementFile" />
     <ProjectItemFile Source="css\CEWP_KM_Map.css" Target="SiteAssets\css\" Type="ElementFile" />
-    <ProjectItemFile Source="js\CEWP_KM_Map.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_KM_Map_Old.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_KM_Map.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\ocko.overrides.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\ocko.overrides.scriptlink.js" Target="SiteAssets\js\" Type="ElementFile" />
@@ -105,5 +105,6 @@
     <ProjectItemFile Source="js\CEWP_Forms_NewTaskerForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Pages_MyTasks_AllTasks.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Pages_MyTasks_AllTasks.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_KM_Map.js" Target="SiteAssets\js\" Type="ElementFile" />
   </Files>
 </ProjectItem>

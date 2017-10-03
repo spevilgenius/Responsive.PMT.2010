@@ -28,7 +28,6 @@ CKO.FORMS.ACTIONS.EditForm = function () {
 
     function Init(site) {
         SP.SOD.executeOrDelayUntilScriptLoaded(function () {
-            $().SPSTools_Notify({ type: 'wait', content: 'Loading Form...Please wait...' });
             RegisterSod('core.js', site + "/_layouts/1033/core.js");
             RegisterSod('cko.forms.overrides.js', site + "/SiteAssets/js/cko.forms.overrides.js");
             RegisterSodDep('core.js', 'sp.js');
@@ -126,7 +125,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
                 // Now just loop back through the array to create the dropdown and pass the index as the value so we know which standard to get data for.
                 for (var i = 0; i < v.standards.length; i++) {
                     // if the title matches the option, select it
-                    if (v.standards[i]["standard"] == $("input[title='Title Required Field']").val()) {
+                    if (v.standards[i]["standard"] == $("input[title^='Title']").val()) {
                         opts += "<option selected value='" + i + "'>" + v.standards[i]["standard"] + "</option>";
                         // also need to set the description field
                         $("#divDescription").html("").append(v.standards[i]["description"]);
@@ -161,8 +160,8 @@ CKO.FORMS.ACTIONS.EditForm = function () {
                 var j = jQuery.parseJSON(JSON.stringify(results));
                 var numitems = data.d.results.length;
                 logit("Directives Count: " + numitems);
-                var opts = "<option selected value='Select...'>Select...</option>";
-                for (var i = 0, length = j.length; i < length; i++) {
+                var opts = "<option value='Select...'>Select...</option>";
+                for (var i = 0; i < j.length; i++) {
                     // Add to directive array so that we can display info based on selected directive
                     v.directives.push({
                         "directive": j[i]["Directive"],
@@ -173,7 +172,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
                 // Now just loop back through the array to create the dropdown and pass the index as the value so we know which directive to get data for.
                 for (var i = 0; i < v.directives.length; i++) {
                     // if the title matches the option, select it
-                    if (v.directives[i]["directive"] = $("input[title='Title Required Field']").val()) {
+                    if (v.directives[i]["directive"] == $("input[title^='Title']").val()) {
                         opts += "<option selected value='" + i + "'>" + v.directives[i]["directive"] + "</option>";
                         // also need to set the description field
                         $("#divDescription").html("").append(v.directives[i]["description"]);
@@ -192,7 +191,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
         var standard = v.standards[idx]["standard"];
         var paragraph = v.standards[idx]["paragraph"];
         logit("GetAlignments: standard-" + standard + ", paragraph-" + paragraph);
-        if (standard != "N/A") {
+        if (v.standards[idx]["paragraph"] != "N/A") {
             // Now get the support alignments from the Alignments table using REST
             var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Alignments?";
             urlString += "$select=Id,Parent,Paragraph,Reference,ShortDescription";
@@ -241,6 +240,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
         else {
             // Support alignment would not be required for this standard
             v.alignmentrequired = false;
+            $("input[title^='SupportAlignment']").val("N/A").closest(".form-group").hide(); // just set the support alignment to NA
         }
     }
 
@@ -253,66 +253,13 @@ CKO.FORMS.ACTIONS.EditForm = function () {
 
     function DataLoaded() {
         logit("Data Loaded");
-        // 
-        $("#SPSTools_Notify").fadeOut("2500", function () {
-            $("#SPSTools_Notify").html("");
+
+        $("#btnSave").on("click", function () {
+            SaveAction();
         });
-        $("#btnSave").click(function () {
-            $("#FormError").remove();
-            var goon = true;
-            if ($("input[title='SupportAlignment']").val() == "" && $("select[title='EffortType'] option:selected").val() == "Standard") {
-                if (v.alignmentrequired == true) {
-                    goon = false;
-                }
-                else {
-                    $("input[title='SupportAlignment']").val("N/A").parent().parent().hide(); // just set the support alignment to NA
-                }
-            }
-            if ($("#ddStandard option:selected").val() == "Select..." && $("select[title='EffortType'] option:selected").val() == "Standard") {
-                goon = false;
-            }
-            if ($("#ddDirective option:selected").val() == "Select..." && $("select[title='EffortType'] option:selected").val() == "Directive") {
-                goon = false;
-            }
-            if ($("#ddEnabler option:selected").val() == "Select...") {
-                goon = false;
-            }
-            if ($("#ddFunction option:selected").val() == "Select...") {
-                goon = false;
-            }
-            if ($("input[title='Enabler Required Field']").val() == "Select..." || $("input[title='Enabler Required Field']").val() == "") {
-                goon = false;
-            }
-            if ($("input[title='Function Required Field']").val() == "Select..." || $("input[title='Function Required Field']").val() == "") {
-                goon = false;
-            }
-            if ($("div[role='textbox']").html() == "<p>​</p>") {
-                goon = false;
-            }
-            if ($("input[title*='Date Completed']").val() == "") {
-                goon = false;
-            }
-            if ($("input[title*='Expended']").val() == "") {
-                goon = false;
-            }
-            if (goon == true) {
-                $(window).on('unload', function () {
-                    var returndata = [];
-                    returndata[0] = "Refresh";
-                    returndata[1] = "Action Added";
-                    SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.OK, returndata);
-                });
-                $("input[id*='SaveItem']").trigger('click');
-            }
-            else {
-                var ehtml = "<li id='FormError' class='ms-cui-group' style='width: 400px; background-color: red;'>";
-                ehtml += "<div class='container-fluid' style='padding: 36px; text-align: center; color: black; font-size: 16px;'>";
-                ehtml += "Not all required fields have been filled out.</div></li>";
-                $("ul[id='Ribbon.ListForm.Edit']").append(ehtml);
-            }
-        });
-        $("#btnCancel").click(function () { // Cancel and Close the popup
-            SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.cancel);
+
+        $("#btnCancel").on("click", function () {
+            CancelAction();
         });
     }
 
@@ -330,7 +277,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
                 // Set the hidden title field to the selected Standard
                 var idx = $("#" + obj.id + " option:selected").val();
                 var standard = v.standards[idx]["standard"];
-                $("input[title='Title Required Field']").val(standard);
+                $("input[title^='Title']").val(standard);
                 $("#divDescription").html("").append(v.standards[idx]["description"]);
                 GetAlignments();
                 break;
@@ -350,6 +297,65 @@ CKO.FORMS.ACTIONS.EditForm = function () {
                 $("input[title='Function Required Field']").val($("#ddFunction option:selected").val());
                 break;
         }
+    }
+
+    function SaveAction() {
+        $("#FormError").remove();
+        var goon = true;
+        if ($("input[title='SupportAlignment']").val() == "" && $("select[title='EffortType'] option:selected").val() == "Standard") {
+            if (v.alignmentrequired == true) {
+                goon = false;
+                v.errortext += "Support Alignment ";
+            }
+        }
+        if ($("#ddStandard option:selected").val() == "Select..." && $("select[title='EffortType'] option:selected").val() == "Standard") {
+            goon = false;
+            v.errortext += "Objective ";
+        }
+        if ($("#ddDirective option:selected").val() == "Select..." && $("select[title='EffortType'] option:selected").val() == "Directive") {
+            goon = false;
+            v.errortext += "Objective ";
+        }
+        if ($("input[title='Enabler Required Field']").val() == "Select..." || $("input[title='Enabler Required Field']").val() == "") {
+            goon = false;
+            v.errortext += "Enabler ";
+        }
+        if ($("input[title='Function Required Field']").val() == "Select..." || $("input[title='Function Required Field']").val() == "") {
+            goon = false;
+            v.errortext += "Function ";
+        }
+        if ($("textarea[title*='Comments']").val().trim().length <= 5) {
+            goon = false;
+            v.errortext += "Comments ";
+        }
+        if ($("input[title*='Date Completed']").val() == "") {
+            goon = false;
+            v.errortext += "Date Completed ";
+        }
+        if ($("input[title*='Expended']").val() == "") {
+            goon = false;
+            v.errortext += "Time ";
+        }
+        if (goon == true) {
+            $(window).on('unload', function () {
+                var returndata = [];
+                returndata[0] = "Refresh";
+                returndata[1] = "Action Added";
+                SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.OK, returndata);
+            });
+            $("input[id*='SaveItem']").trigger('click');
+        }
+        else {
+            var ehtml = "<li id='FormError' class='ms-cui-group' style='width: 400px; background-color: red;'>";
+            ehtml += "<div class='container-fluid' style='padding: 36px; text-align: center; color: black; font-size: 16px;'>";
+            ehtml += v.errortext + "</div></li>";
+            $("ul[id='Ribbon.ListForm.Edit']").append(ehtml);
+            v.errortext = "Please fill out the fields: ";
+        }
+    }
+
+    function CancelAction() {
+        SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.cancel);
     }
 
     return {

@@ -123,14 +123,14 @@ CKO.DASHBOARD.Directives = function () {
                             break;
                     }
                     v.html += "<td class='" + d + "' data-powertip='" + pt + "'></td>";
-                    v.html += "<td>" + a.format("DD-MMM-YY") + "</td>";
+                    v.html += "<td>" + a.format("YYYY-MM-DD") + "</td>";
                     var sl = j[i]["StaffLead"]["LastName"];
                     v.html += "<td>" + sl + "</td>";
                     v.html += "<td>" + j[i]["SupportedOrg"] + "</td>";
                     v.html += "<td>" + j[i]["SupportingOrg"] + "</td>";
                     v.html += "<td></td>";
                     v.html += "<td>" + j[i]["Expended"] + "</td>";
-                    v.html += "<td>" + (j[i]["PercentExpended"]) * 100 + "%</td>";
+                    v.html += "<td>" + ((j[i]["PercentExpended"]) * 100).toFixed(1) + "%</td>";
                     v.html += "</tr>";
                 }
                 v.html += "</tbody></table>";

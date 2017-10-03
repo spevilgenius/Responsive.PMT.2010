@@ -21,7 +21,7 @@
     <File Path="SiteAssets\css\common.css" Url="SiteAssets/css/common.css" />
     <File Path="SiteAssets\css\homepagelayout.css" Url="SiteAssets/css/homepagelayout.css" />
     <File Path="SiteAssets\css\CEWP_KM_Map.css" Url="SiteAssets/css/CEWP_KM_Map.css" />
-    <File Path="SiteAssets\js\CEWP_KM_Map.js" Url="SiteAssets/js/CEWP_KM_Map.js" />
+    <File Path="SiteAssets\js\CEWP_KM_Map_Old.js" Url="SiteAssets/js/CEWP_KM_Map_Old.js" />
     <File Path="SiteAssets\html\CEWP_KM_Map.html" Url="SiteAssets/html/CEWP_KM_Map.html" />
     <File Path="SiteAssets\js\ocko.overrides.js" Url="SiteAssets/js/ocko.overrides.js" />
     <File Path="SiteAssets\js\ocko.overrides.scriptlink.js" Url="SiteAssets/js/ocko.overrides.scriptlink.js" />
@@ -104,5 +104,6 @@
     <File Path="SiteAssets\js\CEWP_Forms_NewTaskerForm.js" Url="SiteAssets/js/CEWP_Forms_NewTaskerForm.js" />
     <File Path="SiteAssets\js\CEWP_Pages_MyTasks_AllTasks.js" Url="SiteAssets/js/CEWP_Pages_MyTasks_AllTasks.js" />
     <File Path="SiteAssets\html\CEWP_Pages_MyTasks_AllTasks.html" Url="SiteAssets/html/CEWP_Pages_MyTasks_AllTasks.html" />
+    <File Path="SiteAssets\js\CEWP_KM_Map.js" Url="SiteAssets/js/CEWP_KM_Map.js" />
   </Module>
 </Elements>

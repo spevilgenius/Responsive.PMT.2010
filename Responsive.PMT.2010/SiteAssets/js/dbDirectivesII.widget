@@ -1,0 +1,228 @@
+﻿<div style="width:99%;margin-left:-6px;margin-top:-16px;"><table border="0" cellspacing="8"><tr><td id="tblDirectives" valign="top"></td></tr></table></div>
+
+<!-- Time for all the javascript -->
+<script type="text/javascript">
+
+$(document).ready(function(){
+    waitForThisUser();
+	
+	function waitForThisUser(){
+	    if(typeof _thisUser === "undefined"){
+	        setTimeout(function(){
+	            waitForThisUser();
+	        },10);
+	    }else{
+		    PMT.init({}).then(function(){
+		    	if($().SPHelper.GetURLParam("VisibilityContext") ==="WSSWebPartPage"){
+					dbDirectives.pageEdit();
+				}else{
+					dbDirectives.init();
+				}
+			});
+	    }
+	}
+});//End Doc Ready
+
+(function(dbDirectives,$,undefined){
+	var _list = {};
+	var _listQuery = {};				
+	var _listViewFields = {};		
+	var _listMapping = {};		
+		
+	var ds = {};
+		ds["Efforts"] = {};
+		ds["Directives"] = {};
+		ds["Orgs"] = {};
+		ds["Actions"] = {};
+
+	dbDirectives.pageEdit = function(){
+		$('#tblDirectives').empty().append("<div style='margin:5px;text-align:center;font-weight:bold;font-size:14px;font-style:italic;'>Query Suspended During Page Edit Mode</div>");
+	};
+	
+	dbDirectives.init = function(){
+		sessionStorage.removeItem("Directives");
+
+		$().SPHelper.debug("dbDirectives.init:" + moment.utc(Date.now()).local().format("HH:mm:ss.SSS"),1);
+
+		var dataPulls = [];
+		var jsonDirectives = [];
+		var mapSubOrgs = {};
+		
+		dataPulls.push(PMT.getDirectives().then(function(){
+			ds["Directives"] = $.extend([],this.data);
+		}));
+		
+		dataPulls.push(PMT.getPrimaryOrganizations().then(function(){
+			ds["Orgs"] = $.extend([],this.data);		
+		}));
+		
+		dataPulls.push(PMT.getDirectiveActions().then(function(){
+			ds["Actions"] = $.extend([],this.data);		
+		}));
+
+		var chartWidth = ((($("#pmtPageHeader").width()/4)-4)*3)+8;
+
+		$('#tblDirectives').attr("width",chartWidth+"px");
+		
+		var tblDiv = $('<div class="scrollgrid" style="width:'+chartWidth+'px;"></div>')
+		var tblHeader1 = [];
+		var tblHeader2 = [];
+		var tblDivInner = $('<div class="inner_table"></div>');
+		var tblBody = [];
+		
+		$.when(dataPulls).then(function(){
+			//Build the Header
+				tblHeader1.push("<table class='head'>");
+				tblHeader1.push("<tr><td style='text-align:center;'>Directives by Suspense Date</td></tr>");
+				tblHeader1.push("</table>");
+				
+				tblHeader2.push("<table class='head alt'>");
+				tblHeader2.push("<tr>");
+				tblHeader2.push("<td class='leadAColumn'>Lead Assessment</td>");
+				tblHeader2.push("<td style='text-align:left;'>Directive</th>");
+				tblHeader2.push("<td class='statusColumn'>Status</td>");
+				tblHeader2.push("<td class='suspenseColumn'>Suspense</td>");
+				tblHeader2.push("<td class='leadColumn'>Lead</td>");
+				tblHeader2.push("<td class='orgColumn'>Supported Organization</td>");
+				tblHeader2.push("<td class='orgColumn'>Supporting Organization</td>");
+				tblHeader2.push("<td class='resourcedColumn'>Resourced</td>");												
+				tblHeader2.push("<td class='expendedColumn'>Expended</td>");
+				tblHeader2.push("<td class='scrollColumn' id='sgColumn' style='display:none;'>&nbsp;&nbsp;</td>");
+				tblHeader2.push("</tr>");
+				tblHeader2.push("</table>");
+		}).then(function(){
+			_buildEfforts($.extend([],ds["Directives"])).done(function(){
+				ds["Directives"] = $.extend(true,[],this.data);
+			});
+		}).then(function(){
+			//Now the Inner Table	
+			tblBody.push("<table>");
+			
+			ds["Directives"].sort(sort_by("SuspenseSort",true));
+			
+			for(x=0;x<ds["Directives"].length;x++){
+				tblBody.push("<tr>");
+				tblBody.push("<td class='leadAColumn'>"+ds["Directives"][x].LeadAssessment+"</td>"); //Lead Assessment Here
+				tblBody.push("<td><a href='#' class='showDirective' id-data='"+ds["Directives"][x].ID+"'>"+ds["Directives"][x].Directive+"</a></td>");
+				tblBody.push("<td class='statusColumn'>"+ds["Directives"][x].Suspense+"</td>");
+				tblBody.push("<td class='suspenseColumn'>"+ds["Directives"][x].SuspenseDate+"</td>");
+				tblBody.push("<td class='leadColumn'>"+ds["Directives"][x].Lead+"</td>");
+				tblBody.push("<td class='orgColumn'>"+ds["Directives"][x].Org+"</td>");
+				tblBody.push("<td class='orgColumn'>"+ds["Directives"][x].PMTOrg+"</td>");
+				//tblBody.push("<td class='orgColumn'></td>");
+				tblBody.push("<td class='resourcedColumn'>"+ds["Directives"][x].Resourced+"</td>");
+
+				tblBody.push("<td class='expendedColumn'><span class='powerTip' data-powertip='"+ ds["Directives"][x].Expended +" Hrs'>"+ ds["Directives"][x].Pct.toFixed(0) +"%</span></td>");
+				tblBody.push("</tr>");
+			}
+			tblBody.push("</table>");
+
+			tblDiv.append(tblHeader1.join(""));
+			tblDiv.append(tblHeader2.join(""));
+			tblDivInner.append(tblBody.join(""));
+			tblDiv.append(tblDivInner);
+			$('#tblDirectives').append(tblDiv);
+			
+			if((parseInt(ds["Directives"].length,10)*19)> 171){
+				tblDivInner.css("height", "200px");  //Sets the table's height so we can get scrollbars
+				$("#sgColumn").show();
+			}
+	
+		}).then(function(){
+			//Supplemental Functions
+			$("img[class*='powerTip']").powerTip({
+				placement: 'ne'
+			});
+			$("span[class*='powerTip']").powerTip({
+				placement: 'ne'
+			});
+
+			
+			$("a[class*='showDirective']").on('click',function(){			
+				//debug('/sites/PMT/Lists/Directives/DisplayDirective.aspx?ID='+ $(this).attr("id-data"));	
+				$().SPHelper.ModalDialog({
+					toform: true,
+					pagetype: 4,
+					list: $.fn.SPHelper.GetListGUID({ list: "Directives" }),
+					title: "Display - Directive",
+					ID: $(this).attr("id-data"),
+					debug: false
+				});
+	    		
+				return false;
+			});
+		}).done(function(){
+			$("#loadingBox").hide();
+		});
+	};	
+
+	function _buildEfforts(dsDir){
+		var defer = $.Deferred();
+		var MH = {
+			Exp: 0,
+			Pro: 0,
+			Pct: 0,
+			Avail: 0,
+			Calc: 0
+		};
+		var dataCompiled = [];
+
+		for(x=0;x<dsDir.length;x++){			
+			if((dsDir[x].Status == "Pending")||(dsDir[x].Status == "InProgress")||(dsDir[x].Status == "Ongoing")){	
+				
+				if((ds["Actions"].ttlHrs > 0) && ds["Actions"].entry[ds["Directives"][x].ID]){
+					MH.Exp = parseFloat(ds["Actions"].entry[dsDir[x].ID].Hours);
+				}else{
+					MH.Exp = parseFloat("0.00");
+				}
+				MH.Pro = parseFloat(dsDir[x].Projected);
+				MH.Pct = parseFloat(((MH.Exp/MH.Pro)*100).toFixed(2)); //MHExp/ttlHrs;
+				MH.Avail = parseFloat((dsDir[x].Available*1).toFixed(2));
+				MH.Calc = parseInt((""+(MH.Avail/MH.Pro))*100); 
+				var staff_lead = isUndefined(dsDir[x].Lead.userName) ? "<span style='color:red;text-align:center;'>*</span>" : dsDir[x].Lead.userName.split(",")[0];					
+				var org = isUndefined(dsDir[x].OrgGrp.lookupValue) ? "<span style='color:red;text-align:center;'>*</span>" : dsDir[x].OrgGrp.lookupValue;
+				dataCompiled.push({ 'ID': dsDir[x].ID, 'Directive': dsDir[x].Title, 
+									'LeadAssessment': PMT.getSquare(dsDir[x].LeadAssessment),
+									'Resourced': PMT.getResourced(dsDir[x].Equipped,dsDir[x].Trained,MH.Calc), 
+									'SuspenseDate': $().SPHelper.DateFormat(dsDir[x].SuspenseDate,"milDate") ,
+									'Status': dsDir[x].Status ,
+									'CompleteDate': dsDir[x].CompleteDate, 
+									'Suspense': PMT.getSuspense(dsDir[x].SuspenseDate,dsDir[x].Status,dsDir[x].CompleteDate),
+									'Lead': staff_lead, 
+									'Org': org, 
+									'PMTOrg': dsDir[x].PMTOrg.lookupValue, 
+									'SuspenseSort': $().SPHelper.DateFormat(dsDir[x].SuspenseDate,"spISODateTime"),
+									'Projected': dsDir[x].Projected,
+									'Expended': MH.Exp, 
+									'Pct': MH.Pct
+								});				
+			}		
+		}
+
+		defer.resolveWith({ data: dataCompiled });
+
+		return defer.promise();
+	}
+
+
+	//Sort an array of objects
+	function sort_by(field, reverse, primer){
+	   var key = function (x) {return primer ? primer(x[field]) : x[field]};
+	
+	   return function (a,b) {
+		  var A = key(a), B = key(b);
+		  return ( (A < B) ? -1 : ((A > B) ? 1 : 0) ) * [-1,1][+!!reverse];                  
+	   }
+	}
+
+	
+	/* Validation Methods */
+	function isUndefined(isX) {
+		return typeof isX === 'undefined';
+	}
+
+
+}( window.dbDirectives = window.dbDirectives || {}, jQuery ));     
+
+
+</script>

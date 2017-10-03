@@ -363,6 +363,7 @@
     <Content Include="SiteAssets\html\CEWP_Dashboard_Charts_SVD.html" />
     <Content Include="SiteAssets\html\CEWP_Dashboard_Legend.html" />
     <Content Include="SiteAssets\html\CEWP_Forms_NewTaskerForm.html" />
+    <Content Include="SiteAssets\html\CEWP_MyActions.html" />
     <Content Include="SiteAssets\html\CEWP_Taskers_NewTaskers.html" />
     <Content Include="SiteAssets\html\CEWP_Dashboard_NewCatsTaskers.html" />
     <Content Include="SiteAssets\html\CEWP_Dashboard_CatsTaskers.html" />
@@ -409,6 +410,7 @@
     <Content Include="SiteAssets\js\CEWP_KM_Chart.js" />
     <Content Include="SiteAssets\js\CEWP_FORMS_EditOrgForm.js" />
     <Content Include="SiteAssets\js\CEWP_KM_Map.js" />
+    <Content Include="SiteAssets\js\CEWP_KM_Map_Old.js" />
     <Content Include="SiteAssets\js\CEWP_KM_TotalChart.js" />
     <Content Include="SiteAssets\js\CEWP_MyActions.js" />
     <Content Include="SiteAssets\js\CEWP_MyDashboard.js" />
