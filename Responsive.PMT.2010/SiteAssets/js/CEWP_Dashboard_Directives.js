@@ -128,7 +128,9 @@ CKO.DASHBOARD.Directives = function () {
                     v.html += "<td>" + sl + "</td>";
                     v.html += "<td>" + j[i]["SupportedOrg"] + "</td>";
                     v.html += "<td>" + j[i]["SupportingOrg"] + "</td>";
+
                     v.html += "<td></td>";
+
                     v.html += "<td>" + j[i]["Expended"] + "</td>";
                     v.html += "<td>" + ((j[i]["PercentExpended"]) * 100).toFixed(1) + "%</td>";
                     v.html += "</tr>";

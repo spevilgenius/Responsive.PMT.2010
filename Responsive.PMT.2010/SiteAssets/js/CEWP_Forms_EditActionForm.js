@@ -2,6 +2,7 @@
 CKO.AJAX = CKO.AJAX || {};
 CKO.FORMS = CKO.FORMS || {};
 CKO.FORMS.ACTIONS = CKO.FORMS.ACTIONS || {};
+var _eventHandlers = {};
 
 CKO.FORMS.ACTIONS.VARIABLES = {
     newform: null,
@@ -19,6 +20,7 @@ CKO.FORMS.ACTIONS.VARIABLES = {
     directives: null,
     standards: null,
     alignmentrequired: true,
+    actionid: jQuery.QueryString["ID"],
     actiondate: jQuery.QueryString["Date"]
 }
 
@@ -260,6 +262,47 @@ CKO.FORMS.ACTIONS.EditForm = function () {
 
         $("#btnCancel").on("click", function () {
             CancelAction();
+        });
+
+        $(".ms-cui-ctl-large").each(function () {
+            switch ($(this).attr("id")) {
+                case "Ribbon.ListForm.Edit.Actions.DeleteItem-Large":
+                    //$(this).css({ "border": "1px solid red" });
+                    var $cloned = $(this).clone();
+                    $cloned.attr("id", "Sausage")
+                    $(this).parent().append($cloned);
+                    $(this).remove();
+                    break;
+            }
+        });
+
+        $("#Sausage").attr("onclick", "").attr("href", "#").on("click", function (e) {
+            e.preventDefault();
+            //alert("Delete Item: " + v.actionid);
+            $().SPSTools_Notify({
+                type: 'yesno',
+                content: 'Are you sure you want to delete the item?<br/><br/>',
+                callback: function (r) {
+                    switch (r) {
+                        case "Yes":
+                            v.ctx = new SP.ClientContext.get_current();
+                            v.list = v.ctx.get_web().get_lists().getByTitle("Actions");
+                            v.listitem = v.list.getItemById(v.actionid);
+                            v.listitem.deleteObject();
+                            v.ctx.executeQueryAsync(function () {
+                                var returndata = [];
+                                returndata[0] = "Refresh";
+                                returndata[1] = "Action Deleted";
+                                SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.OK, returndata);
+                            }, function (sender, args) { alert("Error Deleting Item"); });
+                            break;
+
+                        case "No":
+                            // TODO: Do we cancel here or just do nothing?
+                            break;
+                    }
+                }
+            });
         });
     }
 

@@ -137,7 +137,7 @@ CKO.ACTIONS.MyActions = function () {
                 dhtml += "<tr><td>Hours</td><td>" + event.Hours + "</td></tr>";
                 dhtml += "<tr><td>Enabler</td><td>" + event.Enabler + "</td></tr>";
                 dhtml += "<tr><td>Comments</td><td>" + event.Comments + "</td></tr>";
-                dhtml += "<tr><td>Tools</td><td><a href='#' type='button' data-actionid='" + event.id + "' class='btn btn-default btncopy'>Copy Action</a>&nbsp;<a href='#' type='button' data-actionid='" + event.id + "' class='btn btn-success btnedit'>Edit Action</a></td></tr>";
+                dhtml += "<tr><td>Tools</td><td><a href='#' type='button' data-actionid='" + event.id + "' class='btn btn-info btncopy'>Copy Action</a>&nbsp;<a href='#' type='button' data-actionid='" + event.id + "' class='btn btn-success btnedit'>Edit Action</a></td></tr>";
                 dhtml += "</table>";
                 $("#PMTModalBody").html('').append(dhtml);
                 $("#PMTModalTitle").html('').append(event.title);
@@ -162,16 +162,18 @@ CKO.ACTIONS.MyActions = function () {
                     $(".fc-day-number").each(function () {
                         var dd = $(this).parent().attr("data-date");
                         // TODO: Find a way to add the event hours for this date and add them to the top
-                        var add = "<div style='float:left;margin-right:5px;margin-top:5px;'>Total: <span data-date='" + dd + "'></span></div><a class='btn btn-default btn-xs btnadd' data-date='" + dd + "' href='#'>Add</a>&nbsp;";
+                        var add = "<div style='float:left;margin-right:30px;margin-top:5px;'>Total: <span data-date='" + dd + "'></span></div><a class='btn btn-default btn-xs btnadd' data-date='" + dd + "' href='#'>Add</a>&nbsp;";
                         $(this).prepend(add);
                     });
-                    $(".btnadd").on("click", function (e) {
-                        e.preventDefault();
-                        var zurl = fixurl('/Lists/' + alist + '/NewForm.aspx?Action=New&Date=' + $(this).attr("data-date") + '&IsDlg=1');
-                        CKODialog(zurl, 'Add New Action', '800', '700', 'NotificationCallback');
-                    });
+                   
                 }
                 
+                $(".btnadd").on("click", function (e) {
+                    e.preventDefault();
+                    var zurl = fixurl('/Lists/Actions/NewForm.aspx?Action=New&Date=' + $(this).attr("data-date") + '&IsDlg=1');
+                    CKODialog(zurl, 'Add New Action', '800', '700', 'NotificationCallback');
+                });
+
                 $(".fc-title").hover(function () {
                     $(this).css({ "cursor": "pointer" });
                 }, function () {
