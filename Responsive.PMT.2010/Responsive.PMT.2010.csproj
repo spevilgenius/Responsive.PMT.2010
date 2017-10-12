@@ -358,8 +358,11 @@
     <Content Include="SiteAssets\Elements.xml" />
     <Content Include="SiteAssets\fonts\fontawesome-webfont.svg" />
     <Content Include="SiteAssets\html\CEWP_Dashboard.html" />
+    <Content Include="SiteAssets\html\CEWP_MyDashboard_Charts_Authority.html" />
     <Content Include="SiteAssets\html\CEWP_Dashboard_Charts_Authority.html" />
+    <Content Include="SiteAssets\html\CEWP_MyDashboard_Charts_Functions.html" />
     <Content Include="SiteAssets\html\CEWP_Dashboard_Charts_Functions.html" />
+    <Content Include="SiteAssets\html\CEWP_MyDashboard_Charts_SVD.html" />
     <Content Include="SiteAssets\html\CEWP_Dashboard_Charts_SVD.html" />
     <Content Include="SiteAssets\html\CEWP_Dashboard_Legend.html" />
     <Content Include="SiteAssets\html\CEWP_Forms_NewTaskerForm.html" />
@@ -386,13 +389,17 @@
     <Content Include="SiteAssets\html\dbAuthority.html" />
     <Content Include="SiteAssets\html\dbDirectivesII.html" />
     <Content Include="SiteAssets\html\DirectivesHTML1.html" />
+    <Content Include="SiteAssets\html\HTMLPage1.html" />
     <Content Include="SiteAssets\html\SiteNavigation.html" />
     <Content Include="SiteAssets\html\staffaction.html" />
     <Content Include="SiteAssets\html\directives.html" />
     <Content Include="SiteAssets\images\NOPII.png" />
     <Content Include="SiteAssets\js\Actions_NewForm.js" />
+    <Content Include="SiteAssets\js\CEWP_MyDashboard_Charts_Authority.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_Charts_Authority.js" />
+    <Content Include="SiteAssets\js\CEWP_MyDashboard_Charts_Functions.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_Charts_Functions.js" />
+    <Content Include="SiteAssets\js\CEWP_MyDashboard_Charts_SVD.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_Charts_SVD.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_Legend.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_NewCatsTaskers.js" />
@@ -421,6 +428,7 @@
     <Content Include="SiteAssets\js\ckoTask_DisplayTask.js" />
     <Content Include="SiteAssets\js\Directive_EditForm.js" />
     <Content Include="SiteAssets\js\Directive_NewForm.js" />
+    <Content Include="SiteAssets\js\exporting.js" />
     <Content Include="SiteAssets\js\HCHelper.js" />
     <Content Include="SiteAssets\js\PMT.js" />
     <Content Include="SiteAssets\js\SiteNavigation.js" />

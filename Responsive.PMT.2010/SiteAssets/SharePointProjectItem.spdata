@@ -106,5 +106,13 @@
     <ProjectItemFile Source="js\CEWP_Pages_MyTasks_AllTasks.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Pages_MyTasks_AllTasks.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_KM_Map.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_MyDashboard_Charts_Authority.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_MyDashboard_Charts_Functions.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_MyDashboard_Charts_SVD.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_MyDashboard_Charts_Authority.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_MyDashboard_Charts_Functions.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_MyDashboard_Charts_SVD.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\exporting.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\HTMLPage1.html" Target="SiteAssets\html\" Type="ElementFile" />
   </Files>
 </ProjectItem>

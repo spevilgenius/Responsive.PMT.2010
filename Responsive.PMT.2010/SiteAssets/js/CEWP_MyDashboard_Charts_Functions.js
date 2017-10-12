@@ -1,137 +1,161 @@
 ﻿var CKO = CKO || {};
 CKO.AJAX = CKO.AJAX || {};
-CKO.DASHBOARD = CKO.DASHBOARD || {};
-CKO.DASHBOARD.CHARTS = CKO.DASHBOARD.CHARTS || {};
-CKO.DASHBOARD.CHARTS.VARIABLES = CKO.DASHBOARD.CHARTS.VARIABLES || {};
+CKO.MYDASHBOARD = CKO.MYDASHBOARD || {};
+CKO.MYDASHBOARD.CHARTS = CKO.MYDASHBOARD.CHARTS || {};
+CKO.MYDASHBOARD.CHARTS.VARIABLES = CKO.MYDASHBOARD.CHARTS.VARIABLES || {};
 
-CKO.DASHBOARD.CHARTS.VARIABLES.SVD = {
+CKO.MYDASHBOARD.CHARTS.VARIABLES.Functions = {
     site: null,
     loc: String(window.location),
     waitmsg: null,
     title: null,
-    ctx: null,
-    web: null,
-    list: null,
+    qry: null,
+    url: null,
     data: null,
     json: null,
-    totalhours: 0,
-    standard: null,
-    directive: null,
-    listitem: null,
-    user: null,
     userID: null,
-    site: null,
-    qry: null,
+    chartdata: null,
+    totalhours: 0,
     ThisFY: null,
-    html: ""
+    functions: null
 }
 
-CKO.DASHBOARD.CHARTS.SVD = function () {
+CKO.MYDASHBOARD.CHARTS.Functions = function () {
 
-    var v = CKO.DASHBOARD.CHARTS.VARIABLES.SVD;
+    var v = CKO.MYDASHBOARD.CHARTS.VARIABLES.Functions;
 
     function Init(site, qry) {
         var inDesignMode = document.forms[MSOWebPartPageFormName].MSOLayout_InDesignMode.value;
         if (inDesignMode === "1") {
-            $("#SVD").html("").append("<div style='margin:5px;text-align:center;font-weight:bold;font-size:14px;font-style:italic;'>Query Suspended During Page Edit Mode</div>");
+            $("#Functions").html("").append("<div style='margin:5px;text-align:center;font-weight:bold;font-size:14px;font-style:italic;'>Query Suspended During Page Edit Mode</div>");
         }
         else {
-            v.standard = 0;
-            v.directive = 0;
+            v.functions = new Array();
             v.site = site;
+            v.qry = qry;
             v.data = [];
             v.json = null;
+            v.url = null;
             v.qry = qry;
-            LoadActions(qry, null);
+            v.userID = _spPageContextInfo.userId;
+            var zebra = LoadFunctions();
+            jQuery.when.apply(null, zebra).done(function () {
+                FunctionsLoaded();
+            });
         }
     }
 
-    function LoadActions(qry, zurl) {
-        if (zurl == null) {
-            //Load Actions From REST and filter based on qry
-            var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions?";
-            urlString += "$select=Id,Expended,DateCompleted,EffortTypeValue";
+    function LoadFunctions() {
+        var deferreds = [];
+        // Just get the functions and build the initial array.
+        var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Functions?";
+        urlString += "$select=Id,Title,Abbreviation";
 
-            switch (qry) {
+        deferreds.push($.when(CKO.REST.GetListItems.getitems(urlString)).then(function (data) {
+            var results = data.d.results;
+            var j = jQuery.parseJSON(JSON.stringify(results));
+            for (var i = 0, length = j.length; i < length; i++) {
+                v.functions.push({
+                    "title": j[i]["Title"],
+                    "abbr": j[i]["Abbreviation"],
+                    "hours": 0
+                })
+            }
+        }, function (data) { logit("My Functions Chart Error: " + data); }));
+        return deferreds;
+    }
+
+    function FunctionsLoaded() {
+        if (v.url == null) {
+
+            var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions?";
+            urlString += "$select=Id,Expended,PMTUser/Id,DateCompleted,Function";
+            urlString += "&$expand=PMTUser";
+
+            switch (v.qry) {
                 case "Y":
-                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(1, 'years').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(1, 'years').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "') and (PMTUser/Id eq " + v.userID + ")";
                     break;
 
                 case "Q":
-                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(90, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(90, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "') and (PMTUser/Id eq " + v.userID + ")";
                     break;
 
                 case "M":
-                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(30, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(30, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "') and (PMTUser/Id eq " + v.userID + ")";
                     break;
 
                 case "W":
-                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(7, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(7, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "') and (PMTUser/Id eq " + v.userID + ")";
                     break;
             }
-            zurl = urlString;
+            v.url = urlString;
+            logit("My Functions Query: " + v.url);
         }
 
         jQuery.ajax({
-            url: zurl,
+            url: v.url,
             method: "GET",
             headers: { 'accept': 'application/json; odata=verbose' },
             error: function (jqXHR, textStatus, errorThrown) {
                 //to do implement logging to a central list
-                logit("Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
+                logit("My Functions Chart Ajax Error Getting Actions: " + textStatus + ":: errorThrown: " + errorThrown);
             },
             success: function (data) {
                 v.data = v.data.concat(data.d.results);
                 if (data.d.__next) {
-                    zurl = data.d.__next;
-                    //logit("More than 1000 items: Next=" + zurl);
-                    LoadActions(qry, zurl); // qry really wont matter here, but need to pass the next url.
+                    v.url = data.d.__next;
+                    FunctionsLoaded();
                 }
                 else {
                     var results = v.data;
                     v.json = jQuery.parseJSON(JSON.stringify(results));
-                    DataLoaded();
+                    FunctionDataLoaded();
                 }
             }
         });
     }
 
-    function DataLoaded() {
-        logit("SVD Chart: Data Loaded");
+    function FunctionDataLoaded() {
+        logit("All Function Data Loaded");
         var numitems = v.json.length;
-        // Now loop through the data to get the standards and directives to create the series for the chart
+        // Now loop through the data to get the different functions based on the action
         var j = v.json;
         for (var i = 0, length = j.length; i < length; i++) {
-            switch (j[i]["EffortTypeValue"]) {
-                case "Directive":
-                    v.directive += j[i]["Expended"];
+            // This is all of the actions from the qry so now update the hours for each Function by adding the hours to that array
+            for (var k = 0; k < v.functions.length; k++) {
+                if (v.functions[k].title == j[i]["Function"]) {
+                    v.functions[k].hours += j[i]["Expended"];
                     v.totalhours += j[i]["Expended"];
-                    break;
-
-                case "Standard":
-                    v.standard += j[i]["Expended"];
-                    v.totalhours += j[i]["Expended"];
-                    break;
+                }
             }
         }
+        // Create data for the series using the abbreviations
+        v.chartdata = [];
+        for (var k = 0; k < v.functions.length; k++) {
+            v.chartdata.push({
+                "name": v.functions[k]["abbr"],
+                "y": v.functions[k]["hours"]
+            })
+        }
         DrawPieChart();
-        $("#SVD").find("text:contains(" + v.qry + ")").parent().find(".highcharts-button-box").addClass("active").attr("fill", "#ff0000");
+        $("#Functions").find("text:contains(" + v.qry + ")").parent().find(".highcharts-button-box").attr("fill", "#ff0000");
 
-        $("#SVD").find(".highcharts-root").attr("id", "SVDSVG");
+        $("#Functions").find(".highcharts-root").attr("id", "FunctionsSVG");
         var xmlns = "http://www.w3.org/2000/svg";
         var TotalBox = document.createElementNS(xmlns, "text");
 
-        TotalBox.setAttributeNS(null, "x", 80);
+        TotalBox.setAttributeNS(null, "x", 60);
         TotalBox.setAttributeNS(null, "y", 24);
         TotalBox.setAttributeNS(null, "text-anchor", "middle");
-        TotalBox.setAttributeNS(null, "style", "font-size: 16px; fill: #333333;");
+        TotalBox.setAttributeNS(null, "style", "font-size: 12px; fill: #333333;");
         var TotalText = document.createTextNode("Total Hours: " + v.totalhours);
         TotalBox.appendChild(TotalText);
-        document.getElementById("SVDSVG").appendChild(TotalBox);
+        document.getElementById("FunctionsSVG").appendChild(TotalBox);
     }
 
     function DrawPieChart() {
-        Highcharts.chart('SVD', {
+        Highcharts.chart('Functions', {
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
@@ -160,7 +184,7 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
                             }
                         },
                         onclick: function () {
-                            CKO.DASHBOARD.CHARTS.SVD().Init(v.site, 'Y');
+                            CKO.MYDASHBOARD.CHARTS.Functions().Init(v.site, 'Y');
                         }
                     },
                     quarterButton: {
@@ -180,7 +204,7 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
                             }
                         },
                         onclick: function () {
-                            CKO.DASHBOARD.CHARTS.SVD().Init(v.site, 'Q');
+                            CKO.MYDASHBOARD.CHARTS.Functions().Init(v.site, 'Q');
                         }
                     },
                     monthButton: {
@@ -200,7 +224,7 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
                             }
                         },
                         onclick: function () {
-                            CKO.DASHBOARD.CHARTS.SVD().Init(v.site, 'M');
+                            CKO.MYDASHBOARD.CHARTS.Functions().Init(v.site, 'M');
                         }
                     },
                     weekButton: {
@@ -220,13 +244,13 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
                             }
                         },
                         onclick: function () {
-                            CKO.DASHBOARD.CHARTS.SVD().Init(v.site, 'W');
+                            CKO.MYDASHBOARD.CHARTS.Functions().Init(v.site, 'W');
                         }
                     }
                 }
             },
             title: {
-                text: 'Standards Vs Directives'
+                text: 'Functions'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.y}</b>'
@@ -247,13 +271,7 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
             series: [{
                 name: 'Hours',
                 colorByPoint: true,
-                data: [{
-                    name: 'Directives',
-                    y: v.directive
-                }, {
-                    name: 'Standards',
-                    y: v.standard
-                }]
+                data: v.chartdata
             }]
         });
     }
@@ -281,4 +299,4 @@ function getISODate(date) {
     return s;
 }
 
-SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs('CEWP_Dashboard_Charts_SVD.js');
+SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs('CEWP_MyDashboard_Charts_Functions.js');

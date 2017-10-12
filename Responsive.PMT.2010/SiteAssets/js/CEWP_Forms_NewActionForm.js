@@ -142,7 +142,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                 // Now just loop back through the array to create the dropdown and pass the index as the value so we know which standard to get data for.
                 var opts;
                 if (v.title != "") {
-                    opts = "<option value='Select...'>Select...</option>";
+                    opts = "<option value='666'>Select...</option>";
                     for (var i = 0; i < v.standards.length; i++) {
                         // if the title matches the option, select it
                         if (v.standards[i]["standard"] == v.title) {
@@ -162,6 +162,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                     }
                 }
                 $("#ddStandard").html("").append(opts);
+                GetAlignments();
             }
         });
     }

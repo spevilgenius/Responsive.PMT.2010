@@ -1,10 +1,10 @@
 ﻿var CKO = CKO || {};
 CKO.AJAX = CKO.AJAX || {};
-CKO.DASHBOARD = CKO.DASHBOARD || {};
-CKO.DASHBOARD.CHARTS = CKO.DASHBOARD.CHARTS || {};
-CKO.DASHBOARD.CHARTS.VARIABLES = CKO.DASHBOARD.CHARTS.VARIABLES || {};
+CKO.MYDASHBOARD = CKO.MYDASHBOARD || {};
+CKO.MYDASHBOARD.CHARTS = CKO.MYDASHBOARD.CHARTS || {};
+CKO.MYDASHBOARD.CHARTS.VARIABLES = CKO.MYDASHBOARD.CHARTS.VARIABLES || {};
 
-CKO.DASHBOARD.CHARTS.VARIABLES.Authority = {
+CKO.MYDASHBOARD.CHARTS.VARIABLES.Authority = {
     site: null,
     loc: String(window.location),
     waitmsg: null,
@@ -13,6 +13,7 @@ CKO.DASHBOARD.CHARTS.VARIABLES.Authority = {
     url: null,
     data: null,
     json: null,
+    userID: null,
     chartdata: null,
     authorities: null,
     standards: null,
@@ -21,9 +22,9 @@ CKO.DASHBOARD.CHARTS.VARIABLES.Authority = {
     directives: null
 }
 
-CKO.DASHBOARD.CHARTS.Authority = function () {
+CKO.MYDASHBOARD.CHARTS.Authority = function () {
 
-    var v = CKO.DASHBOARD.CHARTS.VARIABLES.Authority;
+    var v = CKO.MYDASHBOARD.CHARTS.VARIABLES.Authority;
 
     function Init(site, qry) {
         var inDesignMode = document.forms[MSOWebPartPageFormName].MSOLayout_InDesignMode.value;
@@ -39,11 +40,8 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
             v.data = [];
             v.json = null;
             v.url = null;
-            if (moment().quarter() == 4) {
-                v.ThisFY = moment().add('year', 1).format("YYYY");
-            } else {
-                v.ThisFY = moment().format("YYYY");
-            };
+            v.qry = qry;
+            v.userID = _spPageContextInfo.userId;
             var monkey = LoadLists();
             jQuery.when.apply(null, monkey).done(function () {
                 ListsLoaded();
@@ -115,34 +113,28 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
     function GetActions() {
         if (v.url == null) {
             var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions?";
-            urlString += "$select=Id,Title,Expended,DateCompleted,EffortTypeValue,FY,Quarter,StartOfWeek,Function";
-            var today = new Date();
-            var month, quarter, weekstart, weekend;
-            var quarters = { "Jan": 2, "Feb": 2, "Mar": 2, "Apr": 3, "May": 3, "Jun": 3, "Jul": 4, "Aug": 4, "Sep": 4, "Oct": 1, "Nov": 1, "Dec": 1 }
-            month = today.format("MMM");
-            quarter = quarters[month];
-            weekstart = moment(today).startOf('week');
-            weekend = moment(today).endOf('week');
+            urlString += "$select=Id,Title,Expended,PMTUser/Id,DateCompleted,EffortTypeValue";
+            urlString += "&$expand=PMTUser";
 
             switch (v.qry) {
-                case "Y":                    
-                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(1, 'years').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                case "Y":
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(1, 'years').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "') and (PMTUser/Id eq " + v.userID + ")";
                     break;
 
                 case "Q":
-                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(90, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(90, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "') and (PMTUser/Id eq " + v.userID + ")";
                     break;
 
                 case "M":
-                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(30, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(30, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "') and (PMTUser/Id eq " + v.userID + ")";
                     break;
 
                 case "W":
-                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(7, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(7, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "') and (PMTUser/Id eq " + v.userID + ")";
                     break;
             }
             v.url = urlString;
-            logit("Authority Chart Query urlString: " + urlString);
+            logit("My Authority Query: " + v.url);
         }
         jQuery.ajax({
             url: v.url,
@@ -150,7 +142,7 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
             headers: { 'accept': 'application/json; odata=verbose' },
             error: function (jqXHR, textStatus, errorThrown) {
                 //to do implement logging to a central list
-                logit("Authority Chart: Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
+                logit("My Authority Chart Ajax Error Getting Actions: " + textStatus + ":: errorThrown: " + errorThrown);
             },
             success: function (data) {
                 v.data = v.data.concat(data.d.results);
@@ -161,14 +153,14 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
                 else {
                     var results = v.data;
                     v.json = jQuery.parseJSON(JSON.stringify(results));
-                    DataLoaded();
+                    AuthorityDataLoaded();
                 }
             }
         });
     }
 
-    function DataLoaded() {
-        logit("Authority Chart: All Data Loaded");
+    function AuthorityDataLoaded() {
+        logit("All Authority Data Loaded");
         var numitems = v.json.length;
         // Now loop through the data to get the different Authority based on the action
         var j = v.json;
@@ -219,10 +211,10 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
         var xmlns = "http://www.w3.org/2000/svg";
         var TotalBox = document.createElementNS(xmlns, "text");
 
-        TotalBox.setAttributeNS(null, "x", 80);
+        TotalBox.setAttributeNS(null, "x", 60);
         TotalBox.setAttributeNS(null, "y", 24);
         TotalBox.setAttributeNS(null, "text-anchor", "middle");
-        TotalBox.setAttributeNS(null, "style", "font-size: 16px; fill: #333333;");
+        TotalBox.setAttributeNS(null, "style", "font-size: 12px; fill: #333333;");
         var TotalText = document.createTextNode("Total Hours: " + v.totalhours);
         TotalBox.appendChild(TotalText);
         document.getElementById("AuthoritySVG").appendChild(TotalBox);
@@ -258,7 +250,7 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
                             }
                         },
                         onclick: function () {
-                            CKO.DASHBOARD.CHARTS.Authority().Init(v.site, 'Y');
+                            CKO.MYDASHBOARD.CHARTS.Authority().Init(v.site, 'Y');
                         }
                     },
                     quarterButton: {
@@ -278,7 +270,7 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
                             }
                         },
                         onclick: function () {
-                            CKO.DASHBOARD.CHARTS.Authority().Init(v.site, 'Q');
+                            CKO.MYDASHBOARD.CHARTS.Authority().Init(v.site, 'Q');
                         }
                     },
                     monthButton: {
@@ -298,7 +290,7 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
                             }
                         },
                         onclick: function () {
-                            CKO.DASHBOARD.CHARTS.Authority().Init(v.site, 'M');
+                            CKO.MYDASHBOARD.CHARTS.Authority().Init(v.site, 'M');
                         }
                     },
                     weekButton: {
@@ -318,7 +310,7 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
                             }
                         },
                         onclick: function () {
-                            CKO.DASHBOARD.CHARTS.Authority().Init(v.site, 'W');
+                            CKO.MYDASHBOARD.CHARTS.Authority().Init(v.site, 'W');
                         }
                     }
                 }
@@ -373,4 +365,4 @@ function getISODate(date) {
     return s;
 }
 
-SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs('CEWP_Dashboard_Charts_Authority.js');
+SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs('CEWP_MyDashboard_Charts_Authority.js');

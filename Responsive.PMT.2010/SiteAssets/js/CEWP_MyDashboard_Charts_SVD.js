@@ -1,10 +1,10 @@
 ﻿var CKO = CKO || {};
 CKO.AJAX = CKO.AJAX || {};
-CKO.DASHBOARD = CKO.DASHBOARD || {};
-CKO.DASHBOARD.CHARTS = CKO.DASHBOARD.CHARTS || {};
-CKO.DASHBOARD.CHARTS.VARIABLES = CKO.DASHBOARD.CHARTS.VARIABLES || {};
+CKO.MYDASHBOARD = CKO.MYDASHBOARD || {};
+CKO.MYDASHBOARD.CHARTS = CKO.MYDASHBOARD.CHARTS || {};
+CKO.MYDASHBOARD.CHARTS.VARIABLES = CKO.MYDASHBOARD.CHARTS.VARIABLES || {};
 
-CKO.DASHBOARD.CHARTS.VARIABLES.SVD = {
+CKO.MYDASHBOARD.CHARTS.VARIABLES.SVD = {
     site: null,
     loc: String(window.location),
     waitmsg: null,
@@ -14,10 +14,10 @@ CKO.DASHBOARD.CHARTS.VARIABLES.SVD = {
     list: null,
     data: null,
     json: null,
-    totalhours: 0,
     standard: null,
     directive: null,
     listitem: null,
+    totalhours: 0,
     user: null,
     userID: null,
     site: null,
@@ -26,9 +26,9 @@ CKO.DASHBOARD.CHARTS.VARIABLES.SVD = {
     html: ""
 }
 
-CKO.DASHBOARD.CHARTS.SVD = function () {
+CKO.MYDASHBOARD.CHARTS.SVD = function () {
 
-    var v = CKO.DASHBOARD.CHARTS.VARIABLES.SVD;
+    var v = CKO.MYDASHBOARD.CHARTS.VARIABLES.SVD;
 
     function Init(site, qry) {
         var inDesignMode = document.forms[MSOWebPartPageFormName].MSOLayout_InDesignMode.value;
@@ -42,6 +42,12 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
             v.data = [];
             v.json = null;
             v.qry = qry;
+            v.userID = _spPageContextInfo.userId;
+            if (moment().quarter() == 4) {
+                v.ThisFY = moment().add('year', 1).format("YYYY");
+            } else {
+                v.ThisFY = moment().format("YYYY");
+            };
             LoadActions(qry, null);
         }
     }
@@ -49,27 +55,30 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
     function LoadActions(qry, zurl) {
         if (zurl == null) {
             //Load Actions From REST and filter based on qry
+
             var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions?";
-            urlString += "$select=Id,Expended,DateCompleted,EffortTypeValue";
+            urlString += "$select=Id,Expended,PMTUser/Id,DateCompleted,EffortTypeValue";
+            urlString += "&$expand=PMTUser";
 
             switch (qry) {
                 case "Y":
-                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(1, 'years').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(1, 'years').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "') and (PMTUser/Id eq " + v.userID + ")";
                     break;
 
                 case "Q":
-                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(90, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(90, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "') and (PMTUser/Id eq " + v.userID + ")";
                     break;
 
                 case "M":
-                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(30, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(30, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "') and (PMTUser/Id eq " + v.userID + ")";
                     break;
 
                 case "W":
-                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(7, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(7, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "') and (PMTUser/Id eq " + v.userID + ")";
                     break;
             }
             zurl = urlString;
+            logit("My SVD Query: " + zurl);
         }
 
         jQuery.ajax({
@@ -78,26 +87,26 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
             headers: { 'accept': 'application/json; odata=verbose' },
             error: function (jqXHR, textStatus, errorThrown) {
                 //to do implement logging to a central list
-                logit("Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
+                logit("My SVD Chart Ajax Error Getting Actions: " + textStatus + ":: errorThrown: " + errorThrown);
             },
             success: function (data) {
                 v.data = v.data.concat(data.d.results);
                 if (data.d.__next) {
                     zurl = data.d.__next;
-                    //logit("More than 1000 items: Next=" + zurl);
+                    //More than 1000 items
                     LoadActions(qry, zurl); // qry really wont matter here, but need to pass the next url.
                 }
                 else {
                     var results = v.data;
                     v.json = jQuery.parseJSON(JSON.stringify(results));
-                    DataLoaded();
+                    SVDDataLoaded();
                 }
             }
         });
     }
 
-    function DataLoaded() {
-        logit("SVD Chart: Data Loaded");
+    function SVDDataLoaded() {
+        logit("Data Loaded");
         var numitems = v.json.length;
         // Now loop through the data to get the standards and directives to create the series for the chart
         var j = v.json;
@@ -121,10 +130,10 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
         var xmlns = "http://www.w3.org/2000/svg";
         var TotalBox = document.createElementNS(xmlns, "text");
 
-        TotalBox.setAttributeNS(null, "x", 80);
+        TotalBox.setAttributeNS(null, "x", 60);
         TotalBox.setAttributeNS(null, "y", 24);
         TotalBox.setAttributeNS(null, "text-anchor", "middle");
-        TotalBox.setAttributeNS(null, "style", "font-size: 16px; fill: #333333;");
+        TotalBox.setAttributeNS(null, "style", "font-size: 12px; fill: #333333;");
         var TotalText = document.createTextNode("Total Hours: " + v.totalhours);
         TotalBox.appendChild(TotalText);
         document.getElementById("SVDSVG").appendChild(TotalBox);
@@ -160,7 +169,7 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
                             }
                         },
                         onclick: function () {
-                            CKO.DASHBOARD.CHARTS.SVD().Init(v.site, 'Y');
+                            CKO.MYDASHBOARD.CHARTS.SVD().Init(v.site, 'Y');
                         }
                     },
                     quarterButton: {
@@ -180,7 +189,7 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
                             }
                         },
                         onclick: function () {
-                            CKO.DASHBOARD.CHARTS.SVD().Init(v.site, 'Q');
+                            CKO.MYDASHBOARD.CHARTS.SVD().Init(v.site, 'Q');
                         }
                     },
                     monthButton: {
@@ -200,7 +209,7 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
                             }
                         },
                         onclick: function () {
-                            CKO.DASHBOARD.CHARTS.SVD().Init(v.site, 'M');
+                            CKO.MYDASHBOARD.CHARTS.SVD().Init(v.site, 'M');
                         }
                     },
                     weekButton: {
@@ -220,13 +229,13 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
                             }
                         },
                         onclick: function () {
-                            CKO.DASHBOARD.CHARTS.SVD().Init(v.site, 'W');
+                            CKO.MYDASHBOARD.CHARTS.SVD().Init(v.site, 'W');
                         }
                     }
                 }
             },
             title: {
-                text: 'Standards Vs Directives'
+                text: 'Standards/Directives'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.y}</b>'
@@ -281,4 +290,4 @@ function getISODate(date) {
     return s;
 }
 
-SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs('CEWP_Dashboard_Charts_SVD.js');
+SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs('CEWP_MyDashboard_Charts_SVD.js');

@@ -8,7 +8,7 @@
 		    RegisterSodDep('core.js', 'sp.js');
 		    RegisterSodDep('CEWP_PMTMigrations.js', 'core.js');
 		    EnsureScriptFunc("CEWP_PMTMigrations.js", null, function () {
-		        PMTMigrations(site);
+		        CKO.MIGRATIONS.Migrate().Init(site);
 		    });
 		}, "sp.js");        
     });
@@ -26,7 +26,7 @@
             &nbsp;
             <button type="button" id="btnUpdateActionsSA" class="btn btn-success">Update Actions SA</button>
             &nbsp;
-            <button type="button" id="btnUpdateActionsUsers" class="btn btn-success">Update Actions Users</button>
+            <!--<button type="button" id="btnUpdateActionsUsers" class="btn btn-success">Update Actions Users</button>-->
         </div>
     </div>
     <br/>

@@ -13,8 +13,9 @@ CKO.DASHBOARD.CHARTS.VARIABLES.Functions = {
     url: null,
     data: null,
     json: null,
+    totalhours: 0,
     chartdata: null,
-    qry: null,
+    ThisFY: null,
     functions: null
 }
 
@@ -34,7 +35,6 @@ CKO.DASHBOARD.CHARTS.Functions = function () {
             v.data = [];
             v.json = null;
             v.url = null;
-            v.qry = qry;
             var zebra = LoadFunctions();
             jQuery.when.apply(null, zebra).done(function () {
                 FunctionsLoaded();
@@ -65,34 +65,23 @@ CKO.DASHBOARD.CHARTS.Functions = function () {
     function FunctionsLoaded() {
         if (v.url == null) {
             var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions?";
-            urlString += "$select=Id,Expended,DateCompleted,EffortTypeValue,FY,Quarter,StartOfWeek,Function";
-            var today = new Date();
-            var fy, month, quarter, weekstart, weekend;
-            var quarters = { "Jan": 2, "Feb": 2, "Mar": 2, "Apr": 3, "May": 3, "Jun": 3, "Jul": 4, "Aug": 4, "Sep": 4, "Oct": 1, "Nov": 1, "Dec": 1 }
-            month = today.format("MMM");
-            quarter = quarters[month];
-            weekstart = moment(today).startOf('week');
-            weekend = moment(today).endOf('week');
+            urlString += "$select=Id,Expended,DateCompleted,EffortTypeValue,Function";
 
             switch (v.qry) {
                 case "Y":
-                    fy = moment(today).format("YYYY");
-                    urlString += "&$filter=(FY eq '" + fy + "')";
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(1, 'years').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
                     break;
 
                 case "Q":
-                    fy = moment(today).format("YYYY");
-                    urlString += "&$filter=(FY eq '" + fy + "') and (Quarter eq '" + quarter + "')";
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(90, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
                     break;
 
                 case "M":
-                    fy = moment(today).format("YYYY");
-                    urlString += "&$filter=(substringof('" + month + "', ReportMonth)) and (FY eq '" + fy + "')";
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(30, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
                     break;
 
                 case "W":
-                    fy = moment(today).format("YYYY");
-                    urlString += "&$filter=((StartOfWeek eq datetime'" + getISODate(weekstart) + "') and (FY eq '" + fy + "'))";
+                    urlString += "&$filter=(DateCompleted ge datetime'" + moment().subtract(7, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
                     break;
             }
             v.url = urlString;
@@ -104,7 +93,7 @@ CKO.DASHBOARD.CHARTS.Functions = function () {
             headers: { 'accept': 'application/json; odata=verbose' },
             error: function (jqXHR, textStatus, errorThrown) {
                 //to do implement logging to a central list
-                logit("Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
+                logit("Functions Chart: Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
             },
             success: function (data) {
                 v.data = v.data.concat(data.d.results);
@@ -122,7 +111,7 @@ CKO.DASHBOARD.CHARTS.Functions = function () {
     }
 
     function DataLoaded() {
-        logit("All Data Loaded");
+        logit("Functions Chart: All Data Loaded");
         var numitems = v.json.length;
         // Now loop through the data to get the different functions based on the action
         var j = v.json;
@@ -131,6 +120,7 @@ CKO.DASHBOARD.CHARTS.Functions = function () {
             for (var k = 0; k < v.functions.length; k++) {
                 if (v.functions[k].title == j[i]["Function"]) {
                     v.functions[k].hours += j[i]["Expended"];
+                    v.totalhours += j[i]["Expended"];
                 }
             }
         }
@@ -144,6 +134,18 @@ CKO.DASHBOARD.CHARTS.Functions = function () {
         }
         DrawPieChart();
         $("#Functions").find("text:contains(" + v.qry + ")").parent().find(".highcharts-button-box").attr("fill", "#ff0000");
+
+        $("#Functions").find(".highcharts-root").attr("id", "FunctionsSVG");
+        var xmlns = "http://www.w3.org/2000/svg";
+        var TotalBox = document.createElementNS(xmlns, "text");
+
+        TotalBox.setAttributeNS(null, "x", 80);
+        TotalBox.setAttributeNS(null, "y", 24);
+        TotalBox.setAttributeNS(null, "text-anchor", "middle");
+        TotalBox.setAttributeNS(null, "style", "font-size: 16px; fill: #333333;");
+        var TotalText = document.createTextNode("Total Hours: " + v.totalhours);
+        TotalBox.appendChild(TotalText);
+        document.getElementById("FunctionsSVG").appendChild(TotalBox);
     }
 
     function DrawPieChart() {

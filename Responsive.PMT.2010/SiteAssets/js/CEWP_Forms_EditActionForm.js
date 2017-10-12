@@ -2,7 +2,6 @@
 CKO.AJAX = CKO.AJAX || {};
 CKO.FORMS = CKO.FORMS || {};
 CKO.FORMS.ACTIONS = CKO.FORMS.ACTIONS || {};
-var _eventHandlers = {};
 
 CKO.FORMS.ACTIONS.VARIABLES = {
     newform: null,

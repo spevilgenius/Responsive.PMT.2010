@@ -105,5 +105,13 @@
     <File Path="SiteAssets\js\CEWP_Pages_MyTasks_AllTasks.js" Url="SiteAssets/js/CEWP_Pages_MyTasks_AllTasks.js" />
     <File Path="SiteAssets\html\CEWP_Pages_MyTasks_AllTasks.html" Url="SiteAssets/html/CEWP_Pages_MyTasks_AllTasks.html" />
     <File Path="SiteAssets\js\CEWP_KM_Map.js" Url="SiteAssets/js/CEWP_KM_Map.js" />
+    <File Path="SiteAssets\html\CEWP_MyDashboard_Charts_Authority.html" Url="SiteAssets/html/CEWP_MyDashboard_Charts_Authority.html" />
+    <File Path="SiteAssets\html\CEWP_MyDashboard_Charts_Functions.html" Url="SiteAssets/html/CEWP_MyDashboard_Charts_Functions.html" />
+    <File Path="SiteAssets\html\CEWP_MyDashboard_Charts_SVD.html" Url="SiteAssets/html/CEWP_MyDashboard_Charts_SVD.html" />
+    <File Path="SiteAssets\js\CEWP_MyDashboard_Charts_Authority.js" Url="SiteAssets/js/CEWP_MyDashboard_Charts_Authority.js" />
+    <File Path="SiteAssets\js\CEWP_MyDashboard_Charts_Functions.js" Url="SiteAssets/js/CEWP_MyDashboard_Charts_Functions.js" />
+    <File Path="SiteAssets\js\CEWP_MyDashboard_Charts_SVD.js" Url="SiteAssets/js/CEWP_MyDashboard_Charts_SVD.js" />
+    <File Path="SiteAssets\js\exporting.js" Url="SiteAssets/js/exporting.js" />
+    <File Path="SiteAssets\html\HTMLPage1.html" Url="SiteAssets/html/HTMLPage1.html" />
   </Module>
 </Elements>

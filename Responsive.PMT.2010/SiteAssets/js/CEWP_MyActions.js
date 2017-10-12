@@ -41,7 +41,7 @@ CKO.ACTIONS.MyActions = function () {
                     v.calend = moment(end).endOf('month').format('YYYY-MM-DD');
                     var userId = _spPageContextInfo.userId;
                     var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions?";
-                    urlString += "$select=Id,Title,Expended,PMTUser/Id,ActionComments,Enabler,DateCompleted,EffortTypeValue";
+                    urlString += "$select=Id,Title,Expended,PMTUser/Id,ActionComments,Enabler,DateCompleted,EffortTypeValue,EndOfWeek";
                     urlString += "&$expand=PMTUser";
                     urlString += "&$filter=((PMTUser/Id eq " + userId + ") and (DateCompleted ge datetime'" + moment(start).startOf('month').subtract(7, 'days').format('YYYY-MM-DD[T]HH:MM:SS[Z]') + "') and (EffortTypeValue eq 'Directive'))";
                     logit("urlString: " + urlString);
@@ -71,6 +71,7 @@ CKO.ACTIONS.MyActions = function () {
                                     Hours: j[i]["Expended"],
                                     Enabler: j[i]["Enabler"],
                                     Type: j[i]["EffortTypeValue"],
+                                    EndOfWeek: j[i]["EndOfWeek"],
                                     Comments: j[i]["ActionComments"]
                                 });
                             }
@@ -85,7 +86,7 @@ CKO.ACTIONS.MyActions = function () {
                     v.standards = []; // Clear out existing
                     var userId = _spPageContextInfo.userId;
                     var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions?";
-                    urlString += "$select=Id,Title,Expended,PMTUser/Id,ActionComments,Enabler,DateCompleted,EffortTypeValue";
+                    urlString += "$select=Id,Title,Expended,PMTUser/Id,ActionComments,Enabler,DateCompleted,EffortTypeValue,EndOfWeek";
                     urlString += "&$expand=PMTUser";
                     urlString += "&$filter=((PMTUser/Id eq " + userId + ") and (DateCompleted ge datetime'" + moment(start).startOf('month').subtract(7, 'days').format('YYYY-MM-DD[T]HH:MM:SS[Z]') + "') and (EffortTypeValue eq 'Standard'))";
                     logit("urlString: " + urlString);
@@ -115,6 +116,7 @@ CKO.ACTIONS.MyActions = function () {
                                     Hours: j[i]["Expended"],
                                     Enabler: j[i]["Enabler"],
                                     Type: j[i]["EffortTypeValue"],
+                                    EndOfWeek: j[i]["EndOfWeek"],
                                     Comments: j[i]["ActionComments"]
                                 });
                             }
@@ -161,8 +163,13 @@ CKO.ACTIONS.MyActions = function () {
                 if (view.name == 'month') {
                     $(".fc-day-number").each(function () {
                         var dd = $(this).parent().attr("data-date");
-                        // TODO: Find a way to add the event hours for this date and add them to the top
-                        var add = "<div style='float:left;margin-right:30px;margin-top:5px;'>Total: <span data-date='" + dd + "'></span></div><a class='btn btn-default btn-xs btnadd' data-date='" + dd + "' href='#'>Add</a>&nbsp;";
+                        var add;
+                        if ($(this).parent().hasClass("fc-sat")) {
+                            add = "<div style='float:left;margin-right:20px;margin-top:5px;'>Total: <span data-date='" + dd + "'></span></div><div style='float:left;margin-right:15px;margin-top:5px;'>Week: <span data-end='" + dd + "'></span></div><a class='btn btn-default btn-xs btnadd' data-date='" + dd + "' href='#'>Add</a>&nbsp;";
+                        }
+                        else {
+                            add = "<div style='float:left;margin-right:80px;margin-top:5px;'>Total: <span data-date='" + dd + "'></span></div><a class='btn btn-default btn-xs btnadd' data-date='" + dd + "' href='#'>Add</a>&nbsp;";
+                        }    
                         $(this).prepend(add);
                     });
                    
@@ -187,11 +194,16 @@ CKO.ACTIONS.MyActions = function () {
             eventRender: function (event, element) {
                 var start = event.start._i;
                 var hours = event.Hours;
+                var eow = dateformat(event.EndOfWeek, "isoshort");
                 var current = Number($("span[data-date='" + start + "']").text());
                 var total = current + hours;
                 $("span[data-date='" + start + "']").text(total);
+                var wcurrent = Number($("span[data-end='" + eow + "']").text());
+                var wtotal = wcurrent + hours;
+                $("span[data-end='" + eow + "']").text(wtotal);
             }
         });
+        $(".fc-center").html("<div style= 'border-color:black;color:yellow;background-color:black;padding:8px;'>Directive</div>&nbsp;<div style='border-color:blue;color:white;background-color:blue;padding:8px;'>Standard</div>");
     }
 
     function getISODate(date) {
