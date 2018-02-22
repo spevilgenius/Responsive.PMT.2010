@@ -40,7 +40,7 @@ CKO.FORMS.TASKERS.NewForm = function () {
                     //var catsModified = $().SPHelper.DateFormat($(this).attr("ows_Modified"), "isoDateTime");
                     var catsModified = moment($(this).attr("ows_Modified")).format("YYYY-MM-DD[T]HH:MM:SS");
                     //var catsSuspense = $().SPHelper.DateFormat($(this).attr("ows_SuspenseDate"), "shortDate");
-                    var catsSuspense = moment($(this).attr("ows_Modified")).format("MM/DD/YYYY");
+                    var catsSuspense = moment($(this).attr("ows_SuspenseDate")).format("MM/DD/YYYY");
                     var catsName =  /undefined/.test($(this).attr("ows_TaskerName")) ? "" : $(this).attr("ows_TaskerName");
                     var lead = /undefined/.test($(this).attr("ows_TaskerLeads")) ? "" : $(this).attr("ows_TaskerLeads");
                     var assist = /undefined/.test($(this).attr("ows_TaskerAssists")) ? "" : $(this).attr("ows_TaskerAssists");
@@ -53,16 +53,22 @@ CKO.FORMS.TASKERS.NewForm = function () {
                     }else if(lead.indexOf("CKO") > 0){
                         LAItext = "Lead"
                     }
-                    $("input[Title*='CATS Control Number']").val(v.catsNumber)
-                    $("input[Title*='Subject']").val(catsName)
-                    $("input[Title*='CATS Suspense']").val(catsSuspense)
-                    $("input[Title*='catsID']").val(v.catsID)
-                    $("input[Title*='catsModified']").val(catsModified)
-                    $("input[Title*='catsCreated']").val(catsCreated)
-                    $("input[Title*='Required Action or Deliverable']").val(requiredAction)
-                    $("input[Title*='Source Originator']").val(originator)
-                    $("textarea[Title*='Task/Purpose']").text(LAItext)
-                    $("input[Title*='CATS Issued']").val(catsCreated.split("T")[0])
+                    $("input[Title*='CATS Control Number']").val(v.catsNumber);
+                    $("input[Title*='Subject']").val(catsName);
+                    $("input[Title*='CATS Suspense']").val(catsSuspense);
+                    $("input[Title*='catsID']").val(v.catsID);
+                    $("input[Title*='catsModified']").val(catsModified);
+                    $("input[Title*='catsCreated']").val(catsCreated);
+                    $("input[Title*='Required Action or Deliverable']").val(requiredAction);
+                    $("input[Title*='Source Originator']").val(originator);
+                    $("textarea[Title*='Task/Purpose']").text(LAItext);
+                    $("input[Title*='CATS Issued']").val(catsCreated.split("T")[0]);
+                    $("select[title*='Role'] option").each(function () {
+                        tp1 = new String($(this).html());
+                        if (tp1.indexOf(LAItext) >= 0) {
+                            $(this).prop('selected', true);
+                        }
+                    });
                 });
             }
         });

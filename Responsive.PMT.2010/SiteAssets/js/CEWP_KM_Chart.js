@@ -100,23 +100,23 @@ function getChartData() {
 	    			switch(type){
 	    				case "Contractor":
 				    		if(current.get_item("Authorized")) { chartitems[i].ConTDAAuthorizedCount += 1; }
-				    		if(current.get_item("Required")) { chartitems[i].ConTDARequiredCount += 1; }
+				    		if (current.get_item("Required")) { chartitems[i].ConTDARequiredCount += 1; chartitems[i].TotalPeople += 1; }
 				    		if(current.get_item("Onhand")) { chartitems[i].ConTDAOnhandCount += 1;}			    			
-			    			chartitems[i].TotalPeople += 1;
+			    			//chartitems[i].TotalPeople += 1;
 	    					break;
 	    					
 	    				case "Civilian":
 				    		if(current.get_item("Authorized")) { chartitems[i].CivTDAAuthorizedCount += 1; }
-				    		if(current.get_item("Required")) { chartitems[i].CivTDARequiredCount += 1; }
+				    		if (current.get_item("Required")) { chartitems[i].CivTDARequiredCount += 1; chartitems[i].TotalPeople += 1; }
 				    		if(current.get_item("Onhand")) { chartitems[i].CivTDAOnhandCount += 1;}    			
-			    			chartitems[i].TotalPeople += 1;
+			    			//chartitems[i].TotalPeople += 1;
 	    					break;
 	    					
 	    				case "Military":
 			    			if(current.get_item("Authorized")) { chartitems[i].MilTDAAuthorizedCount += 1; }
-				    		if(current.get_item("Required")) { chartitems[i].MilTDARequiredCount += 1; }
+			    			if (current.get_item("Required")) { chartitems[i].MilTDARequiredCount += 1; chartitems[i].TotalPeople += 1; }
 				    		if(current.get_item("Onhand")) { chartitems[i].MilTDAOnhandCount += 1;}
-			    			chartitems[i].TotalPeople += 1;
+			    			//chartitems[i].TotalPeople += 1;
 	    					break;
 	    			}
 	    		}

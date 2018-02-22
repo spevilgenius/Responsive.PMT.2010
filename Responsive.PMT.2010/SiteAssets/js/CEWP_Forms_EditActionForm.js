@@ -41,12 +41,14 @@ CKO.FORMS.ACTIONS.EditForm = function () {
     }
 
     function FormLoaded(site) {
+        v.site = site;
         loadCSS(site + '/SiteAssets/css/CEWP_Forms_ActionForms.css');
         v.directives = new Array();
         v.standards = new Array();
         $("input").addClass("form-control");
         $("select").addClass("form-control");
         $("div[role='textbox']").addClass("form-control");
+        $("input[Title='Customer']").prop('readonly', true);
         // go get all dropdown data
         var monkey = LoadDropdowns();
         jQuery.when.apply(null, monkey).done(function () {
@@ -93,7 +95,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
 
     function GetStandards() {
         // Load Standards from REST
-        var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Standards?";
+        var urlString = v.site + "/_vti_bin/listdata.svc/Standards?";
         urlString += "$select=Id,Standard,Task,StandardStatusValue,SupportParagraph,SupportedOrg,SupportedSubOrg";
         urlString += "&$filter=(StandardStatusValue eq 'Ongoing')";
         urlString += "&$orderby=Standard";
@@ -143,8 +145,8 @@ CKO.FORMS.ACTIONS.EditForm = function () {
 
     function GetDirectives() {
         // Load Directives From REST
-        var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Directives?";
-        urlString += "$select=Id,Directive,DirectiveDescription,DirectiveStatusValue,ProjectedManHours,Expended";
+        var urlString = v.site + "/_vti_bin/listdata.svc/Directives?";
+        urlString += "$select=Id,Directive,DirectiveDescription,DirectiveStatusValue,ProjectedManHours,Expended,SupportParagraph,SupportReference";
         urlString += "&$filter=(DirectiveStatusValue eq 'InProgress') or (DirectiveStatusValue eq 'Complete')";
         urlString += "&$orderby=Directive";
 
@@ -167,7 +169,10 @@ CKO.FORMS.ACTIONS.EditForm = function () {
                     v.directives.push({
                         "directive": j[i]["Directive"],
                         "description": j[i]["DirectiveDescription"],
-                        "status": j[i]["DirectiveStatusValue"]
+                        "status": j[i]["DirectiveStatusValue"],
+                        "org": j[i]["SupportedOrg"],
+                        "suborg": j[i]["SupportedSubOrg"],
+                        "alignment": j[i]["SupportParagraph"] + " " + j[i]["SupportReference"]
                     });
                 }
                 // Now just loop back through the array to create the dropdown and pass the index as the value so we know which directive to get data for.
@@ -194,7 +199,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
         logit("GetAlignments: standard-" + standard + ", paragraph-" + paragraph);
         if (v.standards[idx]["paragraph"] != "N/A") {
             // Now get the support alignments from the Alignments table using REST
-            var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Alignments?";
+            var urlString = v.site + "/_vti_bin/listdata.svc/Alignments?";
             urlString += "$select=Id,Parent,Paragraph,Reference,ShortDescription";
             urlString += "&$filter=(Parent eq '" + paragraph + "')";
             logit("Alignments urlString: " + urlString);
@@ -321,6 +326,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
                 var standard = v.standards[idx]["standard"];
                 $("input[title^='Title']").val(standard);
                 $("#divDescription").html("").append(v.standards[idx]["description"]);
+                $("input[title*='Customer']").val(v.standards[idx]["org"] + "|" + v.standards[idx]["suborg"]);
                 GetAlignments();
                 break;
 
@@ -329,6 +335,8 @@ CKO.FORMS.ACTIONS.EditForm = function () {
                 var idx = $("#" + obj.id + " option:selected").val();
                 $("input[title='Title Required Field']").val(v.directives[idx]["directive"]);
                 $("#divDescription").html("").append(v.directives[idx]["description"]);
+                $("input[title*='Customer']").val(v.directives[idx]["org"] + "|" + v.directives[idx]["suborg"]);
+                $("input[title='SupportAlignment']").val(v.directives[idx]["alignment"]);
                 break;
 
             case "ddEnabler":
@@ -343,6 +351,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
 
     function SaveAction() {
         $("#FormError").remove();
+        v.errortext = "Please fill out the fields: ";
         var goon = true;
         if ($("input[title='SupportAlignment']").val() == "" && $("select[title='EffortType'] option:selected").val() == "Standard") {
             if (v.alignmentrequired == true) {
@@ -370,6 +379,10 @@ CKO.FORMS.ACTIONS.EditForm = function () {
             goon = false;
             v.errortext += "Comments ";
         }
+        //if ($("div[role='textbox']").html().length <= 13) {
+        //    goon = false;
+        //    v.errortext += "Comments ";
+        //}
         if ($("input[title*='Date Completed']").val() == "") {
             goon = false;
             v.errortext += "Date Completed ";

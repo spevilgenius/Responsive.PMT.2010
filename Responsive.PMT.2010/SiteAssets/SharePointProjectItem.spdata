@@ -105,7 +105,6 @@
     <ProjectItemFile Source="js\CEWP_Forms_NewTaskerForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Pages_MyTasks_AllTasks.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Pages_MyTasks_AllTasks.html" Target="SiteAssets\html\" Type="ElementFile" />
-    <ProjectItemFile Source="js\CEWP_KM_Map.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_MyDashboard_Charts_Authority.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_MyDashboard_Charts_Functions.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_MyDashboard_Charts_SVD.html" Target="SiteAssets\html\" Type="ElementFile" />
@@ -114,5 +113,37 @@
     <ProjectItemFile Source="js\CEWP_MyDashboard_Charts_SVD.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\exporting.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\HTMLPage1.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="images\yellowdot.png" Target="SiteAssets\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\amberdot.png" Target="SiteAssets\images\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Forms_ViewDirectiveForm.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Forms_ViewDirectiveForm.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\login.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_KM_Map2.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_KM_Map2.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_KM_Map.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="goldstar1.svg" Target="SiteAssets\" Type="ElementFile" />
+    <ProjectItemFile Source="goldstar2.svg" Target="SiteAssets\" Type="ElementFile" />
+    <ProjectItemFile Source="whitestar1.svg" Target="SiteAssets\" Type="ElementFile" />
+    <ProjectItemFile Source="images\goldstar1.svg" Target="SiteAssets\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\goldstar2.svg" Target="SiteAssets\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\whitestar1.svg" Target="SiteAssets\images\" Type="ElementFile" />
+    <ProjectItemFile Source="js\GoogleMapsAPIExamples.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Snow.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Snow.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Forms_NewSkillForm.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Forms_EditSkillForm.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Forms_NewSkillForm.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="css\CEWP_Forms_SkillsForms.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Forms_EditSkillForm.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="images\splitdot.png" Target="SiteAssets\images\" Type="ElementFile" />
+    <ProjectItemFile Source="images\splitcircle1.svg" Target="SiteAssets\images\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Dashboard_Charts_Comps.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Dashboard_Charts_Comps.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Views_HoursReport.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Views_HoursReport.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_HoursReport.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_HoursReport.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_MissingHoursReport.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_MissingHoursReport.js" Target="SiteAssets\js\" Type="ElementFile" />
   </Files>
 </ProjectItem>

@@ -49,7 +49,7 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
     function LoadActions(qry, zurl) {
         if (zurl == null) {
             //Load Actions From REST and filter based on qry
-            var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions?";
+            var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
             urlString += "$select=Id,Expended,DateCompleted,EffortTypeValue";
 
             switch (qry) {
@@ -98,6 +98,7 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
 
     function DataLoaded() {
         logit("SVD Chart: Data Loaded");
+        v.totalhours = 0;
         var numitems = v.json.length;
         // Now loop through the data to get the standards and directives to create the series for the chart
         var j = v.json;
@@ -226,7 +227,7 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
                 }
             },
             title: {
-                text: 'Standards Vs Directives'
+                text: 'Std/Dir'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.y}</b>'

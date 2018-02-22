@@ -45,7 +45,7 @@ CKO.DASHBOARD.CHARTS.Functions = function () {
     function LoadFunctions() {
         var deferreds = [];
         // Just get the functions and build the initial array.
-        var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Functions?";
+        var urlString = v.site + "/_vti_bin/listdata.svc/Functions?";
         urlString += "$select=Id,Title,Abbreviation";
 
         deferreds.push($.when(CKO.REST.GetListItems.getitems(urlString)).then(function (data) {
@@ -64,7 +64,7 @@ CKO.DASHBOARD.CHARTS.Functions = function () {
 
     function FunctionsLoaded() {
         if (v.url == null) {
-            var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions?";
+            var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
             urlString += "$select=Id,Expended,DateCompleted,EffortTypeValue,Function";
 
             switch (v.qry) {
@@ -112,6 +112,7 @@ CKO.DASHBOARD.CHARTS.Functions = function () {
 
     function DataLoaded() {
         logit("Functions Chart: All Data Loaded");
+        v.totalhours = 0;
         var numitems = v.json.length;
         // Now loop through the data to get the different functions based on the action
         var j = v.json;

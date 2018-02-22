@@ -1,11 +1,18 @@
-﻿.hiddenvalidation { display: none; }
-#EditForm, #NewForm, .tab-pane { margin-top: 15px; min-width: 1000px; }
-.form-control { max-width: 500px; max-height: 50px; padding: 3px; }
-.has-success .form-control {
+﻿body #s4-leftpanel {
+    display: none !important;
+}
+
+.s4-ca {
+    margin-left: 0px !important;
+}
+.hiddenvalidation { display: none; }
+#EditForm, #NewForm, #ViewForm, .tab-pane { margin-top: 15px; min-width: 1000px; }
+.form-control { /*max-width: 500px;*/ max-height: 50px; padding: 3px; }
+.has-success .form-control, .form-control .has-success {
     border-color: #3c763d;
     box-shadow: inset 0px 2px 2px rgba(0,0,0,0.075), 0px 0px 6px #3c763d !important; 
 }
-.has-error .form-control {
+.has-error .form-control, .form-control .has-error {
     border-color: #a94442;
     box-shadow: inset 0px 2px 2px rgba(0,0,0,0.075), 0px 0px 6px #a94442 !important; 
 }
@@ -13,3 +20,10 @@
 .form-group {
     margin-bottom: 6px;
 }
+/*#ViewForm .control-label {
+    border: 1px solid #000000;
+}
+#ViewForm .control-field {
+    border: 1px solid #000000;
+}*/
+.thactions { width: 150px; }

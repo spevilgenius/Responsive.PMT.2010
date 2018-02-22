@@ -104,7 +104,6 @@
     <File Path="SiteAssets\js\CEWP_Forms_NewTaskerForm.js" Url="SiteAssets/js/CEWP_Forms_NewTaskerForm.js" />
     <File Path="SiteAssets\js\CEWP_Pages_MyTasks_AllTasks.js" Url="SiteAssets/js/CEWP_Pages_MyTasks_AllTasks.js" />
     <File Path="SiteAssets\html\CEWP_Pages_MyTasks_AllTasks.html" Url="SiteAssets/html/CEWP_Pages_MyTasks_AllTasks.html" />
-    <File Path="SiteAssets\js\CEWP_KM_Map.js" Url="SiteAssets/js/CEWP_KM_Map.js" />
     <File Path="SiteAssets\html\CEWP_MyDashboard_Charts_Authority.html" Url="SiteAssets/html/CEWP_MyDashboard_Charts_Authority.html" />
     <File Path="SiteAssets\html\CEWP_MyDashboard_Charts_Functions.html" Url="SiteAssets/html/CEWP_MyDashboard_Charts_Functions.html" />
     <File Path="SiteAssets\html\CEWP_MyDashboard_Charts_SVD.html" Url="SiteAssets/html/CEWP_MyDashboard_Charts_SVD.html" />
@@ -113,5 +112,37 @@
     <File Path="SiteAssets\js\CEWP_MyDashboard_Charts_SVD.js" Url="SiteAssets/js/CEWP_MyDashboard_Charts_SVD.js" />
     <File Path="SiteAssets\js\exporting.js" Url="SiteAssets/js/exporting.js" />
     <File Path="SiteAssets\html\HTMLPage1.html" Url="SiteAssets/html/HTMLPage1.html" />
+    <File Path="SiteAssets\images\yellowdot.png" Url="SiteAssets/images/yellowdot.png" />
+    <File Path="SiteAssets\images\amberdot.png" Url="SiteAssets/images/amberdot.png" />
+    <File Path="SiteAssets\html\CEWP_Forms_ViewDirectiveForm.html" Url="SiteAssets/html/CEWP_Forms_ViewDirectiveForm.html" />
+    <File Path="SiteAssets\js\CEWP_Forms_ViewDirectiveForm.js" Url="SiteAssets/js/CEWP_Forms_ViewDirectiveForm.js" />
+    <File Path="SiteAssets\js\login.js" Url="SiteAssets/js/login.js" />
+    <File Path="SiteAssets\js\CEWP_KM_Map2.js" Url="SiteAssets/js/CEWP_KM_Map2.js" />
+    <File Path="SiteAssets\html\CEWP_KM_Map2.html" Url="SiteAssets/html/CEWP_KM_Map2.html" />
+    <File Path="SiteAssets\js\CEWP_KM_Map.js" Url="SiteAssets/js/CEWP_KM_Map.js" />
+    <File Path="SiteAssets\goldstar1.svg" Url="SiteAssets/goldstar1.svg" />
+    <File Path="SiteAssets\goldstar2.svg" Url="SiteAssets/goldstar2.svg" />
+    <File Path="SiteAssets\whitestar1.svg" Url="SiteAssets/whitestar1.svg" />
+    <File Path="SiteAssets\images\goldstar1.svg" Url="SiteAssets/images/goldstar1.svg" />
+    <File Path="SiteAssets\images\goldstar2.svg" Url="SiteAssets/images/goldstar2.svg" />
+    <File Path="SiteAssets\images\whitestar1.svg" Url="SiteAssets/images/whitestar1.svg" />
+    <File Path="SiteAssets\js\GoogleMapsAPIExamples.js" Url="SiteAssets/js/GoogleMapsAPIExamples.js" />
+    <File Path="SiteAssets\js\CEWP_Snow.js" Url="SiteAssets/js/CEWP_Snow.js" />
+    <File Path="SiteAssets\html\CEWP_Snow.html" Url="SiteAssets/html/CEWP_Snow.html" />
+    <File Path="SiteAssets\html\CEWP_Forms_NewSkillForm.html" Url="SiteAssets/html/CEWP_Forms_NewSkillForm.html" />
+    <File Path="SiteAssets\html\CEWP_Forms_EditSkillForm.html" Url="SiteAssets/html/CEWP_Forms_EditSkillForm.html" />
+    <File Path="SiteAssets\js\CEWP_Forms_NewSkillForm.js" Url="SiteAssets/js/CEWP_Forms_NewSkillForm.js" />
+    <File Path="SiteAssets\css\CEWP_Forms_SkillsForms.css" Url="SiteAssets/css/CEWP_Forms_SkillsForms.css" />
+    <File Path="SiteAssets\js\CEWP_Forms_EditSkillForm.js" Url="SiteAssets/js/CEWP_Forms_EditSkillForm.js" />
+    <File Path="SiteAssets\images\splitdot.png" Url="SiteAssets/images/splitdot.png" />
+    <File Path="SiteAssets\images\splitcircle1.svg" Url="SiteAssets/images/splitcircle1.svg" />
+    <File Path="SiteAssets\html\CEWP_Dashboard_Charts_Comps.html" Url="SiteAssets/html/CEWP_Dashboard_Charts_Comps.html" />
+    <File Path="SiteAssets\js\CEWP_Dashboard_Charts_Comps.js" Url="SiteAssets/js/CEWP_Dashboard_Charts_Comps.js" />
+    <File Path="SiteAssets\html\CEWP_Views_HoursReport.html" Url="SiteAssets/html/CEWP_Views_HoursReport.html" />
+    <File Path="SiteAssets\js\CEWP_Views_HoursReport.js" Url="SiteAssets/js/CEWP_Views_HoursReport.js" />
+    <File Path="SiteAssets\html\CEWP_HoursReport.html" Url="SiteAssets/html/CEWP_HoursReport.html" />
+    <File Path="SiteAssets\js\CEWP_HoursReport.js" Url="SiteAssets/js/CEWP_HoursReport.js" />
+    <File Path="SiteAssets\html\CEWP_MissingHoursReport.html" Url="SiteAssets/html/CEWP_MissingHoursReport.html" />
+    <File Path="SiteAssets\js\CEWP_MissingHoursReport.js" Url="SiteAssets/js/CEWP_MissingHoursReport.js" />
   </Module>
 </Elements>

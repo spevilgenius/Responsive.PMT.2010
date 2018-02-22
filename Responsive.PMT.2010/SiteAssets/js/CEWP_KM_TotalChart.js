@@ -84,18 +84,21 @@ function getTotalChartData() {
 	    			var type = current.get_item("PersonType");
 	    			switch(type){
 	    				case "Contractor":
-				    		if(current.get_item("Onhand")) { totalstaffed += 1;}			    			
-			    			totalpositions += 1;
+	    				    if (current.get_item("Onhand")) { totalstaffed += 1; }
+	    				    if (current.get_item("Required")) { totalpositions += 1; }
+			    			//totalpositions += 1;
 	    					break;
 	    					
 	    				case "Civilian":
-				    		if(current.get_item("Onhand")) { totalstaffed += 1;}    			
-			    			totalpositions += 1;
+				    		if (current.get_item("Onhand")) { totalstaffed += 1;}    			
+				    		if (current.get_item("Required")) { totalpositions += 1; }
+	    				    //totalpositions += 1;
 	    					break;
 	    					
 	    				case "Military":
-				    		if(current.get_item("Onhand")) { totalstaffed += 1;}
-			    			totalpositions += 1;
+				    		if (current.get_item("Onhand")) { totalstaffed += 1;}
+				    		if (current.get_item("Required")) { totalpositions += 1; }
+	    				    //totalpositions += 1;
 	    					break;
 	    			}
 	    		}

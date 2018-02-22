@@ -7,8 +7,8 @@ CKO.DASHBOARD.TASKERS.VARIABLES = CKO.DASHBOARD.TASKERS.VARIABLES || {};
 CKO.DASHBOARD.TASKERS.VARIABLES = {
     site: null,
     loc: String(window.location),
-    OCKOquery: "<Query><OrderBy><FieldRef Name='catsCreated' Ascending='False'/></OrderBy><FieldRef Name='Title' /></Query>",
-    OCKOfields: "<ViewFields><FieldRef Name='Title' /><FieldRef Name='catsCreated' /></ViewFields>",
+    OCKOquery: "<Query><OrderBy><FieldRef Name='Created' Ascending='False'/></OrderBy><FieldRef Name='Title' /></Query>",
+    OCKOfields: "<ViewFields><FieldRef Name='Title' /><FieldRef Name='Created' /></ViewFields>",
     waitmsg: null,
     mostRecent: null,
     ockoNumber: null,
@@ -32,7 +32,8 @@ CKO.DASHBOARD.TASKERS.NewTaskers = function () {
             LoadNewTaskers();
         }
     }
-
+       
+	
     function LoadNewTaskers() {
         $().SPServices({
             operation: "GetListItems",
@@ -44,7 +45,7 @@ CKO.DASHBOARD.TASKERS.NewTaskers = function () {
             completefunc: function (xData, Status) {
                 $(xData.responseXML).SPFilterNode("z:row").each(function () {
                     v.ockoNumber = /undefined/.test($(this).attr("ows_Title")) ? "" : $(this).attr("ows_Title");
-                    v.mostRecent = moment($(this).attr("ows_catsCreated")).format("YYYY-MM-DD[T]HH:MM:SS");
+                    v.mostRecent = moment($(this).attr("ows_Created")).format("YYYY-MM-DD[T]HH:MM:SS");
                 });
             }
         });
@@ -53,6 +54,7 @@ CKO.DASHBOARD.TASKERS.NewTaskers = function () {
         var CATSfields = "<ViewFields><FieldRef Name='Title' /><FieldRef Name='TaskerAssists' /><FieldRef Name='ID' /><FieldRef Name='TaskerName' /><FieldRef Name='TaskerInfo' /><FieldRef Name='TaskerLeads' /><FieldRef Name='SuspenseDate' /><FieldRef Name='Modified' /><FieldRef Name='Created' /></ViewFields>"
         var CATSquery = "<Query><OrderBy><FieldRef Name='Created' /></OrderBy><Where><And><And><Gt><FieldRef Name='Created'/><Value Type='DateTime' IncludeTimeValue='True'>" + v.mostRecent + "</Value></Gt><Eq><FieldRef Name='CompletionStatus'/><Value Type='Text'>Open</Value></Eq></And><Or><Or><Contains><FieldRef Name='TaskerLeads'/><Value Type='Text'>CKO</Value></Contains><Contains><FieldRef Name='TaskerAssists'/><Value Type='Text'>CKO</Value></Contains></Or><Contains><FieldRef Name='TaskerInfo'/><Value Type='Text'>CKO</Value></Contains></Or></And></Where></Query>";
         var countMe;
+        
 
         $().SPServices({
             operation: "GetListItems",

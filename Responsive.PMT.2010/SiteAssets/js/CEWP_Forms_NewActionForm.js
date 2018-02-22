@@ -40,6 +40,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
     }
 
     function FormLoaded(site) {
+        v.site = site;
         loadCSS(site + '/SiteAssets/css/CEWP_Forms_ActionForms.css');
         qsdate = jQuery.QueryString["Date"];
         v.userID = _spPageContextInfo.userId;
@@ -68,11 +69,27 @@ CKO.FORMS.ACTIONS.NewForm = function () {
         var thisdiv = $("div[data-field='PMTUser']");
         var thisContents = thisdiv.find("div[name='upLevelDiv']");
         var thisCheckNames = thisdiv.find("img[Title='Check Names']:first");
-        thisContents.html(v.user.get_loginName());
+        //logit("get_loginName() = " + v.user.get_loginName());
+        //thisContents.html(v.user.get_loginName());
+        thisContents.html(CKO.GLOBAL.VARIABLES.currentuser.login);
         thisCheckNames.click();
         $("input").addClass("form-control");
         $("select").addClass("form-control");
         $("div[role='textbox']").addClass("form-control");
+        $("input[Title='Customer']").prop('readonly', true);
+        // add the current user information from the global variables
+        $("select[title='Organization'] option").each(function () {
+            tp1 = new String($(this).html());
+            if (tp1.indexOf(CKO.GLOBAL.VARIABLES.currentuser.org) >= 0) {
+                $(this).prop('selected', true);
+            }
+        });
+        $("select[title='PersonType'] option").each(function () {
+            tp1 = new String($(this).html());
+            if (tp1.indexOf(CKO.GLOBAL.VARIABLES.currentuser.type) >= 0) {
+                $(this).prop('selected', true);
+            }
+        });
         // go get all dropdown data
         var monkey = LoadDropdowns();
         jQuery.when.apply(null, monkey).done(function () {
@@ -109,7 +126,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
 
     function GetStandards() {
         // Load Standards from REST
-        var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Standards?";
+        var urlString = v.site + "/_vti_bin/listdata.svc/Standards?";
         urlString += "$select=Id,Standard,Task,StandardStatusValue,SupportParagraph,SupportedOrg,SupportedSubOrg";
         urlString += "&$filter=(StandardStatusValue eq 'Ongoing')";
         urlString += "&$orderby=Standard";
@@ -169,8 +186,8 @@ CKO.FORMS.ACTIONS.NewForm = function () {
 
     function GetDirectives() {
         // Load Directives From REST
-        var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Directives?";
-        urlString += "$select=Id,Directive,DirectiveDescription,DirectiveStatusValue,ProjectedManHours,Expended";
+        var urlString = v.site + "/_vti_bin/listdata.svc/Directives?";
+        urlString += "$select=Id,Directive,DirectiveDescription,DirectiveStatusValue,ProjectedManHours,Expended,SupportedOrg,SupportedSubOrg,SupportParagraph,SupportReference";
         urlString += "&$filter=(DirectiveStatusValue eq 'InProgress') or (DirectiveStatusValue eq 'Complete')";
         urlString += "&$orderby=Directive";
 
@@ -193,7 +210,10 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                     v.directives.push({
                         "directive": j[i]["Directive"],
                         "description": j[i]["DirectiveDescription"],
-                        "status": j[i]["DirectiveStatusValue"]
+                        "status": j[i]["DirectiveStatusValue"],
+                        "org": j[i]["SupportedOrg"],
+                        "suborg": j[i]["SupportedSubOrg"],
+                        "alignment": j[i]["SupportParagraph"] + " " + j[i]["SupportReference"]
                     });
                 }
                 // Now just loop back through the array to create the dropdown and pass the index as the value so we know which directive to get data for.
@@ -241,8 +261,8 @@ CKO.FORMS.ACTIONS.NewForm = function () {
         switch (v.action) {
             case "Copy":
                 // get the action with the id and then update all fields accordingly
-                var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions?";
-                urlString += "$select=Id,Title,Expended,ActionComments,Function,Enabler,OtherEnabler,EffortTypeValue,SupportAlignment";
+                var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
+                urlString += "$select=Id,Title,Expended,ActionComments,Function,Enabler,OtherEnabler,EffortTypeValue,SupportAlignment,Customer";
                 urlString += "&$expand=PMTUser";
                 urlString += "&$filter=(Id eq " + v.copyid + ")";
                 logit("urlString: " + urlString);
@@ -268,6 +288,8 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                                             // Set the Directive accordingly
                                             v.title = j[i]["Title"];
                                             $("input[title^='Title']").val(v.title);
+                                            $("input[title*='Customer']").val(j[i]["Customer"]);
+                                            $("input[title='SupportAlignment']").val(j[i]["SupportAlignment"]);
                                             GetDirectives();
                                             $("#ddDirective").show();
                                             $("#ddStandard").hide();
@@ -278,6 +300,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                                             // Set the Standard accordingly
                                             v.title = j[i]["Title"];
                                             $("input[title^='Title']").val(v.title);
+                                            $("input[title*='Customer']").val(j[i]["Customer"]);
                                             GetStandards();
                                             $("#ddDirective").hide();
                                             $("#ddStandard").show();
@@ -326,7 +349,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
         logit("GetAlignments: standard-" + standard + ", paragraph-" + paragraph);
         if (v.standards[idx]["paragraph"] != "N/A") {
             // Now get the support alignments from the Alignments table using REST
-            var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Alignments?";
+            var urlString = v.site + "/_vti_bin/listdata.svc/Alignments?";
             urlString += "$select=Id,Parent,Paragraph,Reference,ShortDescription";
             urlString += "&$filter=(Parent eq '" + paragraph + "')";
             logit("Alignments urlString: " + urlString);
@@ -385,6 +408,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                 var standard = v.standards[idx]["standard"];
                 $("input[title^='Title']").val(standard);
                 $("#divDescription").html("").append(v.standards[idx]["description"]);
+                $("input[title*='Customer']").val(v.standards[idx]["org"] + "|" + v.standards[idx]["suborg"]);
                 GetAlignments();
                 break;
 
@@ -393,6 +417,9 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                 var idx = $("#" + obj.id + " option:selected").val();
                 $("input[title^='Title']").val(v.directives[idx]["directive"]);
                 $("#divDescription").html("").append(v.directives[idx]["description"]);
+                $("input[title*='Customer']").val(v.directives[idx]["org"] + "|" + v.directives[idx]["suborg"]);
+
+                $("input[title='SupportAlignment']").val(v.directives[idx]["alignment"]);
                 break;
 
             case "ddEnabler":
@@ -407,6 +434,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
 
     function SaveAction() {
         $("#FormError").remove();
+        v.errortext = "Please fill out the fields: ";
         var goon = true;
         if ($("input[title='SupportAlignment']").val() == "" && $("select[title='EffortType'] option:selected").val() == "Standard") {
             if (v.alignmentrequired == true) {
@@ -437,6 +465,10 @@ CKO.FORMS.ACTIONS.NewForm = function () {
             goon = false;
             v.errortext += "Comments ";
         }
+        //if ($("div[role='textbox']").html().length <= 13) {
+        //    goon = false;
+        //    v.errortext += "Comments ";
+        //}
         if ($("input[title*='Date Completed']").val() == "") {
             goon = false;
             v.errortext += "Date Completed ";

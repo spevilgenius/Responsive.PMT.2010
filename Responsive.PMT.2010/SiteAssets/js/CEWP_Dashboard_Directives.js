@@ -18,15 +18,18 @@ CKO.DASHBOARD.VARIABLES = {
     userID: null,
     directives: null,
     props: null,
+    directives2: null,
     role: "Visitor",
     html: ""
 }
+
 
 CKO.DASHBOARD.Directives = function () {
 
     var v = CKO.DASHBOARD.VARIABLES;
 
     function Init(site) {
+        v.site = site;
         var inDesignMode = document.forms[MSOWebPartPageFormName].MSOLayout_InDesignMode.value;
         logit("Design Mode = " + inDesignMode);
         if (inDesignMode === "1") {
@@ -41,17 +44,61 @@ CKO.DASHBOARD.Directives = function () {
                     v.role = "Member";
                 }
                 LoadDirectives();
+                //var lemur = LoadDirectives2();
+                //jQuery.when.apply(null, lemur).done(function () {
+                //    LoadDirectives();
+                //});
             }, function (sender, args) {
                 logit("Error getting user data : " + args.get_message());
             });
         }
     }
 
+    function LoadDirectives2() {
+        v.directives2 = new Array();
+        var deferreds = [];
+
+        var inc = "Include(";
+        var xml = "<View><Method Name='Read List' /><Query><OrderBy><FieldRef Name='SuspenseDate' /></OrderBy><Where><Eq><FieldRef Name='DirectiveStatus' /><Value Type='Text'>InProgress</Value></Eq></Where></Query>";
+        var fields = ["Title", "SuspenseDate", "Directive", "DirectiveStatus"];
+        xml += "<ViewFields>";
+        for (var z = 0; z <= fields.length - 1; z++) {
+            xml += "<FieldRef Name='" + fields[z] + "'/>";
+            if (z == fields.length - 1) {
+                inc += fields[z] + ")";
+            }
+            else {
+                inc += fields[z] + ", ";
+            }
+        }
+        xml += "<FieldRef Name='ID'/>";
+        xml += "</ViewFields>";
+        xml += "</View>";
+
+        deferreds.push($.when(CKO.CSOM.GetListItems.getitemsfilteredcomplex("current", "Directives", xml, inc)).then(function (items) {
+            if (items.get_count() > 0) { //get map data
+                enumerator = items.getEnumerator();
+                while (enumerator.moveNext()) {
+                    var prop = enumerator.get_current();
+                    logit("Directive: " + prop.get_item("Directive") + "-- Returned CSOM Suspense Date: " + prop.get_item("SuspenseDate"));
+                    v.directives2.push({
+                        "Title": prop.get_item("Title"),
+                        "SuspenseDate": prop.get_item("SuspenseDate"),
+                        "ListItem": prop
+                    });
+                }
+            }
+        }, function (sender, args) {
+            logit("Error getting data from SiteProperties list : " + args.get_message());
+        }));
+        return deferreds;
+    }
+
     function LoadDirectives() {
         v.directives = new Array();
         v.props = new Array();
         //Load Directives From REST to filter archived ones out
-        var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Directives?";
+        var urlString = v.site + "/_vti_bin/listdata.svc/Directives?";
         urlString += "$select=Id,Directive,DirectiveStatusValue,LeadAssessmentValue,SuspenseDate,StaffLead,SupportedOrg,SupportingOrg,TrainedValue,EquippedValue,Expended,PercentExpended,ProjectedManHours";
         urlString += "&$expand=StaffLead";
         urlString += "&$filter=(DirectiveStatusValue eq 'InProgress')";
@@ -68,7 +115,7 @@ CKO.DASHBOARD.Directives = function () {
                 var results = data.d.results;
                 var j = jQuery.parseJSON(JSON.stringify(results));
                 var numitems = data.d.results.length;
-                logit("Directives Count: " + numitems);
+                var resourced = "";
                 v.html += "<table id='tblDirectives' cellspacing='0' cellpadding='0' class='table table-bordered table-hover'>"
                 v.html += "<thead><tr><th class='squarekpi'>Lead<br/>Assessment</th><th class='titlecolumn'>Directive</th><th class='circlekpi'>Status</th><th>Suspense</th><th>Lead</th><th>Supported Org</th><th>Supporting Org</th><th class='circlekpi'>Resourced</th><th>Expended</th><th>Percent<br/>Expended</th></tr></thead>";
                 v.html += "<tbody>";
@@ -108,9 +155,10 @@ CKO.DASHBOARD.Directives = function () {
                         v.html += "<td>" + j[i]["Directive"] + "</td>";
                     }
                     else {
-                        v.html += "<td><a href='#' class='lnkDirective' data-id='" + j[i]["Id"] + "'>" + j[i]["Directive"] + "</a></td>";
+                        v.html += "<td><a href='#' class='lnkDirective' data-id='" + j[i]["Id"] + "' data-directive='" + j[i]["Directive"] + "'>" + j[i]["Directive"] + "</a></td>";
                     }
                     var a = moment(j[i]["SuspenseDate"]);
+                    a.add(a.utcOffset() * -1, 'm');
                     var b = moment();
                     var c = a.diff(b, 'days');
                     var d;
@@ -145,18 +193,29 @@ CKO.DASHBOARD.Directives = function () {
                     r = Math.round(((Number(la[1]) * 2) + Number(e[1]) + Number(t[1])) / 3);
                     switch (true) {
                         case (r == 1):
-                            d = "greencircle";
+                            d = "greencircle powerTip";
                             break;
 
                         case (r == 2):
-                            d = "yellowcircle";
+                            d = "yellowcircle powerTip";
                             break;
 
                         case (r == 3):
-                            d = "redcircle";
+                            d = "redcircle powerTip";
                             break;
                     }
-                    v.html += "<td class='" + d + "'></td>";
+                    var imga = $("<img style='width:16px;'/>");
+                    imga.attr("class", "powerTip");
+                    imga.attr("src", "../SiteAssets/images/" + la[0].toLowerCase() + "dot.png");
+                    var imgb = $("<img style='width:16px;'/>");
+                    imgb.attr("class", "powerTip");
+                    imgb.attr("src", "../SiteAssets/images/" + t[0].toLowerCase() + "dot.png");
+                    var imgc = $("<img style='width:16px;'/>");
+                    imgc.attr("class", "powerTip");
+                    imgc.attr("src", "../SiteAssets/images/" + e[0].toLowerCase() + "dot.png");
+                    resourced = "" + imga.prop('outerHTML') + "&nbsp;Lead Assessment<br/>" + imgb.prop('outerHTML') + "&nbsp;Trained<br/>" + imgc.prop('outerHTML') + "&nbsp;Equipped";
+
+                    v.html += "<td class='" + d + "' data-powertip='" + resourced + "'></td>";
                     v.html += "<td>" + j[i]["Expended"] + "</td>";
                     v.html += "<td>" + ((j[i]["PercentExpended"]) * 100).toFixed(1) + "%</td>";
                     v.html += "</tr>";
@@ -188,8 +247,8 @@ CKO.DASHBOARD.Directives = function () {
             });
             $(".lnkDirective").on("click", function (e) {
                 e.preventDefault();
-                var zurl = fixurl('/Lists/Directives/EditForm.aspx?ID=' + $(this).attr("data-id") + '&IsDlg=1');
-                CKODialog(zurl, 'Edit Directive', '1100', '800', 'NotificationCallback');
+                var zurl = fixurl('/Lists/Directives/DispForm.aspx?ID=' + $(this).attr("data-id") + '&Directive=' + $(this).attr("data-directive") + '&IsDlg=1');
+                CKODialog(zurl, 'View Directive', '1100', '800', 'NotificationCallback');
             });
         }
         $(".powerTip").powerTip({
@@ -204,7 +263,6 @@ CKO.DASHBOARD.Directives = function () {
             if (c < 0) {
                 var dog = getExpendedHoursByDirective();
                 jQuery.when.apply(null, dog).done(function () {
-                    logit("Actions Data Loaded!");
                     var stop = "stop";
                     UpdateExpendedHours();
                 });
@@ -328,3 +386,5 @@ CKO.DASHBOARD.Directives = function () {
 }
 
 SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs('CEWP_Dashboard_Directives.js');
+
+

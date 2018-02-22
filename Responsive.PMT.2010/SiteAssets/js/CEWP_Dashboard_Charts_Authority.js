@@ -52,12 +52,13 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
     }
 
     function LoadLists() {
+        logit("LoadLists Called For Authority Chart!");
         var deferreds = [];
         // Just get the functions and build the initial array.
-        var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Alignment?";
+        var urlString = v.site + "/_vti_bin/listdata.svc/Alignment?";
         urlString += "$select=Id,Authority,Reference";
         urlString += "&$orderby=Authority";
-
+        logit("ALIGNMENTS: " + urlString);
         deferreds.push($.when(CKO.REST.GetListItems.getitems(urlString)).then(function (data) {
             var results = data.d.results;
             var j = jQuery.parseJSON(JSON.stringify(results));
@@ -74,9 +75,9 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
             }
         }, function (data) { logit(data); }));
 
-        urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Standards?";
+        urlString = v.site + "/_vti_bin/listdata.svc/Standards?";
         urlString += "$select=Id,Title,SourceAuthority,SourceReference,Standard";
-
+        logit("STANDARDS: " + urlString);
         deferreds.push($.when(CKO.REST.GetListItems.getitems(urlString)).then(function (data) {
             var results = data.d.results;
             var j = jQuery.parseJSON(JSON.stringify(results));
@@ -89,9 +90,9 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
             }
         }, function (data) { logit(data); }));
 
-        urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Directives?";
+        urlString = v.site + "/_vti_bin/listdata.svc/Directives?";
         urlString += "$select=Id,Title,SourceAuthority,SourceReference,Directive";
-
+        logit("DIRECTIVES: " + urlString);
         deferreds.push($.when(CKO.REST.GetListItems.getitems(urlString)).then(function (data) {
             var results = data.d.results;
             var j = jQuery.parseJSON(JSON.stringify(results));
@@ -114,8 +115,9 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
 
     function GetActions() {
         if (v.url == null) {
-            var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions?";
+            var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
             urlString += "$select=Id,Title,Expended,DateCompleted,EffortTypeValue,FY,Quarter,StartOfWeek,Function";
+            logit("ACTIONS: " + urlString);
             var today = new Date();
             var month, quarter, weekstart, weekend;
             var quarters = { "Jan": 2, "Feb": 2, "Mar": 2, "Apr": 3, "May": 3, "Jun": 3, "Jul": 4, "Aug": 4, "Sep": 4, "Oct": 1, "Nov": 1, "Dec": 1 }
@@ -169,6 +171,7 @@ CKO.DASHBOARD.CHARTS.Authority = function () {
 
     function DataLoaded() {
         logit("Authority Chart: All Data Loaded");
+        v.totalhours = 0;
         var numitems = v.json.length;
         // Now loop through the data to get the different Authority based on the action
         var j = v.json;

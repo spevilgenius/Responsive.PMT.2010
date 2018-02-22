@@ -52,7 +52,7 @@ CKO.MYDASHBOARD.CHARTS.Authority = function () {
     function LoadLists() {
         var deferreds = [];
         // Just get the functions and build the initial array.
-        var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Alignment?";
+        var urlString = v.site + "/_vti_bin/listdata.svc/Alignment?";
         urlString += "$select=Id,Authority,Reference";
         urlString += "&$orderby=Authority";
 
@@ -72,7 +72,7 @@ CKO.MYDASHBOARD.CHARTS.Authority = function () {
             }
         }, function (data) { logit(data); }));
 
-        urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Standards?";
+        urlString = v.site + "/_vti_bin/listdata.svc/Standards?";
         urlString += "$select=Id,Title,SourceAuthority,SourceReference,Standard";
 
         deferreds.push($.when(CKO.REST.GetListItems.getitems(urlString)).then(function (data) {
@@ -87,7 +87,7 @@ CKO.MYDASHBOARD.CHARTS.Authority = function () {
             }
         }, function (data) { logit(data); }));
 
-        urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Directives?";
+        urlString = v.site + "/_vti_bin/listdata.svc/Directives?";
         urlString += "$select=Id,Title,SourceAuthority,SourceReference,Directive";
 
         deferreds.push($.when(CKO.REST.GetListItems.getitems(urlString)).then(function (data) {
@@ -112,7 +112,7 @@ CKO.MYDASHBOARD.CHARTS.Authority = function () {
 
     function GetActions() {
         if (v.url == null) {
-            var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions?";
+            var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
             urlString += "$select=Id,Title,Expended,PMTUser/Id,DateCompleted,EffortTypeValue";
             urlString += "&$expand=PMTUser";
 
@@ -161,6 +161,7 @@ CKO.MYDASHBOARD.CHARTS.Authority = function () {
 
     function AuthorityDataLoaded() {
         logit("All Authority Data Loaded");
+        v.totalhours = 0;
         var numitems = v.json.length;
         // Now loop through the data to get the different Authority based on the action
         var j = v.json;

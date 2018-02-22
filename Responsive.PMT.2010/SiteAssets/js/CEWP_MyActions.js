@@ -22,6 +22,7 @@ CKO.ACTIONS.MyActions = function () {
     var v = CKO.ACTIONS.VARIABLES;
 
     function Init(site) {
+        v.site = site;
         $().SPSTools_Notify({ type: 'wait', content: 'Loading Your Actions...Please wait...' });
         loadCSS(site + '/SiteAssets/css/fullcalendar.min.css');
         loadCSS(site + '/SiteAssets/css/myactions.css');
@@ -40,7 +41,7 @@ CKO.ACTIONS.MyActions = function () {
                     v.calstart = moment(start).startOf('month').subtract(7, 'days').format('YYYY-MM-DD');
                     v.calend = moment(end).endOf('month').format('YYYY-MM-DD');
                     var userId = _spPageContextInfo.userId;
-                    var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions?";
+                    var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
                     urlString += "$select=Id,Title,Expended,PMTUser/Id,ActionComments,Enabler,DateCompleted,EffortTypeValue,EndOfWeek";
                     urlString += "&$expand=PMTUser";
                     urlString += "&$filter=((PMTUser/Id eq " + userId + ") and (DateCompleted ge datetime'" + moment(start).startOf('month').subtract(7, 'days').format('YYYY-MM-DD[T]HH:MM:SS[Z]') + "') and (EffortTypeValue eq 'Directive'))";
@@ -85,7 +86,7 @@ CKO.ACTIONS.MyActions = function () {
                     // Standards
                     v.standards = []; // Clear out existing
                     var userId = _spPageContextInfo.userId;
-                    var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions?";
+                    var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
                     urlString += "$select=Id,Title,Expended,PMTUser/Id,ActionComments,Enabler,DateCompleted,EffortTypeValue,EndOfWeek";
                     urlString += "&$expand=PMTUser";
                     urlString += "&$filter=((PMTUser/Id eq " + userId + ") and (DateCompleted ge datetime'" + moment(start).startOf('month').subtract(7, 'days').format('YYYY-MM-DD[T]HH:MM:SS[Z]') + "') and (EffortTypeValue eq 'Standard'))";

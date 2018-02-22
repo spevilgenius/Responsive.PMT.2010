@@ -13,16 +13,17 @@ CKO.DASHBOARD.TASKERS.Taskers = function () {
         }
         else {
             loadCSS(site + '/SiteAssets/css/responsive.bootstrap.min.css');
-            LoadTaskers();
+            LoadTaskers(site);
         }
     }
 
-    function LoadTaskers() {
+    function LoadTaskers(site) {
         //Load Taskers From REST
-        var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/CATS?";
-        urlString += "$select=Id,Subject,CATSSuspense,OCKOSuspense,ClosedValue,CATSControlNumber,CATSIssued";
+        var urlString = site + "/_vti_bin/listdata.svc/CATS?";
+        urlString += "$select=Id,Subject,CATSSuspense,OCKOSuspense,ClosedValue,CATSControlNumber,RoleValue";
         urlString += "&$filter=(ClosedValue eq 'No')";
         urlString += "&$orderby=CATSSuspense";
+        logit("CATS: " + urlString);
 
         jQuery.ajax({
             url: urlString,
@@ -40,7 +41,7 @@ CKO.DASHBOARD.TASKERS.Taskers = function () {
                 var j = jQuery.parseJSON(JSON.stringify(results));
                 logit("Taskers Count: " + data.d.results.length);
                 v.html += "<table id='tblTaskers' class='table table-bordered table-hover' cellspacing='0' cellpadding='0'>"
-                v.html += "<thead><tr><td>CATS Ctrl<br/>Number</td><td>OCKO Suspense</td><td>CATS Suspense</td><td>CATS Issued</td></tr></thead>";
+                v.html += "<thead><tr><td>CATS Ctrl<br/>Number</td><td>OCKO Suspense</td><td>CATS Suspense</td><td>CATS Role</td></tr></thead>";
                 v.html += "<tbody>";
                 for (var i = 0, length = j.length; i < length; i++) {
                     v.html += "<tr>";
@@ -53,29 +54,29 @@ CKO.DASHBOARD.TASKERS.Taskers = function () {
                         var d;
                         var pt;
                         switch (true) {
-                            case (c <= 0):
+                            case (c <= 3):
                                 d = "text-danger powerTip";
                                 pt = j[i]["Subject"];
                                 break;
 
-                            case (c > 0):
+                            case (c > 3):
                                 d = "powerTip";
                                 pt = j[i]["Subject"];
                                 break;
                         }
-                        v.html += "<td class='" + d + "' data-powertip='" + pt + "'>" + j[i]["CATSControlNumber"] + "</td>";
+                        v.html += "<td class='" + d + " catslink' data-powertip='" + pt + "' style='cursor:pointer;' data-id='" + j[i]["Id"] + "'>" + j[i]["CATSControlNumber"] + "</td>";
                         v.html += "<td>" + dateformat(j[i]["OCKOSuspense"], 'isoshort') + "</td>";
                     }
                     else {
                         logit("2: OCKOSuspense - " + j[i]["OCKOSuspense"]);
                         d = "powerTip";
                         pt = j[i]["Subject"];
-                        v.html += "<td class='" + d + "' data-powertip='" + pt + "'>" + j[i]["CATSControlNumber"] + "</td>";
+                        v.html += "<td class='" + d + " catslink' data-powertip='" + pt + "' style='cursor:pointer;' data-id='" + j[i]["Id"] + "'>" + j[i]["CATSControlNumber"] + "</td>";
                         v.html += "<td></td>";
                     }
                     var e = String(j[i]["CATSSuspense"]);
                     if (e != "null" && e.indexOf("Date") >= 0) { v.html += "<td>" + dateformat(j[i]["CATSSuspense"], 'isoshort') + "</td>"; } else { v.html += "<td></td>"; }
-                    v.html += "<td>" + j[i]["CATSIssued"] + "</td>";
+                    v.html += "<td>" + j[i]["RoleValue"] + "</td>";
                 }
                 v.html += "</tbody></table>";
                 $("#Taskers").html("").append(v.html);
@@ -97,6 +98,10 @@ CKO.DASHBOARD.TASKERS.Taskers = function () {
         });
         // Now sort the table by triggering the click for the date column.
         $("td[aria-label*='OCKO Suspense']").click();
+
+        $(".catslink").on('click', function () {
+            CKODialog('/sites/OCKO/PMT/Lists/CATS/DisplayTask.aspx?ID=' + $(this).attr("data-id"), 'CATS Task', '1100', '800', 'NotificationCallback');
+        });
     }
 
     return {
