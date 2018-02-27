@@ -144,5 +144,9 @@
     <File Path="SiteAssets\js\CEWP_HoursReport.js" Url="SiteAssets/js/CEWP_HoursReport.js" />
     <File Path="SiteAssets\html\CEWP_MissingHoursReport.html" Url="SiteAssets/html/CEWP_MissingHoursReport.html" />
     <File Path="SiteAssets\js\CEWP_MissingHoursReport.js" Url="SiteAssets/js/CEWP_MissingHoursReport.js" />
+    <File Path="SiteAssets\html\CEWP_Taskers_NewTaskers2.html" Url="SiteAssets/html/CEWP_Taskers_NewTaskers2.html" />
+    <File Path="SiteAssets\js\CEWP_Taskers_NewTaskers2.js" Url="SiteAssets/js/CEWP_Taskers_NewTaskers2.js" />
+    <File Path="SiteAssets\html\CEWP_TD_Charts_OverallChart.html" Url="SiteAssets/html/CEWP_TD_Charts_OverallChart.html" />
+    <File Path="SiteAssets\js\CEWP_TD_Charts_OverallChart.js" Url="SiteAssets/js/CEWP_TD_Charts_OverallChart.js" />
   </Module>
 </Elements>

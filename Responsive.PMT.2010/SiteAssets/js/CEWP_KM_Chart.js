@@ -140,6 +140,50 @@ function drawcharttip(obj) {
 	return html;
 }
 
+function drawlabel(obj) {
+    var org = obj.value;
+    var stop = "stop";
+    var html;
+    switch (org) {
+        case "HQ TRADOC":
+            html = "<span style='color: #8a6d3b;'>" + org + "</span>";
+            break;
+
+        case "ARCIC":
+            html = "<span style='color: #3c763d;'>" + org + "</span>";
+            break;
+
+        case "CIMT":
+            html = "<span style='color: #3c763d;'>" + org + "</span>";
+            break;
+
+        case "CAC":
+            html = "<span style='color: #3c763d;'>" + org + "</span>";
+            break;
+
+        case "AWG":
+            html = "<span style='color: #3c763d;'>" + org + "</span>";
+            break;
+
+        case "REF":
+            html = "<span style='color: #3c763d;'>" + org + "</span>";
+            break;
+
+        case "DLI":
+            html = "<span style='color: #a94442;'>" + org + "</span>";
+            break;
+
+        case "USASMA":
+            html = "<span style='color: #a94442;'>" + org + "</span>";
+            break;
+
+        default:
+            html = "<span style='color: #0072bc;'>" + org + "</span>";
+            break;
+    }
+    return html;
+}
+
 function drawCharts() {
 	var categories = [];
 	var total = [];
@@ -190,7 +234,14 @@ function drawCharts() {
 	        color: '#000000'
 	    },
 	    xAxis: {
-	        categories: categories	    
+            categories: categories,
+            labels: {
+                useHTML: true,
+                formatter: function () {
+                    var xl = drawlabel(this);
+                    return xl;
+                }
+            }
 	    },
 	    yAxis: {
 	        min: 0,
