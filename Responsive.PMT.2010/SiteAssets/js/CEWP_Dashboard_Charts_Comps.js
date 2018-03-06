@@ -65,7 +65,7 @@ CKO.DASHBOARD.CHARTS.Comps = function () {
     }
 
     function FunctionsLoaded() {
-        if (v.url == null) {
+        if (v.url === null) {
             var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
             urlString += "$select=Id,Expended,DateCompleted,EffortTypeValue,Function";
 
@@ -121,7 +121,7 @@ CKO.DASHBOARD.CHARTS.Comps = function () {
         for (var i = 0, length = j.length; i < length; i++) {
             // This is all of the actions from the qry so now update the hours for each Function by adding the hours to that array
             for (var k = 0; k < v.functions.length; k++) {
-                if (v.functions[k].title == j[i]["Function"]) {
+                if (v.functions[k].title === j[i]["Function"]) {
                     v.functions[k].hours += j[i]["Expended"];
                     v.totalhours += j[i]["Expended"];
                 }
@@ -129,7 +129,7 @@ CKO.DASHBOARD.CHARTS.Comps = function () {
         }
         // Create data for the series using the abbreviations
         v.chartdata = [];
-        for (var k = 0; k < v.functions.length; k++) {
+        for (k = 0; k < v.functions.length; k++) {
             v.chartdata.push({
                 "name": v.functions[k]["abbr"],
                 "y": v.functions[k]["hours"]
@@ -280,7 +280,7 @@ CKO.DASHBOARD.CHARTS.Comps = function () {
 
 function getISODate(date) {
     function pad(n) { return n < 10 ? '0' + n : n }
-    if (date != null) {
+    if (date !== null) {
         d = new Date(date);
     }
     else {

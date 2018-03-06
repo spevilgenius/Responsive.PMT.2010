@@ -115,11 +115,11 @@ function clickme(obj) {
 }
 
 function UpdateTabs(msg) {
-    if (msg != null) { logit(msg); }  // used to log messages to the console as the files are copied.
+    if (msg !== null) { logit(msg); }  // used to log messages to the console as the files are copied.
     var item;
 
     function handleError(msg) {
-        if (msg != null) { logit("handleError: " + msg); }  // used to log messages to the console if there is an error. TODO: Alert the user?
+        if (msg !== null) { logit("handleError: " + msg); }  // used to log messages to the console if there is an error. TODO: Alert the user?
         UpdateTabs(null);
     }
 

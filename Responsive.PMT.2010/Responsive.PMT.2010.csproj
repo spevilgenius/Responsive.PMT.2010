@@ -80,7 +80,6 @@
     <None Include="SiteAssets\fonts\fontawesome-webfont.woff2" />
     <None Include="SiteAssets\fonts\FontAwesome.otf" />
     <None Include="SiteAssets\html\dbAuthority.widget" />
-    <None Include="SiteAssets\js\CATS.widget" />
     <None Include="SiteAssets\js\Directives.json" />
     <None Include="SiteAssets\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{ac5096c7-822a-477f-ba2a-1eadadfc7c2a}</SharePointProjectItemId>
@@ -413,7 +412,6 @@
     <Content Include="SiteAssets\images\whitestar1.svg" />
     <Content Include="SiteAssets\images\splitdot.png" />
     <Content Include="SiteAssets\images\yellowdot.png" />
-    <Content Include="SiteAssets\js\Actions_NewForm.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_Charts_Comps.js" />
     <Content Include="SiteAssets\js\CEWP_Forms_EditSkillForm.js" />
     <Content Include="SiteAssets\js\CEWP_Forms_NewSkillForm.js" />
@@ -434,7 +432,6 @@
     <Content Include="SiteAssets\js\CEWP_Dashboard_NewCatsTaskers.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_CatsTaskers.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_Directives.js" />
-    <Content Include="SiteAssets\js\CEWP_DocSetHomePage.js" />
     <Content Include="SiteAssets\js\CEWP_Forms_EditStandardForm.js" />
     <Content Include="SiteAssets\js\CEWP_Forms_NewDirectiveForm.js" />
     <Content Include="SiteAssets\js\CEWP_Forms_EditDirectiveForm.js" />
@@ -442,9 +439,7 @@
     <Content Include="SiteAssets\js\CEWP_Forms_NewActionForm.js" />
     <Content Include="SiteAssets\js\CEWP_Forms_NewStandardForm.js" />
     <Content Include="SiteAssets\js\CEWP_Forms_NewTaskerForm.js" />
-    <Content Include="SiteAssets\js\CEWP_HomePage.js" />
     <Content Include="SiteAssets\js\CEWP_KM_Chart.js" />
-    <Content Include="SiteAssets\js\CEWP_FORMS_EditOrgForm.js" />
     <Content Include="SiteAssets\js\CEWP_KM_Map.js" />
     <Content Include="SiteAssets\js\CEWP_KM_Map_Old.js" />
     <Content Include="SiteAssets\js\CEWP_KM_TotalChart.js" />

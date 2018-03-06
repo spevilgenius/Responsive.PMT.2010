@@ -13,8 +13,6 @@
     <ProjectItemFile Source="html\CEWP_MyDashboard.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="html\directives.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\images\NOPII.png" Target="SiteAssets\js\images\" Type="ElementFile" />
-    <ProjectItemFile Source="js\CEWP_DocSetHomePage.js" Target="SiteAssets\js\" Type="ElementFile" />
-    <ProjectItemFile Source="js\CEWP_HomePage.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_MyDashboard.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="css\staffaction.css" Target="SiteAssets\css\" Type="ElementFile" />
     <ProjectItemFile Source="html\staffaction.html" Target="SiteAssets\html\" Type="ElementFile" />
@@ -38,7 +36,6 @@
     <ProjectItemFile Source="html\dbAuthority.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="html\dbAuthority.widget" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\cko.forms.overrides.js" Target="SiteAssets\js\" Type="ElementFile" />
-    <ProjectItemFile Source="js\CEWP_FORMS_EditOrgForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_UserCustomActions.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_UserCustomActions.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_PMTCustomActions.html" Target="SiteAssets\html\" Type="ElementFile" />
@@ -83,12 +80,10 @@
     <ProjectItemFile Source="css\font-awesome.min.css" Target="SiteAssets\css\" Type="ElementFile" />
     <ProjectItemFile Source="js\SiteNavigation.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="css\font-awesome.css" Target="SiteAssets\css\" Type="ElementFile" />
-    <ProjectItemFile Source="js\CATS.widget" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Dashboard_CatsTaskers.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Dashboard_NewCatsTaskers.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Dashboard_CatsTaskers.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Dashboard_NewCatsTaskers.js" Target="SiteAssets\js\" Type="ElementFile" />
-    <ProjectItemFile Source="js\Actions_NewForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\Directive_NewForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\Directive_EditForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Forms_NewDirectiveForm.html" Target="SiteAssets\html\" Type="ElementFile" />

@@ -39,59 +39,15 @@ CKO.DASHBOARD.Directives = function () {
             loadCSS(site + '/SiteAssets/css/CEWP_Dashboard_Directives.css');
             loadCSS(site + '/SiteAssets/css/responsive.bootstrap.min.css');
             $.when(CKO.CSOM.GetUserInfo.isuseringroup("PMT Members")).then(function (found) {
-                if (found == true) { //user is in group
+                if (found === true) { //user is in group
                     logit("You are a member of the PMT Members group.");
                     v.role = "Member";
                 }
                 LoadDirectives();
-                //var lemur = LoadDirectives2();
-                //jQuery.when.apply(null, lemur).done(function () {
-                //    LoadDirectives();
-                //});
             }, function (sender, args) {
                 logit("Error getting user data : " + args.get_message());
             });
         }
-    }
-
-    function LoadDirectives2() {
-        v.directives2 = new Array();
-        var deferreds = [];
-
-        var inc = "Include(";
-        var xml = "<View><Method Name='Read List' /><Query><OrderBy><FieldRef Name='SuspenseDate' /></OrderBy><Where><Eq><FieldRef Name='DirectiveStatus' /><Value Type='Text'>InProgress</Value></Eq></Where></Query>";
-        var fields = ["Title", "SuspenseDate", "Directive", "DirectiveStatus"];
-        xml += "<ViewFields>";
-        for (var z = 0; z <= fields.length - 1; z++) {
-            xml += "<FieldRef Name='" + fields[z] + "'/>";
-            if (z == fields.length - 1) {
-                inc += fields[z] + ")";
-            }
-            else {
-                inc += fields[z] + ", ";
-            }
-        }
-        xml += "<FieldRef Name='ID'/>";
-        xml += "</ViewFields>";
-        xml += "</View>";
-
-        deferreds.push($.when(CKO.CSOM.GetListItems.getitemsfilteredcomplex("current", "Directives", xml, inc)).then(function (items) {
-            if (items.get_count() > 0) { //get map data
-                enumerator = items.getEnumerator();
-                while (enumerator.moveNext()) {
-                    var prop = enumerator.get_current();
-                    logit("Directive: " + prop.get_item("Directive") + "-- Returned CSOM Suspense Date: " + prop.get_item("SuspenseDate"));
-                    v.directives2.push({
-                        "Title": prop.get_item("Title"),
-                        "SuspenseDate": prop.get_item("SuspenseDate"),
-                        "ListItem": prop
-                    });
-                }
-            }
-        }, function (sender, args) {
-            logit("Error getting data from SiteProperties list : " + args.get_message());
-        }));
-        return deferreds;
     }
 
     function LoadDirectives() {
@@ -99,7 +55,7 @@ CKO.DASHBOARD.Directives = function () {
         v.props = new Array();
         //Load Directives From REST to filter archived ones out
         var urlString = v.site + "/_vti_bin/listdata.svc/Directives?";
-        urlString += "$select=Id,Directive,DirectiveStatusValue,LeadAssessmentValue,SuspenseDate,StaffLead,SupportedOrg,SupportingOrg,TrainedValue,EquippedValue,Expended,PercentExpended,ProjectedManHours";
+        urlString += "$select=Id,Directive,DirectiveStatusValue,LeadAssessmentValue,SuspenseDate,StaffLead,SupportedOrg,SupportingOrg,MannedValue,TrainedValue,EquippedValue,Expended,PercentExpended,ProjectedManHours";
         urlString += "&$expand=StaffLead";
         urlString += "&$filter=(DirectiveStatusValue eq 'InProgress')";
         urlString += "&$orderby=SuspenseDate";
@@ -129,6 +85,23 @@ CKO.DASHBOARD.Directives = function () {
                     });
                     v.html += "<tr>";
                     la = j[i]["LeadAssessmentValue"];
+                    ap = j[i]["MannedValue"];
+                    pe = ((j[i]["PercentExpended"]) * 100).toFixed(1);
+                    pe = Number(pe);
+                    ped = null;
+                    switch (true) {
+                        case (pe > 90):
+                            ped = "red";
+                            break;
+
+                        case (pe >= 80):
+                            ped = "yellow";
+                            break;
+
+                        case (pe < 80):
+                            ped = "green"
+                            break;
+                    }
                     e = j[i]["EquippedValue"];
                     e = e.split(";");
                     t = j[i]["TrainedValue"];
@@ -151,7 +124,7 @@ CKO.DASHBOARD.Directives = function () {
                             v.html += "<td></td>";
                             break;
                     }
-                    if (v.role == "Visitor") {
+                    if (v.role === "Visitor") {
                         v.html += "<td>" + j[i]["Directive"] + "</td>";
                     }
                     else {
@@ -169,7 +142,7 @@ CKO.DASHBOARD.Directives = function () {
                             pt = Math.abs(c) + " days past due.";
                             break;
 
-                        case (c == 0):
+                        case (c === 0):
                             d = "yellowcircle powerTip";
                             pt = "due today."
                             break;
@@ -190,17 +163,19 @@ CKO.DASHBOARD.Directives = function () {
                     v.html += "<td>" + sl + "</td>";
                     v.html += "<td>" + j[i]["SupportedOrg"] + "</td>";
                     v.html += "<td>" + j[i]["SupportingOrg"] + "</td>";
-                    r = Math.round(((Number(la[1]) * 2) + Number(e[1]) + Number(t[1])) / 3);
+                    ap = ap.split(";");
+                    //r = Math.round(((Number(la[1]) * 2) + Number(e[1]) + Number(t[1])) / 3);
+                    r = Math.round(((Number(ap[1]) * 2) + Number(e[1]) + Number(t[1])) / 3);
                     switch (true) {
-                        case (r == 1):
+                        case (r === 1):
                             d = "greencircle powerTip";
                             break;
 
-                        case (r == 2):
+                        case (r === 2):
                             d = "yellowcircle powerTip";
                             break;
 
-                        case (r == 3):
+                        case (r === 3):
                             d = "redcircle powerTip";
                             break;
                     }
@@ -213,7 +188,7 @@ CKO.DASHBOARD.Directives = function () {
                     var imgc = $("<img style='width:16px;'/>");
                     imgc.attr("class", "powerTip");
                     imgc.attr("src", "../SiteAssets/images/" + e[0].toLowerCase() + "dot.png");
-                    resourced = "" + imga.prop('outerHTML') + "&nbsp;Lead Assessment<br/>" + imgb.prop('outerHTML') + "&nbsp;Trained<br/>" + imgc.prop('outerHTML') + "&nbsp;Equipped";
+                    resourced = "" + imga.prop('outerHTML') + "&nbsp;Manned<br/>" + imgb.prop('outerHTML') + "&nbsp;Trained<br/>" + imgc.prop('outerHTML') + "&nbsp;Equipped";
 
                     v.html += "<td class='" + d + "' data-powertip='" + resourced + "'></td>";
                     v.html += "<td>" + j[i]["Expended"] + "</td>";
@@ -229,7 +204,7 @@ CKO.DASHBOARD.Directives = function () {
 
     function DataLoaded() {
         logit("Data Loaded");
-        if (v.role == "Visitor") {
+        if (v.role === "Visitor") {
             $('#tblDirectives').dataTable({
                 "scrollY": "300px",
                 "scrollCollapse": true,
@@ -279,7 +254,7 @@ CKO.DASHBOARD.Directives = function () {
         xml += "<ViewFields>";
         for (var z = 0; z <= fields.length - 1; z++) {
             xml += "<FieldRef Name='" + fields[z] + "'/>";
-            if (z == fields.length - 1) {
+            if (z === fields.length - 1) {
                 inc += fields[z] + ")";
             }
             else {
@@ -326,7 +301,7 @@ CKO.DASHBOARD.Directives = function () {
                         }
                     }
                     v.directives[i].Expended = total;
-                    if (v.directives[i].PMH == "" || v.directives[i].PMH == null) { }
+                    if (v.directives[i].PMH === "" || v.directives[i].PMH === null) { /* do nothing */ }
                     else {
                         var pe = parseFloat((total / v.directives[i].PMH).toFixed(1));
                         v.directives[i].PercentExpended = pe;

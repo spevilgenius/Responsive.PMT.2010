@@ -64,7 +64,7 @@ CKO.FORMS.SKILLS.NewForm = function () {
         v.errortext = "Please fill out the fields: ";
         var goon = true;
         
-        if ($("input[title='Hours']").val() == "") {
+        if ($("input[title='Hours']").val() === "") {
             goon = false;
             v.errortext += "Hours ";
         }
@@ -72,7 +72,7 @@ CKO.FORMS.SKILLS.NewForm = function () {
         //    goon = false;
         //    v.errortext += "Function ";
         //}
-        if (goon == true) {
+        if (goon === true) {
             $(window).on('unload', function () {
                 var returndata = [];
                 returndata[0] = "AddSkill";

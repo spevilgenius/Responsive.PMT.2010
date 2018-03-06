@@ -95,7 +95,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
         jQuery.when.apply(null, monkey).done(function () {
             logit("LoadDropdowns complete.");
             $("input[title='Title Required Field']").hide(); // hide for testing
-            if (v.actiondate != null) { $("input[title*='Date Completed']").val(moment(v.actiondate).format("MM/DD/YYYY")); }
+            if (v.actiondate !== null) { $("input[title*='Date Completed']").val(moment(v.actiondate).format("MM/DD/YYYY")); }
             $("select[title='EffortType'] option").each(function () {
                 $(this).removeAttr("selected");
             });
@@ -158,11 +158,11 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                 }
                 // Now just loop back through the array to create the dropdown and pass the index as the value so we know which standard to get data for.
                 var opts;
-                if (v.title != "") {
+                if (v.title !== "") {
                     opts = "<option value='666'>Select...</option>";
-                    for (var i = 0; i < v.standards.length; i++) {
+                    for (i = 0; i < v.standards.length; i++) {
                         // if the title matches the option, select it
-                        if (v.standards[i]["standard"] == v.title) {
+                        if (v.standards[i]["standard"] === v.title) {
                             opts += "<option selected value='" + i + "'>" + v.standards[i]["standard"] + "</option>";
                             // also need to set the description field
                             $("#divDescription").html("").append(v.standards[i]["description"]);
@@ -174,7 +174,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                 }
                 else {
                     opts = "<option selected value='Select...'>Select...</option>";
-                    for (var i = 0; i < v.standards.length; i++) {
+                    for (i = 0; i < v.standards.length; i++) {
                         opts += "<option value='" + i + "'>" + v.standards[i]["standard"] + "</option>";
                     }
                 }
@@ -217,10 +217,10 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                     });
                 }
                 // Now just loop back through the array to create the dropdown and pass the index as the value so we know which directive to get data for.
-                if (v.title != "") {
-                    for (var i = 0; i < v.directives.length; i++) {
+                if (v.title !== "") {
+                    for (i = 0; i < v.directives.length; i++) {
                         // if the title matches the option, select it
-                        if (v.directives[i]["directive"] == v.title) {
+                        if (v.directives[i]["directive"] === v.title) {
                             opts += "<option selected value='" + i + "'>" + v.directives[i]["directive"] + "</option>";
                             // also need to set the description field
                             $("#divDescription").html("").append(v.directives[i]["description"]);
@@ -232,7 +232,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                 }
                 else {
                     opts = "<option selected value='Select...'>Select...</option>";
-                    for (var i = 0; i < v.directives.length; i++) {
+                    for (i = 0; i < v.directives.length; i++) {
                         opts += "<option value='" + i + "'>" + v.directives[i]["directive"] + "</option>";
                     }
                 }
@@ -281,7 +281,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                             // there is only supposed to be 1 item here so just update the fields accordingly
                             
                             $("select[title='EffortType'] option").each(function () {
-                                if ($(this).html() == j[i]["EffortTypeValue"]) {
+                                if ($(this).html() === j[i]["EffortTypeValue"]) {
                                     $(this).prop('selected', true);
                                     switch (j[i]["EffortTypeValue"]) {
                                         case "Directive":
@@ -311,14 +311,14 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                             });
 
                             $("#ddFunction option").each(function () {
-                                if ($(this).html() == j[i]["Function"]) {
+                                if ($(this).html() === j[i]["Function"]) {
                                     $(this).prop('selected', true);
                                     $("input[title^='Function']").val(j[i]["Function"]);
                                 }
                             });
 
                             $("#ddEnabler option").each(function () {
-                                if ($(this).html() == j[i]["Enabler"]) {
+                                if ($(this).html() === j[i]["Enabler"]) {
                                     $(this).prop('selected', true);
                                     $("input[title^='Enabler']").val(j[i]["Enabler"]);
                                 }
@@ -347,7 +347,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
         var standard = v.standards[idx]["standard"];
         var paragraph = v.standards[idx]["paragraph"];
         logit("GetAlignments: standard-" + standard + ", paragraph-" + paragraph);
-        if (v.standards[idx]["paragraph"] != "N/A") {
+        if (v.standards[idx]["paragraph"] !== "N/A") {
             // Now get the support alignments from the Alignments table using REST
             var urlString = v.site + "/_vti_bin/listdata.svc/Alignments?";
             urlString += "$select=Id,Parent,Paragraph,Reference,ShortDescription";
@@ -369,10 +369,10 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                     logit("Alignments Count: " + numitems);
                     var alignment = String($("input[title='SupportAlignment']").val());
                     var opts = "";
-                    if (alignment != "undefined" && alignment != "null" && alignment != "") {
+                    if (alignment !== "undefined" && alignment !== "null" && alignment !== "") {
                         for (var i = 0, length = j.length; i < length; i++) {
                             var opt = j[i]["Paragraph"] + "-" + j[i]["ShortDescription"];
-                            if (opt == alignment) {
+                            if (opt === alignment) {
                                 opts += "<option selected value='" + opt + "'>" + j[i]["ShortDescription"] + "</option>";
                             }
                             else {
@@ -382,8 +382,8 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                     }
                     else {
                         opts += "<option selected value='Select...'>Select...</option>";
-                        for (var i = 0, length = j.length; i < length; i++) {
-                            var opt = j[i]["Paragraph"] + "-" + j[i]["ShortDescription"];
+                        for (i = 0; i < j.length; i++) {
+                            opt = j[i]["Paragraph"] + "-" + j[i]["ShortDescription"];
                             opts += "<option value='" + opt + "'>" + j[i]["ShortDescription"] + "</option>";
 
                         }
@@ -414,7 +414,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
 
             case "ddDirective":
                 // Set the hidden title field to the selected Directive and display the description
-                var idx = $("#" + obj.id + " option:selected").val();
+                idx = $("#" + obj.id + " option:selected").val();
                 $("input[title^='Title']").val(v.directives[idx]["directive"]);
                 $("#divDescription").html("").append(v.directives[idx]["description"]);
                 $("input[title*='Customer']").val(v.directives[idx]["org"] + "|" + v.directives[idx]["suborg"]);
@@ -436,8 +436,8 @@ CKO.FORMS.ACTIONS.NewForm = function () {
         $("#FormError").remove();
         v.errortext = "Please fill out the fields: ";
         var goon = true;
-        if ($("input[title='SupportAlignment']").val() == "" && $("select[title='EffortType'] option:selected").val() == "Standard") {
-            if (v.alignmentrequired == true) {
+        if ($("input[title='SupportAlignment']").val() === "" && $("select[title='EffortType'] option:selected").val() === "Standard") {
+            if (v.alignmentrequired === true) {
                 goon = false;
                 v.errortext += "Support Alignment ";
             }
@@ -445,19 +445,19 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                 $("input[title='SupportAlignment']").val("N/A").parent().parent().hide(); // just set the support alignment to NA
             }
         }
-        if ($("#ddStandard option:selected").val() == "Select..." && $("select[title='EffortType'] option:selected").val() == "Standard") {
+        if ($("#ddStandard option:selected").val() === "Select..." && $("select[title='EffortType'] option:selected").val() === "Standard") {
             goon = false;
             v.errortext += "Objective ";
         }
-        if ($("#ddDirective option:selected").val() == "Select..." && $("select[title='EffortType'] option:selected").val() == "Directive") {
+        if ($("#ddDirective option:selected").val() === "Select..." && $("select[title='EffortType'] option:selected").val() === "Directive") {
             goon = false;
             v.errortext += "Objective ";
         }
-        if ($("input[title='Enabler Required Field']").val() == "Select..." || $("input[title='Enabler Required Field']").val() == "") {
+        if ($("input[title='Enabler Required Field']").val() === "Select..." || $("input[title='Enabler Required Field']").val() === "") {
             goon = false;
             v.errortext += "Enabler ";
         }
-        if ($("input[title='Function Required Field']").val() == "Select..." || $("input[title='Function Required Field']").val() == "") {
+        if ($("input[title='Function Required Field']").val() === "Select..." || $("input[title='Function Required Field']").val() === "") {
             goon = false;
             v.errortext += "Function ";
         }
@@ -469,15 +469,15 @@ CKO.FORMS.ACTIONS.NewForm = function () {
         //    goon = false;
         //    v.errortext += "Comments ";
         //}
-        if ($("input[title*='Date Completed']").val() == "") {
+        if ($("input[title*='Date Completed']").val() === "") {
             goon = false;
             v.errortext += "Date Completed ";
         }
-        if ($("input[title*='Expended']").val() == "") {
+        if ($("input[title*='Expended']").val() === "") {
             goon = false;
             v.errortext += "Time ";
         }
-        if (goon == true) {
+        if (goon === true) {
             $(window).on('unload', function () {
                 var returndata = [];
                 returndata[0] = "Refresh";

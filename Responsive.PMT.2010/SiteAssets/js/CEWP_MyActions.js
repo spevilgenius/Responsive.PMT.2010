@@ -161,7 +161,7 @@ CKO.ACTIONS.MyActions = function () {
                 });
             },
             viewRender: function (view) {
-                if (view.name == 'month') {
+                if (view.name === 'month') {
                     $(".fc-day-number").each(function () {
                         var dd = $(this).parent().attr("data-date");
                         var add;
@@ -209,7 +209,7 @@ CKO.ACTIONS.MyActions = function () {
 
     function getISODate(date) {
         function pad(n) { return n < 10 ? '0' + n : n }
-        if (date != null) {
+        if (date !== null) {
             d = new Date(date);
         }
         else {

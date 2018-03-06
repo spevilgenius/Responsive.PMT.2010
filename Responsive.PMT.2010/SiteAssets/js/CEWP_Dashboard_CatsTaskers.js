@@ -46,7 +46,7 @@ CKO.DASHBOARD.TASKERS.Taskers = function () {
                 for (var i = 0, length = j.length; i < length; i++) {
                     v.html += "<tr>";
                     var a = String(j[i]["OCKOSuspense"]);
-                    if (a != "null" && a.indexOf("Date") >= 0) {
+                    if (a !== "null" && a.indexOf("Date") >= 0) {
                         //logit("1: OCKOSuspense - " + j[i]["OCKOSuspense"]);
                         a = moment(a);
                         var b = moment();
@@ -75,7 +75,7 @@ CKO.DASHBOARD.TASKERS.Taskers = function () {
                         v.html += "<td></td>";
                     }
                     var e = String(j[i]["CATSSuspense"]);
-                    if (e != "null" && e.indexOf("Date") >= 0) { v.html += "<td>" + dateformat(j[i]["CATSSuspense"], 'isoshort') + "</td>"; } else { v.html += "<td></td>"; }
+                    if (e !== "null" && e.indexOf("Date") >= 0) { v.html += "<td>" + dateformat(j[i]["CATSSuspense"], 'isoshort') + "</td>"; } else { v.html += "<td></td>"; }
                     v.html += "<td>" + j[i]["RoleValue"] + "</td>";
                 }
                 v.html += "</tbody></table>";

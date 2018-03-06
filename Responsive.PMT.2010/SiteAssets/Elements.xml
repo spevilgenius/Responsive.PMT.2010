@@ -12,8 +12,6 @@
     <File Path="SiteAssets\html\CEWP_MyDashboard.html" Url="SiteAssets/html/CEWP_MyDashboard.html" />
     <File Path="SiteAssets\html\directives.html" Url="SiteAssets/html/directives.html" />
     <File Path="SiteAssets\js\images\NOPII.png" Url="SiteAssets/js/images/NOPII.png" />
-    <File Path="SiteAssets\js\CEWP_DocSetHomePage.js" Url="SiteAssets/js/CEWP_DocSetHomePage.js" />
-    <File Path="SiteAssets\js\CEWP_HomePage.js" Url="SiteAssets/js/CEWP_HomePage.js" />
     <File Path="SiteAssets\js\CEWP_MyDashboard.js" Url="SiteAssets/js/CEWP_MyDashboard.js" />
     <File Path="SiteAssets\css\staffaction.css" Url="SiteAssets/css/staffaction.css" />
     <File Path="SiteAssets\html\staffaction.html" Url="SiteAssets/html/staffaction.html" />
@@ -37,7 +35,6 @@
     <File Path="SiteAssets\html\dbAuthority.html" Url="SiteAssets/html/dbAuthority.html" />
     <File Path="SiteAssets\html\dbAuthority.widget" Url="SiteAssets/html/dbAuthority.widget" />
     <File Path="SiteAssets\js\cko.forms.overrides.js" Url="SiteAssets/js/cko.forms.overrides.js" />
-    <File Path="SiteAssets\js\CEWP_FORMS_EditOrgForm.js" Url="SiteAssets/js/CEWP_FORMS_EditOrgForm.js" />
     <File Path="SiteAssets\html\CEWP_UserCustomActions.html" Url="SiteAssets/html/CEWP_UserCustomActions.html" />
     <File Path="SiteAssets\js\CEWP_UserCustomActions.js" Url="SiteAssets/js/CEWP_UserCustomActions.js" />
     <File Path="SiteAssets\html\CEWP_PMTCustomActions.html" Url="SiteAssets/html/CEWP_PMTCustomActions.html" />
@@ -82,12 +79,10 @@
     <File Path="SiteAssets\css\font-awesome.min.css" Url="SiteAssets/css/font-awesome.min.css" />
     <File Path="SiteAssets\js\SiteNavigation.js" Url="SiteAssets/js/SiteNavigation.js" />
     <File Path="SiteAssets\css\font-awesome.css" Url="SiteAssets/css/font-awesome.css" />
-    <File Path="SiteAssets\js\CATS.widget" Url="SiteAssets/js/CATS.widget" />
     <File Path="SiteAssets\html\CEWP_Dashboard_CatsTaskers.html" Url="SiteAssets/html/CEWP_Dashboard_CatsTaskers.html" />
     <File Path="SiteAssets\html\CEWP_Dashboard_NewCatsTaskers.html" Url="SiteAssets/html/CEWP_Dashboard_NewCatsTaskers.html" />
     <File Path="SiteAssets\js\CEWP_Dashboard_CatsTaskers.js" Url="SiteAssets/js/CEWP_Dashboard_CatsTaskers.js" />
     <File Path="SiteAssets\js\CEWP_Dashboard_NewCatsTaskers.js" Url="SiteAssets/js/CEWP_Dashboard_NewCatsTaskers.js" />
-    <File Path="SiteAssets\js\Actions_NewForm.js" Url="SiteAssets/js/Actions_NewForm.js" />
     <File Path="SiteAssets\js\Directive_NewForm.js" Url="SiteAssets/js/Directive_NewForm.js" />
     <File Path="SiteAssets\js\Directive_EditForm.js" Url="SiteAssets/js/Directive_EditForm.js" />
     <File Path="SiteAssets\html\CEWP_Forms_NewDirectiveForm.html" Url="SiteAssets/html/CEWP_Forms_NewDirectiveForm.html" />

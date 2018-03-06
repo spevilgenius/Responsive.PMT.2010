@@ -91,7 +91,7 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
             // First build an array for the select controls for cascading functions
 
             $("select").each(function () {
-                if ($(this).attr("data-function") == "cascadeselect") {
+                if ($(this).attr("data-function") === "cascadeselect") {
                     var fields = null;
                     if ($(this).attr("data-ddFields")) {
                         fields = String($(this).attr("data-ddFields"));
@@ -143,7 +143,7 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
         xml += "<ViewFields>";
         for (var z = 0; z <= fields.length - 1; z++) {
             xml += "<FieldRef Name='" + fields[z] + "'/>";
-            if (z == fields.length - 1) {
+            if (z === fields.length - 1) {
                 inc += fields[z] + ")";
             }
             else {
@@ -210,13 +210,13 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
         var deferreds = [];
         for (var i = 0; i < v.selects.length; i++){
             // If there is a source val then get the items to filter the cascaded select
-            if (v.selects[i].sourceval != "null") {
+            if (v.selects[i].sourceval !== "null") {
                 $("#" + v.selects[i].id + " option").each(function () {
-                    if ($(this).html() == v.selects[i].sourceval) {
+                    if ($(this).html() === v.selects[i].sourceval) {
                         $(this).prop('selected', true);
                     }
                 });
-                if (v.selects[i].fields != null) {
+                if (v.selects[i].fields !== null) {
                     deferreds.push($.when(CKO.CSOM.GetListItems.getitemsfilteredorderedandpassfieldstoelement("current", v.selects[i].list, v.selects[i].filter, v.selects[i].sourceval, v.selects[i].orderby, i, v.selects[i].fields)).then(function (items, i) {
                         if (items.get_count() > 0) {
                             v.selects[i].items = items;
@@ -227,7 +227,7 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
                             while (enumerator.moveNext()) {
                                 var current = enumerator.get_current();
                                 for (var z = 0; z < v.selects[i].fields.length; z++) {
-                                    if (z == 0) {
+                                    if (z === 0) {
                                         text = current.get_item(v.selects[i].fields[z]);
                                     }
                                     else {
@@ -235,7 +235,7 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
                                     }
                                 }
                                 // if there is a selected value set it here
-                                if (v.selects[i].cascadeval == current.get_item(v.selects[i].orderby)) {
+                                if (v.selects[i].cascadeval === current.get_item(v.selects[i].orderby)) {
                                     opts += "<option selected value='" + current.get_item(v.selects[i].orderby) + "'>" + text + "</option>";
                                 }
                                 else {
@@ -259,7 +259,7 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
                             while (enumerator.moveNext()) {
                                 var current = enumerator.get_current();
                                 // if there is a selected value set it here
-                                if (v.selects[i].cascadeval == current.get_item(v.selects[i].orderby)) {
+                                if (v.selects[i].cascadeval === current.get_item(v.selects[i].orderby)) {
                                     opts += "<option selected value='" + current.get_item(v.selects[i].orderby) + "'>" + current.get_item(v.selects[i].orderby) + "</option>";
                                 }
                                 else {
@@ -285,12 +285,12 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
             case "cascadeselect":
                 // loop through the selects array and then do another query and update of the values. Then update the source value to the changed select value( this is the hidden form field)
                 for (var i = 0; i < v.selects.length; i++) {
-                    if (v.selects[i].id == obj.id) {
+                    if (v.selects[i].id === obj.id) {
                         // this is the changed select update the source value and get the new items
                         v.selects[i].sourceval = $("#" + obj.id + " option:selected").val();
                         $("input[title*='" + $("#" + obj.id).attr("data-sourcefield") + "']").val(v.selects[i].sourceval);
                         // 
-                        if (v.selects[i].fields != null) {
+                        if (v.selects[i].fields !== null) {
                             $.when(CKO.CSOM.GetListItems.getitemsfilteredorderedandpassfieldstoelement("current", v.selects[i].list, v.selects[i].filter, v.selects[i].sourceval, v.selects[i].orderby, i, v.selects[i].fields)).then(function (items, i) {
                                 if (items.get_count() > 0) {
                                     v.selects[i].items = items;
@@ -301,7 +301,7 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
                                     while (enumerator.moveNext()) {
                                         var current = enumerator.get_current();
                                         for (var z = 0; z < v.selects[i].fields.length; z++) {
-                                            if (z == 0) {
+                                            if (z === 0) {
                                                 text = current.get_item(v.selects[i].fields[z]);
                                             }
                                             else {
@@ -358,7 +358,7 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
         });
         v.errortext = "Please fill out the fields: ";
         var goon = true;
-        if ($("input[title='Directive Required Field']").val() == "") {
+        if ($("input[title='Directive Required Field']").val() === "") {
             goon = false;
             $("input[title='Directive Required Field']").parent().addClass("has-error");
             v.errortext += "Directive ";
@@ -379,22 +379,22 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
             v.errortext += "LeadComments ";
         }
         /* Status, Equipped, and Trained can not be empty so they should never be blank or fail validation */
-        if ($("input[title='ProjectedManHours']").val() == "") {
+        if ($("input[title='ProjectedManHours']").val() === "") {
             goon = false;
             $("input[title='ProjectedManHours']").parent().addClass("has-error");
             v.errortext += "ProjectedManHours ";
         }
-        if ($("input[title='AvailableManHours']").val() == "") {
+        if ($("input[title='AvailableManHours']").val() === "") {
             goon = false;
             $("input[title='AvailableManHours']").parent().addClass("has-error");
             v.errortext += "AvailableManHours ";
         }
-        if ($("input[title='MOEQualitative Required Field']").val() == "") {
+        if ($("input[title='MOEQualitative Required Field']").val() === "") {
             goon = false;
             $("input[title='MOEQualitative Required Field']").parent().addClass("has-error");
             v.errortext += "MOEQualitative ";
         }
-        if ($("input[title='MOEQuantitative Required Field']").val() == "") {
+        if ($("input[title='MOEQuantitative Required Field']").val() === "") {
             goon = false;
             $("input[title='MOEQuantitative Required Field']").parent().addClass("has-error");
             v.errortext += "MOEQuantitative ";
@@ -403,7 +403,7 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
         /* TODO: Staff Lead and Staff Assist fields are people fields so will need to find best way to validate they contain at least one user  */
         var thisdiv = $("div[data-field='StaffLead']");
         var thisContents = thisdiv.find("div[name='upLevelDiv']");
-        if (thisContents[0].innerHTML == "") {
+        if (thisContents[0].innerHTML === "") {
             goon = false;
             thisdiv.find("div[name='upLevelDiv']").parent().addClass("has-error");
             v.errortext += "StaffLead ";
@@ -411,7 +411,7 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
 
         thisdiv = $("div[data-field='StaffAssist']");
         thisContents = thisdiv.find("div[name='upLevelDiv']");
-        if (thisContents[0].innerHTML == "") {
+        if (thisContents[0].innerHTML === "") {
             goon = false;
             thisdiv.find("div[name='upLevelDiv']").parent().addClass("has-error");
             v.errortext += "StaffAssist ";
@@ -419,42 +419,42 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
 
         /* LeadAssessment can not be empty so it should never be blank or fail validation */
 
-        if ($("#ddSourceAuthority option:selected").val() == "Select...") {
+        if ($("#ddSourceAuthority option:selected").val() === "Select...") {
             goon = false;
             $("#ddSourceAuthority").parent().addClass("has-error");
             v.errortext += "SourceAuthority ";
         }
-        if ($("#ddSourceReference option:selected").val() == "Select..." || $("#ddSourceReference").html() == "") {
+        if ($("#ddSourceReference option:selected").val() === "Select..." || $("#ddSourceReference").html() === "") {
             goon = false;
             $("#ddSourceReference").parent().addClass("has-error");
             v.errortext += "SourceReference ";
         }
-        if ($("#ddSupportedOrg option:selected").val() == "Select...") {
+        if ($("#ddSupportedOrg option:selected").val() === "Select...") {
             goon = false;
             $("#ddSupportedOrg").parent().addClass("has-error");
             v.errortext += "SupportedOrg ";
         }
-        if ($("#ddSupportedSubOrg option:selected").val() == "Select..." || $("#ddSupportedSubOrg").html() == "") {
+        if ($("#ddSupportedSubOrg option:selected").val() === "Select..." || $("#ddSupportedSubOrg").html() === "") {
             goon = false;
             $("#ddSupportedSubOrg").parent().addClass("has-error");
             v.errortext += "SupportedSubOrg ";
         }
-        if ($("#ddSupportingOrg option:selected").val() == "Select...") {
+        if ($("#ddSupportingOrg option:selected").val() === "Select...") {
             goon = false;
             $("#ddSupportingOrg").parent().addClass("has-error");
             v.errortext += "SupportingOrg ";
         }
-        if ($("#ddSupportReference option:selected").val() == "Select...") {
+        if ($("#ddSupportReference option:selected").val() === "Select...") {
             goon = false;
             $("#ddSupportReference").parent().addClass("has-error");
             v.errortext += "SupportReference ";
         }
-        if ($("#ddSupportParagraph option:selected").val() == "Select..." || $("#ddSupportParagraph").html() == "") {
+        if ($("#ddSupportParagraph option:selected").val() === "Select..." || $("#ddSupportParagraph").html() === "") {
             goon = false;
             $("#ddSupportParagraph").parent().addClass("has-error");
             v.errortext += "SupportParagraph ";
         }
-        if (goon == true) {
+        if (goon === true) {
             $(window).on('unload', function () {
                 var returndata = [];
                 returndata[0] = "Refresh";

@@ -20,7 +20,7 @@ CKO.FORMS.DIRECTIVES.VARIABLES = {
     userID: null,
     Org: null,
     directive: null
-}
+};
 
 CKO.FORMS.DIRECTIVES.ViewForm = function () {
 
@@ -56,7 +56,7 @@ CKO.FORMS.DIRECTIVES.ViewForm = function () {
         $(".datafield").each(function (z) {
             var txt = $(this).text();
             txt = txt.replace(/\t/g, '');
-            if ($(this).attr("data-field") == "Directive") {
+            if ($(this).attr("data-field") === "Directive") {
                 //org = org.replace(/\s/g, '');
                 txt = txt.replace(/(\r\n|\n|\r)/gm, "");
                 txt = txt.trim();
@@ -66,19 +66,19 @@ CKO.FORMS.DIRECTIVES.ViewForm = function () {
             var field = $(this).attr("data-field");
             switch (field) {
                 case "DirectiveDescription":
-                    var html = "<textarea rows='6' id='txt_" + z + "'></textarea>";
+                    html = "<textarea rows='6' id='txt_" + z + "'></textarea>";
                     $(this).html("").append(html);
                     $("#txt_" + z).val(txt);
                     break;
 
                 case "LeadComments":
-                    var html = "<textarea rows='6' id='txt_" + z + "'></textarea>";
+                    html = "<textarea rows='6' id='txt_" + z + "'></textarea>";
                     $(this).html("").append(html);
                     $("#txt_" + z).val(txt);
                     break;
 
                 default:
-                    var html = "<input type='text' id='txt_" + z + "' />";
+                    html = "<input type='text' id='txt_" + z + "' />";
                     $(this).html("").append(html);
                     $("#txt_" + z).val(txt);
                     break;
@@ -90,7 +90,7 @@ CKO.FORMS.DIRECTIVES.ViewForm = function () {
         $("textarea").addClass("form-control");
 
         v.userID = _spPageContextInfo.userId;
-        
+
         // Load the Actions for this Directive on the Actions tab in a table
         var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
         urlString += "$select=Id,Title,EffortTypeValue,DateCompleted,PMTUser,Expended,ActionComments";
@@ -114,7 +114,7 @@ CKO.FORMS.DIRECTIVES.ViewForm = function () {
                 logit("Actions Count: " + numitems);
                 if (numitems > 0) {
                     // Build out the table to show the actions for this directive.
-                    v.html += "<table id='tblActions' class='table table-bordered table-hover' cellspacing='0' cellpadding='0'>"
+                    v.html += "<table id='tblActions' class='table table-bordered table-hover' cellspacing='0' cellpadding='0'>";
                     v.html += "<thead><tr><td class='thUser'>User</td><td class='thDate'>Date</td><td class='thHours'>Hours</td><td class='thComment'>Comment</td></tr></thead>";
                     v.html += "<tbody>";
                     for (var i = 0, length = j.length; i < length; i++) {
@@ -164,7 +164,7 @@ CKO.FORMS.DIRECTIVES.ViewForm = function () {
         xml += "<ViewFields>";
         for (var z = 0; z <= fields.length - 1; z++) {
             xml += "<FieldRef Name='" + fields[z] + "'/>";
-            if (z == fields.length - 1) {
+            if (z === fields.length - 1) {
                 inc += fields[z] + ")";
             }
             else {
@@ -199,7 +199,7 @@ CKO.FORMS.DIRECTIVES.ViewForm = function () {
 
     return {
         Init: Init
-    }
-}
+    };
+};
 
 SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs('CEWP_Forms_ViewDirectiveForm.js');

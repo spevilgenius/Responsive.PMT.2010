@@ -31,8 +31,8 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
 
     function GetOrgs() {
         v.calend = moment().format('YYYY-MM-DD');
-        v.calstart = moment(v.calend).subtract(30, 'days').format('YYYY-MM-DD');
-        v.totalboxes = 31;
+        v.calstart = moment(v.calend).subtract(28, 'days').format('YYYY-MM-DD');
+        v.totalboxes = 29;
         v.orgs = [];
         // Get all of the orgs from the Organization list excluding those not supported
         var urlString = v.site + "/_vti_bin/listdata.svc/Organization?";
@@ -98,8 +98,8 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
                 v.html += "<th>" + dow[weekday] + "</th>";
             }
             v.html += "</tr><tr>";
-            for (var k = 0; k < v.totalboxes - 1; k++) {
-                var cd = moment(v.calstart).add('days', k);
+            for (k = 0; k < v.totalboxes - 1; k++) {
+                cd = moment(v.calstart).add('days', k);
                 var cdn = moment(cd).date();
                 v.html += "<th>" + cdn + "</th>";
             }
@@ -109,7 +109,7 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
             $("#" + org + "_panel").append(v.html);
             $("#collapse_" + org).on('shown.bs.collapse', function () {
                 logit("Org Expanded!");
-                if ($(this).attr("data-drawn") == 'false') {
+                if ($(this).attr("data-drawn") === 'false') {
                     $().SPSTools_Notify({ type: 'wait', content: 'Loading Organization Report...Please wait...' });
                     var id = $(this).attr("id");
                     var idx = $(this).attr("data-index");
@@ -126,7 +126,7 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
 
     function GetUsersFromOrg(org) {
         v.org = org;
-        if (v.org == "HQTRADOC") { v.org = "HQ TRADOC"; }
+        if (v.org === "HQTRADOC") { v.org = "HQ TRADOC"; }
         v.users = [];  // reset user array
         var urlString = v.site + "/_vti_bin/listdata.svc/KnowledgeMap?";
         urlString += "$select=Id,Organization,SharePointUser,TDAOnhand";
@@ -147,7 +147,7 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
                 for (var i = 0; i < numitems; i++) {
                     var usertext = "";
                     var oc = j[i]["Organization"];
-                    if (oc == v.org) {
+                    if (oc === v.org) {
                         if (j[i]["SharePointUser"] !== null) {
                             usertext = j[i]["SharePointUser"]["Name"];
                             var org = j[i]["Organization"];
@@ -182,7 +182,7 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
                 var cd = moment(v.calstart).add('days', k);
                 var cdn = moment(cd).date();
                 var weekday = moment(cd).day();
-                if (weekday == 0 || weekday == 6) {
+                if (weekday === 0 || weekday === 6) {
                     v.html += "<td class='daycell weekend' id='day_" + id + "_" + cdn + "' data-date='" + cdn + "'>0</td>";
                 }
                 else {
@@ -210,7 +210,7 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
     }
 
     function getUserActions() {
-        var start = moment().subtract(31, 'days').format('YYYY-MM-DD[T]HH:MM:SS[Z]');
+        var start = moment().subtract(28, 'days').format('YYYY-MM-DD[T]HH:MM:SS[Z]');
         for (var i = 0; i < v.users.length; i++) {
             v.defarr.push($.when(CKO.CSOM.GetActionItems.getitemsbyuseridandpasstoelement("current", "Actions", v.users[i]["id"], start, i)).then(function (items, element) {
                 if (items.get_count() > 0) { //get map data

@@ -137,7 +137,7 @@ CKO.VIEWS.HoursReport = function () {
             v.html += "<div class='minical' id='minical_" + id + "'></div></div></div>";
             $("#" + org + "_panel").append(v.html);
             $("#collapse_" + id).on('shown.bs.collapse', function () {
-                if ($(this).attr("data-drawn") == 'false') {
+                if ($(this).attr("data-drawn") === 'false') {
                     var id = $(this).attr("id");
                     var idx = $(this).attr("data-index");
                     id = id.split("_");
@@ -170,7 +170,7 @@ CKO.VIEWS.HoursReport = function () {
                 end: v.calend
             },
             viewRender: function (view) {
-                if (view.name == 'month') {
+                if (view.name === 'month') {
                     $('#' + cal + " .fc-day-number").each(function () {
                         var dd = $(this).parent().attr("data-date");
                         var add;

@@ -61,7 +61,7 @@ CKO.MYDASHBOARD.CHARTS.Authority = function () {
             var j = jQuery.parseJSON(JSON.stringify(results));
             var unique = '';
             for (var i = 0, length = j.length; i < length; i++) {
-                if (j[i]["Authority"] != unique) {
+                if (j[i]["Authority"] !== unique) {
                     v.authorities.push({
                         "auth": j[i]["Authority"],
                         "ref": j[i]["Reference"],
@@ -111,7 +111,7 @@ CKO.MYDASHBOARD.CHARTS.Authority = function () {
     }
 
     function GetActions() {
-        if (v.url == null) {
+        if (v.url === null) {
             var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
             urlString += "$select=Id,Title,Expended,PMTUser/Id,DateCompleted,EffortTypeValue";
             urlString += "&$expand=PMTUser";
@@ -170,10 +170,10 @@ CKO.MYDASHBOARD.CHARTS.Authority = function () {
             switch(j[i]["EffortTypeValue"]) {
                 case "Standard":
                     for (var k = 0; k < v.standards.length; k++) {
-                        if (j[i]["Title"] == v.standards[k].title) {
+                        if (j[i]["Title"] === v.standards[k].title) {
                             var aut = v.standards[k].auth
                             for (var m = 0; m < v.authorities.length; m++) {
-                                if (v.authorities[m].auth == aut) {
+                                if (v.authorities[m].auth === aut) {
                                     v.authorities[m].hours += j[i]["Expended"];
                                     v.totalhours += j[i]["Expended"];
                                 }
@@ -183,11 +183,11 @@ CKO.MYDASHBOARD.CHARTS.Authority = function () {
                     break;
 
                 case "Directive":
-                    for (var k = 0; k < v.directives.length; k++) {
-                        if (j[i]["Title"] == v.directives[k].title) {
-                            var aut = v.directives[k].auth
-                            for (var m = 0; m < v.authorities.length; m++) {
-                                if (v.authorities[m].auth == aut) {
+                    for (k = 0; k < v.directives.length; k++) {
+                        if (j[i]["Title"] === v.directives[k].title) {
+                            aut = v.directives[k].auth
+                            for (m = 0; m < v.authorities.length; m++) {
+                                if (v.authorities[m].auth === aut) {
                                     v.authorities[m].hours += j[i]["Expended"];
                                     v.totalhours += j[i]["Expended"];
                                 }
@@ -350,7 +350,7 @@ CKO.MYDASHBOARD.CHARTS.Authority = function () {
 
 function getISODate(date) {
     function pad(n) { return n < 10 ? '0' + n : n }
-    if (date != null) {
+    if (date !== null) {
         d = new Date(date);
     }
     else {

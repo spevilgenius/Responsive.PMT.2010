@@ -63,11 +63,11 @@ CKO.FORMS.SKILLS.EditForm = function () {
         v.errortext = "Please fill out the fields: ";
         var goon = true;
         
-        if ($("input[title='Hours']").val() == "") {
+        if ($("input[title='Hours']").val() === "") {
             goon = false;
             v.errortext += "Hours ";
         }
-        if (goon == true) {
+        if (goon === true) {
             $(window).on('unload', function () {
                 var returndata = [];
                 returndata[0] = "AddSkill";

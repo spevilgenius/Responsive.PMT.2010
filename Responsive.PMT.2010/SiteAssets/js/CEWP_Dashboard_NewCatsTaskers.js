@@ -74,7 +74,6 @@ CKO.DASHBOARD.TASKERS.NewTaskers = function () {
     }
 
     function AllTaskersLoaded() {
-        var stop = "stop";
         v.html = "<tr><th>No new taskers.</th></tr>";
         $("#taskTable").html("").append(v.html);
         v.html = "";
@@ -90,10 +89,9 @@ CKO.DASHBOARD.TASKERS.NewTaskers = function () {
                 }
             }
         }
-        var stop = "stop";
 
-        for (var i = 0; i < v.newtaskers.length; i++) {
-            if (v.newtaskers[i].InPMT == false) {
+        for (i = 0; i < v.newtaskers.length; i++) {
+            if (v.newtaskers[i].InPMT === false) {
                 v.count += 1;
             }
         }

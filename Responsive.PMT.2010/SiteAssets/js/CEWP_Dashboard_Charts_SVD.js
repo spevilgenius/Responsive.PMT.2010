@@ -20,7 +20,6 @@ CKO.DASHBOARD.CHARTS.VARIABLES.SVD = {
     listitem: null,
     user: null,
     userID: null,
-    site: null,
     qry: null,
     ThisFY: null,
     html: ""
@@ -47,7 +46,7 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
     }
 
     function LoadActions(qry, zurl) {
-        if (zurl == null) {
+        if (zurl === null) {
             //Load Actions From REST and filter based on qry
             var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
             urlString += "$select=Id,Expended,DateCompleted,EffortTypeValue";
@@ -266,7 +265,7 @@ CKO.DASHBOARD.CHARTS.SVD = function () {
 
 function getISODate(date) {
     function pad(n) { return n < 10 ? '0' + n : n }
-    if (date != null) {
+    if (date !== null) {
         d = new Date(date);
     }
     else {

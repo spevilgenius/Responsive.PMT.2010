@@ -66,7 +66,7 @@ CKO.FORMS.STANDARDS.NewForm = function () {
             // First build an array for the select controls for cascading functions
 
             $("select").each(function () {
-                if ($(this).attr("data-function") == "cascadeselect") {
+                if ($(this).attr("data-function") === "cascadeselect") {
                     v.selects.push({
                         "id": $(this).attr("id"),
                         "cascadeto": $(this).attr("data-cascadeto"),
@@ -104,9 +104,9 @@ CKO.FORMS.STANDARDS.NewForm = function () {
         var deferreds = [];
         for (var i = 0; i < v.selects.length; i++){
             // If there is a source val then get the items to filter the cascaded select
-            if (v.selects[i].sourceval != "null") {
+            if (v.selects[i].sourceval !== "null") {
                 $("#" + v.selects[i].id + " option").each(function () {
-                    if ($(this).html() == v.selects[i].sourceval) {
+                    if ($(this).html() === v.selects[i].sourceval) {
                         $(this).prop('selected', true);
                     }
                 });
@@ -119,7 +119,7 @@ CKO.FORMS.STANDARDS.NewForm = function () {
                         while (enumerator.moveNext()) {
                             var current = enumerator.get_current();
                             // if there is a selected value set it here
-                            if (v.selects[i].cascadeval == current.get_item(v.selects[i].orderby)) {
+                            if (v.selects[i].cascadeval === current.get_item(v.selects[i].orderby)) {
                                 opts += "<option selected value='" + current.get_item(v.selects[i].orderby) + "'>" + current.get_item(v.selects[i].orderby) + "</option>";
                             }
                             else {
@@ -144,7 +144,7 @@ CKO.FORMS.STANDARDS.NewForm = function () {
             case "cascadeselect":
                 // loop through the selects array and then do another query and update of the values. Then update the source value to the changed select value( this is the hidden form field)
                 for (var i = 0; i < v.selects.length; i++) {
-                    if (v.selects[i].id == obj.id) {
+                    if (v.selects[i].id === obj.id) {
                         // this is the changed select update the source value and get the new items
                         v.selects[i].sourceval = $("#" + obj.id + " option:selected").val();
                         $("input[title*='" + $("#" + obj.id).attr("data-sourcefield") + "']").val(v.selects[i].sourceval);
