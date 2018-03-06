@@ -80,7 +80,6 @@
     <None Include="SiteAssets\fonts\fontawesome-webfont.woff2" />
     <None Include="SiteAssets\fonts\FontAwesome.otf" />
     <None Include="SiteAssets\html\dbAuthority.widget" />
-    <None Include="SiteAssets\js\Directives.json" />
     <None Include="SiteAssets\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{ac5096c7-822a-477f-ba2a-1eadadfc7c2a}</SharePointProjectItemId>
     </None>
@@ -450,16 +449,10 @@
     <Content Include="SiteAssets\js\CEWP_Snow.js" />
     <Content Include="SiteAssets\js\CEWP_UserCustomActions.js" />
     <Content Include="SiteAssets\js\cko.forms.overrides.js" />
-    <Content Include="SiteAssets\js\ckoTask_DisplayTask.js" />
-    <Content Include="SiteAssets\js\Directive_EditForm.js" />
-    <Content Include="SiteAssets\js\Directive_NewForm.js" />
     <Content Include="SiteAssets\js\exporting.js" />
     <Content Include="SiteAssets\js\GoogleMapsAPIExamples.js" />
-    <Content Include="SiteAssets\js\HCHelper.js" />
     <Content Include="SiteAssets\js\login.js" />
-    <Content Include="SiteAssets\js\PMT.js" />
     <Content Include="SiteAssets\js\SiteNavigation.js" />
-    <Content Include="SiteAssets\js\SPHelper.js" />
     <Content Include="SiteAssets\js\CEWP_Taskers_NewTaskers.js" />
   </ItemGroup>
   <ItemGroup>

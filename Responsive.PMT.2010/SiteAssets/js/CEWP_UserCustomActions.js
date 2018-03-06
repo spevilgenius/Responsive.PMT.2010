@@ -2,14 +2,14 @@
 var html = '';
 
 function UserCustomActions(site) {
-	console.log("From UCA Code Site = " + site);
-	ctx = SP.ClientContext.get_current();
-	ucacol = ctx.get_web().get_userCustomActions();
+    console.log("From UCA Code Site = " + site);
+    ctx = SP.ClientContext.get_current();
+    ucacol = ctx.get_web().get_userCustomActions();
     ctx.load(ucacol);
     ctx.executeQueryAsync(GetActionsSucceeded, GetActionsFailed);
-    
+
     $("#btnInstall").click(function () {
-    	console.log("Button Install Clicked");
+        console.log("Button Install Clicked");
         var ctx = SP.ClientContext.get_current();
         var uca;
         uca = ctx.get_web().get_userCustomActions();
@@ -27,27 +27,27 @@ function UserCustomActions(site) {
     });
 
     $("#btnRemove").click(function () {
-    	console.log("Button Remove Clicked");
-		enumerator = ucacol.getEnumerator();
-		while (enumerator.moveNext()) {
-			var current = enumerator.get_current();
-			console.log(current.get_title() + ", " + $("#ddInstalled option:selected").text());
-			if (current.get_title() == $("#ddInstalled option:selected").text()){
-				current.deleteObject();
-				ctx.load(current);
-				ctx.executeQueryAsync(DeleteActionSucceeded, DeleteActionFailed);
-			}
-		}
+        console.log("Button Remove Clicked");
+        enumerator = ucacol.getEnumerator();
+        while (enumerator.moveNext()) {
+            var current = enumerator.get_current();
+            console.log(current.get_title() + ", " + $("#ddInstalled option:selected").text());
+            if (current.get_title() === $("#ddInstalled option:selected").text()) {
+                current.deleteObject();
+                ctx.load(current);
+                ctx.executeQueryAsync(DeleteActionSucceeded, DeleteActionFailed);
+            }
+        }
     });
 }
 
 function GetActionsSucceeded() {
-	enumerator = ucacol.getEnumerator();
-	while (enumerator.moveNext()) {
-		var current = enumerator.get_current();
-		html += '<option value="' + current.get_title() + '">' + current.get_title() + '</option>';
-	}
-	$("#ddInstalled").html("").append(html);
+    enumerator = ucacol.getEnumerator();
+    while (enumerator.moveNext()) {
+        var current = enumerator.get_current();
+        html += '<option value="' + current.get_title() + '">' + current.get_title() + '</option>';
+    }
+    $("#ddInstalled").html("").append(html);
 }
 
 function GetActionsFailed(sender, args) {
@@ -55,7 +55,7 @@ function GetActionsFailed(sender, args) {
 }
 
 function InstallActionSucceeded() {
-	alert("Action Added!");
+    alert("Action Added!");
     window.location = window.location; // refresh page
 }
 
@@ -64,7 +64,7 @@ function InstallActionFailed(sender, args) {
 }
 
 function DeleteActionSucceeded() {
-	alert("Action Delete!");
+    alert("Action Delete!");
     window.location = window.location; // refresh page
 }
 

@@ -102,7 +102,7 @@ CKO.TRAININGDASHBOARD.CHARTS.OverallChart = function () {
 
     function Categorize(complete, suspense) {
         var c, today = moment(), category;
-        if (complete == null || complete == undefined) {
+        if (complete === null || complete === undefined) {
             suspense = moment(suspense);
             c = suspense.diff(today, 'days');
             switch (true) {

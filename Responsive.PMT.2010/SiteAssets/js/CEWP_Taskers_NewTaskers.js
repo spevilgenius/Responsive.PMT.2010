@@ -61,7 +61,7 @@ CKO.TASKERS.NewTaskers = function () {
             CAMLQuery: CATSquery,
             completefunc: function (xData, Status) {
                 countMe = $(xData.responseXML).SPFilterNode("rs:data").attr("ItemCount");
-                if (countMe == 0) {
+                if (countMe === 0) {
                     taskTable = "<tr><th>No new taskers.</th></tr>"
                     $("#taskTable").html("").append(taskTable);
                 } else {

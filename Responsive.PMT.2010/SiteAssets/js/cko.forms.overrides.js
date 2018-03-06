@@ -41,7 +41,7 @@ CKO.FORMS.OVERRIDES = function () {
             var field = $(this).attr("data-field");
             var target = $(this);
             $("td.ms-formbody").each(function (idx) {
-                if (this.innerHTML.indexOf('FieldName="' + field + '"') != -1) {
+                if (this.innerHTML.indexOf('FieldName="' + field + '"') !== -1) {
                     $(this).contents().appendTo(target);
                 }
             });

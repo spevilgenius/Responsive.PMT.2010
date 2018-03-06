@@ -20,7 +20,6 @@ CKO.MYDASHBOARD.CHARTS.VARIABLES.SVD = {
     totalhours: 0,
     user: null,
     userID: null,
-    site: null,
     qry: null,
     ThisFY: null,
     html: ""
@@ -43,7 +42,7 @@ CKO.MYDASHBOARD.CHARTS.SVD = function () {
             v.json = null;
             v.qry = qry;
             v.userID = _spPageContextInfo.userId;
-            if (moment().quarter() == 4) {
+            if (moment().quarter() === 4) {
                 v.ThisFY = moment().add('year', 1).format("YYYY");
             } else {
                 v.ThisFY = moment().format("YYYY");
@@ -53,7 +52,7 @@ CKO.MYDASHBOARD.CHARTS.SVD = function () {
     }
 
     function LoadActions(qry, zurl) {
-        if (zurl == null) {
+        if (zurl === null) {
             //Load Actions From REST and filter based on qry
 
             var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
@@ -274,7 +273,7 @@ CKO.MYDASHBOARD.CHARTS.SVD = function () {
 
 function getISODate(date) {
     function pad(n) { return n < 10 ? '0' + n : n }
-    if (date != null) {
+    if (date !== null) {
         d = new Date(date);
     }
     else {

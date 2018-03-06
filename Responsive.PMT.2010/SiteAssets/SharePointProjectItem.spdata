@@ -27,8 +27,6 @@
     <ProjectItemFile Source="html\CEWP_KM_Chart.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_KM_TotalChart.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="html\dbDirectivesII.html" Target="SiteAssets\html\" Type="ElementFile" />
-    <ProjectItemFile Source="js\PMT.js" Target="SiteAssets\js\" Type="ElementFile" />
-    <ProjectItemFile Source="js\SPHelper.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_KM_Chart.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_KM_TotalChart.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Dashboard_Directives.html" Target="SiteAssets\html\" Type="ElementFile" />
@@ -43,7 +41,6 @@
     <ProjectItemFile Source="css\cascomstyles1.css" Target="SiteAssets\css\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_PMTMigrations.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_PMTMigrations.js" Target="SiteAssets\js\" Type="ElementFile" />
-    <ProjectItemFile Source="js\Directives.json" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Forms_NewActionForm.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Forms_NewActionForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_MyActions.html" Target="SiteAssets\html\" Type="ElementFile" />
@@ -60,7 +57,6 @@
     <ProjectItemFile Source="css\CEWP_Forms_DirectiveForms.css" Target="SiteAssets\css\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Dashboard_Charts_SVD.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Dashboard_Charts_SVD.js" Target="SiteAssets\js\" Type="ElementFile" />
-    <ProjectItemFile Source="js\HCHelper.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Dashboard_Charts_Functions.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Dashboard_Charts_Functions.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Dashboard_Charts_Authority.html" Target="SiteAssets\html\" Type="ElementFile" />
@@ -84,8 +80,6 @@
     <ProjectItemFile Source="html\CEWP_Dashboard_NewCatsTaskers.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Dashboard_CatsTaskers.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Dashboard_NewCatsTaskers.js" Target="SiteAssets\js\" Type="ElementFile" />
-    <ProjectItemFile Source="js\Directive_NewForm.js" Target="SiteAssets\js\" Type="ElementFile" />
-    <ProjectItemFile Source="js\Directive_EditForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Forms_NewDirectiveForm.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Forms_NewDirectiveForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Forms_NewStandardForm.html" Target="SiteAssets\html\" Type="ElementFile" />
@@ -94,7 +88,6 @@
     <ProjectItemFile Source="js\CEWP_Forms_EditStandardForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="css\CEWP_Forms_StandardForms.css" Target="SiteAssets\css\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Taskers_NewTaskers.js" Target="SiteAssets\js\" Type="ElementFile" />
-    <ProjectItemFile Source="js\ckoTask_DisplayTask.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Taskers_NewTaskers.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Forms_NewTaskerForm.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Forms_NewTaskerForm.js" Target="SiteAssets\js\" Type="ElementFile" />

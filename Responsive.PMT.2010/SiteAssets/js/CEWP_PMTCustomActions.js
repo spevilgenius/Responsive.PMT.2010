@@ -30,7 +30,7 @@ function getDirectives() {
     xml += "<ViewFields>";
     for (var z = 0; z <= fields.length - 1; z++) {
         xml += "<FieldRef Name='" + fields[z] + "'/>";
-        if (z == fields.length - 1) {
+        if (z === fields.length - 1) {
             inc += fields[z] + ")";
         }
         else {
@@ -82,7 +82,7 @@ function getExpendedHoursByDirective() {
                 }
                 directives[i].Expended = total;
                 //directives[i].PercentExpended = ((total / directives[i].PMH) * 100).toFixed(1);
-                if (directives[i].PMH == "" || directives[i].PMH == null) { }
+                if (directives[i].PMH === "" || directives[i].PMH === null) { /* do nothing */ }
                 else {
                     var pe = parseFloat((total / directives[i].PMH).toFixed(1));
                     directives[i].PercentExpended = pe;

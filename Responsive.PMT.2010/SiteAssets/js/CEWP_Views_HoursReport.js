@@ -91,7 +91,7 @@ CKO.VIEWS.HoursReport = function () {
                         });
                         $(".ms-vb-user").each(function (z) {
                             var thistext = $(this).text();
-                            if (thistext == usertext) {
+                            if (thistext === usertext) {
                                 v.html = "<tr class=''><td colspan='8'><div class='minical' id='minical_" + j[i]["SharePointUser"]["Id"] + "'>";
                                 v.html += "<table style='height:100%;width:100%;'>";
                                 v.html += "<tr><td align='center'><img src='/_layouts/images/gears_an.gif' /></td></tr>";
@@ -130,7 +130,7 @@ CKO.VIEWS.HoursReport = function () {
                     end: v.calend
                 },
                 viewRender: function (view) {
-                    if (view.name == 'month') {
+                    if (view.name === 'month') {
                         $('#' + cal + " .fc-day-number").each(function () {
                             var dd = $(this).parent().attr("data-date");
                             var add;
@@ -191,7 +191,7 @@ CKO.VIEWS.HoursReport = function () {
 
     function getISODate(date) {
         function pad(n) { return n < 10 ? '0' + n : n }
-        if (date != null) {
+        if (date !== null) {
             d = new Date(date);
         }
         else {

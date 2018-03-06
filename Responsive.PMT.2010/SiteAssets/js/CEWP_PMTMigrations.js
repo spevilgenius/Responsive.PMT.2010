@@ -19,7 +19,6 @@ CKO.MIGRATIONS.VARIABLES = {
     listitem: null,
     user: null,
     userID: null,
-    site: null,
     qry: null,
     ThisFY: null,
     html: ""
@@ -95,7 +94,7 @@ CKO.MIGRATIONS.Migrate = function () {
                     item.set_item("StaffLead", SP.FieldUserValue.fromUser(j[i]["StaffLead"]["Account"]));
                     var assists = new Array();
                     var tmp1 = j[i]["StaffAssist"].results;
-                    if (tmp1 != null) {
+                    if (tmp1 !== null) {
                         for (var k = 0; k < tmp1.length; k++) {
                             assists.push(SP.FieldUserValue.fromUser(tmp1[k]["Account"]));
                         }
@@ -108,22 +107,22 @@ CKO.MIGRATIONS.Migrate = function () {
                     item.set_item("LeadAssessment", j[i]["LeadAssessmentValue"]);
                     item.set_item("Equipped", j[i]["EquippedValue"]);
                     item.set_item("Trained", j[i]["TrainedValue"]);
-                    if (j[i]["SuspenseDate"] != null) { item.set_item("SuspenseDate", dateformat(j[i]["SuspenseDate"], "isofull")); }
-                    if (j[i]["CompletionDate"] != null) { item.set_item("DateCompleted", dateformat(j[i]["CompletionDate"], "isofull")); }
+                    if (j[i]["SuspenseDate"] !== null) { item.set_item("SuspenseDate", dateformat(j[i]["SuspenseDate"], "isofull")); }
+                    if (j[i]["CompletionDate"] !== null) { item.set_item("DateCompleted", dateformat(j[i]["CompletionDate"], "isofull")); }
                     item.set_item("SupportingOrg", j[i]["PMTOrganization"]["Title"]);
                     item.set_item("SupportedOrg", j[i]["LU_Organization"]["Title"]);
-                    if (j[i]["LU_SubOrganization"] != null) { item.set_item("SupportedSubOrg", j[i]["LU_SubOrganization"]["Title"]); }
-                    if (j[i]["OtherOrganization"] != null) { item.set_item("SupportedOtherOrg", j[i]["OtherOrganization"]); }
+                    if (j[i]["LU_SubOrganization"] !== null) { item.set_item("SupportedSubOrg", j[i]["LU_SubOrganization"]["Title"]); }
+                    if (j[i]["OtherOrganization"] !== null) { item.set_item("SupportedOtherOrg", j[i]["OtherOrganization"]); }
                     logit("i: " + i + ", Directive: " + j[i]["Objective"]);
-                    if (j[i]["OBJAlignment"] != null) { item.set_item("SourceAuthority", j[i]["OBJAlignment"]["Authority"]); }
-                    if (j[i]["OBJAlignment"] != null) { item.set_item("SourceReference", j[i]["OBJAlignment"]["Reference"]); }
+                    if (j[i]["OBJAlignment"] !== null) { item.set_item("SourceAuthority", j[i]["OBJAlignment"]["Authority"]); }
+                    if (j[i]["OBJAlignment"] !== null) { item.set_item("SourceReference", j[i]["OBJAlignment"]["Reference"]); }
                     item.set_item("MOEQualitative", j[i]["MOEQualitative"]);
                     item.set_item("MOEQuantitative", j[i]["MOEQuantitative"]);
                     item.set_item("PercentExpended", j[i]["PercentExpended"]);
                     item.set_item("ReportRequired", j[i]["ReportValue"]);
-                    if (j[i]["SPTAlignment"] != null) { item.set_item("SupportParagraph", j[i]["SPTAlignment"]["ParaLine"]); }
-                    if (j[i]["SPTAlignment"] != null) { item.set_item("SupportReference", j[i]["SPTAlignment"]["Reference"]); }
-                    if (j[i]["StartDate"] != null) { item.set_item("StartDate", dateformat(j[i]["StartDate"], "isofull")); }
+                    if (j[i]["SPTAlignment"] !== null) { item.set_item("SupportParagraph", j[i]["SPTAlignment"]["ParaLine"]); }
+                    if (j[i]["SPTAlignment"] !== null) { item.set_item("SupportReference", j[i]["SPTAlignment"]["Reference"]); }
+                    if (j[i]["StartDate"] !== null) { item.set_item("StartDate", dateformat(j[i]["StartDate"], "isofull")); }
                     item.set_item("LeadComments", j[i]["Comments"]);
                     item.set_item("DirectiveDescription", j[i]["Description"]);
                     item.update();
@@ -160,7 +159,7 @@ CKO.MIGRATIONS.Migrate = function () {
                 var additems = [];
                 ctx = SP.ClientContext.get_current();
                 list = ctx.get_web().get_lists().getByTitle("Standards");
-                for (var i = 0, length = j.length; i < length; i++) {
+                for (var i = 0; i <j. length; i++) {
                     var ici = new SP.ListItemCreationInformation();
                     var item = list.addItem(ici);
                     item.set_item('Standard', j[i]["Objective"]);
@@ -168,7 +167,7 @@ CKO.MIGRATIONS.Migrate = function () {
                     item.set_item("StaffLead", SP.FieldUserValue.fromUser(j[i]["StaffLead"]["Account"]));
                     var assists = new Array();
                     var tmp1 = j[i]["StaffAssist"].results;
-                    if (tmp1 != null) {
+                    if (tmp1 !== null) {
                         for (var k = 0; k < tmp1.length; k++) {
                             assists.push(SP.FieldUserValue.fromUser(tmp1[k]["Account"]));
                         }
@@ -180,21 +179,21 @@ CKO.MIGRATIONS.Migrate = function () {
                     item.set_item("Trained", j[i]["TrainedValue"]);
                     item.set_item("Frequency", j[i]["FrequencyValue"]);
                     item.set_item("Task", j[i]["TaskAction"]);
-                    if (j[i]["StandardDate"] != null) { item.set_item("StartDate", dateformat(j[i]["StandardDate"], "isofull")); }
-                    if (j[i]["Competency"] != null) { item.set_item("Competency", j[i]["Competency"]["Title"]); }
+                    if (j[i]["StandardDate"] !== null) { item.set_item("StartDate", dateformat(j[i]["StandardDate"], "isofull")); }
+                    if (j[i]["Competency"] !== null) { item.set_item("Competency", j[i]["Competency"]["Title"]); }
                     item.set_item("SupportedOrg", j[i]["LU_Organization"]["Title"]);
-                    if (j[i]["LU_SubOrganization"] != null) { item.set_item("SupportedSubOrg", j[i]["LU_SubOrganization"]["Title"]); }
-                    if (j[i]["OtherOrganization"] != null) { item.set_item("SupportedOtherOrg", j[i]["OtherOrganization"]); }
+                    if (j[i]["LU_SubOrganization"] !== null) { item.set_item("SupportedSubOrg", j[i]["LU_SubOrganization"]["Title"]); }
+                    if (j[i]["OtherOrganization"] !== null) { item.set_item("SupportedOtherOrg", j[i]["OtherOrganization"]); }
                     logit("i: " + i + ", Directive: " + j[i]["Objective"]);
-                    if (j[i]["OBJAlignment"] != null) { item.set_item("SourceAuthority", j[i]["OBJAlignment"]["Authority"]); }
-                    if (j[i]["OBJAlignment"] != null) { item.set_item("SourceReference", j[i]["OBJAlignment"]["Reference"]); }
+                    if (j[i]["OBJAlignment"] !== null) { item.set_item("SourceAuthority", j[i]["OBJAlignment"]["Authority"]); }
+                    if (j[i]["OBJAlignment"] !== null) { item.set_item("SourceReference", j[i]["OBJAlignment"]["Reference"]); }
                     item.set_item("MOEQualitative", j[i]["MOEQualitative"]);
                     item.set_item("MOEQuantitative", j[i]["MOEQuantitative"]);
                     item.set_item("PercentExpended", j[i]["PercentExpended"]);
                     item.set_item("ReportRequired", j[i]["ReportValue"]);
                     item.set_item("SupportParagraph", j[i]["SPTAlignment"]["ParaLine"]);
                     item.set_item("SupportReference", j[i]["SPTAlignment"]["Reference"]);
-                    if (j[i]["LastValidated"] != null) { item.set_item("LastValidated", dateformat(j[i]["LastValidated"], "isofull")); }
+                    if (j[i]["LastValidated"] !== null) { item.set_item("LastValidated", dateformat(j[i]["LastValidated"], "isofull")); }
                     item.set_item("LeadComments", j[i]["Comments"]);
                     item.update();
                     additems[i] = item;
@@ -206,7 +205,7 @@ CKO.MIGRATIONS.Migrate = function () {
     }
 
     function LoadActions(zurl) {
-        if (zurl == null) {
+        if (zurl === null) {
             var urlString = "https://hq.tradoc.army.mil/sites/PMT/_vti_bin/listdata.svc/Actions?";
             urlString += "$select=Id,Title,Hours,CreatedBy,Comments,OtherEnabler,Customer,CompletedDate,EffortType,EffortType/Title,Enabler,Enabler/Title,Function,Function/Title,SPTAlignmentID";
             urlString += "&$expand=CreatedBy,EffortType,Enabler,Function";
@@ -256,7 +255,7 @@ CKO.MIGRATIONS.Migrate = function () {
             d = moment(d).add(os * 2, 'h').format('YYYY-MM-DD[T]HH:MM:SS[Z]');
             var un, et, e, f, oe;
             var uid = null;
-            if (j[i]["CreatedBy"] != null) {
+            if (j[i]["CreatedBy"] !== null) {
                 un = j[i]["CreatedBy"]["Account"];  // Will just need to update this later with another function to get real user account
                 //unn = SP.FieldUserValue.fromUser(un);
                 $().SPServices({
@@ -278,14 +277,14 @@ CKO.MIGRATIONS.Migrate = function () {
                 un = "Old Account For Action ID: " + j[i]["Id"]; // some users had old accounts!!
                 uid = "";
             }
-            if (j[i]["EffortType"] == null) { et = ""; } else { et = j[i]["EffortType"]["Title"]; }
-            if (j[i]["Enabler"] == null) { e = ""; } else { e = j[i]["Enabler"]["Title"]; }
-            if (j[i]["Function"] == null) { f = "" } else { f = j[i]["Function"]["Title"]; }
-            if (j[i]["OtherEnabler"] == null) { oe = "" } else { oe = j[i]["OtherEnabler"]; }
+            if (j[i]["EffortType"] === null) { et = ""; } else { et = j[i]["EffortType"]["Title"]; }
+            if (j[i]["Enabler"] === null) { e = ""; } else { e = j[i]["Enabler"]["Title"]; }
+            if (j[i]["Function"] === null) { f = "" } else { f = j[i]["Function"]["Title"]; }
+            if (j[i]["OtherEnabler"] === null) { oe = "" } else { oe = j[i]["OtherEnabler"]; }
             var item = {
                 "Title": j[i]["Title"],
                 "PMTUserName": un,
-                "PMTUserId": uid == null ? "" : uid,
+                "PMTUserId": uid === null ? "" : uid,
                 "Expended": j[i]["Hours"],
                 "EffortTypeValue": et,
                 "Enabler": e,
@@ -316,7 +315,7 @@ CKO.MIGRATIONS.Migrate = function () {
         xml += "<ViewFields>";
         for (var z = 0; z <= fields.length - 1; z++) {
             xml += "<FieldRef Name='" + fields[z] + "'/>";
-            if (z == fields.length - 1) {
+            if (z === fields.length - 1) {
                 inc += fields[z] + ")";
             }
             else {
@@ -392,7 +391,7 @@ CKO.MIGRATIONS.Migrate = function () {
         xml += "<ViewFields>";
         for (var z = 0; z <= fields.length - 1; z++) {
             xml += "<FieldRef Name='" + fields[z] + "'/>";
-            if (z == fields.length - 1) {
+            if (z === fields.length - 1) {
                 inc += fields[z] + ")";
             }
             else {
@@ -428,7 +427,7 @@ CKO.MIGRATIONS.Migrate = function () {
 
     function getISODate(date) {
         function pad(n) { return n < 10 ? '0' + n : n }
-        if (date != null) {
+        if (date !== null) {
             d = new Date(date);
         }
         else {
@@ -450,22 +449,22 @@ CKO.MIGRATIONS.Migrate = function () {
         var dtr = "";
         switch (type) {
             case "shortdate":
-                var d = new Date(dtf);
+                d = new Date(dtf);
                 dtr = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
                 break;
 
             case "shortdate1":
-                var d = new Date(parseInt(dtf.substr(6)));
+                d = new Date(parseInt(dtf.substr(6)));
                 dtr = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
                 break;
 
             case "modified":
-                var d = new Date(dtf);
+                d = new Date(dtf);
                 dtr = marr[d.getMonth()] + " " + d.getDate() + ", " + GetPrettyTime(d);
                 break;
 
             case "modifiedoffset":
-                var d = new Date(dtf);
+                d = new Date(dtf);
                 dtr = marr[d.getMonth()] + " " + d.getDate() + ", " + GetPrettyTimeOffset(d);
                 break;
 

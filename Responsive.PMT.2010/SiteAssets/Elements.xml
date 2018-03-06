@@ -26,8 +26,6 @@
     <File Path="SiteAssets\html\CEWP_KM_Chart.html" Url="SiteAssets/html/CEWP_KM_Chart.html" />
     <File Path="SiteAssets\html\CEWP_KM_TotalChart.html" Url="SiteAssets/html/CEWP_KM_TotalChart.html" />
     <File Path="SiteAssets\html\dbDirectivesII.html" Url="SiteAssets/html/dbDirectivesII.html" />
-    <File Path="SiteAssets\js\PMT.js" Url="SiteAssets/js/PMT.js" />
-    <File Path="SiteAssets\js\SPHelper.js" Url="SiteAssets/js/SPHelper.js" />
     <File Path="SiteAssets\js\CEWP_KM_Chart.js" Url="SiteAssets/js/CEWP_KM_Chart.js" />
     <File Path="SiteAssets\js\CEWP_KM_TotalChart.js" Url="SiteAssets/js/CEWP_KM_TotalChart.js" />
     <File Path="SiteAssets\html\CEWP_Dashboard_Directives.html" Url="SiteAssets/html/CEWP_Dashboard_Directives.html" />
@@ -42,7 +40,6 @@
     <File Path="SiteAssets\css\cascomstyles1.css" Url="SiteAssets/css/cascomstyles1.css" />
     <File Path="SiteAssets\html\CEWP_PMTMigrations.html" Url="SiteAssets/html/CEWP_PMTMigrations.html" />
     <File Path="SiteAssets\js\CEWP_PMTMigrations.js" Url="SiteAssets/js/CEWP_PMTMigrations.js" />
-    <File Path="SiteAssets\js\Directives.json" Url="SiteAssets/js/Directives.json" />
     <File Path="SiteAssets\html\CEWP_Forms_NewActionForm.html" Url="SiteAssets/html/CEWP_Forms_NewActionForm.html" />
     <File Path="SiteAssets\js\CEWP_Forms_NewActionForm.js" Url="SiteAssets/js/CEWP_Forms_NewActionForm.js" />
     <File Path="SiteAssets\html\CEWP_MyActions.html" Url="SiteAssets/html/CEWP_MyActions.html" />
@@ -59,7 +56,6 @@
     <File Path="SiteAssets\css\CEWP_Forms_DirectiveForms.css" Url="SiteAssets/css/CEWP_Forms_DirectiveForms.css" />
     <File Path="SiteAssets\html\CEWP_Dashboard_Charts_SVD.html" Url="SiteAssets/html/CEWP_Dashboard_Charts_SVD.html" />
     <File Path="SiteAssets\js\CEWP_Dashboard_Charts_SVD.js" Url="SiteAssets/js/CEWP_Dashboard_Charts_SVD.js" />
-    <File Path="SiteAssets\js\HCHelper.js" Url="SiteAssets/js/HCHelper.js" />
     <File Path="SiteAssets\js\CEWP_Dashboard_Charts_Functions.js" Url="SiteAssets/js/CEWP_Dashboard_Charts_Functions.js" />
     <File Path="SiteAssets\html\CEWP_Dashboard_Charts_Functions.html" Url="SiteAssets/html/CEWP_Dashboard_Charts_Functions.html" />
     <File Path="SiteAssets\html\CEWP_Dashboard_Charts_Authority.html" Url="SiteAssets/html/CEWP_Dashboard_Charts_Authority.html" />
@@ -83,8 +79,6 @@
     <File Path="SiteAssets\html\CEWP_Dashboard_NewCatsTaskers.html" Url="SiteAssets/html/CEWP_Dashboard_NewCatsTaskers.html" />
     <File Path="SiteAssets\js\CEWP_Dashboard_CatsTaskers.js" Url="SiteAssets/js/CEWP_Dashboard_CatsTaskers.js" />
     <File Path="SiteAssets\js\CEWP_Dashboard_NewCatsTaskers.js" Url="SiteAssets/js/CEWP_Dashboard_NewCatsTaskers.js" />
-    <File Path="SiteAssets\js\Directive_NewForm.js" Url="SiteAssets/js/Directive_NewForm.js" />
-    <File Path="SiteAssets\js\Directive_EditForm.js" Url="SiteAssets/js/Directive_EditForm.js" />
     <File Path="SiteAssets\html\CEWP_Forms_NewDirectiveForm.html" Url="SiteAssets/html/CEWP_Forms_NewDirectiveForm.html" />
     <File Path="SiteAssets\js\CEWP_Forms_NewDirectiveForm.js" Url="SiteAssets/js/CEWP_Forms_NewDirectiveForm.js" />
     <File Path="SiteAssets\html\CEWP_Forms_NewStandardForm.html" Url="SiteAssets/html/CEWP_Forms_NewStandardForm.html" />
@@ -93,7 +87,6 @@
     <File Path="SiteAssets\js\CEWP_Forms_EditStandardForm.js" Url="SiteAssets/js/CEWP_Forms_EditStandardForm.js" />
     <File Path="SiteAssets\css\CEWP_Forms_StandardForms.css" Url="SiteAssets/css/CEWP_Forms_StandardForms.css" />
     <File Path="SiteAssets\js\CEWP_Taskers_NewTaskers.js" Url="SiteAssets/js/CEWP_Taskers_NewTaskers.js" />
-    <File Path="SiteAssets\js\ckoTask_DisplayTask.js" Url="SiteAssets/js/ckoTask_DisplayTask.js" />
     <File Path="SiteAssets\html\CEWP_Taskers_NewTaskers.html" Url="SiteAssets/html/CEWP_Taskers_NewTaskers.html" />
     <File Path="SiteAssets\html\CEWP_Forms_NewTaskerForm.html" Url="SiteAssets/html/CEWP_Forms_NewTaskerForm.html" />
     <File Path="SiteAssets\js\CEWP_Forms_NewTaskerForm.js" Url="SiteAssets/js/CEWP_Forms_NewTaskerForm.js" />
