@@ -4,10 +4,12 @@
             <a href="/sites/OCKO/PMT/Pages/Home.aspx"><svg class="fa fa-dashboard"><use xlink:href="#fa-dashboard"></use></svg>&nbsp;&nbsp;PMT <span class="arrow"></span></a>
             <ul class="wsmenu-submenu">
                 <li><a href="/sites/OCKO/PMT/Pages/Home.aspx">PMT Dashboard</a></li>
+                <li><a href="/sites/OCKO/PMT/Pages/AllDashboardReports2.aspx">PMT Detailed Analysis Dashboard</a></li>
                 <li><a href="/sites/OCKO/PMT/Pages/MyDashboard.aspx">My Dashboard</a></li>
+                <li><a href="/sites/OCKO/PMT/Pages/AllMyDashboardReports2.aspx">My Detailed Analysis Dashboard</a></li>
                 <li><a href="/sites/OCKO/PMT/Lists/Directives/AllItems.aspx">Directives</a></li>
                 <li><a href="/sites/OCKO/PMT/Lists/Standards/AllItems.aspx">Standards</a></li>
-                <li><a href="/sites/OCKO/PMT/Lists/Actions/AllItems.aspx">Actions</a></li>
+                <li><a href="/sites/OCKO/PMT/Lists/Actions/Summary.aspx">Actions</a></li>
             </ul>
         </li>
         <li>
@@ -16,49 +18,46 @@
                 <li><a href="/sites/OCKO/PMT/Pages/KnowledgeMap.aspx">Dashboard</a></li>
                 <li><a href="/sites/OCKO/PMT/Lists/Organization/AllItems.aspx">Organizational Data</a></li>
                 <li><a href="/sites/OCKO/PMT/Lists/KnowledgeMap/AllItems.aspx">Position Data</a></li>
+                <li><a href="/sites/OCKO/PMT/Lists/Skills/Category.aspx">Skills</a></li>
             </ul>
         </li>
         <li>
-            <a href="/sites/OCKO/PMT/Reports/Forms/AllItems.aspx"><svg class="fa fa-align-justify"><use xlink:href="#fa-align-justify"></use></svg>&nbsp;&nbsp;Reports<span class="arrow"></span></a>
+            <a href="/sites/OCKO/PMT/Pages/AllDashboardReports2.aspx"><svg class="fa fa-align-justify"><use xlink:href="#fa-align-justify"></use></svg>&nbsp;&nbsp;Reports<span class="arrow"></span></a>
             <ul class="wsmenu-submenu">
                 <li><a href="/sites/OCKO/PMT/Pages/MissingHoursReport.aspx" data-title="Missing Hours">Missing Hours</a></li>
-                <li><a class="report" data-report="/sites/OCKO/PMT/Reports/PMTDirective.rdl" data-title="Directive Summary" href="#">Directive Summary</a></li>
-                <li><a class="report" data-report="/sites/OCKO/PMT/Reports/byMonth.rdl" data-title="Objectives/Actions" href="#">Objectives/Actions</a></li>
+                <!--<li><a class="report" data-report="/sites/OCKO/PMT/Reports/PMTDirective.rdl" data-title="Directive Summary" href="#">Directive Summary</a></li>
+                <li><a class="report" data-report="/sites/OCKO/PMT/Reports/byMonth.rdl" data-title="Objectives/Actions" href="#">Objectives/Actions</a></li>-->
                 <li><a href="/sites/OCKO/PMT/Pages/HoursReport.aspx" data-title="COE Hours">COE Hours</a></li>
-                <li><a class="report" data-report="/sites/OCKO/PMT/Reports/PMTCompetency.rdl" data-title="PMT Competencies" href="#">PMT Competencies</a></li>
-                <li><a class="report" data-report="/sites/OCKO/PMT/Reports/PMTFunction.rdl" data-title="PMT Functions" href="#">PMT Functions</a></li>
-                <li><a class="report" data-report="/sites/OCKO/PMT/Reports/PMTEnabler.rdl" data-title="PMT Enablers" href="#">PMT Enablers</a></li>
-                <li><a class="report" data-report="/sites/OCKO/PMT/Reports/PMTCustomer.rdl" data-title="PMT Customers" href="#">PMT Customers</a></li>
-                <li><a class="report" data-report="/sites/OCKO/PMT/Reports/PMTAuthority.rdl" data-title="PMT Authorities" href="#">PMT Authorities</a></li>
-                <li>
-                    <a href="#">Dashboards<svg class="fa fa-angle-right"><use xlink:href="#fa-angle-right"></use></svg></a>
-                    <ul class="wsmenu-submenu-sub">
-                        <li><a href="#">Directives</a></li>
-                        <li><a href="#">Standards</a></li>
-                        <li>
-                            <a href="#">Actions<svg class="fa fa-angle-right"><use xlink:href="#fa-angle-right"></use></svg></a>
-                            <ul class="wsmenu-submenu-sub-sub">
-                                <li class=""><a href="#">Standard Actions</a></li>
-                                <li class=""><a href="#">Directive Actions</a></li>
-                                <li class=""><a href="#">Competencies</a></li>
-                                <li class=""><a href="#">Functions</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+                <li><a href="/sites/OCKO/PMT/Pages/AllDashboardReports2.aspx?Action=Report&Report=Competencies" data-title="PMT Competencies">PMT Competencies</a></li>
+                <li><a href="/sites/OCKO/PMT/Pages/AllDashboardReports2.aspx?Action=Report&Report=Functions" data-title="PMT Functions">PMT Functions</a></li>
+                <li><a href="/sites/OCKO/PMT/Pages/AllDashboardReports2.aspx?Action=Report&Report=Enablers" data-title="PMT Enablers">PMT Enablers</a></li>
+                <li><a href="/sites/OCKO/PMT/Pages/AllDashboardReports2.aspx?Action=Report&Report=Customers" data-title="PMT Customers">PMT Customers</a></li>
+                <li><a href="/sites/OCKO/PMT/Pages/AllDashboardReports2.aspx?Action=Report&Report=Authorities" data-title="PMT Authorities">PMT Authorities</a></li>
             </ul>
         </li>
         <li>
-            <a href="/sites/OCKO/PMT"><svg class="fa fa-book"><use xlink:href="#fa-book"></use></svg>&nbsp;&nbsp;Links<span class="arrow"></span></a>
+            <a href="/sites/OCKO/PMT/"><svg class="fa fa-book"><use xlink:href="#fa-book"></use></svg>&nbsp;&nbsp;Links<span class="arrow"></span></a>
             <ul class="wsmenu-submenu">
+                <li>
+                    <a href="/sites/OCKO/cko/Pages/Products_and_Services.aspx" target="_blank">Products<svg class="fa fa-angle-right float-right"><use xlink:href="#fa-angle-right"></use></svg></a>
+                    <ul class="wsmenu-submenu-sub">
+                        <li><a href="https://hq.tradoc.army.mil/sites/MSCT/default.aspx" target="_blank">MSCT</a></li>
+                        <li><a href="https://arcic.tradoc.army.mil/AIEM/Pages/Gantt.aspx" target="_blank">AIEM</a></li>
+                        <li><a href="https://hq.tradoc.army.mil/sites/G14/Diversity-/Pages/Home.aspx?SelectedCoE=TRADOC" target="_blank">SHARP Manning</a></li>
+                        <li><a href="https://hq.tradoc.army.mil/sites/G14/AG/dashboard.aspx" target="_blank">AG Dashboard</a></li>
+                        <li><a href="https://hq.tradoc.army.mil/sites/ig/opsadmin/Pages/LRC_Map_Highcharts.aspx" target="_blank">IG Tool</a></li>
+                        <li><a href="https://hq.tradoc.army.mil/sites/cpg/Pages/CGEngagementsDB.aspx" target="_blank">CG Engagement Tracker</a></li>
+                        <li><a href="https://hq.tradoc.army.mil/sites/OIP/default.aspx" target="_blank">OIP Tool</a></li>
+                    </ul>
+                </li>
                 <li><a href="/sites/OCKO/cko/Pages/OCKO.aspx">CKO SharePoint</a></li>
                 <li><a href="http://www.tradoc.army.mil/cko/index.asp">CKO Public Site</a></li>
-                <li><a href="/sites/OCKO/Training/Pages/Home.aspx">Training</a></li>
                 <li><a href="https://hq.tradoc.army.mil/sites/OCKO/cko/EnterpriseDocuments/KPPM_CoE_Site_Leads.xlsx">KPPM CoE Site Leads</a></li>
                 <li>
-                    <a href="https://www.milsuite.mil">milSuite<svg class="fa fa-angle-right"><use xlink:href="#fa-angle-right"></use></svg></a>
+                    <a href="https://www.milsuite.mil">milSuite<svg class="fa fa-angle-right float-right"><use xlink:href="#fa-angle-right"></use></svg></a>
                     <ul class="wsmenu-submenu-sub">
                         <li><a href="https://www.milsuite.mil/book/groups/knowledge-process-performance-management-kppm">KPPM Group Page</a></li>
+                        <li><a href="https://www.milsuite.mil/book/community/spaces/ai2">AI2</a></li>
                         <li><a href="https://www.milsuite.mil/book?pk_campaign=milSuite-7-homepage&pk_kwd=milBook">milBook</a></li>
                         <li><a href="https://www.milsuite.mil/video?pk_campaign=milSuite-7-homepage&pk_kwd=milTube">milTube</a></li>
                         <li><a href="https://www.milsuite.mil/wiki?pk_campaign=milSuite-7-homepage&pk_kwd=milWiki">milWiki</a></li>
@@ -67,6 +66,9 @@
                     </ul>
                 </li>
             </ul>
+        </li>
+        <li>
+            <a href="/sites/OCKO/Training/Pages/Home.aspx"><svg class="fa fa-train"><use xlink:href="#fa-train"></use></svg>&nbsp;&nbsp;Training Dashboard</a>
         </li>
     </ul>
 </nav>

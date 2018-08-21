@@ -14,10 +14,13 @@ CKO.FORMS.DIRECTIVES.VARIABLES = {
     web: null,
     list: null,
     listitem: null,
+    directiveid: "DIR" + jQuery.QueryString["ID"],
     html: "",
     tblinit: 0,
     user: null,
     userID: null,
+    skills: [],
+    hours: 0,
     Org: null,
     directive: null
 };
@@ -43,12 +46,7 @@ CKO.FORMS.DIRECTIVES.ViewForm = function () {
         v.site = site;
         resizeModalDialog();
         loadCSS(site + '/SiteAssets/css/CEWP_Forms_DirectiveForms.css');
-        loadCSS(site + '/SiteAssets/css/responsive.bootstrap.min.css');
-        loadscript(site + '/SiteAssets/js/jquery.dataTables.min.js', function () {
-            loadscript(site + '/SiteAssets/js/dataTables.bootstrap.min.js', function () {
-                LoadData();
-            });
-        });
+        LoadData();
     }
 
     function LoadData() {
@@ -72,7 +70,19 @@ CKO.FORMS.DIRECTIVES.ViewForm = function () {
                     break;
 
                 case "LeadComments":
-                    html = "<textarea rows='6' id='txt_" + z + "'></textarea>";
+                    html = "<textarea rows='8' id='txt_" + z + "'></textarea>";
+                    $(this).html("").append(html);
+                    $("#txt_" + z).val(txt);
+                    break;
+
+                case "Lead Comments":
+                    html = "<textarea rows='8' id='txt_" + z + "'></textarea>";
+                    $(this).html("").append(html);
+                    $("#txt_" + z).val(txt);
+                    break;
+
+                case "TeamComments":
+                    html = "<textarea rows='8' id='txt_" + z + "'></textarea>";
                     $(this).html("").append(html);
                     $("#txt_" + z).val(txt);
                     break;
@@ -93,10 +103,10 @@ CKO.FORMS.DIRECTIVES.ViewForm = function () {
 
         // Load the Actions for this Directive on the Actions tab in a table
         var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
-        urlString += "$select=Id,Title,EffortTypeValue,DateCompleted,PMTUser,Expended,ActionComments";
+        urlString += "$select=Id,Title,EffortTypeValue,DateCompleted,PMTUser,Expended,ActionComments,ParentID";
         urlString += "&$expand=PMTUser";
         urlString += "&$orderby=DateCompleted desc";
-        urlString += "&$filter=(substringof('" + v.directive + "', Title)) and (EffortTypeValue eq 'Directive')";
+        urlString += "&$filter=(ParentID eq '" + v.directiveid + "')";
         logit("urlString: " + urlString);
 
         jQuery.ajax({
@@ -114,13 +124,13 @@ CKO.FORMS.DIRECTIVES.ViewForm = function () {
                 logit("Actions Count: " + numitems);
                 if (numitems > 0) {
                     // Build out the table to show the actions for this directive.
-                    v.html += "<table id='tblActions' class='table table-bordered table-hover' cellspacing='0' cellpadding='0'>";
-                    v.html += "<thead><tr><td class='thUser'>User</td><td class='thDate'>Date</td><td class='thHours'>Hours</td><td class='thComment'>Comment</td></tr></thead>";
+                    v.html = "<table id='tblActions' cellspacing='0' cellpadding='0' class='table table-bordered table-hover' style='width: 100%;'>";
+                    v.html += "<thead><tr><th class='thUser'>User</th><th class='thDate'>Date</th><th class='thHours'>Hours</th><th class='thComment'>Comment</th></tr></thead>";
                     v.html += "<tbody>";
                     for (var i = 0, length = j.length; i < length; i++) {
                         v.html += "<tr>";
                         v.html += "<td class='tdUser'>" + j[i]["PMTUser"]["Name"] + "</td>";
-                        var a = moment(j[i]["DateCompleted"]);
+                        var a = moment(j[i]["DateCompleted"]).add(8, 'hours'); // adding 8 hours because the rest endpoint is subtracting the timezone offset
                         v.html += "<td class='tdDate'>" + a.format("DD-MMM-YY") + "</td>";
                         v.html += "<td class='tdHours'>" + j[i]["Expended"] + "</td>";
                         v.html += "<td class='tdComment'>" + j[i]["ActionComments"] + "</td>";
@@ -133,21 +143,8 @@ CKO.FORMS.DIRECTIVES.ViewForm = function () {
                 $(".ms-descriptiontext").hide();
 
                 logit("Update Dropdowns complete.");
-                var table = $("#tblActions").dataTable({
-                    "scrollY": "500px",
-                    "scrollCollapse": true,
-                    "paging": false,
-                    "searching": false,
-                    "ordering": false
-                });
 
                 GetSkills();
-
-                setTimeout(function () {
-                    //table.columns.adjust().draw();
-                    $(".thDate").click();
-                    //$(".thUser").click();
-                }, 4000);
             }
         });
     }
@@ -159,8 +156,8 @@ CKO.FORMS.DIRECTIVES.ViewForm = function () {
         // Load the Skills for this Directive on the Skills tab in a table
 
         var inc = "Include(";
-        var xml = "<View><Method Name='Read List' /><Query><OrderBy><FieldRef Name='Hours' /></OrderBy><Where><Eq><FieldRef Name='Directive' /><Value Type='Text'>" + v.directive + "</Value></Eq></Where></Query>";
-        var fields = ["Directive", "Skill", "Hours"];
+        var xml = "<View><Method Name='Read List' /><Query><OrderBy><FieldRef Name='Hours' /></OrderBy><Where><Eq><FieldRef Name='ParentID' /><Value Type='Text'>" + v.directiveid + "</Value></Eq></Where></Query>";
+        var fields = ["Directive", "Skill", "Hours", "ParentID"];
         xml += "<ViewFields>";
         for (var z = 0; z <= fields.length - 1; z++) {
             xml += "<FieldRef Name='" + fields[z] + "'/>";
@@ -178,6 +175,7 @@ CKO.FORMS.DIRECTIVES.ViewForm = function () {
         $.when(CKO.CSOM.GetListItems.getitemsfilteredcomplex("current", "DirectiveSkills", xml, inc)).then(function (items) {
             if (items.get_count() > 0) { //get map data
                 enumerator = items.getEnumerator();
+                v.hours = 0;
                 while (enumerator.moveNext()) {
                     var prop = enumerator.get_current();
                     var hours = parseInt(prop.get_item("Hours"));

@@ -80,6 +80,7 @@
     <None Include="SiteAssets\fonts\fontawesome-webfont.woff2" />
     <None Include="SiteAssets\fonts\FontAwesome.otf" />
     <None Include="SiteAssets\html\dbAuthority.widget" />
+    <None Include="SiteAssets\html\UserManagement.widget" />
     <None Include="SiteAssets\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{ac5096c7-822a-477f-ba2a-1eadadfc7c2a}</SharePointProjectItemId>
     </None>
@@ -340,6 +341,7 @@
     <Content Include="SiteAssets\css\CEWP_Dashboard_Directives.css" />
     <Content Include="SiteAssets\css\CEWP_Forms_DirectiveForms.css" />
     <Content Include="SiteAssets\css\CEWP_Forms_ActionForms.css" />
+    <Content Include="SiteAssets\css\CEWP_Forms_SkillsForms.css" />
     <Content Include="SiteAssets\css\CEWP_Forms_StandardForms.css" />
     <Content Include="SiteAssets\css\color-theme.css" />
     <Content Include="SiteAssets\css\common.css" />
@@ -347,6 +349,7 @@
     <Content Include="SiteAssets\css\font-awesome.css" />
     <Content Include="SiteAssets\css\font-awesome.min.css" />
     <Content Include="SiteAssets\css\homepagelayout.css" />
+    <Content Include="SiteAssets\css\jquery.qtip.css" />
     <Content Include="SiteAssets\css\myactions.css" />
     <Content Include="SiteAssets\css\staffaction.css" />
     <Content Include="SiteAssets\css\directives.css" />
@@ -358,11 +361,19 @@
     <Content Include="SiteAssets\fonts\fontawesome-webfont.svg" />
     <Content Include="SiteAssets\html\CEWP_Dashboard.html" />
     <Content Include="SiteAssets\html\CEWP_Dashboard_Charts_Comps.html" />
+    <Content Include="SiteAssets\html\CEWP_Dashboard_DirectivesExtended.html" />
+    <Content Include="SiteAssets\html\CEWP_Directives_ExpendedHours.html" />
+    <Content Include="SiteAssets\html\CEWP_Forms_EditContact.html" />
     <Content Include="SiteAssets\html\CEWP_Forms_EditSkillForm.html" />
+    <Content Include="SiteAssets\html\CEWP_Forms_NewContact2.html" />
+    <Content Include="SiteAssets\html\CEWP_Forms_NewContact.html" />
     <Content Include="SiteAssets\html\CEWP_Forms_NewSkillForm.html" />
     <Content Include="SiteAssets\html\CEWP_MissingHoursReport.html" />
     <Content Include="SiteAssets\html\CEWP_HoursReport.html" />
+    <Content Include="SiteAssets\html\CEWP_Dashboard_Charts_Customer.html" />
+    <Content Include="SiteAssets\html\CEWP_MyDashboard_Charts_Customer.html" />
     <Content Include="SiteAssets\html\CEWP_Taskers_NewTaskers2.html" />
+    <Content Include="SiteAssets\html\CEWP_TD_Charts_OverallChart2.html" />
     <Content Include="SiteAssets\html\CEWP_TD_Charts_OverallChart.html" />
     <Content Include="SiteAssets\html\CEWP_Views_HoursReport.html" />
     <Content Include="SiteAssets\html\CEWP_Snow.html" />
@@ -411,14 +422,32 @@
     <Content Include="SiteAssets\images\whitestar1.svg" />
     <Content Include="SiteAssets\images\splitdot.png" />
     <Content Include="SiteAssets\images\yellowdot.png" />
+    <Content Include="SiteAssets\js\ADR_Customers.js" />
+    <Content Include="SiteAssets\js\ADR_Enablers.js" />
+    <Content Include="SiteAssets\js\ADR_MyCustomers.js" />
+    <Content Include="SiteAssets\js\ADR_MySkills.js" />
+    <Content Include="SiteAssets\js\ADR_Paragraph2.js" />
+    <Content Include="SiteAssets\js\ADR_Paragraph.js" />
+    <Content Include="SiteAssets\js\ADR_Parent2.js" />
+    <Content Include="SiteAssets\js\ADR_Parent.js" />
+    <Content Include="SiteAssets\js\ADR_Skills.js" />
     <Content Include="SiteAssets\js\CEWP_Dashboard_Charts_Comps.js" />
+    <Content Include="SiteAssets\js\CEWP_Dashboard_Charts_Customer.js" />
+    <Content Include="SiteAssets\js\CEWP_Dashboard_DirectivesExtended.js" />
+    <Content Include="SiteAssets\js\CEWP_Directives_ExpendedHours.js" />
+    <Content Include="SiteAssets\js\CEWP_Forms_EditContact.js" />
     <Content Include="SiteAssets\js\CEWP_Forms_EditSkillForm.js" />
+    <Content Include="SiteAssets\js\CEWP_Forms_NewContact2.js" />
+    <Content Include="SiteAssets\js\CEWP_Forms_NewContact.js" />
     <Content Include="SiteAssets\js\CEWP_Forms_NewSkillForm.js" />
     <Content Include="SiteAssets\js\CEWP_Forms_ViewDirectiveForm.js" />
     <Content Include="SiteAssets\js\CEWP_MissingHoursReport.js" />
     <Content Include="SiteAssets\js\CEWP_KM_Map2.js" />
     <Content Include="SiteAssets\js\CEWP_HoursReport.js" />
+    <Content Include="SiteAssets\js\CEWP_MyDashboard_Charts_Customer.js" />
+    <Content Include="SiteAssets\js\CEWP_PMTMigrations_old.js" />
     <Content Include="SiteAssets\js\CEWP_Taskers_NewTaskers2.js" />
+    <Content Include="SiteAssets\js\CEWP_TD_Charts_OverallChart2.js" />
     <Content Include="SiteAssets\js\CEWP_TD_Charts_OverallChart.js" />
     <Content Include="SiteAssets\js\CEWP_Views_HoursReport.js" />
     <Content Include="SiteAssets\js\CEWP_MyDashboard_Charts_Authority.js" />
@@ -454,6 +483,8 @@
     <Content Include="SiteAssets\js\login.js" />
     <Content Include="SiteAssets\js\SiteNavigation.js" />
     <Content Include="SiteAssets\js\CEWP_Taskers_NewTaskers.js" />
+    <Content Include="SiteAssets\js\SPHelper.js" />
+    <Content Include="SiteAssets\js\ValidateUser.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\" />

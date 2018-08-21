@@ -13,6 +13,8 @@
 				<SharePointWebControls:CssRegistration name="<% $SPUrl:~sitecollection/Style Library/~language/Core Styles/edit-mode-21.css %>" After="<% $SPUrl:~sitecollection/Style Library/~language/Core Styles/page-layouts-21.css %>" runat="server"/>
 			</PublishingWebControls:EditModePanel>
             <SharePointWebControls:ScriptLink Language="javascript" Name="~sitecollection/SiteAssets/js/highcharts.js" Defer="true" runat="server" Localizable="false" />
+            <SharePointWebControls:ScriptLink Language="javascript" Name="~sitecollection/SiteAssets/js/highcharts-more.js" Defer="true" runat="server" Localizable="false" />
+            <SharePointWebControls:ScriptLink Language="javascript" Name="~sitecollection/SiteAssets/js/solid-gauge.js" Defer="true" runat="server" Localizable="false" />
 			<SharePointWebControls:ScriptLink Language="javascript" Name="~sitecollection/SiteAssets/js/exporting.js" Defer="true" runat="server" Localizable="false" />
             <SharePointWebControls:ScriptLink Language="javascript" Name="~site/SiteAssets/js/jquery.dataTables.min.js" Defer="true" runat="server" Localizable="false" />
             <SharePointWebControls:ScriptLink Language="javascript" Name="~site/SiteAssets/js/dataTables.bootstrap.min.js" Defer="true" runat="server" Localizable="false" />	

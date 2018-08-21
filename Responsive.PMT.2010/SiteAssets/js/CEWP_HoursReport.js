@@ -209,7 +209,8 @@ CKO.VIEWS.HoursReport = function () {
                 var numitems = j.length;
                 logit("# of actions: " + numitems);
                 for (var i = 0; i < numitems; i++) {
-                    var dc = dateformat(j[i]["DateCompleted"], 'isoshort');
+                    //var dc = dateformat(j[i]["DateCompleted"], 'isoshort');
+                    var dc = moment(j[i]["DateCompleted"]).add(8, 'hours').format('YYYY-MM-DD');
                     var idx = element;
                     v.users[idx]["actions"].push({
                         id: j[i]["Id"],
@@ -218,7 +219,7 @@ CKO.VIEWS.HoursReport = function () {
                         starttext: dc,
                         Hours: j[i]["Expended"],
                         Type: j[i]["EffortTypeValue"],
-                        EndOfWeek: j[i]["EndOfWeek"],
+                        EndOfWeek: moment(dc).endOf('week').format('YYYY-MM-DD'),
                         backgroundColor: "black",
                         textColor: "white"
                     });

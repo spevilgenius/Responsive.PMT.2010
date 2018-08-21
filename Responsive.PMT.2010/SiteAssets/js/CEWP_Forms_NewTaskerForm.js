@@ -50,14 +50,30 @@ CKO.FORMS.TASKERS.NewForm = function () {
                 var originator = j[0]["Orginator"];
                 var requiredAction = j[0]["ActionRequired"];
                 var LAItext = "Info";
-                if (assist.indexOf("CKO") > 0) {
-                    LAItext = "Assist";
-                } else if (lead.indexOf("CKO") > 0) {
-                    LAItext = "Lead";
+                switch (true) {
+                    case lead !== null && lead.indexOf("CKO") >= 0:
+                        LAItext = "Lead";
+                        break;
+
+                    case assist !== null && assist.indexOf("CKO") >= 0:
+                        LAItext = "Assist";
+                        break;
+
+                    case info !== null && info.indexOf("CKO") >= 0:
+                        LAItext = "Info";
+                        break;
                 }
-                $("input[Title*='CATS Control Number']").val(v.catsNumber);
+
+                //if (assist !== null) {
+                //    if (assist.indexOf("CKO") > 0) {
+                //        LAItext = "Assist";
+                //    } else if (lead.indexOf("CKO") > 0) {
+                //        LAItext = "Lead";
+                //    }
+                //}
+                $("input[Title*='CATSControlNumber']").val(v.catsNumber);
                 $("input[Title*='Subject']").val(catsName);
-                $("input[Title*='CATS Suspense']").val(catsSuspense);
+                $("input[title='CATS Suspense']").val(catsSuspense);
                 $("input[Title*='catsID']").val(v.catsID);
                 $("input[Title*='catsModified']").val(catsModified);
                 $("input[Title*='catsCreated']").val(catsCreated);

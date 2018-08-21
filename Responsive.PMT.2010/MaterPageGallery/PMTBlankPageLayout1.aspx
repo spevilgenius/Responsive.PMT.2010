@@ -34,7 +34,7 @@
 <asp:Content ContentPlaceholderID="PlaceHolderMain" runat="server">
 	<div class="container-fluid">
         <div class="row">
-    	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center webpartcontainer">
+    	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 webpartcontainer">
     		    <WebPartPages:WebPartZone runat="server" Title="R2C1" ID="WPZR2C1"><ZoneTemplate></ZoneTemplate></WebPartPages:WebPartZone>
     	    </div>
         </div>

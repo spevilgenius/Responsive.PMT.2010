@@ -34,7 +34,8 @@ CKO.FORMS.SKILLS.EditForm = function () {
         v.site = site;
         loadCSS(site + '/SiteAssets/css/CEWP_Forms_SkillsForms.css');
 
-        $("input[title*='Directive']").val(v.directive).attr("disabled", "disabled").css({ "cursor": "not-allowed" });
+        //$("input[title*='Directive']").attr("disabled", "disabled").css({ "cursor": "not-allowed" });
+        $("input[title*='ParentID']").attr("disabled", "disabled").css({ "cursor": "not-allowed" });
 
         $("#btnSave").on("click", function () {
             SaveSkill();
@@ -59,7 +60,8 @@ CKO.FORMS.SKILLS.EditForm = function () {
 
     function SaveSkill() {
         $("#FormError").remove();
-        $("input[title*='Directive']").removeAttr("disabled");
+        //$("input[title*='Directive']").removeAttr("disabled");
+        $("input[title*='ParentID']").removeAttr("disabled");
         v.errortext = "Please fill out the fields: ";
         var goon = true;
         
@@ -74,6 +76,17 @@ CKO.FORMS.SKILLS.EditForm = function () {
                 returndata[1] = "Skill Updated";
                 returndata[2] = v.action;
                 SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.OK, returndata);
+            });
+            $(".ms-cui-group").each(function () {
+                switch ($(this).attr("id")) {
+                    case "Ribbon.ListForm.Edit.Commit":
+                        $(this).css({ "display": "block" });
+                        break;
+
+                    //case "Ribbon.ListForm.Edit.Actions":
+                    //    $(this).css({ "display": "none" });
+                    //    break;
+                }
             });
             $("input[id*='SaveItem']").trigger('click');
         }

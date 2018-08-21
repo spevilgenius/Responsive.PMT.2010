@@ -11,7 +11,8 @@ CKO.FORMS.SKILLS.VARIABLES = {
     errortext: "Please fill out the fields: ",
     title: "",
     action: jQuery.QueryString["Action"],
-    directive: jQuery.QueryString["Directive"]
+    //directive: jQuery.QueryString["Directive"],
+    directiveid: jQuery.QueryString["DirectiveID"]
 }
 
 CKO.FORMS.SKILLS.NewForm = function () {
@@ -35,7 +36,8 @@ CKO.FORMS.SKILLS.NewForm = function () {
         v.site = site;
         loadCSS(site + '/SiteAssets/css/CEWP_Forms_SkillsForms.css');
 
-        $("input[title*='Directive']").val(v.directive).attr("disabled", "disabled").css({"cursor": "not-allowed"});
+        //$("input[title*='Directive']").val(v.directive).attr("disabled", "disabled").css({"cursor": "not-allowed"});
+        $("input[title*='ParentID']").val(v.directiveid).attr("disabled", "disabled").css({ "cursor": "not-allowed" });
 
         $("#btnSave").on("click", function () {
             SaveSkill();
@@ -60,7 +62,8 @@ CKO.FORMS.SKILLS.NewForm = function () {
 
     function SaveSkill() {
         $("#FormError").remove();
-        $("input[title*='Directive']").removeAttr("disabled");
+        //$("input[title*='Directive']").removeAttr("disabled");
+        $("input[title*='ParentID']").removeAttr("disabled");
         v.errortext = "Please fill out the fields: ";
         var goon = true;
         
@@ -68,16 +71,13 @@ CKO.FORMS.SKILLS.NewForm = function () {
             goon = false;
             v.errortext += "Hours ";
         }
-        //if ($("input[title='Function Required Field']").val() == "Select..." || $("input[title='Function Required Field']").val() == "") {
-        //    goon = false;
-        //    v.errortext += "Function ";
-        //}
         if (goon === true) {
             $(window).on('unload', function () {
                 var returndata = [];
                 returndata[0] = "AddSkill";
                 returndata[1] = "Skill Added";
                 returndata[2] = v.action;
+                returndata[3] = v.directiveid;
                 SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.OK, returndata);
             });
             $("input[id*='SaveItem']").trigger('click');

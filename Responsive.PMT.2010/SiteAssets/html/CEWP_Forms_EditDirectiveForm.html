@@ -1,5 +1,10 @@
 ﻿<style type="text/css">
     .hidden { display: none; }
+    #tblActions { min-width: 100%; }
+    .thUser, .tdUser { width: 25%; }
+    .thDate, .tdDate { width: 15%; }
+    .thHours, .tdHours { width: 10%; }
+    .thComment, .tdComment { width: 50%; }
 </style>
 
 <script language="javascript" type="text/javascript">
@@ -23,6 +28,7 @@
             <li class="directivetab"><a href="#tabOrg" role="tab" data-toggle="tab">Staff/Orgs</a></li>
             <li class="directivetab"><a href="#tabActions" role="tab" data-toggle="tab">Actions</a></li>
             <li class="directivetab"><a href="#tabCustomer" role="tab" data-toggle="tab">Customer Data</a></li>
+            <li class="directivetab"><a href="#tabInfo" role="tab" data-toggle="tab">Additional Info</a></li>
             <li class="directivetab"><a href="#tabSkills" role="tab" data-toggle="tab">Skills</a></li>
         </ul>
         <div class="row">
@@ -45,7 +51,13 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Lead Comments<span title="This is a required field." class="ms-formvalidation"> *</span></label>
                                 <div class="col-sm-10">
-                                    <div data-field="LeadComments"></div>
+                                    <div class="datafield" data-field="Lead Comments"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Team Comments</label>
+                                <div class="col-sm-10">
+                                    <div data-field="TeamComments"></div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -162,6 +174,23 @@
                                 <div class="col-sm-10">
                                     <div data-field="CustomerMoP"></div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="tabInfo">
+                    <!--Additional Info-->
+                    <div class="container-fluid">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">Additional Information Link</label>
+                                <div class="col-sm-11"><div data-field="AdditionalInformation"></div></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label">Affect on Value </label>
+                                <label class="col-sm-6 control-label">Value</label>
+                                <div class="col-sm-6"><div data-field="AffectOnValue"></div></div>
+                                <div class="col-sm-6"><div data-field="Value"></div></div>
                             </div>
                         </div>
                     </div>

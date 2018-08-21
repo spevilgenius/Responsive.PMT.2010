@@ -100,7 +100,7 @@ CKO.DASHBOARD.TASKERS.Taskers = function () {
         $("td[aria-label*='OCKO Suspense']").click();
 
         $(".catslink").on('click', function () {
-            CKODialog('/sites/OCKO/PMT/Lists/CATS/DisplayTask.aspx?ID=' + $(this).attr("data-id"), 'CATS Task', '1100', '800', 'NotificationCallback');
+            CKODialog('/sites/OCKO/PMT/Lists/CATS/ViewTask.aspx?ID=' + $(this).attr("data-id"), 'CATS Task', '1100', '800', 'NotificationCallback');
         });
     }
 

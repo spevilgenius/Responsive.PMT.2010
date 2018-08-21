@@ -40,7 +40,6 @@
     <ProjectItemFile Source="js\CEWP_PMTCustomActions.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="css\cascomstyles1.css" Target="SiteAssets\css\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_PMTMigrations.html" Target="SiteAssets\html\" Type="ElementFile" />
-    <ProjectItemFile Source="js\CEWP_PMTMigrations.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Forms_NewActionForm.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Forms_NewActionForm.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_MyActions.html" Target="SiteAssets\html\" Type="ElementFile" />
@@ -137,5 +136,39 @@
     <ProjectItemFile Source="js\CEWP_Taskers_NewTaskers2.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_TD_Charts_OverallChart.html" Target="SiteAssets\html\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_TD_Charts_OverallChart.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Directives_ExpendedHours.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Directives_ExpendedHours.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_Enablers.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Forms_EditContact.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Forms_NewContact.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Forms_NewContact.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Forms_EditContact.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ChangeSPCalendar.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\ChangeSPCalendar.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Forms_NewContact2.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Forms_NewContact2.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="css\jquery.qtip.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_Parent.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_Paragraph.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_Paragraph2.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_Parent2.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="css\web.theme.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_TD_Charts_OverallChart2.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_TD_Charts_OverallChart2.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_MyDashboard_Charts_Customer.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Dashboard_Charts_Customer.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_MyDashboard_Charts_Customer.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Dashboard_Charts_Customer.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_MyCustomers.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_Customers.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_PMTMigrations_old.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_PMTMigrations.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\UserManagement.widget" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="js\SPHelper.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ValidateUser.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_Skills.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_MySkills.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Dashboard_DirectivesExtended.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="html\CEWP_Dashboard_DirectivesExtended.html" Target="SiteAssets\html\" Type="ElementFile" />
   </Files>
 </ProjectItem>

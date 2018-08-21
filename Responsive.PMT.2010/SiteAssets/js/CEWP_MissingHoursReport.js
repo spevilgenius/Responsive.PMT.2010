@@ -13,6 +13,9 @@ CKO.REPORTS.MISSINGHOURS.VARIABLES = {
     totalboxes: 0,
     calstart: null,
     calend: null,
+    et: null,
+    dst: null,
+    offset: null,
     html: ""
 }
 
@@ -22,16 +25,45 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
 
     function Init(site) {
         v.site = site;
+        var userId = _spPageContextInfo.userId;
         $().SPSTools_Notify({ type: 'wait', content: 'Loading Your Report...Please wait...' });
         loadCSS(site + '/SiteAssets/css/fullcalendar.min.css');
+        loadCSS(site + '/SiteAssets/css/jquery.qtip.css');
         loadscript(site + '/SiteAssets/js/fullcalendar.min.js', function () {
-            GetOrgs();
+            loadscript(site + '/SiteAssets/js/jquery.qtip.min.js', function () {
+                getEustisTime();
+            });
+        });
+    }
+
+    function getEustisTime() {
+        var now = new Date();
+        var loc = '37.157177, -76.57298';
+        var timestamp = now.getTime() / 1000 + now.getTimezoneOffset() * 60 // Current UTC date/time expressed as seconds since midnight, January 1, 1970 UTC
+        var apikey = 'AIzaSyDn4qMh2VAxYWQpUTTYJabY8LDWyeExyBU';
+        var apicall = 'https://maps.googleapis.com/maps/api/timezone/json?location=' + loc + '&timestamp=' + timestamp + '&key=' + apikey;
+
+        jQuery.ajax({
+            url: apicall,
+            method: "GET",
+            headers: { 'accept': 'application/json; odata=verbose' },
+            error: function (jqXHR, textStatus, errorThrown) {
+                logit("Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
+                GetOrgs();
+            },
+            success: function (data) {
+                var j = jQuery.parseJSON(JSON.stringify(data));
+                v.dst = j.dstOffset / 3600;
+                v.offset = j.rawOffset / 3600;
+                
+                GetOrgs();
+            }
         });
     }
 
     function GetOrgs() {
-        v.calend = moment().format('YYYY-MM-DD');
-        v.calstart = moment(v.calend).subtract(28, 'days').format('YYYY-MM-DD');
+        v.calend = moment().tz('America/New_York').format('YYYY-MM-DD');
+        v.calstart = moment(v.calend).tz('America/New_York').subtract(28, 'days').format('YYYY-MM-DD');
         v.totalboxes = 29;
         v.orgs = [];
         // Get all of the orgs from the Organization list excluding those not supported
@@ -90,17 +122,17 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
             v.html += "<table class='table table-bordered'>";
             v.html += "<thead class='table-heading'><tr><th colspan='";
             v.html += v.totalboxes;
-            v.html += "'>Past 30 Days</th></tr>";
+            v.html += "'>Past 28 Days</th></tr>";
             v.html += "<tr><th rowspan='2'>User</th>";
             for (var k = 0; k < v.totalboxes - 1; k++) {
-                var cd = moment(v.calstart).add('days', k);
-                var weekday = moment(cd).day();
+                var cd = moment(v.calstart).tz('America/New_York').add('days', k);
+                var weekday = moment(cd).tz('America/New_York').day();
                 v.html += "<th>" + dow[weekday] + "</th>";
             }
             v.html += "</tr><tr>";
             for (k = 0; k < v.totalboxes - 1; k++) {
-                cd = moment(v.calstart).add('days', k);
-                var cdn = moment(cd).date();
+                cd = moment(v.calstart).tz('America/New_York').add('days', k);
+                var cdn = moment(cd).tz('America/New_York').date();
                 v.html += "<th>" + cdn + "</th>";
             }
             v.html += "</tr></thead>";
@@ -179,14 +211,14 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
             // draw boxes for this user
             v.html += "<tr><td>" + v.users[i].name + "</td>";
             for (var k = 0; k < v.totalboxes - 1; k++) {
-                var cd = moment(v.calstart).add('days', k);
-                var cdn = moment(cd).date();
-                var weekday = moment(cd).day();
+                var cd = moment(v.calstart).tz('America/New_York').add('days', k);
+                var cdn = moment(cd).tz('America/New_York').date();
+                var weekday = moment(cd).tz('America/New_York').day();
                 if (weekday === 0 || weekday === 6) {
-                    v.html += "<td class='daycell weekend' id='day_" + id + "_" + cdn + "' data-date='" + cdn + "'>0</td>";
+                    v.html += "<td data-ttip='null' class='daycell weekend' id='day_" + id + "_" + cdn + "' data-date='" + cdn + "'>0</td>";
                 }
                 else {
-                    v.html += "<td class='daycell warning' id='day_" + id + "_" + cdn + "' data-date='" + cdn + "'>0</td>";
+                    v.html += "<td data-ttip='null' class='daycell warning' id='day_" + id + "_" + cdn + "' data-date='" + cdn + "'>0</td>";
                 }
             }
             v.html += "</tr>";
@@ -197,6 +229,13 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
                 var current =  Number($("#" + gid).text());
                 var total = current + v.users[i].actions[q].Hours;
                 $("#" + gid).text(total).removeClass("warning").addClass("success");
+                var ttip = $("#" + gid).attr("data-ttip");
+                if (ttip !== "null") {
+                    $("#" + gid).attr("data-ttip", ttip + "<br/>" + v.users[i].actions[q].qtip);
+                }
+                else {
+                    $("#" + gid).attr("data-ttip", v.users[i].actions[q].qtip);
+                }
             }
         }
         DataLoaded();
@@ -204,13 +243,25 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
 
     function DataLoaded() {
         logit("DataLoaded");
+
+        $(".daycell").qtip({
+            content: { attr: 'data-ttip' },
+            position: {
+                my: 'top right',
+                at: 'bottom left'
+            },
+            style: { width: '400px' }
+        });
+
         $("#SPSTools_Notify").fadeOut("2500", function () {
             $("#SPSTools_Notify").html("");
         });
     }
 
     function getUserActions() {
-        var start = moment().subtract(28, 'days').format('YYYY-MM-DD[T]HH:MM:SS[Z]');
+        //var start = moment().subtract(28, 'days').format('YYYY-MM-DD[T]HH:MM:SS[Z]');
+        //var start = moment().subtract(28, 'days').format('YYYY-MM-DD[T]00:00:00[Z]');
+        var start = moment().tz('America/New_York').subtract(28, 'days').format('YYYY-MM-DD[T]00:00:00[Z]');
         for (var i = 0; i < v.users.length; i++) {
             v.defarr.push($.when(CKO.CSOM.GetActionItems.getitemsbyuseridandpasstoelement("current", "Actions", v.users[i]["id"], start, i)).then(function (items, element) {
                 if (items.get_count() > 0) { //get map data
@@ -218,7 +269,7 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
                     while (enumerator.moveNext()) {
                         var prop = enumerator.get_current();
                         var dc = prop.get_item("DateCompleted");
-                        var m = moment(dc).date();
+                        var m = moment(dc).tz('America/New_York').date();
                         var idx = element;
                         var gid = "day_" + v.users[idx].id + "_" + m;
                         v.users[idx]["actions"].push({
@@ -229,7 +280,8 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
                             starttext: dc,
                             Hours: prop.get_item("Expended"),
                             backgroundColor: "black",
-                            textColor: "white"
+                            textColor: "white",
+                            qtip: prop.get_item("Title") + " - " + prop.get_item("Expended") + " Hours"
                         });
                     }
                 }

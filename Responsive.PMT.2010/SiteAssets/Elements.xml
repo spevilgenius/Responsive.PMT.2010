@@ -39,7 +39,6 @@
     <File Path="SiteAssets\js\CEWP_PMTCustomActions.js" Url="SiteAssets/js/CEWP_PMTCustomActions.js" />
     <File Path="SiteAssets\css\cascomstyles1.css" Url="SiteAssets/css/cascomstyles1.css" />
     <File Path="SiteAssets\html\CEWP_PMTMigrations.html" Url="SiteAssets/html/CEWP_PMTMigrations.html" />
-    <File Path="SiteAssets\js\CEWP_PMTMigrations.js" Url="SiteAssets/js/CEWP_PMTMigrations.js" />
     <File Path="SiteAssets\html\CEWP_Forms_NewActionForm.html" Url="SiteAssets/html/CEWP_Forms_NewActionForm.html" />
     <File Path="SiteAssets\js\CEWP_Forms_NewActionForm.js" Url="SiteAssets/js/CEWP_Forms_NewActionForm.js" />
     <File Path="SiteAssets\html\CEWP_MyActions.html" Url="SiteAssets/html/CEWP_MyActions.html" />
@@ -136,5 +135,39 @@
     <File Path="SiteAssets\js\CEWP_Taskers_NewTaskers2.js" Url="SiteAssets/js/CEWP_Taskers_NewTaskers2.js" />
     <File Path="SiteAssets\html\CEWP_TD_Charts_OverallChart.html" Url="SiteAssets/html/CEWP_TD_Charts_OverallChart.html" />
     <File Path="SiteAssets\js\CEWP_TD_Charts_OverallChart.js" Url="SiteAssets/js/CEWP_TD_Charts_OverallChart.js" />
+    <File Path="SiteAssets\js\CEWP_Directives_ExpendedHours.js" Url="SiteAssets/js/CEWP_Directives_ExpendedHours.js" />
+    <File Path="SiteAssets\html\CEWP_Directives_ExpendedHours.html" Url="SiteAssets/html/CEWP_Directives_ExpendedHours.html" />
+    <File Path="SiteAssets\js\ADR_Enablers.js" Url="SiteAssets/js/ADR_Enablers.js" />
+    <File Path="SiteAssets\html\CEWP_Forms_EditContact.html" Url="SiteAssets/html/CEWP_Forms_EditContact.html" />
+    <File Path="SiteAssets\html\CEWP_Forms_NewContact.html" Url="SiteAssets/html/CEWP_Forms_NewContact.html" />
+    <File Path="SiteAssets\js\CEWP_Forms_NewContact.js" Url="SiteAssets/js/CEWP_Forms_NewContact.js" />
+    <File Path="SiteAssets\js\CEWP_Forms_EditContact.js" Url="SiteAssets/js/CEWP_Forms_EditContact.js" />
+    <File Path="SiteAssets\js\ChangeSPCalendar.js" Url="SiteAssets/js/ChangeSPCalendar.js" />
+    <File Path="SiteAssets\html\ChangeSPCalendar.html" Url="SiteAssets/html/ChangeSPCalendar.html" />
+    <File Path="SiteAssets\js\CEWP_Forms_NewContact2.js" Url="SiteAssets/js/CEWP_Forms_NewContact2.js" />
+    <File Path="SiteAssets\html\CEWP_Forms_NewContact2.html" Url="SiteAssets/html/CEWP_Forms_NewContact2.html" />
+    <File Path="SiteAssets\css\jquery.qtip.css" Url="SiteAssets/css/jquery.qtip.css" />
+    <File Path="SiteAssets\js\ADR_Parent.js" Url="SiteAssets/js/ADR_Parent.js" />
+    <File Path="SiteAssets\js\ADR_Paragraph.js" Url="SiteAssets/js/ADR_Paragraph.js" />
+    <File Path="SiteAssets\js\ADR_Paragraph2.js" Url="SiteAssets/js/ADR_Paragraph2.js" />
+    <File Path="SiteAssets\js\ADR_Parent2.js" Url="SiteAssets/js/ADR_Parent2.js" />
+    <File Path="SiteAssets\css\web.theme.css" Url="SiteAssets/css/web.theme.css" />
+    <File Path="SiteAssets\js\CEWP_TD_Charts_OverallChart2.js" Url="SiteAssets/js/CEWP_TD_Charts_OverallChart2.js" />
+    <File Path="SiteAssets\html\CEWP_TD_Charts_OverallChart2.html" Url="SiteAssets/html/CEWP_TD_Charts_OverallChart2.html" />
+    <File Path="SiteAssets\html\CEWP_MyDashboard_Charts_Customer.html" Url="SiteAssets/html/CEWP_MyDashboard_Charts_Customer.html" />
+    <File Path="SiteAssets\html\CEWP_Dashboard_Charts_Customer.html" Url="SiteAssets/html/CEWP_Dashboard_Charts_Customer.html" />
+    <File Path="SiteAssets\js\CEWP_MyDashboard_Charts_Customer.js" Url="SiteAssets/js/CEWP_MyDashboard_Charts_Customer.js" />
+    <File Path="SiteAssets\js\CEWP_Dashboard_Charts_Customer.js" Url="SiteAssets/js/CEWP_Dashboard_Charts_Customer.js" />
+    <File Path="SiteAssets\js\ADR_MyCustomers.js" Url="SiteAssets/js/ADR_MyCustomers.js" />
+    <File Path="SiteAssets\js\ADR_Customers.js" Url="SiteAssets/js/ADR_Customers.js" />
+    <File Path="SiteAssets\js\CEWP_PMTMigrations_old.js" Url="SiteAssets/js/CEWP_PMTMigrations_old.js" />
+    <File Path="SiteAssets\js\CEWP_PMTMigrations.js" Url="SiteAssets/js/CEWP_PMTMigrations.js" />
+    <File Path="SiteAssets\html\UserManagement.widget" Url="SiteAssets/html/UserManagement.widget" />
+    <File Path="SiteAssets\js\SPHelper.js" Url="SiteAssets/js/SPHelper.js" />
+    <File Path="SiteAssets\js\ValidateUser.js" Url="SiteAssets/js/ValidateUser.js" />
+    <File Path="SiteAssets\js\ADR_Skills.js" Url="SiteAssets/js/ADR_Skills.js" />
+    <File Path="SiteAssets\js\ADR_MySkills.js" Url="SiteAssets/js/ADR_MySkills.js" />
+    <File Path="SiteAssets\js\CEWP_Dashboard_DirectivesExtended.js" Url="SiteAssets/js/CEWP_Dashboard_DirectivesExtended.js" />
+    <File Path="SiteAssets\html\CEWP_Dashboard_DirectivesExtended.html" Url="SiteAssets/html/CEWP_Dashboard_DirectivesExtended.html" />
   </Module>
 </Elements>

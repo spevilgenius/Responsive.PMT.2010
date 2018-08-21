@@ -9,223 +9,88 @@ CKO.MIGRATIONS.VARIABLES = {
     waitmsg: null,
     title: null,
     ctx: null,
+    total: 0,
+    count: 0,
     web: null,
     list: null,
     data: null,
     json: null,
-    standards: null,
-    directives: null,
-    actions: null,
-    listitem: null,
+    url: null,
+    goon: false,
+    listitems: null,
     user: null,
     userID: null,
+    items: [],
     qry: null,
-    ThisFY: null,
+    terms: [],
+    actions: [],
     html: ""
-}
+};
 
 CKO.MIGRATIONS.Migrate = function () {
 
     var v = CKO.MIGRATIONS.VARIABLES;
 
     function Init(site) {
+        v.site = site;
         logit("PMT Migrations loaded.");
+        var userId = _spPageContextInfo.userId;
+        $('#txtFrom').datepicker();
+        $('#txtTo').datepicker();
         v.data = [];
         v.json = null;
-        //logit("_spPageContextInfo.webServerRelativeUrl: " + _spPageContextInfo.webServerRelativeUrl);
-        $("#btnMigrateDirectives").click(function () {
-            $().SPSTools_Notify({ type: 'wait', content: 'Migrating Directives...Please wait...' });
-            logit("Button clicked");
-            GetDirectives();
+        logit("_spPageContextInfo.webServerRelativeUrl: " + _spPageContextInfo.webServerRelativeUrl);
+        v.url = _spPageContextInfo.webServerRelativeUrl;
+        $("#btnTermsetTest").click(function () {
+            //$().SPSTools_Notify({ type: 'wait', content: 'Getting Terms...Please wait...' });
+            var requestdata = {};
+            requestdata.termstoreid = '0f9c5a00-81d6-4d7b-97c4-19319874f189';
+            requestdata.termsetid = '9f921997-cab1-47fd-9eb4-cb775840fdf6'; //Skills
+
+            //getChildTermsInTermSetWithPaging(requestdata.termstoreid, requestdata.termsetid).success(getChildTermsInTermSetWithPagingSuccess.bind(requestdata)).error(getChildTermsInTermSetWithPagingFail.bind(requestdata));
+
+            $.fn.SPSTools_TermSetDialog({
+                title: 'Select Skill',
+                termstoreid: requestdata.termstoreid,
+                termsetid: requestdata.termsetid,
+                weburl: _spPageContextInfo.webServerRelativeUrl,
+                callback: function (result) {
+                    $("#txtResults").append("\r\n" + result + " selected.");
+                }
+            });
         });
-        $("#btnMigrateStandards").click(function () {
-            $().SPSTools_Notify({ type: 'wait', content: 'Migrating Standards...Please wait...' });
-            logit("Button clicked");
-            GetStandards();
+
+        $("#btnCsomTest").click(function () {
+            LoadItems();
         });
-        $("#btnMigrateActions").click(function () {
-            $().SPSTools_Notify({ type: 'wait', content: 'Migrating Actions...Please wait...' });
+
+        $("#btnArchive").click(function () {
+            $().SPSTools_Notify({ type: 'wait', content: 'Archiving actions...Please wait...' });
             LoadActions(null);
-        });
-        $("#btnUpdateActionsSA").click(function () {
-            $().SPSTools_Notify({ type: 'wait', content: 'Updating Alignments...Please wait...' });
-            UpdateActionsSAs();
-        });
-        $("#btnUpdateActionsUsers").click(function () {
-            alert("No longer required");
-            //UpdateActionsUsers();
-        });
-    }
-
-    var exitem, exitems, enumerator, directive, directives;
-    var ctx, list, waitmsg;
-    var alignments;
-
-    function GetDirectives() {
-        var userId = _spPageContextInfo.userId;
-        var urlString = "https://hq.tradoc.army.mil/sites/PMT/_vti_bin/listdata.svc/Directives?";
-        //urlString += "$select=*";
-        urlString += "$select=Id,Objective,Expended,PercentExpended,ProjectedManHours,AvailableManHours,ReportValue,Comments,Description,OtherOrganization,LeadAssessmentValue,EquippedValue,TrainedValue,SuspenseDate,CompletionDate,StartDate,StaffLead,StaffAssist,StatusValue,MOEQualitative,MOEQuantitative,LU_Organization,LU_SubOrganization,PMTOrganization/Title,OBJAlignment,OBJAlignment/Authority,OBJAlignment/Reference,SPTAlignment,SPTAlignment/ParaLine,SPTAlignment/Reference";
-        urlString += "&$expand=StaffLead,StaffAssist,PMTOrganization,OBJAlignment,SPTAlignment,LU_Organization,LU_SubOrganization";
-
-        jQuery.ajax({
-            url: urlString,
-            method: "GET",
-            headers: { 'accept': 'application/json; odata=verbose' },
-            error: function (jqXHR, textStatus, errorThrown) {
-                //to do implement logging to a central list
-                logit("Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
-            },
-            success: function (data) {
-                var results = data.d.results;
-                var j = jQuery.parseJSON(JSON.stringify(results));
-                jQuery("#txtResults").text(JSON.stringify(results));
-                var numitems = data.d.results.length;
-                logit("Directives Count: " + numitems);
-                // Now we need to loop through the returned Directives and add them to the new Directives list
-                var additems = [];
-                ctx = SP.ClientContext.get_current();
-                list = ctx.get_web().get_lists().getByTitle("Directives"); //Using this until proof it works
-                for (var i = 0, length = j.length; i < length; i++) {
-                    var ici = new SP.ListItemCreationInformation();
-                    var item = list.addItem(ici);
-                    item.set_item('Directive', j[i]["Objective"]);
-                    item.set_item('AvailableManHours', j[i]["AvailableManHours"]);
-                    item.set_item("StaffLead", SP.FieldUserValue.fromUser(j[i]["StaffLead"]["Account"]));
-                    var assists = new Array();
-                    var tmp1 = j[i]["StaffAssist"].results;
-                    if (tmp1 !== null) {
-                        for (var k = 0; k < tmp1.length; k++) {
-                            assists.push(SP.FieldUserValue.fromUser(tmp1[k]["Account"]));
-                        }
-                    }
-                    item.set_item("StaffAssist", assists);
-                    item.set_item("Expended", j[i]["Expended"]);
-                    item.set_item("PercentExpended", j[i]["PercentExpended"]);
-                    item.set_item("ProjectedManHours", j[i]["ProjectedManHours"]);
-                    item.set_item("DirectiveStatus", j[i]["StatusValue"]);
-                    item.set_item("LeadAssessment", j[i]["LeadAssessmentValue"]);
-                    item.set_item("Equipped", j[i]["EquippedValue"]);
-                    item.set_item("Trained", j[i]["TrainedValue"]);
-                    if (j[i]["SuspenseDate"] !== null) { item.set_item("SuspenseDate", dateformat(j[i]["SuspenseDate"], "isofull")); }
-                    if (j[i]["CompletionDate"] !== null) { item.set_item("DateCompleted", dateformat(j[i]["CompletionDate"], "isofull")); }
-                    item.set_item("SupportingOrg", j[i]["PMTOrganization"]["Title"]);
-                    item.set_item("SupportedOrg", j[i]["LU_Organization"]["Title"]);
-                    if (j[i]["LU_SubOrganization"] !== null) { item.set_item("SupportedSubOrg", j[i]["LU_SubOrganization"]["Title"]); }
-                    if (j[i]["OtherOrganization"] !== null) { item.set_item("SupportedOtherOrg", j[i]["OtherOrganization"]); }
-                    logit("i: " + i + ", Directive: " + j[i]["Objective"]);
-                    if (j[i]["OBJAlignment"] !== null) { item.set_item("SourceAuthority", j[i]["OBJAlignment"]["Authority"]); }
-                    if (j[i]["OBJAlignment"] !== null) { item.set_item("SourceReference", j[i]["OBJAlignment"]["Reference"]); }
-                    item.set_item("MOEQualitative", j[i]["MOEQualitative"]);
-                    item.set_item("MOEQuantitative", j[i]["MOEQuantitative"]);
-                    item.set_item("PercentExpended", j[i]["PercentExpended"]);
-                    item.set_item("ReportRequired", j[i]["ReportValue"]);
-                    if (j[i]["SPTAlignment"] !== null) { item.set_item("SupportParagraph", j[i]["SPTAlignment"]["ParaLine"]); }
-                    if (j[i]["SPTAlignment"] !== null) { item.set_item("SupportReference", j[i]["SPTAlignment"]["Reference"]); }
-                    if (j[i]["StartDate"] !== null) { item.set_item("StartDate", dateformat(j[i]["StartDate"], "isofull")); }
-                    item.set_item("LeadComments", j[i]["Comments"]);
-                    item.set_item("DirectiveDescription", j[i]["Description"]);
-                    item.update();
-                    additems[i] = item;
-                    ctx.load(additems[i]);
-                }
-                ctx.executeQueryAsync(AddItemsSucceeded, AddItemsFailed);
-            }
-        });
-    }
-
-    function GetStandards() {
-        var userId = _spPageContextInfo.userId;
-        var urlString = "https://hq.tradoc.army.mil/sites/PMT/_vti_bin/listdata.svc/Standards?";
-        //urlString += "$select=*";
-        urlString += "$select=Id,Competency,AvailableManHours,FrequencyValue,TaskAction,LastValidated,Objective,ProjectedManHours,ReportValue,LeadComments,OtherOrganization,LeadAssessmentValue,EquippedValue,TrainedValue,StandardDate,StaffLead,StaffAssist,StatusValue,MOEQualitative,MOEQuantitative,LU_Organization,LU_SubOrganization,OBJAlignment,OBJAlignment/Authority,OBJAlignment/Reference,SPTAlignment,SPTAlignment/ParaLine,SPTAlignment/Reference";
-        urlString += "&$expand=Competency,StaffLead,StaffAssist,OBJAlignment,SPTAlignment,LU_Organization,LU_SubOrganization";
-
-        jQuery.ajax({
-            url: urlString,
-            method: "GET",
-            headers: { 'accept': 'application/json; odata=verbose' },
-            error: function (jqXHR, textStatus, errorThrown) {
-                //to do implement logging to a central list
-                logit("Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
-            },
-            success: function (data) {
-                var results = data.d.results;
-                var j = jQuery.parseJSON(JSON.stringify(results));
-                jQuery("#txtResults").text(JSON.stringify(results));
-                var numitems = data.d.results.length;
-                logit("Standards Count: " + numitems);
-                // Now we need to loop through the returned Standards and add them to the new Standards list
-                var additems = [];
-                ctx = SP.ClientContext.get_current();
-                list = ctx.get_web().get_lists().getByTitle("Standards");
-                for (var i = 0; i <j. length; i++) {
-                    var ici = new SP.ListItemCreationInformation();
-                    var item = list.addItem(ici);
-                    item.set_item('Standard', j[i]["Objective"]);
-                    item.set_item('AvailableManHours', j[i]["AvailableManHours"]);
-                    item.set_item("StaffLead", SP.FieldUserValue.fromUser(j[i]["StaffLead"]["Account"]));
-                    var assists = new Array();
-                    var tmp1 = j[i]["StaffAssist"].results;
-                    if (tmp1 !== null) {
-                        for (var k = 0; k < tmp1.length; k++) {
-                            assists.push(SP.FieldUserValue.fromUser(tmp1[k]["Account"]));
-                        }
-                    }
-                    item.set_item("StaffAssist", assists);
-                    item.set_item("ProjectedManHours", j[i]["ProjectedManHours"]);
-                    item.set_item("StandardStatus", j[i]["StatusValue"]);
-                    item.set_item("Equipped", j[i]["EquippedValue"]);
-                    item.set_item("Trained", j[i]["TrainedValue"]);
-                    item.set_item("Frequency", j[i]["FrequencyValue"]);
-                    item.set_item("Task", j[i]["TaskAction"]);
-                    if (j[i]["StandardDate"] !== null) { item.set_item("StartDate", dateformat(j[i]["StandardDate"], "isofull")); }
-                    if (j[i]["Competency"] !== null) { item.set_item("Competency", j[i]["Competency"]["Title"]); }
-                    item.set_item("SupportedOrg", j[i]["LU_Organization"]["Title"]);
-                    if (j[i]["LU_SubOrganization"] !== null) { item.set_item("SupportedSubOrg", j[i]["LU_SubOrganization"]["Title"]); }
-                    if (j[i]["OtherOrganization"] !== null) { item.set_item("SupportedOtherOrg", j[i]["OtherOrganization"]); }
-                    logit("i: " + i + ", Directive: " + j[i]["Objective"]);
-                    if (j[i]["OBJAlignment"] !== null) { item.set_item("SourceAuthority", j[i]["OBJAlignment"]["Authority"]); }
-                    if (j[i]["OBJAlignment"] !== null) { item.set_item("SourceReference", j[i]["OBJAlignment"]["Reference"]); }
-                    item.set_item("MOEQualitative", j[i]["MOEQualitative"]);
-                    item.set_item("MOEQuantitative", j[i]["MOEQuantitative"]);
-                    item.set_item("PercentExpended", j[i]["PercentExpended"]);
-                    item.set_item("ReportRequired", j[i]["ReportValue"]);
-                    item.set_item("SupportParagraph", j[i]["SPTAlignment"]["ParaLine"]);
-                    item.set_item("SupportReference", j[i]["SPTAlignment"]["Reference"]);
-                    if (j[i]["LastValidated"] !== null) { item.set_item("LastValidated", dateformat(j[i]["LastValidated"], "isofull")); }
-                    item.set_item("LeadComments", j[i]["Comments"]);
-                    item.update();
-                    additems[i] = item;
-                    ctx.load(additems[i]);
-                }
-                ctx.executeQueryAsync(AddItemsSucceeded, AddItemsFailed);
-            }
         });
     }
 
     function LoadActions(zurl) {
         if (zurl === null) {
-            var urlString = "https://hq.tradoc.army.mil/sites/PMT/_vti_bin/listdata.svc/Actions?";
-            urlString += "$select=Id,Title,Hours,CreatedBy,Comments,OtherEnabler,Customer,CompletedDate,EffortType,EffortType/Title,Enabler,Enabler/Title,Function,Function/Title,SPTAlignmentID";
-            urlString += "&$expand=CreatedBy,EffortType,Enabler,Function";
-            urlString += "&$filter=((CompletedDate ge datetime'" + getISODate(jQuery("#txtFrom").val()) + "') and (CompletedDate le datetime'" + getISODate(jQuery("#txtTo").val()) + "'))";
+            var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
+            urlString += "$select=Id,DateCompleted";
+            //urlString += "&$filter=(DateCompleted le datetime'" + moment().subtract(90, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+            urlString += "&$filter=(DateCompleted ge datetime'" + moment($("#txtFrom").val()).format('YYYY-MM-DD[T]HH:MM:[00Z]') + "') and (DateCompleted le datetime'" + moment($("#txtTo").val()).format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
             zurl = urlString;
         }
-        
+
         jQuery.ajax({
             url: zurl,
             method: "GET",
             headers: { 'accept': 'application/json; odata=verbose' },
             error: function (jqXHR, textStatus, errorThrown) {
                 //to do implement logging to a central list
-                logit("Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
+                logit("Migration: Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
             },
             success: function (data) {
                 v.data = v.data.concat(data.d.results);
                 if (data.d.__next) {
-                    zurl = data.d.__next;
-                    LoadActions(zurl); 
+                    LoadActions(data.d.__next);
                 }
                 else {
                     var results = v.data;
@@ -237,81 +102,119 @@ CKO.MIGRATIONS.Migrate = function () {
     }
 
     function ActionsLoaded() {
-        var monkey = MigrateActions();
-        jQuery.when.apply(null, monkey).done(function () {
-            logit("All Actions Have Been Copied.");
+        var j = v.json;
+        v.total = j.length;
+        for (i = 0; i < j.length; i++) {
+            v.actions.push({
+                id: j[i]["Id"],
+            });
+        }
+        $("#txtResults").append("\r\n" + v.actions.length + " Actions Loaded.");
+        UpdateActions();
+    }
+
+    function UpdateActions() {
+        for (i = 0; i < v.actions.length; i++) {
+            var getitemdata = {};
+            getitemdata.itemId = v.actions[i]["id"];
+            GetActionItemById(v.actions[i]["id"]).success(GetActionItemByIdSuccess.bind(getitemdata));
+        }        
+    }
+
+    GetActionItemById = function (itemId) {
+        var url = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions(" + itemId + ")";
+        return $.ajax({
+            url: url,
+            method: "GET",
+            headers: { "Accept": "application/json; odata=verbose" }
+        });
+    };
+
+    GetActionItemByIdSuccess = function (data) {
+        var getitemdata = this;
+        var updateitemdata = {};
+        updateitemdata.itemId = getitemdata.itemId;
+        updateitemdata.url = data.d.__metadata.uri;
+        updateitemdata.etag = data.d.__metadata.etag;
+        var itemprops = {
+            "Archive": true
+        };
+        UpdateActionItem(itemprops, updateitemdata.url, updateitemdata.etag).success(UpdateActionItemSuccess.bind(updateitemdata)).fail(UpdateActionItemFail.bind(updateitemdata));
+    };
+
+    UpdateActionItem = function (itemProperties, url, tag) {
+        return $.ajax({
+            type: 'POST',
+            url: url,
+            contentType: 'application/json',
+            processData: false,
+            headers: {
+                "Accept": "application/json;odata=verbose",
+                "X-HTTP-Method": "MERGE",
+                "If-Match": tag
+            },
+            data: JSON.stringify(itemProperties)
+        });
+    }
+
+    UpdateActionItemSuccess = function (data) {
+        var updateitemdata = this;
+        //$("#txtResults").append("\r\nWorkflow Started on Item ID " + updateitemdata.itemId);
+        v.count += 1;
+        $("#txtResults").append("\r\n" + "Item " + v.count + " -- Action " + updateitemdata.itemId + " updated with Archive flag.");
+        if (v.count === v.total) {
+            $("#txtResults").append("\r\nActions Archived.");
             $("#SPSTools_Notify").fadeOut("2500", function () {
                 $("#SPSTools_Notify").html("");
             });
+        }
+    }
+
+    UpdateActionItemFail = function (data) {
+        var updateitemdata = this;
+    }
+
+    function StartWorkflow(params) {
+
+        params.after = params.after || (function () { });
+        if (!params.workflowName) { alert("Please provide the workflow name!"); return; }
+
+        $().SPServices({
+            operation: "GetTemplatesForItem",
+            item: window.location.protocol + "//" + window.location.host + v.url + "/Lists/Actions/" + params.itemID + "_.000",
+            async: true,
+            completefunc: function (xData, Status) {
+                var currentItemURL = this.item;
+                $(xData.responseXML).find("WorkflowTemplates > WorkflowTemplate").each(function (i, e) {
+                    if ($(this).attr("Name") == params.workflowName) {
+                        var guid = $(this).find("WorkflowTemplateIdSet").attr("TemplateId");
+                        $("#txtResults").append("\r\nStarting Workflow " + guid + " on Item.");
+                        if (guid != null) {
+                            workflowGUID = "{" + guid + "}";
+                            var workflowParameters = "<root />";
+                            $().SPServices({
+                                operation: "StartWorkflow",
+                                item: currentItemURL,
+                                templateId: workflowGUID,
+                                workflowParameters: workflowParameters,
+                                async: true,
+                                completefunc: params.after
+                            });
+                        }
+                    }
+                });
+            }
         });
     }
 
-    function MigrateActions() {
-        var deferreds = [];
-        var j = v.json;
-        for (var i = 0; i < j.length; i++) {
-            var d = new Date(parseInt(j[i]["CompletedDate"].substr(6)));
-            var os = (d.getTimezoneOffset() / 60); // timezone offset in hours
-            d = moment(d).add(os * 2, 'h').format('YYYY-MM-DD[T]HH:MM:SS[Z]');
-            var un, et, e, f, oe;
-            var uid = null;
-            if (j[i]["CreatedBy"] !== null) {
-                un = j[i]["CreatedBy"]["Account"];  // Will just need to update this later with another function to get real user account
-                //unn = SP.FieldUserValue.fromUser(un);
-                $().SPServices({
-                    operation: "GetUserInfo",
-                    async: false,
-                    //AccountName: un,
-                    userLoginName: un,
-                    completefunc: function (xData, Status) {
-                        $(xData.responseXML).find("User").each(function () {
-                            uid = $(this).attr("ID");
-                            //curUserName = $(this).attr("Name");
-                            //curFullUserName = $(this).attr("ID") + ";#" + $(this).attr("Name");
-                        });
-                    }
-                });
-                var stop = "stop";
-            }
-            else {
-                un = "Old Account For Action ID: " + j[i]["Id"]; // some users had old accounts!!
-                uid = "";
-            }
-            if (j[i]["EffortType"] === null) { et = ""; } else { et = j[i]["EffortType"]["Title"]; }
-            if (j[i]["Enabler"] === null) { e = ""; } else { e = j[i]["Enabler"]["Title"]; }
-            if (j[i]["Function"] === null) { f = "" } else { f = j[i]["Function"]["Title"]; }
-            if (j[i]["OtherEnabler"] === null) { oe = "" } else { oe = j[i]["OtherEnabler"]; }
-            var item = {
-                "Title": j[i]["Title"],
-                "PMTUserName": un,
-                "PMTUserId": uid === null ? "" : uid,
-                "Expended": j[i]["Hours"],
-                "EffortTypeValue": et,
-                "Enabler": e,
-                "Function": f,
-                "Customer": j[i]["Customer"],
-                "ActionComments": j[i]["Comments"],
-                "OtherEnabler": oe,
-                "DateCompleted": d,
-                "SupportAlignment": j[i]["SPTAlignmentID"]
-            }
-            deferreds.push($.when(CKO.REST.ListItems.addItems("Actions", item)).then(function (data) {
-                logit("Action Copied");
-            }, function (data) {
-                logit(data);
-            }));
-        }
-        return deferreds;
-    }
+    function LoadItems() {
 
-    function UpdateActionsSAs() {
-        // The SA's are only identified by lookupID and therefore not going to be correct so we need to update each one in the list so it is correct
-        // There are about 260 SA's so just loop this way and then update all the items that have this SA
-        // Get the SupportAlignment items...
-        alignments = new Array();
         var inc = "Include(";
-        var xml = "<View><Method Name='Read List' />";
-        var fields = ["Id", "Title", "ParaLine"];
+        var xml = "<View><Method Name='Read List' /><Query><OrderBy><FieldRef Name='ID' /></OrderBy>";
+        //xml += "<Where><And><Gt><FieldRef Name='ID'></FieldRef><Value Type='Number'>0</Value></Gt>";
+        //xml += "<Lt><FieldRef Name='ID'></FieldRef><Value Type='Number'>8000</Value></Lt></And></Where>";
+        xml += "</Query >";
+        var fields = ["Title", "Expended", "DateCompleted", "EffortType", "Function", "Skill"];
         xml += "<ViewFields>";
         for (var z = 0; z <= fields.length - 1; z++) {
             xml += "<FieldRef Name='" + fields[z] + "'/>";
@@ -324,177 +227,173 @@ CKO.MIGRATIONS.Migrate = function () {
         }
         xml += "<FieldRef Name='ID'/>";
         xml += "</ViewFields>";
-        xml += "</View>";
+        xml += "<RowLimit>2000</RowLimit></View>";
 
-        $.when(CKO.CSOM.GetListItems.getitemsfilteredcomplex("current", "SupportAlignment", xml, inc)).then(function (items) {
-            if (items.get_count() > 0) { //get data
-                var enumerator = items.getEnumerator();
-                while (enumerator.moveNext()) {
-                    var item = enumerator.get_current();
-                    var sa = item.get_item("ParaLine") + " " + item.get_item("Title");
-                    var id = item.get_id();
-                    logit("SupportAlignment: ID: " + id + ", Text: " + sa);
-                    alignments[id] = sa;
-                }
-                var monkey = UPSAs();
-                jQuery.when.apply(null, monkey).done(function () {
-                    logit("Update SAs complete.");
-                    $("#SPSTools_Notify").fadeOut("2500", function () {
-                        $("#SPSTools_Notify").html("");
-                    });
-                });
-            }
-        }, function (sender, args) {
-            logit("Error getting data from Organization list : " + args.get_message());
-        });
-    }
+        v.ctx = new SP.ClientContext.get_current();
+        v.list = v.ctx.get_web().get_lists().getByTitle("Actions");
+        v.qry = new SP.CamlQuery();
+        v.qry.set_viewXml(xml);
+        v.listitems = v.list.getItems(v.qry);
+        v.ctx.load(v.listitems);
+        v.ctx.executeQueryAsync(LoadItemsSucceeded, LoadItemsFailed);
+    };
 
-    function UPSAs() {
-        var deferreds = [];
-        var f = parseInt(jQuery("#txtFrom").val());
-        var t = parseInt(jQuery("#txtTo").val());
-        logit(f + ", " + t);
-        for (var i = f; i <= t; i++) {
-            logit("SA Loop i: " + i + ", alignment: " + alignments[i]);
-            deferreds.push($.when(CKO.CSOM.GetListItems.getitemsfilteredandpasstoelement("current", jQuery("#txtList").val(), "SupportAlignment", i, i)).then(function (items, el) {
-                if (items.get_count() > 0) { //get data
-                    logit(el + " SAs to update: " + items.get_count());
-                    var enumerator = items.getEnumerator();
-                    while (enumerator.moveNext()) {
-                        var item = enumerator.get_current();
-                        var id = item.get_item("ID");
-                        var ctx = new SP.ClientContext.get_current();
-                        var list = ctx.get_web().get_lists().getByTitle(jQuery("#txtList").val());
-                        var uitem = list.getItemById(id);
-                        uitem.set_item("SupportAlignment", alignments[el]);
-                        uitem.update();
-                        ctx.executeQueryAsync(
-                            Function.createDelegate(this, function () { logit("Item updated."); }),
-                            Function.createDelegate(this, function (sender, args) { logit("Error updating action : " + args.get_message()); })
-                        );
-                    }
-                }
-            }, function (sender, args) {
-                logit("Error getting data from Actions list : " + args.get_message());
-            }));
-        }
-        return deferreds;
-    }
-
-    function UpdateActionsUsers() {
-        datestart = getISODate(new Date(jQuery("#txtFrom").val()));
-        dateend = getISODate(new Date(jQuery("#txtTo").val()));
-
-        var inc = "Include(";
-        var xml = "<View><Method Name='Read List' /><Query><Where><And><Geq><FieldRef Name='DateCompleted' /><Value Type='DateTime'>" + datestart.toString("yyyy-MM-ddTHH:mm:ssZ") + "</Value></Geq><Lt><FieldRef Name='DateCompleted' /><Value Type='DateTime'>" + dateend.toString("yyyy-MM-ddTHH:mm:ssZ") + "</Value></Lt></And></Where></Query>";
-        var fields = ["Id", "PMTUserName", "PMTUser", "DateCompleted"];
-        xml += "<ViewFields>";
-        for (var z = 0; z <= fields.length - 1; z++) {
-            xml += "<FieldRef Name='" + fields[z] + "'/>";
-            if (z === fields.length - 1) {
-                inc += fields[z] + ")";
-            }
-            else {
-                inc += fields[z] + ", ";
+    function LoadItemsSucceeded() {
+        var enumerator = v.listitems.getEnumerator();
+        while (enumerator.moveNext()) {
+            var item = enumerator.get_current();
+            v.items.push({
+                title: item.get_item("Title")//,
+                //skill: item.get_item("Skill")
+            });
+            var skill = item.get_item("Skill");
+            if (skill !== null) {
+                $("#txtResults").append("\r\nSkill:" + skill.split("|")[0]);
             }
         }
-        xml += "<FieldRef Name='ID'/>";
-        xml += "</ViewFields>";
-        xml += "</View>";
-
-        $.when(CKO.CSOM.GetListItems.getitemsfilteredcomplex("current", jQuery("#txtList").val(), xml, inc)).then(function (items) {
-            if (items.get_count() > 0) { //get data
-                var enumerator = items.getEnumerator();
-                while (enumerator.moveNext()) {
-                    var item = enumerator.get_current();
-                    var id = item.get_item("ID");
-                    var un = item.get_item("PMTUserName");
-                    var ctx = new SP.ClientContext.get_current();
-                    var list = ctx.get_web().get_lists().getByTitle(jQuery("#txtList").val());
-                    var uitem = list.getItemById(id);
-                    uitem.set_item("PMTUser", SP.FieldUserValue.fromUser(un));
-                    uitem.update();
-                    ctx.executeQueryAsync(
-                        Function.createDelegate(this, function () { logit("Item updated."); }),
-                        Function.createDelegate(item, function (sender, args) { logit("Error updating action : " + args.get_message() + ", User: " + this.get_item("PMTUserName")); })
-                    );
-                }
-            }
-        }, function (sender, args) {
-            logit("Error getting data from Organization list : " + args.get_message());
-        });
-    }
-
-    function getISODate(date) {
-        function pad(n) { return n < 10 ? '0' + n : n }
-        if (date !== null) {
-            d = new Date(date);
+        var position = v.listitems.get_listItemCollectionPosition();
+        if (position !== null) {
+            v.qry.set_listItemCollectionPosition(position);
+            v.listitems = v.list.getItems(v.qry);
+            v.ctx.load(v.listitems);
+            v.ctx.executeQueryAsync(LoadItemsSucceeded, LoadItemsFailed);
         }
         else {
-            d = new Date();
+            AllActionsLoaded();
         }
-        var s = "";
-        s += d.getFullYear() + "-";
-        s += pad(d.getMonth() + 1) + "-";
-        s += pad(d.getDate());
-        s += "T" + pad(d.getHours()) + ":";
-        s += pad(d.getMinutes()) + ":";
-        s += pad(d.getSeconds()) + "Z";
-        return s;
     }
 
-    function formatme(dtf, type) {
-        var marr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        var sarr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        var dtr = "";
-        switch (type) {
-            case "shortdate":
-                d = new Date(dtf);
-                dtr = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
-                break;
-
-            case "shortdate1":
-                d = new Date(parseInt(dtf.substr(6)));
-                dtr = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
-                break;
-
-            case "modified":
-                d = new Date(dtf);
-                dtr = marr[d.getMonth()] + " " + d.getDate() + ", " + GetPrettyTime(d);
-                break;
-
-            case "modifiedoffset":
-                d = new Date(dtf);
-                dtr = marr[d.getMonth()] + " " + d.getDate() + ", " + GetPrettyTimeOffset(d);
-                break;
-
-        }
-        return dtr;
+    function LoadItemsFailed(sender, args) {
+        logit("Error getting data from Actions list : " + args.get_message());
     }
 
-    function AddItemsSucceeded() {
-        logit("Finished Migrating...");
-        SP.UI.Notify.removeNotification(waitmsg);
-        //SP.UI.Notify.addNotification("Finished.", false);
+    function AllActionsLoaded() {
+        $("#txtResults").append("\r\n" + v.items.length + " Actions Loaded.");
+        logit("All actions loaded");
+    }
+    /*
+    function AllActionsLoaded() {
+        var j = v.json;
+
+        for (var i = 0; i < j.length; i++) {
+            var pid = null;
+            for (k = 0; k < v.standards.length; k++) {
+                if (v.standards[k]["standard"] === j[i]["Title"]) {
+                    pid = v.standards[k]["ParentID"];
+                }
+            }
+            for (k = 0; k < v.directives.length; k++) {
+                if (v.directives[k]["directive"] === j[i]["Title"]) {
+                    pid = v.directives[k]["ParentID"];
+                }
+            }
+            if (pid === null) {
+                $("#txtResults").append("\r\n" + "Action ID:" + j[i]["Id"] + " -- Does not have a direct standard/directive match. ");
+            }
+            else {
+                if (j[i]["ParentID"] === undefined || j[i]["ParentID"] === null) {
+                    v.actions.push({
+                        "id": j[i]["Id"],
+                        "ParentID": pid
+                    });
+                }
+            }
+        }
+        logit(v.actions.length + " actions added to actions array.");
+        $("#txtResults").append("\r\n" + v.actions.length + " actions added to actions array.");
+        v.total = v.actions.length;
+
+        // Now need to update all the actions to include their ParentID
+
+        for (i = 0; i < v.actions.length; i++) {
+            var getitemdata = {};
+            getitemdata.itemId = v.actions[i]["id"];
+            getitemdata.ParentID = v.actions[i]["ParentID"];
+            getActionItemById("https://hq.tradoc.army.mil/sites/OCKO/PMT", "Actions", v.actions[i]["id"]).success(getActionItemByIdSuccess.bind(getitemdata));
+        }
+
         $("#SPSTools_Notify").fadeOut("2500", function () {
             $("#SPSTools_Notify").html("");
         });
     }
 
-    function AddItemsFailed(sender, args) {
+    function getActionItemById(webUrl, listName, itemId) {
+        var url = webUrl + "/_vti_bin/listdata.svc/" + listName + "(" + itemId + ")";
+
+        return $.ajax({
+            url: url,
+            method: "GET",
+            headers: { "Accept": "application/json; odata=verbose" }
+        });
+    }
+
+    function getActionItemByIdSuccess(data) {
+        var getitemdata = this;
+        var updateitemdata = {};
+        updateitemdata.itemId = getitemdata.itemId;
+        updateitemdata.ParentID = getitemdata.ParentID;
+        updateitemdata.url = data.d.__metadata.uri;
+        updateitemdata.etag = data.d.__metadata.etag;
+        var itemprops = {
+            "ParentID": updateitemdata.ParentID
+        };
+        // now we can update the item with the parent id
+        updateActionItem("https://hq.tradoc.army.mil/sites/OCKO/PMT", "Actions", updateitemdata.itemId, itemprops, updateitemdata.url, updateitemdata.etag).success(updateActionItemSuccess.bind(updateitemdata));
+    }
+
+    function updateActionItem(webUrl, listName, itemId, itemProperties, url, tag) {
+        var itemprops = JSON.stringify(itemProperties);
+        return $.ajax({
+            type: 'POST',
+            url: url,
+            contentType: 'application/json',
+            processData: false,
+            headers: {
+                "Accept": "application/json;odata=verbose",
+                "X-HTTP-Method": "MERGE",
+                "If-Match": tag
+            },
+            data: JSON.stringify(itemProperties)
+        });
+    }
+
+    function updateActionItemSuccess(data) {
+        var updateitemdata = this;
+        v.count += 1;
+        $("#txtResults").append("\r\n" + "Item " + v.count + " -- Action " + updateitemdata.itemId + " updated with ParentID " + updateitemdata.ParentID);
+    }
+
+    function UpdateDirectivesSucceeded() {
         $("#SPSTools_Notify").fadeOut("2500", function () {
             $("#SPSTools_Notify").html("");
         });
-        logit("AddItemsFailed: " + args.get_message());
+    }
+
+    function UpdateDirectivesFailed(sender, args) {
+        $("#SPSTools_Notify").fadeOut("2500", function () {
+            $("#SPSTools_Notify").html("");
+        });
+        logit("Update Directives Failed: " + args.get_message());
         return false;
     }
 
+    function UpdateStandardsSucceeded() {
+        $("#SPSTools_Notify").fadeOut("2500", function () {
+            $("#SPSTools_Notify").html("");
+        });
+    }
+
+    function UpdateStandardsFailed(sender, args) {
+        $("#SPSTools_Notify").fadeOut("2500", function () {
+            $("#SPSTools_Notify").html("");
+        });
+        logit("Update Standards Failed: " + args.get_message());
+        return false;
+    }
+    */
     return {
         Init: Init
-    }
-}
-
-
-
+    };
+};
 
 SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("CEWP_PMTMigrations.js");

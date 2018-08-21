@@ -25,9 +25,12 @@ CKO.ACTIONS.MyActions = function () {
         v.site = site;
         $().SPSTools_Notify({ type: 'wait', content: 'Loading Your Actions...Please wait...' });
         loadCSS(site + '/SiteAssets/css/fullcalendar.min.css');
+        loadCSS(site + '/SiteAssets/css/jquery.qtip.min.css');
         loadCSS(site + '/SiteAssets/css/myactions.css');
         loadscript(site + '/SiteAssets/js/fullcalendar.min.js', function () {
-            LoadMyActions();
+            loadscript(site + '/SiteAssets/js/jquery.qtip.min.js', function () {
+                LoadMyActions();
+            });
         });
     }
 
@@ -42,7 +45,7 @@ CKO.ACTIONS.MyActions = function () {
                     v.calend = moment(end).endOf('month').format('YYYY-MM-DD');
                     var userId = _spPageContextInfo.userId;
                     var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
-                    urlString += "$select=Id,Title,Expended,PMTUser/Id,ActionComments,Enabler,DateCompleted,EffortTypeValue,EndOfWeek";
+                    urlString += "$select=Id,Title,Expended,PMTUser/Id,ActionComments,Enabler,DateCompleted,EffortTypeValue";
                     urlString += "&$expand=PMTUser";
                     urlString += "&$filter=((PMTUser/Id eq " + userId + ") and (DateCompleted ge datetime'" + moment(start).startOf('month').subtract(7, 'days').format('YYYY-MM-DD[T]HH:MM:SS[Z]') + "') and (EffortTypeValue eq 'Directive'))";
                     logit("urlString: " + urlString);
@@ -63,7 +66,7 @@ CKO.ACTIONS.MyActions = function () {
                             var numitems = data.d.results.length;
                             logit("# of actions: " + numitems);
                             for (var i = 0; i < numitems; i++) {
-                                var dc = dateformat(j[i]["DateCompleted"], 'isoshort');
+                                var dc = moment(j[i]["DateCompleted"]).add(8, 'hours').format('YYYY-MM-DD');
                                 v.directives.push({
                                     id: j[i]["Id"],
                                     title: j[i]["Title"],
@@ -72,7 +75,7 @@ CKO.ACTIONS.MyActions = function () {
                                     Hours: j[i]["Expended"],
                                     Enabler: j[i]["Enabler"],
                                     Type: j[i]["EffortTypeValue"],
-                                    EndOfWeek: j[i]["EndOfWeek"],
+                                    EndOfWeek: moment(dc).endOf('week').format('YYYY-MM-DD'),
                                     Comments: j[i]["ActionComments"]
                                 });
                             }
@@ -87,7 +90,7 @@ CKO.ACTIONS.MyActions = function () {
                     v.standards = []; // Clear out existing
                     var userId = _spPageContextInfo.userId;
                     var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
-                    urlString += "$select=Id,Title,Expended,PMTUser/Id,ActionComments,Enabler,DateCompleted,EffortTypeValue,EndOfWeek";
+                    urlString += "$select=Id,Title,Expended,PMTUser/Id,ActionComments,Enabler,DateCompleted,EffortTypeValue";
                     urlString += "&$expand=PMTUser";
                     urlString += "&$filter=((PMTUser/Id eq " + userId + ") and (DateCompleted ge datetime'" + moment(start).startOf('month').subtract(7, 'days').format('YYYY-MM-DD[T]HH:MM:SS[Z]') + "') and (EffortTypeValue eq 'Standard'))";
                     logit("urlString: " + urlString);
@@ -108,7 +111,7 @@ CKO.ACTIONS.MyActions = function () {
                             var numitems = data.d.results.length;
                             logit("# of actions: " + numitems);
                             for (var i = 0; i < numitems; i++) {
-                                var dc = dateformat(j[i]["DateCompleted"], 'isoshort');
+                                var dc = moment(j[i]["DateCompleted"]).add(8, 'hours').format('YYYY-MM-DD');
                                 v.standards.push({
                                     id: j[i]["Id"],
                                     title: j[i]["Title"],
@@ -117,7 +120,7 @@ CKO.ACTIONS.MyActions = function () {
                                     Hours: j[i]["Expended"],
                                     Enabler: j[i]["Enabler"],
                                     Type: j[i]["EffortTypeValue"],
-                                    EndOfWeek: j[i]["EndOfWeek"],
+                                    EndOfWeek: moment(dc).endOf('week').format('YYYY-MM-DD'),
                                     Comments: j[i]["ActionComments"]
                                 });
                             }
@@ -150,14 +153,16 @@ CKO.ACTIONS.MyActions = function () {
                     "show": true
                 });
                 $(".btncopy").on("click", function (e) {
+                    $("#PMTModal").modal('hide');
                     e.preventDefault();
                     var zurl = fixurl('/Lists/Actions/NewForm.aspx?Action=Copy&CopyId=' + $(this).attr("data-actionid") + '&IsDlg=1');
-                    CKODialog(zurl, 'New Action', '800', '700', 'NotificationCallback');
+                    CKODialog(zurl, 'New Action', '800', '820', 'NotificationCallback');
                 });
                 $(".btnedit").on("click", function (e) {
+                    $("#PMTModal").modal('hide');
                     e.preventDefault();
                     var zurl = fixurl('/Lists/Actions/EditForm.aspx?ID=' + $(this).attr("data-actionid") + '&IsDlg=1');
-                    CKODialog(zurl, 'Edit Action', '800', '700', 'NotificationCallback');
+                    CKODialog(zurl, 'Edit Action', '800', '820', 'NotificationCallback');
                 });
             },
             viewRender: function (view) {
@@ -179,7 +184,7 @@ CKO.ACTIONS.MyActions = function () {
                 $(".btnadd").on("click", function (e) {
                     e.preventDefault();
                     var zurl = fixurl('/Lists/Actions/NewForm.aspx?Action=New&Date=' + $(this).attr("data-date") + '&IsDlg=1');
-                    CKODialog(zurl, 'Add New Action', '800', '700', 'NotificationCallback');
+                    CKODialog(zurl, 'Add New Action', '800', '820', 'NotificationCallback');
                 });
 
                 $(".fc-title").hover(function () {
@@ -195,13 +200,19 @@ CKO.ACTIONS.MyActions = function () {
             eventRender: function (event, element) {
                 var start = event.start._i;
                 var hours = event.Hours;
-                var eow = dateformat(event.EndOfWeek, "isoshort");
+                var eow = event.EndOfWeek;
                 var current = Number($("span[data-date='" + start + "']").text());
                 var total = current + hours;
                 $("span[data-date='" + start + "']").text(total);
                 var wcurrent = Number($("span[data-end='" + eow + "']").text());
                 var wtotal = wcurrent + hours;
                 $("span[data-end='" + eow + "']").text(wtotal);
+                v.html = event.title + "<br/>" + event.Comments + "<br/>" + event.Hours + " hour(s)";
+                element.qtip({
+                    content: {
+                        text: v.html
+                    }
+                });
             }
         });
         $(".fc-center").html("<div style= 'border-color:black;color:yellow;background-color:black;padding:8px;'>Directive</div>&nbsp;<div style='border-color:blue;color:white;background-color:blue;padding:8px;'>Standard</div>");

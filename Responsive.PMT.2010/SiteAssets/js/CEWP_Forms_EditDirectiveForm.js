@@ -21,13 +21,15 @@ CKO.FORMS.DIRECTIVES.VARIABLES = {
     userID: null,
     Org: null,
     directive: null,
+    directiveid: "DIR" + jQuery.QueryString["ID"],
+    titlechanged: false,
     hours: 0,
     selects: null,
     alignmentrequired: true,
     actiondate: jQuery.QueryString["Date"]
 }
 
-CKO.FORMS.DIRECTIVES.EditForm = function () {
+CKO.FORMS.DIRECTIVES.EditForm= function () {
 
     var v = CKO.FORMS.DIRECTIVES.VARIABLES;
 
@@ -48,17 +50,18 @@ CKO.FORMS.DIRECTIVES.EditForm = function () {
         v.site = site;
         resizeModalDialog();
         loadCSS(site + '/SiteAssets/css/CEWP_Forms_DirectiveForms.css');
-        loadCSS(site + '/SiteAssets/css/responsive.bootstrap.min.css');
-        loadscript(site + '/SiteAssets/js/jquery.dataTables.min.js', function () {
-            loadscript(site + '/SiteAssets/js/dataTables.bootstrap.min.js', function () {
+        //loadCSS(site + '/SiteAssets/css/jquery.dataTables.min.css');
+        //loadscript(site + '/SiteAssets/js/jquery.dataTables.min.js', function () {
+            //loadscript(site + '/SiteAssets/js/dataTables.bootstrap.min.js', function () {
                 LoadData();
-            });
-        });
+            //});
+        //});
     }
 
     function LoadData() {
         resizeModalDialog(); // just to be sure!!
         v.directive = $("input[title*='Directive']").val();
+        v.title = v.directive;
         logit("Directive=" + v.directive);
         v.userID = _spPageContextInfo.userId;
         var monkey = LoadDropdowns();
@@ -137,28 +140,32 @@ CKO.FORMS.DIRECTIVES.EditForm = function () {
 
             // allow user to add skills. this is an edit form and will need to have ability to add multiple skills
             // Enable click function to add skill. This will open the form for adding a skill
-            GetSkills();
+            GetSkills(v.directiveid);
             $("#btnAddSkill").click(function (e) {
                 e.preventDefault();
-                v.directive = String($("input[title='Directive Required Field']").val());
-                logit("ADD SKILL DIRECTIVE: " + v.directive);
-                if (v.directive.length > 5) {
-                    var zurl = fixurl('/Lists/DirectiveSkills/NewForm.aspx?Directive=' + v.directive + '&Action=EditForm&IsDlg=1');
-                    CKODialog(zurl, 'Add Skill', '800', '500', 'NotificationCallback');
-                }
-                else {
-                    alert("You must have a directive name already filled out.");
-                }
+                var zurl = fixurl('/Lists/DirectiveSkills/NewForm.aspx?DirectiveID=' + v.directiveid + '&Action=EditForm&IsDlg=1');
+                CKODialog(zurl, 'Add Skill', '800', '500', 'NotificationCallback');
+                //v.directive = String($("input[title='Directive Required Field']").val());
+                //logit("ADD SKILL DIRECTIVE: " + v.directive);
+                //if (v.directive.length > 5) {
+                //    var zurl = fixurl('/Lists/DirectiveSkills/NewForm.aspx?Directive=' + v.directive + '&Action=EditForm&IsDlg=1');
+                //    var zurl = fixurl('/Lists/DirectiveSkills/NewForm.aspx?DirectiveID=' + v.directiveid + '&Action=EditForm&IsDlg=1');
+                //    CKODialog(zurl, 'Add Skill', '800', '500', 'NotificationCallback');
+                //}
+                //else {
+                //    alert("You must have a directive name already filled out.");
+                //}
             });
 
             var rabbit = Cascade();
             jQuery.when.apply(null, rabbit).done(function () {
                 // Load the Actions for this Directive on the Actions tab in a table
                 var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
-                urlString += "$select=Id,Title,EffortTypeValue,DateCompleted,PMTUser,Expended,ActionComments";
+                urlString += "$select=Id,Title,EffortTypeValue,DateCompleted,PMTUser,Expended,ActionComments,ParentID";
                 urlString += "&$expand=PMTUser";
                 urlString += "&$orderby=DateCompleted desc";
-                urlString += "&$filter=(substringof('" + v.directive + "', Title)) and (EffortTypeValue eq 'Directive')";
+                //urlString += "&$filter=(substringof('" + v.directive + "', Title)) and (EffortTypeValue eq 'Directive')";
+                urlString += "&$filter=(ParentID eq '" + v.directiveid + "')";
                 logit("urlString: " + urlString);
 
                 jQuery.ajax({
@@ -176,13 +183,13 @@ CKO.FORMS.DIRECTIVES.EditForm = function () {
                         logit("Actions Count: " + numitems);
                         if (numitems > 0) {
                             // Build out the table to show the actions for this directive.
-                            v.html += "<table id='tblActions' class='table table-bordered table-hover' cellspacing='0' cellpadding='0'>"
-                            v.html += "<thead><tr><td class='thUser'>User</td><td class='thDate'>Date</td><td class='thHours'>Hours</td><td class='thComment'>Comment</td></tr></thead>";
+                            v.html = "<table id='tblActions' cellspacing='0' cellpadding='0' class='table table-bordered table-hover' style='width: 100%;'>";
+                            v.html += "<thead><tr><th class='thUser'>User</th><th class='thDate'>Date</th><th class='thHours'>Hours</th><th class='thComment'>Comment</th></tr></thead>";
                             v.html += "<tbody>";
-                            for (var i = 0, length = j.length; i < length; i++) {
+                            for (var i = 0; i < j.length; i++) {
                                 v.html += "<tr>";
                                 v.html += "<td class='tdUser'>" + j[i]["PMTUser"]["Name"] + "</td>";
-                                var a = moment(j[i]["DateCompleted"]);
+                                var a = moment(j[i]["DateCompleted"]).add(8, 'hours'); // adding 8 hours because the rest endpoint is subtracting the timezone offset
                                 v.html += "<td class='tdDate'>" + a.format("DD-MMM-YY") + "</td>";
                                 v.html += "<td class='tdHours'>" + j[i]["Expended"] + "</td>";
                                 v.html += "<td class='tdComment'>" + j[i]["ActionComments"] + "</td>";
@@ -193,35 +200,37 @@ CKO.FORMS.DIRECTIVES.EditForm = function () {
                         }
 
                         logit("Update Dropdowns complete.");
-                        var table = $("#tblActions").dataTable({
-                            "scrollY": "500px",
-                            "scrollCollapse": true,
-                            "paging": false,
-                            "searching": false,
-                            "ordering": false
-                        });
+                        //var table = $("#tblActions").dataTable({
+                        //    "scrollY": "500px",
+                        //    "scrollCollapse": true,
+                        //    "paging": false,
+                        //    "searching": false,
+                        //    "ordering": false
+                        //});
 
-                        setTimeout(function () {
-                            //table.columns.adjust().draw();
-                            $(".thDate").click();
-                            //$(".thDate").click();
-                        }, 4000);
+                        //setTimeout(function () {
+                        //    //table.columns.adjust().draw();
+                        //    $(".thDate").click();
+                        //    //$(".thDate").click();
+                        //}, 4000);
                     }
                 });
             });
         });
     }
 
-    function GetSkills() {
-        logit("GetSkills Called");
+    function GetSkills(parentid) {
+        if (parentid === null) { parentid = v.directiveid; }
+        logit("GetSkills Called: ParentID - " + parentid);
         v.html = "";
-        v.directive = String($("input[title='Directive Required Field']").val());
+        v.hours = 0;
+        //v.directive = String($("input[title='Directive Required Field']").val());
         // Load the Skills for this Directive on the Skills tab in a table
         // Managed Metadata not really supported by REST so using CSOM here
 
         var inc = "Include(";
-        var xml = "<View><Method Name='Read List' /><Query><OrderBy><FieldRef Name='Hours' /></OrderBy><Where><Eq><FieldRef Name='Directive' /><Value Type='Text'>" + v.directive + "</Value></Eq></Where></Query>";
-        var fields = ["Directive", "Skill", "Hours"];
+        var xml = "<View><Method Name='Read List' /><Query><OrderBy><FieldRef Name='Hours' /></OrderBy><Where><Eq><FieldRef Name='ParentID' /><Value Type='Text'>" + parentid + "</Value></Eq></Where></Query>";
+        var fields = ["Directive", "Skill", "Hours", "ParentID"];
         xml += "<ViewFields>";
         for (var z = 0; z <= fields.length - 1; z++) {
             xml += "<FieldRef Name='" + fields[z] + "'/>";
@@ -433,6 +442,10 @@ CKO.FORMS.DIRECTIVES.EditForm = function () {
     }
 
     function SaveAction() {
+        // first validate if the title(directive) name has changed and ask the user if this is what they want to do. 
+        // They will have to wait for all actions to be updated with the new title before it saves the changes.
+
+
         $("#FormError").remove();
         $(".has-error").each(function () {
             $(this).removeClass("has-error");
@@ -444,7 +457,12 @@ CKO.FORMS.DIRECTIVES.EditForm = function () {
             $("input[title='Directive Required Field']").parent().addClass("has-error");
             v.errortext += "Directive ";
         }
-
+        else {
+            if ($("input[title='Directive Required Field']").val() !== v.title) {
+                v.directive = $("input[title='Directive Required Field']").val();
+                v.titlechanged = true;
+            }
+        }
         var dd = String($("div[data-field='DirectiveDescription']").find(".form-control").html());
         logit("dd: " + dd + ", " + dd.length);
         if (dd.length <= 8) {
@@ -481,7 +499,7 @@ CKO.FORMS.DIRECTIVES.EditForm = function () {
             v.errortext += "MOEQuantitative ";
         }
 
-        /* TODO: Staff Lead and Staff Assist fields are people fields so will need to find best way to validate they contain at least one user  */
+        /* Staff Lead and Staff Assist fields are people fields so will need to find best way to validate they contain at least one user  */
         var thisdiv = $("div[data-field='StaffLead']");
         var thisContents = thisdiv.find("div[name='upLevelDiv']");
         if (thisContents[0].innerHTML === "") {
@@ -538,8 +556,15 @@ CKO.FORMS.DIRECTIVES.EditForm = function () {
         if (goon === true) {
             $(window).on('unload', function () {
                 var returndata = [];
-                returndata[0] = "Refresh";
-                returndata[1] = "Directive Added";
+                if (v.titlechanged === true) {
+                    returndata[0] = "DirectiveTitle";
+                    returndata[1] = v.directiveid;
+                    returndata[2] = v.directive;
+                }
+                else {
+                    returndata[0] = "Refresh";
+                    returndata[1] = "Directive Saved";
+                }
                 SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.OK, returndata);
             });
             $("input[id*='SaveItem']").trigger('click');

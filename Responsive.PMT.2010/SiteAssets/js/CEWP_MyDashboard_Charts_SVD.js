@@ -140,6 +140,7 @@ CKO.MYDASHBOARD.CHARTS.SVD = function () {
 
     function DrawPieChart() {
         Highcharts.chart('SVD', {
+            colors: ["black", "blue"],
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,

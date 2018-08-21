@@ -32,9 +32,9 @@ CKO.MYDASHBOARD.CHARTS.Authority = function () {
             $("#Authority").html("").append("<div style='margin:5px;text-align:center;font-weight:bold;font-size:14px;font-style:italic;'>Query Suspended During Page Edit Mode</div>");
         }
         else {
-            v.authorities = new Array();
-            v.standards = new Array();
-            v.directives = new Array();
+            v.authorities = [];
+            v.standards = [];
+            v.directives = [];
             v.site = site;
             v.qry = qry;
             v.data = [];

@@ -12,13 +12,16 @@ CKO.TRAININGDASHBOARD.CHARTS.VARIABLES.OverallChart = {
     web: null,
     id: null,
     qry: null,
-    categories: ["Red", "Yellow", "Green"],
+    categories: ["Black", "Red", "Yellow", "Green"],
+    users: [],
     training: [],
-    red: null,
-    yellow: null,
-    green: null,
+    black: 0,
+    red: 0,
+    yellow: 0,
+    green: 0,
     urlString: "https://hq.tradoc.army.mil/sites/OCKO/Training/_vti_bin/listdata.svc/Training?$select=Id,Archived,Training,CompleteDate,SuspenseDate,OrgValue&$filter=(Archived eq false)",
-    html: ""
+    html: "",
+    chart: null
 }
 
 CKO.TRAININGDASHBOARD.CHARTS.OverallChart = function () {
@@ -34,15 +37,74 @@ CKO.TRAININGDASHBOARD.CHARTS.OverallChart = function () {
                 $("#OverallChart").html("").append("<div style='margin:5px;text-align:center;font-weight:bold;font-size:14px;font-style:italic;'>Query Suspended During Page Edit Mode</div>");
             }
             else {
+                v.black = 0;
                 v.red = 0;
                 v.yellow = 0;
                 v.green = 0;
-                var monkey = LoadTraining();
+                //var monkey = LoadTraining();
+                //jQuery.when.apply(null, monkey).done(function () {
+                //    TrainingLoaded();
+                //});
+                var monkey = GetTrainingForOrg("HQTRADOC"); //LoadTraining();
                 jQuery.when.apply(null, monkey).done(function () {
-                    TrainingLoaded();
+                    var gorilla = GetUsersForOrg();
+                    jQuery.when.apply(null, gorilla).done(function () {
+                        TrainingLoaded();
+                    });
                 });
             }
         }, "sp.js");
+    }
+
+    function GetTrainingForOrg(org) {
+        // reset some stuff
+        v.training = [];
+        v.org = org;
+        if (v.org === "HQTRADOC") { v.org = "HQ TRADOC"; }
+        var deferreds = [];
+        var urlString = "https://hq.tradoc.army.mil/sites/OCKO/Training/_vti_bin/listdata.svc/Training?";
+        urlString += "$select=Id,Training,Archived,OrgValue,SuspenseDate,CompleteDate,AssignedTo";
+        urlString += "&$expand=AssignedTo";
+        urlString += "&$filter=(Archived eq false) and (OrgValue eq '" + v.org + "')";
+        deferreds.push($.when(CKO.REST.GetListItems.getitems(urlString)).then(function (data) {
+            var results = data.d.results;
+            var j = jQuery.parseJSON(JSON.stringify(results));
+            for (var i = 0, length = j.length; i < length; i++) {
+                v.training.push({
+                    "title": j[i]["Title"],
+                    "user": j[i]["AssignedTo"]["Name"],
+                    "suspense": j[i]["SuspenseDate"],
+                    "complete": j[i]["CompleteDate"],
+                    "type": j[i]["PersonTypes"],
+                    "me": j[i]["Category"],
+                    "category": Categorize(j[i]["CompleteDate"], j[i]["SuspenseDate"])
+                })
+            }
+        }, function (data) { logit(data); }));
+        return deferreds;
+    }
+
+    function GetUsersForOrg() {
+        v.users = [];  // reset user array
+        var deferreds = [];
+        var urlString = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/KnowledgeMap?";
+        urlString += "$select=Id,Organization,SharePointUser,TDAOnhand";
+        urlString += "&$expand=SharePointUser";
+        urlString += "&$filter=(Organization eq '" + v.org + "') and (TDAOnhand eq true)";
+        urlString += "&$orderby=SharePointUser/Name";
+        logit("urlString: " + urlString);
+
+        deferreds.push($.when(CKO.REST.GetListItems.getitems(urlString)).then(function (data) {
+            var results = data.d.results;
+            var j = jQuery.parseJSON(JSON.stringify(results));
+            for (var i = 0, length = j.length; i < length; i++) {
+                v.users.push({
+                    name: j[i]["SharePointUser"]["Name"],
+                    category: []
+                });
+            }
+        }, function (data) { logit(data); }));
+        return deferreds;
     }
 
     function GetOrgs() {
@@ -76,10 +138,6 @@ CKO.TRAININGDASHBOARD.CHARTS.OverallChart = function () {
         });
     }
 
-    function updateUI() {
-
-    }
-
     function LoadTraining() {
         var deferreds = [];
 
@@ -106,12 +164,20 @@ CKO.TRAININGDASHBOARD.CHARTS.OverallChart = function () {
             suspense = moment(suspense);
             c = suspense.diff(today, 'days');
             switch (true) {
-                case (c < 0):
+                case c <= 0:
+                    category = "black";
+                    break;
+
+                case c < 30:
                     category = "red";
                     break;
 
-                case (c >= 0):
+                case c <= 90:
                     category = "yellow";
+                    break;
+
+                case c > 90:
+                    category = "green";
                     break;
             }
         }
@@ -124,27 +190,59 @@ CKO.TRAININGDASHBOARD.CHARTS.OverallChart = function () {
     function TrainingLoaded() {
         var stop = "stop";
 
-        for (var i = 0; i < v.training.length; i++) {
-            switch (v.training[i]["category"]) {
-                case "red":
+        //for (var i = 0; i < v.training.length; i++) {
+        //    switch (v.training[i]["category"]) {
+        //        case "black":
+        //            v.black += 1;
+        //            break;
+
+        //        case "red":
+        //            v.red += 1;
+        //            break;
+
+        //        case "yellow":
+        //            v.yellow += 1;
+        //            break;
+
+        //        case "green":
+        //            v.green += 1;
+        //            break;
+        //    }
+        //}
+
+        for (i = 0; i < v.users.length; i++) {
+            for (k = 0; k < v.training.length; k++) {
+                if (v.users[i]["name"] === v.training[k]["user"]) {
+                    v.users[i]["category"].push(v.training[k]["category"]);
+                }
+            }
+        }
+        for (i = 0; i < v.users.length; i++) {
+            switch (true) {
+                case v.users[i].category.indexOf("black") >= 0:
+                    v.black += 1;
+                    break;
+
+                case v.users[i].category.indexOf("red") >= 0:
                     v.red += 1;
                     break;
 
-                case "yellow":
+                case v.users[i].category.indexOf("yellow") >= 0:
                     v.yellow += 1;
                     break;
 
-                case "green":
+                case v.users[i].category.indexOf("green") >= 0:
                     v.green += 1;
                     break;
             }
         }
+
         DrawOverallPieChart();
     }
 
     function DrawOverallPieChart() {
         Highcharts.chart('OverallChart', {
-            colors: ["red", "yellow", "green"],
+            colors: ["black", "red", "yellow", "green"],
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
@@ -176,9 +274,12 @@ CKO.TRAININGDASHBOARD.CHARTS.OverallChart = function () {
                 //colorByPoint: true,
                 data: [{
                     name: 'Overdue',
+                    y: v.black
+                }, {
+                    name: 'At Risk',
                     y: v.red
                 }, {
-                    name: 'Incomplete',
+                    name: 'In Progress',
                     y: v.yellow
                 }, {
                     name: 'Complete',

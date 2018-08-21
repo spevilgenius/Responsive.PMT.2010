@@ -49,6 +49,19 @@ CKO.FORMS.ACTIONS.EditForm = function () {
         $("select").addClass("form-control");
         $("div[role='textbox']").addClass("form-control");
         $("input[Title='Customer']").prop('readonly', true);
+
+        $(".ms-cui-group").each(function () {
+            switch ($(this).attr("id")) {
+                case "Ribbon.ListForm.Edit.Commit":
+                    $(this).css({ "display": "none" });
+                    break;
+
+                //case "Ribbon.ListForm.Edit.Actions":
+                //    $(this).css({ "display": "none" });
+                //    break;
+            }
+        });
+
         // go get all dropdown data
         var monkey = LoadDropdowns();
         jQuery.when.apply(null, monkey).done(function () {
@@ -61,7 +74,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
                         GetDirectives();
                         $("#ddDirective").show();
                         $("#ddStandard").hide();
-                        $("#ddAlignment").parent().parent().hide();
+                        $(".sagroup").hide();
                         break;
 
                     case "Standard":
@@ -79,7 +92,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
                     GetDirectives();
                     $("#ddDirective").show();
                     $("#ddStandard").hide();
-                    $("#ddAlignment").parent().parent().hide();
+                    $(".sagroup").hide();
                     break;
 
                 case "Standard":
@@ -95,6 +108,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
 
     function GetStandards() {
         // Load Standards from REST
+        v.standards = [];
         var urlString = v.site + "/_vti_bin/listdata.svc/Standards?";
         urlString += "$select=Id,Standard,Task,StandardStatusValue,SupportParagraph,SupportedOrg,SupportedSubOrg";
         urlString += "&$filter=(StandardStatusValue eq 'Ongoing')";
@@ -117,6 +131,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
                 for (var i = 0, length = j.length; i < length; i++) {
                     // Add to standard array so that we can display info based on selected standard
                     v.standards.push({
+                        "ParentID": "STD" + j[i]["Id"],
                         "standard": j[i]["Standard"],
                         "description": j[i]["Task"],
                         "status": j[i]["StandardStatusValue"],
@@ -147,7 +162,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
         // Load Directives From REST
         var urlString = v.site + "/_vti_bin/listdata.svc/Directives?";
         urlString += "$select=Id,Directive,DirectiveDescription,DirectiveStatusValue,ProjectedManHours,Expended,SupportParagraph,SupportReference";
-        urlString += "&$filter=(DirectiveStatusValue eq 'InProgress') or (DirectiveStatusValue eq 'Complete')";
+        urlString += "&$filter=(DirectiveStatusValue eq 'InProgress') or (DirectiveStatusValue eq 'Complete') or (DirectiveStatusValue eq 'Pending Leadership Approval')";
         urlString += "&$orderby=Directive";
 
         jQuery.ajax({
@@ -167,6 +182,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
                 for (var i = 0; i < j.length; i++) {
                     // Add to directive array so that we can display info based on selected directive
                     v.directives.push({
+                        "ParentID": "DIR" + j[i]["Id"],
                         "directive": j[i]["Directive"],
                         "description": j[i]["DirectiveDescription"],
                         "status": j[i]["DirectiveStatusValue"],
@@ -200,8 +216,9 @@ CKO.FORMS.ACTIONS.EditForm = function () {
         if (v.standards[idx]["paragraph"] !== "N/A") {
             // Now get the support alignments from the Alignments table using REST
             var urlString = v.site + "/_vti_bin/listdata.svc/Alignments?";
-            urlString += "$select=Id,Parent,Paragraph,Reference,ShortDescription";
-            urlString += "&$filter=(Parent eq '" + paragraph + "')";
+            urlString += "$select=Id,Parent,Paragraph,Reference,Description,ShortDescription";
+            //urlString += "&$filter=(Parent eq '" + paragraph + "')";
+            urlString += "&$filter=startswith(Parent, '" + paragraph + "')";
             logit("Alignments urlString: " + urlString);
 
             jQuery.ajax({
@@ -221,31 +238,35 @@ CKO.FORMS.ACTIONS.EditForm = function () {
                     var opts = "";
                     if (alignment !== "undefined" && alignment !== "null" && alignment !== "") {
                         for (var i = 0, length = j.length; i < length; i++) {
-                            var opt = j[i]["Paragraph"] + "-" + j[i]["ShortDescription"];
+                            var opt = j[i]["Paragraph"] + " " + j[i]["ShortDescription"];
                             if (opt === alignment) {
-                                opts += "<option selected value='" + opt + "'>" + j[i]["ShortDescription"] + "</option>";
+                                opts += "<option data-ld='" + j[i]["Description"] + "' selected value='" + opt + "'>" + opt + "</option>";
+                                $("#divSADescription").html("").append(j[i]["Description"]);
                             }
                             else {
-                                opts += "<option value='" + opt + "'>" + j[i]["ShortDescription"] + "</option>";
+                                opts += "<option data-ld='" + j[i]["Description"] + "' value='" + opt + "'>" + opt + "</option>";
                             }
                         }
                     }
                     else {
                         opts += "<option selected value='Select...'>Select...</option>";
                         for (i = 0; i < j.length; i++) {
-                            opt = j[i]["Paragraph"] + "-" + j[i]["ShortDescription"];
-                            opts += "<option value='" + opt + "'>" + j[i]["ShortDescription"] + "</option>";
+                            opt = j[i]["Paragraph"] + " " + j[i]["ShortDescription"];
+                            opts += "<option data-ld='" + j[i]["Description"] + "' value='" + opt + "'>" + opt + "</option>";
                             
                         }
                     }
                     $("#ddAlignment").html("").append(opts);
+                    $(".sagroup").show();
                     AlignmentsLoaded();
                 }
             });
         }
         else {
             // Support alignment would not be required for this standard
+            logit("ALIGNMENT NOT REQUIRED");
             v.alignmentrequired = false;
+            $(".sagroup").hide();
             $("input[title^='SupportAlignment']").val("N/A").closest(".form-group").hide(); // just set the support alignment to NA
         }
     }
@@ -258,6 +279,9 @@ CKO.FORMS.ACTIONS.EditForm = function () {
     }
 
     function DataLoaded() {
+
+        //$("#divMaintenance").show();
+
         logit("Data Loaded");
 
         $("#btnSave").on("click", function () {
@@ -266,6 +290,19 @@ CKO.FORMS.ACTIONS.EditForm = function () {
 
         $("#btnCancel").on("click", function () {
             CancelAction();
+        });
+
+        $("#imgSkill").on("click", function () {
+            $.fn.SPSTools_TermSetDialog({
+                title: 'Select Skill',
+                termstoreid: '0f9c5a00-81d6-4d7b-97c4-19319874f189',
+                termsetid: '9f921997-cab1-47fd-9eb4-cb775840fdf6',
+                weburl: _spPageContextInfo.webServerRelativeUrl,
+                initialtext: $("input[title*='SkillTitle']").val(),
+                callback: function (result) {
+                    $("input[title*='SkillTitle']").val(result);
+                }
+            });
         });
 
         $(".ms-cui-ctl-large").each(function () {
@@ -315,6 +352,8 @@ CKO.FORMS.ACTIONS.EditForm = function () {
         $("#ddAlignment").on("change", function () {
             var salignment = $("#ddAlignment option:selected").val();
             $("input[title='SupportAlignment']").val(salignment);
+            var ld = $("#ddAlignment option:selected").attr("data-ld");
+            $("#divSADescription").html("").append(ld);
         });
     }
 
@@ -327,6 +366,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
                 $("input[title^='Title']").val(standard);
                 $("#divDescription").html("").append(v.standards[idx]["description"]);
                 $("input[title*='Customer']").val(v.standards[idx]["org"] + "|" + v.standards[idx]["suborg"]);
+                $("input[title*='ParentID']").val(v.standards[idx]["ParentID"]);
                 GetAlignments();
                 break;
 
@@ -337,6 +377,7 @@ CKO.FORMS.ACTIONS.EditForm = function () {
                 $("#divDescription").html("").append(v.directives[idx]["description"]);
                 $("input[title*='Customer']").val(v.directives[idx]["org"] + "|" + v.directives[idx]["suborg"]);
                 $("input[title='SupportAlignment']").val(v.directives[idx]["alignment"]);
+                $("input[title*='ParentID']").val(v.directives[idx]["ParentID"]);
                 break;
 
             case "ddEnabler":
@@ -367,6 +408,11 @@ CKO.FORMS.ACTIONS.EditForm = function () {
             goon = false;
             v.errortext += "Objective ";
         }
+        var skill = $("div[data-field='Skill']").find(".valid-text").text();
+        //if (skill <= 0) {
+        //    goon = false;
+        //    v.errortext += "Skill ";
+        //}
         if ($("input[title='Enabler Required Field']").val() === "Select..." || $("input[title='Enabler Required Field']").val() === "") {
             goon = false;
             v.errortext += "Enabler ";
@@ -390,6 +436,19 @@ CKO.FORMS.ACTIONS.EditForm = function () {
         if ($("input[title*='Expended']").val() === "") {
             goon = false;
             v.errortext += "Time ";
+        }
+        var picker = String($("div [title='People Picker']").html());
+        if (picker.length <= 0) {
+            goon = false;
+            v.errortext += "User ";
+        }
+        if ($("select[title='Organization Required Field']").val() === "") {
+            goon = false;
+            v.errortext += "User Org ";
+        }
+        if ($("select[title='PersonType Required Field']").val() === "") {
+            goon = false;
+            v.errortext += "User Type ";
         }
         if (goon === true) {
             $(window).on('unload', function () {
