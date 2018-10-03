@@ -1,7 +1,7 @@
 ﻿.hiddenvalidation { display: none; }
 #EditForm, #NewForm { margin-top: 15px; }
 #imgSkill { margin-left: 10px; }
-.form-control { width: auto !important; max-width: 500px; min-width: 500px; height: 30px; padding: 3px; }
+.form-control { width: auto !important; max-width: 500px; min-width: 500px; padding: 3px; }
 .ms-long { width: 520px; }
 .has-success .form-control {
     border-color: #3c763d;

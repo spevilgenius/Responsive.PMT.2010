@@ -75,7 +75,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Paragraph2 = function () {
             v.url = null;
             v.reporttable = null;
             v.chartdata = [];
-                        v.drilldown = false;
+            v.drilldown = false;
 
             $().SPSTools_Notify({ type: 'wait', content: 'Loading Your Default Content... Please wait...' });
 
@@ -136,7 +136,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Paragraph2 = function () {
             v.url = urlString;
         }
 
-        logit("Paragraph Chart Query urlString: " + v.url);
+        logit("Common Support Chart Query urlString: " + v.url);
 
         jQuery.ajax({
             url: v.url,
@@ -144,7 +144,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Paragraph2 = function () {
             headers: { 'accept': 'application/json; odata=verbose' },
             error: function (jqXHR, textStatus, errorThrown) {
                 //to do implement logging to a central list
-                logit("Paragraph Chart: Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
+                logit("Common Support Chart: Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
                 $("#SPSTools_Notify").fadeOut("2500", function () {
                     $("#SPSTools_Notify").html("");
                 });
@@ -174,7 +174,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Paragraph2 = function () {
     }
 
     function DataLoaded() {
-        logit("Paragraph Chart: All Data Loaded");
+        logit("Common Support Chart: All Data Loaded");
         v.totalhours = 0;
         var j = v.json;
         var tp1, tp2, tp3, tp4, tp5, title, compare, child;
@@ -320,38 +320,39 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Paragraph2 = function () {
                                 },
                                 series = drilldowns['Hours'];
 
-                            // Build the table for the drill down data and replace the total hours area with the total for the drill down
+                                // Show the loading label
+                            chart.showLoading('Getting Drilldown Data...');
+
+                                // Build the data table for the drill down data
+                            v.reporttable = BuildMeATable(tdata, v.subtotalhours);
+                            $("#tblLegend_Paragraph").html("").append(v.reporttable);
+
+                                // Build the table for the drill down data and replace the total hours area with the total for the drill down
                             document.getElementById("ParagraphSVG").removeChild(v.TotalBox);
                             v.TotalBox.removeChild(v.TotalText);
                             v.TotalText = document.createTextNode("Total Hours: " + v.subtotalhours);
                             v.TotalBox.appendChild(v.TotalText);
                             document.getElementById("ParagraphSVG").appendChild(v.TotalBox);
 
-                            // Build the data table for the drill down data
-                            v.reporttable = BuildMeATable(tdata, v.subtotalhours);
-                            $("#tblLegend_Paragraph").html("").append(v.reporttable);
-
-                            $(".highcharts-xaxis-labels").find("span").each(function () {
-                                $(this).css({ 'font-weight': 350 }, { 'font-size': '10px !important' }, { 'overflow': 'auto' });
-                            });
-
-                            v.isdrilldown = false;
-                            
                             setTimeout(function () {
                                 chart.hideLoading();
                                 chart.addSeriesAsDrilldown(e.point, series);
                             }, 1000);
                         }
+                        $(".highcharts-xaxis-labels").find("span").each(function () {
+                            $(this).css({ 'font-weight': 350 }, { 'font-size': '10px !important' }, { 'overflow': 'auto' });
+                        });
+                        //v.isdrilldown = false;
                     },
                     drillup: function () {
                         v.isdrilldown = false;
                         // replace the table with the original one
                         $("#tblLegend_Paragraph").html("").append(v.originaltable);
-                        document.getElementById("ParagraphSVG").removeChild(v.TotalBox);
+                        document.getElementById("Common SupportSVG").removeChild(v.TotalBox);
                         v.TotalBox.removeChild(v.TotalText);
                         v.TotalText = document.createTextNode("Total Hours: " + v.originalhours);
                         v.TotalBox.appendChild(v.TotalText);
-                        document.getElementById("ParagraphSVG").appendChild(v.TotalBox);
+                        document.getElementById("Common SupportSVG").appendChild(v.TotalBox);
                         $(".highcharts-xaxis-labels").find("span").each(function () {
                             $(this).css({ 'font-weight': 350 }, { 'font-size': '10px !important' }, { 'overflow': 'auto' });
                         });
@@ -359,7 +360,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Paragraph2 = function () {
                 }
             },
             title: {
-                text: 'PWS Paragraph #'
+                text: 'My Common Support'
             },
             xAxis: {
                 type: 'category'
@@ -402,13 +403,13 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Paragraph2 = function () {
             //newtbl += rows[0].text;
             //newtbl += rows[0].title;
             if (rows[0].subtext === undefined) {
-                newtbl += "Paragraph #";
+                newtbl += "Common Support";
             } else {
                 newtbl += rows[0].subtext.substring(0, 3);
             }
         }
         else {
-            newtbl += "Paragraph #";
+            newtbl += "Common Support";
         }
         newtbl += "</th>";
         newtbl += "<th class='table-heading'><span class = 'floatright'>";

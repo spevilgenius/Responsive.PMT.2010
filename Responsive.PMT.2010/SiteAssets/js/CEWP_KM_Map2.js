@@ -21,7 +21,7 @@ CKO.KNOWLEDGEMAP.MAP.VARIABLES = {
     markers: [],
     userID: null,
     html: ""
-}
+};
 
 CKO.KNOWLEDGEMAP.MAP.Map = function () {
 
@@ -49,11 +49,11 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
         else {
 
             h1 = $(window).height();
-            h2 = (Math.floor(h1 / 10) * 10) - 100;
+            h2 = Math.floor(h1 / 10) * 10 - 100;
             h3 = h2 - 150;
 
             $('#PMTModal').on('shown.bs.modal', function (event) {
-                $(".pmtmodal").css({ height: h2 + "px" });
+                $(".modal").css({ height: h2 + "px" });
                 $("#PMTModal .panel-body").css({ height: h3 + "px" });
                 $("#PMTModal .row").css({ "margin-bottom": "10px" });
             });
@@ -172,7 +172,7 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
             strokeColor: 'red',
             fillColor: 'red',
             fillOpacity: 1
-        }
+        };
 
         var bluegreenCircle = {
             path: 'M 8, 8 m -8, 0 a 8,8 0 1,0 16,0 a 8,8 0 1,0 -16,0',
@@ -181,7 +181,7 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
             strokeWeight: 3,
             fillColor: '#0072bc',
             fillOpacity: 1
-        }
+        };
 
         var blueCircle = {
             path: 'M 8, 8 m -8, 0 a 8,8 0 1,0 16,0 a 8,8 0 1,0 -16,0',
@@ -189,7 +189,7 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
             strokeColor: '#0072bc',
             fillColor: '#0072bc',
             fillOpacity: 1
-        }
+        };
 
         var greenCircle = {
             path: 'M12 5.5c-4.688 0-8.5 3.813-8.5 8.5s3.813 8.5 8.5 8.5 8.5-3.813 8.5-8.5-3.813-8.5-8.5-8.5zM24 14c0 6.625-5.375 12-12 12s-12-5.375-12-12 5.375-12 12-12v0c6.625 0 12 5.375 12 12z', //  'M 8, 8 m -8, 0 a 8,8 0 1,0 16,0 a 8,8 0 1,0 -16,0',
@@ -197,7 +197,7 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
             strokeColor: '#00ff33', //'#40a542',
             fillColor: '#00ff33',
             fillOpacity: 1
-        }
+        };
 
         var greenPin = {
             //path: 'M12 5.5c-4.688 0-8.5 3.813-8.5 8.5s3.813 8.5 8.5 8.5 8.5-3.813 8.5-8.5-3.813-8.5-8.5-8.5zM24 14c0 6.625-5.375 12-12 12s-12-5.375-12-12 5.375-12 12-12v0c6.625 0 12 5.375 12 12z', //  'M 8, 8 m -8, 0 a 8,8 0 1,0 16,0 a 8,8 0 1,0 -16,0',
@@ -206,21 +206,21 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
             strokeColor: '#40a542',
             fillColor: '#40a542',
             fillOpacity: 1
-        }
+        };
 
         var goldStar = {
             path: 'M 16,5 H 10 L 8,0 6,5 H 0 L 4,10 2,16 8,12 14,16 12,10 16,5 z',
             strokeColor: 'black',
             fillColor: 'gold',
             fillOpacity: 1
-        }
+        };
 
         var legend = document.getElementById('legend');
 
         map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(legend);
 
         // add the markers
-        for (i = 0; i < v.mapitems.length; i++) {
+        for (var i = 0; i < v.mapitems.length; i++) {
             switch (v.mapitems[i].Type) {
                 case "TRADOC HQ":
                     ico = goldStar;
@@ -263,8 +263,8 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
         //var position = getPosition(obj);
         //v.mx = position.x;
         //v.my = position.y;
-        v.mx = ev.va.clientX;
-        v.my = ev.va.clientY;
+        v.mx = ev.wa.clientX;
+        v.my = ev.wa.clientY;
         var title = obj.title;
         var data = obj.popupdata;
         var html = "<div class='popdata' id='popcontainer_" + title.replace(/ /g, "_") + "'>";
@@ -283,14 +283,14 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
                         if (tmp2[1] > 0) {
                             html += "<div class='row popRow'>";
                             for (var y = 0; y < tmp2[1]; y++) {
-                                html += "<svg class='fa fa-star'><use xlink:href='#fa-star'></use></svg>&nbsp;";
+                                html += "<i class='fas fa-star'></i>&nbsp;";
                             }
-                            html += "<span class='info-right'><svg class='fa fa-info-circle'><use xlink:href='#fa-info-circle'></use></svg></span>";
+                            html += "<span class='info-right'><i class='fas fa-info-circle'></i></span>";
                             html += "</div>";
                         }
                         else {
                             html += "<div class='row popRow'>";
-                            html += "<span class='info-right'><svg class='fa fa-info-circle'><use xlink:href='#fa-info-circle'></use></svg></span>";
+                            html += "<span class='info-right'><i class='fas fa-info-circle'></i></span>";
                             html += "</div>";
                         }
                         html += "<div class='row popRow'>" + tmp2[2] + "</div>";
@@ -304,14 +304,14 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
                         if (tmp2[1] > 0) {
                             html += "<div class='row popRow'>";
                             for (y = 0; y < tmp2[1]; y++) {
-                                html += "<svg class='fa fa-star'><use xlink:href='#fa-star'></use></svg>&nbsp;";
+                                html += "<i class='fas fa-star'></i>&nbsp;";
                             }
-                            html += "<span class='info-right'><svg class='fa fa-info-circle'><use xlink:href='#fa-info-circle'></use></svg></span>";
+                            html += "<span class='info-right'><i class='fas fa-info-circle'></i></span>";
                             html += "</div>";
                         }
                         else {
                             html += "<div class='row popRow'>";
-                            html += "<span class='info-right'><svg class='fa fa-info-circle'><use xlink:href='#fa-info-circle'></use></svg></span>";
+                            html += "<span class='info-right'><i class='fas fa-info-circle'></i></span>";
                             html += "</div>";
                         }
                         html += "<div class='row popRow'>" + tmp2[2] + "</div>";
@@ -324,9 +324,9 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
                         html += tmp2[3].replace(/ /g, "_") + "' class='popBox alert alert-warning' data-org='" + tmp2[3] + "' onclick='CKO.KNOWLEDGEMAP.MAP.Map().minidashboard(this)'>";
                         html += "<div class='row popRow'>";
                         for (y = 0; y < tmp2[1]; y++) {
-                            html += "<svg class='fa fa-star'><use xlink:href='#fa-star'></use></svg>&nbsp;";
+                            html += "<i class='fas fa-star'></i>&nbsp;";
                         }
-                        html += "<span class='info-right'><svg class='fa fa-info-circle'><use xlink:href='#fa-info-circle'></use></svg></span>";
+                        html += "<span class='info-right'><i class='fas fa-info-circle'></i></span>";
                         html += "</div>";
                         html += "<div class='row popRow'>" + tmp2[2] + "</div>";
                         html += "<div class='row popRow'>" + tmp2[3] + "</div>";
@@ -341,12 +341,12 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
                             for (y = 0; y < tmp2[1]; y++) {
                                 html += "<svg class='fa fa-star'><use xlink:href='#fa-star'></use></svg>&nbsp;";
                             }
-                            html += "<span class='info-right'><svg class='fa fa-info-circle'><use xlink:href='#fa-info-circle'></use></svg></span>";
+                            html += "<span class='info-right'><i class='fas fa-info-circle'></i></span>";
                             html += "</div>";
                         }
                         else {
                             html += "<div class='row popRow'>";
-                            html += "<span class='info-right'><svg class='fa fa-info-circle'><use xlink:href='#fa-info-circle'></use></svg></span>";
+                            html += "<span class='info-right'><i class='fas fa-info-circle'></i></span>";
                             html += "</div>";
                         }
                         html += "<div class='row popRow'>" + tmp2[2] + "</div>";
@@ -368,14 +368,14 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
                     if (tmp1[1] > 0) {
                         html += "<div class='row popRow'>";
                         for (y = 0; y < tmp1[1]; y++) {
-                            html += "<svg class='fa fa-star'><use xlink:href='#fa-star'></use></svg>&nbsp;";
+                            html += "<i class='fas fa-star'></i>&nbsp;";
                         }
-                        html += "<span class='info-right'><svg class='fa fa-info-circle'><use xlink:href='#fa-info-circle'></use></svg></span>";
+                        html += "<span class='info-right'><i class='fas fa-info-circle'></i></span>";
                         html += "</div>";
                     }
                     else {
                         html += "<div class='row popRow'>";
-                        html += "<span class='info-right'><svg class='fa fa-info-circle'><use xlink:href='#fa-info-circle'></use></svg></span>";
+                        html += "<span class='info-right'><i class='fas fa-info-circle'></i></span>";
                         html += "</div>";
                     }
                     html += "<div class='row popRow'>" + tmp1[2] + "</div>";
@@ -389,14 +389,14 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
                     if (tmp1[1] > 0) {
                         html += "<div class='row popRow'>";
                         for (y = 0; y < tmp1[1]; y++) {
-                            html += "<svg class='fa fa-star'><use xlink:href='#fa-star'></use></svg>&nbsp;";
+                            html += "<i class='fas fa-star'></i>&nbsp;";
                         }
-                        html += "<span class='info-right'><svg class='fa fa-info-circle'><use xlink:href='#fa-info-circle'></use></svg></span>";
+                        html += "<span class='info-right'><i class='fas fa-info-circle'></i></span>";
                         html += "</div>";
                     }
                     else {
                         html += "<div class='row popRow'>";
-                        html += "<span class='info-right'><svg class='fa fa-info-circle'><use xlink:href='#fa-info-circle'></use></svg></span>";
+                        html += "<span class='info-right'><i class='fas fa-info-circle'></i></span>";
                         html += "</div>";
                     }
                     html += "<div class='row popRow'>" + tmp1[2] + "</div>";
@@ -408,7 +408,7 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
                 case "TRADOC HQ":
                     html += tmp1[3].replace(/ /g, "_") + "' class='popBox alert alert-warning' data-org='" + tmp1[3] + "' onclick='CKO.KNOWLEDGEMAP.MAP.Map().minidashboard(this)'>";
                     html += "<div class='row popRow'>";
-                    html += "<span class='info-right'><svg class='fa fa-info-circle'><use xlink:href='#fa-info-circle'></use></svg></span>";
+                    html += "<span class='info-right'><i class='fas fa-info-circle'></i></span>";
                     html += "</div>";
                     html += "<div class='row popRow'>" + tmp1[2] + "</div>";
                     html += "<div class='row popRow'>" + tmp1[3] + "</div>";
@@ -419,7 +419,7 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
                 case "Not currently supported":
                     html += tmp1[3].replace(/ /g, "_") + "' class='popBox alert alert-danger' data-org='" + tmp1[3] + "' onclick='CKO.KNOWLEDGEMAP.MAP.Map().minidashboard(this)'>";
                     html += "<div class='row popRow'>";
-                    html += "<span class='info-right'><svg class='fa fa-info-circle'><use xlink:href='#fa-info-circle'></use></svg></span>";
+                    html += "<span class='info-right'><i class='fas fa-info-circle'></i></span>";
                     html += "</div>";
                     html += "<div class='row popRow'>" + tmp1[2] + "</div>";
                     html += "<div class='row popRow'>" + tmp1[3] + "</div>";
@@ -438,7 +438,7 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
 
         $("#MarkerBody").html("").append(html);
         var mph = $('#MarkerPanel').height();
-        var mpt = v.my - (mph / 2);
+        var mpt = v.my - mph / 2;
         $(".markerpanel").css({ top: mpt + "px", left: v.mx + 10 + "px" }).show();
     }
 
@@ -450,43 +450,44 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
             var alertitems = items.getEnumerator();
             while (alertitems.moveNext()) {
                 var alertitem = alertitems.get_current();
-                ahtml += '<div class="row">';
-                ahtml += '<div class="col-xs-3">';
-                ahtml += "Last Updated: "
-                ahtml += '</div>';
-                ahtml += '<div class="col-xs-9">';
+                ahtml += '<div class="form-horizontal">';
+                ahtml += '<div class="form-group row">';
+                ahtml += '<label class="col-sm-2 col-form-label">';
+                ahtml += "Last Updated: ";
+                ahtml += '</label>';
+                ahtml += '<div class="col-sm-10">';
                 ahtml += alertitem.get_item("Modified") + '</div>';
                 ahtml += '</div>';
                 ahtml += '</div>';
-                ahtml += '<div class="row">';
-                ahtml += '<div class="col-xs-3">';
-                ahtml += "Major Achievements: "
-                ahtml += '</div>';
-                ahtml += '<div class="col-xs-9">';
+                ahtml += '<div class="form-group row">';
+                ahtml += '<label class="col-sm-2 col-form-label">';
+                ahtml += "Major Achievements: ";
+                ahtml += '</label>';
+                ahtml += '<div class="col-sm-10">';
                 ahtml += '<textarea class="form-control" rows="6">' + alertitem.get_item("Achievements") + '</textarea>';
                 ahtml += '</div>';
                 ahtml += '</div>';
-                ahtml += '<div class="row">';
-                ahtml += '<div class="col-xs-3">';
-                ahtml += "Issues: "
-                ahtml += '</div>';
-                ahtml += '<div class="col-xs-9">';
+                ahtml += '<div class="form-group row">';
+                ahtml += '<label class="col-sm-2 col-form-label">';
+                ahtml += "Issues: ";
+                ahtml += '</label>';
+                ahtml += '<div class="col-sm-10">';
                 ahtml += '<textarea class="form-control" rows="6">' + alertitem.get_item("Issues") + '</textarea>';
                 ahtml += '</div>';
                 ahtml += '</div>';
-                ahtml += '<div class="row">';
-                ahtml += '<div class="col-xs-3">';
-                ahtml += "Events: "
-                ahtml += '</div>';
-                ahtml += '<div class="col-xs-9">';
+                ahtml += '<div class="form-group row">';
+                ahtml += '<label class="col-sm-2 col-form-label">';
+                ahtml += "Events: ";
+                ahtml += '</label>';
+                ahtml += '<div class="col-sm-10">';
                 ahtml += '<textarea class="form-control" rows="6">' + alertitem.get_item("Events") + '</textarea>';
                 ahtml += '</div>';
                 ahtml += '</div>';
-                ahtml += '<div class="row">';
-                ahtml += '<div class="col-xs-3">';
-                ahtml += "Future Challenges: "
-                ahtml += '</div>';
-                ahtml += '<div class="col-xs-9">';
+                ahtml += '<div class="form-group row">';
+                ahtml += '<label class="col-sm-2 col-form-label">';
+                ahtml += "Future Challenges: ";
+                ahtml += '</label>';
+                ahtml += '<div class="col-sm-10">';
                 ahtml += '<textarea class="form-control" rows="6">' + alertitem.get_item("Challenges") + '</textarea>';
                 ahtml += '</div>';
                 ahtml += '</div>';
@@ -510,16 +511,16 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
         var yPosition = 0;
 
         while (el) {
-            if (el.tagName == "BODY") {
+            if (el.tagName === "BODY") {
                 // deal with browser quirks with body/window/document and page scroll
                 var xScrollPos = el.scrollLeft || document.documentElement.scrollLeft;
                 var yScrollPos = el.scrollTop || document.documentElement.scrollTop;
 
-                xPosition += (el.offsetLeft - xScrollPos + el.clientLeft);
-                yPosition += (el.offsetTop - yScrollPos + el.clientTop);
+                xPosition += el.offsetLeft - xScrollPos + el.clientLeft;
+                yPosition += el.offsetTop - yScrollPos + el.clientTop;
             } else {
-                xPosition += (el.offsetLeft - el.scrollLeft + el.clientLeft);
-                yPosition += (el.offsetTop - el.scrollTop + el.clientTop);
+                xPosition += el.offsetLeft - el.scrollLeft + el.clientLeft;
+                yPosition += el.offsetTop - el.scrollTop + el.clientTop;
             }
 
             el = el.offsetParent;
@@ -534,7 +535,7 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
         Init: Init,
         minidashboard: minidashboard,
         closemarker: closemarker
-    }
-}
+    };
+};
 
 SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs('CEWP_KM_Map2.js');

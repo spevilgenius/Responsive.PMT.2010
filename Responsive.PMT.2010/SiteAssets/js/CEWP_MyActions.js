@@ -24,10 +24,10 @@ CKO.ACTIONS.MyActions = function () {
     function Init(site) {
         v.site = site;
         $().SPSTools_Notify({ type: 'wait', content: 'Loading Your Actions...Please wait...' });
-        loadCSS(site + '/SiteAssets/css/fullcalendar.min.css');
+        loadCSS('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css');
         loadCSS(site + '/SiteAssets/css/jquery.qtip.min.css');
         loadCSS(site + '/SiteAssets/css/myactions.css');
-        loadscript(site + '/SiteAssets/js/fullcalendar.min.js', function () {
+        loadscript('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js', function () {
             loadscript(site + '/SiteAssets/js/jquery.qtip.min.js', function () {
                 LoadMyActions();
             });
@@ -36,6 +36,7 @@ CKO.ACTIONS.MyActions = function () {
 
     function LoadMyActions() {
         $('#myactions').fullCalendar({
+            themeSystem: 'bootstrap4',
             eventSources: [{
                 events: function (start, end, timezone, callback) {
                     // Directives
@@ -155,14 +156,14 @@ CKO.ACTIONS.MyActions = function () {
                 $(".btncopy").on("click", function (e) {
                     $("#PMTModal").modal('hide');
                     e.preventDefault();
-                    var zurl = fixurl('/Lists/Actions/NewForm.aspx?Action=Copy&CopyId=' + $(this).attr("data-actionid") + '&IsDlg=1');
-                    CKODialog(zurl, 'New Action', '800', '820', 'NotificationCallback');
+                    var zurl = fixurl('/Lists/Actions/NewAction.aspx?Action=Copy&CopyId=' + $(this).attr("data-actionid") + '&IsDlg=1');
+                    CKODialog(zurl, 'New Action', '900', '820', 'NotificationCallback');
                 });
                 $(".btnedit").on("click", function (e) {
                     $("#PMTModal").modal('hide');
                     e.preventDefault();
                     var zurl = fixurl('/Lists/Actions/EditForm.aspx?ID=' + $(this).attr("data-actionid") + '&IsDlg=1');
-                    CKODialog(zurl, 'Edit Action', '800', '820', 'NotificationCallback');
+                    CKODialog(zurl, 'Edit Action', '900', '820', 'NotificationCallback');
                 });
             },
             viewRender: function (view) {
@@ -183,8 +184,8 @@ CKO.ACTIONS.MyActions = function () {
                 
                 $(".btnadd").on("click", function (e) {
                     e.preventDefault();
-                    var zurl = fixurl('/Lists/Actions/NewForm.aspx?Action=New&Date=' + $(this).attr("data-date") + '&IsDlg=1');
-                    CKODialog(zurl, 'Add New Action', '800', '820', 'NotificationCallback');
+                    var zurl = fixurl('/Lists/Actions/NewAction.aspx?Action=New&Date=' + $(this).attr("data-date") + '&IsDlg=1');
+                    CKODialog(zurl, 'Add New Action', '900', '820', 'NotificationCallback');
                 });
 
                 $(".fc-title").hover(function () {

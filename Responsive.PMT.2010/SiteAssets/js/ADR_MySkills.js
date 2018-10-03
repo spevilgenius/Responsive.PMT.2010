@@ -24,7 +24,9 @@ CKO.DASHBOARDS.ALLDASHBOARDS.VARIABLES.SKILLS = {
     chart: null,
     list: null,  
     actions: [],       //
-    listitems: null  //
+    listitems: null,  //
+    totalhours: 0,
+    count: 0
 };
 
 CKO.DASHBOARDS.ALLDASHBOARDS.Skills = function () {
@@ -33,7 +35,10 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Skills = function () {
 
     function Init(site, id, timefilter, isdaterange, start, end) {     //
         loadCSS('https://hq.tradoc.army.mil/sites/ocko/SiteAssets/css/AllDashboardReports2.css');
-
+        v.totalhours = 0;
+        v.skills = [];
+        v.count = 0;
+        v.actions = [];
         v.site = site;
         v.chart = id;
         v.timefilter = timefilter;
@@ -78,7 +83,6 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Skills = function () {
     }
 
     function LoadItems() {
-
         var today = new Date();                                                                                                                         //
         var month, quarter, weekstart, weekend;                                                                                                         //
         var quarters = { "Jan": 2, "Feb": 2, "Mar": 2, "Apr": 3, "May": 3, "Jun": 3, "Jul": 4, "Aug": 4, "Sep": 4, "Oct": 1, "Nov": 1, "Dec": 1 };      //
@@ -141,22 +145,12 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Skills = function () {
 
         switch (fc) {
 
-            case 1:
-                filter += filterstart + ft + filterend;
-                break;
-
             case 2:
                 filter += filterstart + "<And>" + ft +  fp + "</And>" + filterend;
-                break;
-
-            case 4:
-                filter += filterstart + "<And><And>" + ft + fp + "</And>" + fo + "</And>" + filterend;
                 break;
         }
 
         var inc = "Include(";
-
-        //xml += "<Where><And>" + urlString + "</And></Where>";
 
         var fields = ["Id", "Title", "Expended", "DateCompleted", "PMTUser", "Skill"];
         vf += "<ViewFields>";
@@ -189,6 +183,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Skills = function () {
     function LoadItemsSucceeded() {
         var enumerator = v.listitems.getEnumerator();
         while (enumerator.moveNext()) {
+            v.count += 1;
             var item = enumerator.get_current();
             var skill = item.get_item("Skill");
             if (skill !== null) {
@@ -208,6 +203,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Skills = function () {
             v.ctx.executeQueryAsync(LoadItemsSucceeded, LoadItemsFailed);
         }
         else {
+            logit("function LoadItemsSucceeded" + v.totalhours);
             AllActionsLoaded();
         }
     }
@@ -220,7 +216,8 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Skills = function () {
     }
 
     function AllActionsLoaded() {
-        logit(v.actions.length + " Actions loaded.");
+        logit(v.actions.length + " Actions w skills loaded.");
+        logit(v.count + " total Actions returned by query.");
         DataLoaded();
     }
    
@@ -229,6 +226,10 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Skills = function () {
 
         //function to return only one instance of each skill in v.actions, sort them alphabetically, create array
         v.totalhours = 0;  // Initialize the total hours. 
+        v.skills = [];
+        v.data = [];
+        v.reporttable = null;
+        v.chartdata = null;
         var seen = [];    // Skills we have seen to avoid double loop. 
 
         for (var k = 0; k < v.actions.length; ++k) {
@@ -245,6 +246,8 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Skills = function () {
                 v.skills[j].hours += v.actions[k].expended;
             }
         }
+
+        logit("v.totalhours: " + v.totalhours);
 
         v.skills.sort(function (d1, d2) {
             if (d1.name > d2.name) {
@@ -315,7 +318,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Skills = function () {
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        format: '<b>{point.name}</b>: {point.percentage:.0f} %',
                         style: {
                             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                         }

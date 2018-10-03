@@ -37,12 +37,12 @@ CKO.FORMS.SKILLS.EditForm = function () {
         //$("input[title*='Directive']").attr("disabled", "disabled").css({ "cursor": "not-allowed" });
         $("input[title*='ParentID']").attr("disabled", "disabled").css({ "cursor": "not-allowed" });
 
-        $("#btnSave").on("click", function () {
+        $("#btnSaveSkill").on("click", function () {
             SaveSkill();
         });
 
-        $("#btnCancel").on("click", function () {
-            Cancel();
+        $("#btnCancelSkill").on("click", function () {
+            CancelSkill();
         });
 
         $(".ms-cui-group").each(function () {
@@ -99,7 +99,7 @@ CKO.FORMS.SKILLS.EditForm = function () {
         }
     }
 
-    function Cancel() {
+    function CancelSkill() {
         SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.cancel);
     }
 

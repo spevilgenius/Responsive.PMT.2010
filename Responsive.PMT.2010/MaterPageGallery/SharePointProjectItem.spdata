@@ -12,5 +12,6 @@
     <ProjectItemFile Source="PMTDashboardLayout2.aspx" Target="MaterPageGallery\" Type="ElementFile" />
     <ProjectItemFile Source="PMTKnowledgeMapLayout.aspx" Target="MaterPageGallery\" Type="ElementFile" />
     <ProjectItemFile Source="PMTBlankPageLayout1.aspx" Target="MaterPageGallery\" Type="ElementFile" />
+    <ProjectItemFile Source="PMTDashboardLayoutBS4.aspx" Target="MaterPageGallery\" Type="ElementFile" />
   </Files>
 </ProjectItem>

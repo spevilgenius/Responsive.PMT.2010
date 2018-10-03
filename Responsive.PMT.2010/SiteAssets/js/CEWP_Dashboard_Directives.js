@@ -38,7 +38,7 @@ CKO.DASHBOARD.Directives = function () {
         }
         else {
             loadCSS(site + '/SiteAssets/css/CEWP_Dashboard_Directives.css');
-            loadCSS(site + '/SiteAssets/css/responsive.bootstrap.min.css');
+            // loadCSS(site + '/SiteAssets/css/responsive.bootstrap.min.css');
             loadCSS(site + '/SiteAssets/css/jquery.qtip.css');
             loadscript(site + '/SiteAssets/js/jquery.qtip.min.js', function () {
                 $.when(CKO.CSOM.GetUserInfo.isuseringroup("PMT Members")).then(function (found) {
@@ -77,7 +77,7 @@ CKO.DASHBOARD.Directives = function () {
                 v.total = j.length;
                 var numitems = data.d.results.length;
                 var resourced = "";
-                v.html += "<table id='tblDirectives' cellspacing='0' cellpadding='0' class='table table-bordered table-hover'>"
+                v.html += "<table id='tblDirectives' class='table table-bordered table-hover' style='width: 100%;'>";
                 v.html += "<thead><tr><th class='squarekpi'>Lead<br/>Assessment</th><th class='titlecolumn'>Directive</th><th class='circlekpi'>Status</th><th>Suspense</th><th>Lead</th><th>Supported Org</th><th>Supporting Org</th><th class='circlekpi'>Resourced</th><th>Expended</th><th>Percent<br/>Expended</th></tr></thead>";
                 v.html += "<tbody>";
                 for (var i = 0, length = j.length; i < length; i++) {
@@ -98,20 +98,20 @@ CKO.DASHBOARD.Directives = function () {
                     else {
                         ap = "Green;1";
                     }
-                    pe = ((j[i]["PercentExpended"]) * 100).toFixed(1);
+                    pe = (j[i]["PercentExpended"] * 100).toFixed(1);
                     pe = Number(pe);
                     ped = null;
                     switch (true) {
-                        case (pe > 90):
+                        case pe > 90:
                             ped = "red";
                             break;
 
-                        case (pe >= 80):
+                        case pe >= 80:
                             ped = "yellow";
                             break;
 
-                        case (pe < 80):
-                            ped = "green"
+                        case pe < 80:
+                            ped = "green";
                             break;
                     }
                     e = j[i]["EquippedValue"];
@@ -166,24 +166,24 @@ CKO.DASHBOARD.Directives = function () {
                     var d;
                     var pt;
                     switch (true) {
-                        case (c < 0):
+                        case c < 0:
                             d = "redcircle powerTip";
                             pt = Math.abs(c) + " days past due.";
                             break;
 
-                        case (c === 0):
+                        case c === 0:
                             d = "yellowcircle powerTip";
-                            pt = "due today."
+                            pt = "due today.";
                             break;
 
-                        case (c <= 7):
+                        case c <= 7:
                             d = "yellowcircle powerTip";
-                            pt = c + " days left."
+                            pt = c + " days left.";
                             break;
 
-                        case (c > 7):
+                        case c > 7:
                             d = "greencircle powerTip";
-                            pt = c + " days left."
+                            pt = c + " days left.";
                             break;
                     }
                     v.html += "<td class='" + d + "' data-powertip='" + pt + "'></td>";
@@ -194,17 +194,17 @@ CKO.DASHBOARD.Directives = function () {
                     v.html += "<td>" + j[i]["SupportingOrg"] + "</td>";
                     ap = ap.split(";");
                     //r = Math.round(((Number(la[1]) * 2) + Number(e[1]) + Number(t[1])) / 3);
-                    r = Math.round(((Number(ap[1]) * 2) + Number(e[1]) + Number(t[1])) / 3);
+                    r = Math.round((Number(ap[1]) * 2 + Number(e[1]) + Number(t[1])) / 3);
                     switch (true) {
-                        case (r === 1):
+                        case r === 1:
                             d = "greencircle powerTip";
                             break;
 
-                        case (r === 2):
+                        case r === 2:
                             d = "yellowcircle powerTip";
                             break;
 
-                        case (r === 3):
+                        case r === 3:
                             d = "redcircle powerTip";
                             break;
                     }
@@ -221,7 +221,7 @@ CKO.DASHBOARD.Directives = function () {
 
                     v.html += "<td class='" + d + "' data-powertip='" + resourced + "'></td>";
                     v.html += "<td>" + j[i]["Expended"] + "</td>";
-                    v.html += "<td>" + ((j[i]["PercentExpended"]) * 100).toFixed(1) + "%</td>";
+                    v.html += "<td>" + (j[i]["PercentExpended"] * 100).toFixed(1) + "%</td>";
                     v.html += "</tr>";
                 }
                 v.html += "</tbody></table>";
@@ -281,20 +281,21 @@ CKO.DASHBOARD.Directives = function () {
         //logit("Data Loaded");
         v.count = 0;
         if (v.role === "Visitor") {
-            $('#tblDirectives').dataTable({
-                "scrollY": "300px",
-                "scrollCollapse": true,
-                "paging": false,
-                "searching": false,
-                "ordering": false
+            $('#tblDirectives').DataTable({
+                scrollY: "300px",
+                scrollCollapse: true,
+                paging: false,
+                searching: false,
+                ordering: false
             });
         }
         else {
-            $('#tblDirectives').dataTable({
-                "scrollY": "300px",
-                "scrollCollapse": true,
-                "paging": false,
-                "searching": false
+            $('#tblDirectives').DataTable({
+                scrollY: "300px",
+                scrollCollapse: true,
+                paging: false,
+                searching: false,
+                ordering: false
             });
             $(".lnkDirective").on("click", function (e) {
                 e.preventDefault();
@@ -302,7 +303,7 @@ CKO.DASHBOARD.Directives = function () {
                 CKODialog(zurl, 'View Directive', '1100', '800', 'NotificationCallback');
             });
             v.html = "<h3 class='ms-standardheader ms-WPTitle' style='text-align: justify;'><span style='white-space: nowrap;'><a href='/sites/OCKO/PMT/Lists/Directives/In%20Progress.aspx'>";
-            v.html += "Directives By Suspense Date</a>&nbsp;&nbsp;<a href='#' class='btn btn-success' onclick='CKO.DASHBOARD.Directives().UpdateExpended()'>Update Expended Hours</a></span></h3> ";
+            v.html += "Directives By Suspense Date</a>&nbsp;&nbsp;<a href='#' class='btn btn-success btn-sm' onclick='CKO.DASHBOARD.Directives().UpdateExpended()'>Update Expended Hours</a></span></h3> ";
             $("#WebPartTitleWPQ2").html("").append(v.html);
         }
         $(".powerTip").powerTip({
@@ -423,7 +424,7 @@ CKO.DASHBOARD.Directives = function () {
                 }
                 else {
                     //logit("Directive " + v.directives[i].Title + " does not have any expended hours.");
-                    v.directives[i].Expended = 0 ;
+                    v.directives[i].Expended = 0;
                 }
             }, function (sender, args) {
                 logit("Error getting data from Actions list: " + args.get_message());
@@ -476,7 +477,7 @@ CKO.DASHBOARD.Directives = function () {
             if (!isNaN(v.directives[i].PercentExpended)) { v.listitem.set_item('PercentExpended', v.directives[i].PercentExpended); } else {
                 //logit("Directive " + v.directives[i].Title + " trying to add " + v.directives[i].PercentExpended + " pe"); 
             }
-            v.listitem.update 
+            v.listitem.update;
             updates[i] = v.listitem;
             v.ctx.load(updates[i]);
         }
@@ -486,10 +487,10 @@ CKO.DASHBOARD.Directives = function () {
     function UpdateDirectives() {
         for (i = 0; i < v.directives.length; i++) {
             var getitemdata = {};
-            getitemdata.Id= v.directives[i].Id;
+            getitemdata.Id = v.directives[i].Id;
             getitemdata.Expended = v.directives[i].Expended;
             getitemdata.PercentExpended = v.directives[i].PercentExpended;
-            GetDirectiveItemById(v.directives[i]["Id"]).success(GetDirectiveItemByIdSuccess.bind(getitemdata));
+            GetDirectiveItemById(v.directives[i]["Id"]).done(GetDirectiveItemByIdSuccess.bind(getitemdata));
         }
     }
 
@@ -514,7 +515,7 @@ CKO.DASHBOARD.Directives = function () {
             "Expended": updateitemdata.Expended,
             "PercentExpended": updateitemdata.PercentExpended
         };
-        UpdateDirectiveItem(itemprops, updateitemdata.url, updateitemdata.etag).success(UpdateDirectiveItemSuccess.bind(updateitemdata)).fail(UpdateDirectiveItemFail.bind(updateitemdata));
+        UpdateDirectiveItem(itemprops, updateitemdata.url, updateitemdata.etag).done(UpdateDirectiveItemSuccess.bind(updateitemdata)).fail(UpdateDirectiveItemFail.bind(updateitemdata));
     };
 
     UpdateDirectiveItem = function (itemProperties, url, tag) {
@@ -530,16 +531,16 @@ CKO.DASHBOARD.Directives = function () {
             },
             data: JSON.stringify(itemProperties)
         });
-    }
+    };
 
     UpdateDirectiveItemSuccess = function (data) {
         v.count += 1;
         //logit("Total: " + v.total + " Count: " + v.count);
         if (v.count === v.total) {
             logit("Directives Hours Updated");
-            AddItemsSucceeded()
+            AddItemsSucceeded();
         }
-    }
+    };
 
     UpdateDirectiveItemFail = function (data) {
         //logit("Directives Hours Failed");
@@ -547,9 +548,9 @@ CKO.DASHBOARD.Directives = function () {
         //logit("Total: " + v.total + " Count: " + v.count);
         if (v.count === v.total) {
             logit("Directives Hours Updated");
-            AddItemsSucceeded()
+            AddItemsSucceeded();
         }
-    }
+    };
 
     function AddItemsSucceeded() {
         // Now update the SiteProperty to todays date
@@ -578,9 +579,7 @@ CKO.DASHBOARD.Directives = function () {
     return {
         Init: Init,
         UpdateExpended: UpdateExpended
-    }
-}
+    };
+};
 
 SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs('CEWP_Dashboard_Directives.js');
-
-

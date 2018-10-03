@@ -11,5 +11,6 @@
     <File Path="MaterPageGallery\PMTDashboardLayout2.aspx" Url="MaterPageGallery/PMTDashboardLayout2.aspx" />
     <File Path="MaterPageGallery\PMTKnowledgeMapLayout.aspx" Url="MaterPageGallery/PMTKnowledgeMapLayout.aspx" />
     <File Path="MaterPageGallery\PMTBlankPageLayout1.aspx" Url="MaterPageGallery/PMTBlankPageLayout1.aspx" />
+    <File Path="MaterPageGallery\PMTDashboardLayoutBS4.aspx" Url="MaterPageGallery/PMTDashboardLayoutBS4.aspx" />
   </Module>
 </Elements>

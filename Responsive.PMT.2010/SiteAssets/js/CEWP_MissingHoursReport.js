@@ -100,12 +100,12 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
             org = org.replace(/\s/g, '');
             org = org.replace(/(\r\n|\n|\r)/gm, "");
             org = org.trim();
-            v.html += "<div class='panel panel-success'>";
-            v.html += "<div class='panel-heading'>";
-            v.html += "<h4 class='panel-title'><a data-toggle='collapse' data-parent='#HoursReport' href='#collapse_" + org + "'>" + org + "</a></h4>";
+            v.html += "<div class='card'>";
+            v.html += "<div class='card-header'>";
+            v.html += "<h4><button class='btn btn-link' type='button' data-toggle='collapse' data-target='#collapse_" + org + "'>" + org + "</button></h4>";
             v.html += "</div>";
-            v.html += "<div id='collapse_" + org + "' class='panel-collapse collapse' data-drawn='false' data-index='" + i + "'>";
-            v.html += "<div class='panel-body' id='" + org + "_panel'></div></div></div>";
+            v.html += "<div id='collapse_" + org + "' class='collapse' data-drawn='false' data-parent='#MissingHoursReport' data-index='" + i + "'>";
+            v.html += "<div class='card-body' id='" + org + "_panel'></div></div></div>";
         }
         $("#MissingHoursReport").html("").append(v.html);
         drawBaseGantts();
@@ -228,7 +228,7 @@ CKO.REPORTS.MISSINGHOURS.Report = function () {
                 var gid = v.users[i].actions[q].gid;
                 var current =  Number($("#" + gid).text());
                 var total = current + v.users[i].actions[q].Hours;
-                $("#" + gid).text(total).removeClass("warning").addClass("success");
+                $("#" + gid).text(total).removeClass("warning").addClass("bg-success");
                 var ttip = $("#" + gid).attr("data-ttip");
                 if (ttip !== "null") {
                     $("#" + gid).attr("data-ttip", ttip + "<br/>" + v.users[i].actions[q].qtip);

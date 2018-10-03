@@ -169,5 +169,25 @@
     <File Path="SiteAssets\js\ADR_MySkills.js" Url="SiteAssets/js/ADR_MySkills.js" />
     <File Path="SiteAssets\js\CEWP_Dashboard_DirectivesExtended.js" Url="SiteAssets/js/CEWP_Dashboard_DirectivesExtended.js" />
     <File Path="SiteAssets\html\CEWP_Dashboard_DirectivesExtended.html" Url="SiteAssets/html/CEWP_Dashboard_DirectivesExtended.html" />
+    <File Path="SiteAssets\html\SiteNavigation2.html" Url="SiteAssets/html/SiteNavigation2.html" />
+    <File Path="SiteAssets\css\bootstrap4-hover-navbar.css" Url="SiteAssets/css/bootstrap4-hover-navbar.css" />
+    <File Path="SiteAssets\js\bootstrap4-hover-navbar.js" Url="SiteAssets/js/bootstrap4-hover-navbar.js" />
+    <File Path="SiteAssets\js\bootstrap-4-navbar.js" Url="SiteAssets/js/bootstrap-4-navbar.js" />
+    <File Path="SiteAssets\js\ADR_Authorities.js" Url="SiteAssets/js/ADR_Authorities.js" />
+    <File Path="SiteAssets\js\ADR_Competencies.js" Url="SiteAssets/js/ADR_Competencies.js" />
+    <File Path="SiteAssets\js\ADR_Functions.js" Url="SiteAssets/js/ADR_Functions.js" />
+    <File Path="SiteAssets\js\ADR_My Skills_old.js" Url="SiteAssets/js/ADR_My Skills_old.js" />
+    <File Path="SiteAssets\js\ADR_MyAuthorities.js" Url="SiteAssets/js/ADR_MyAuthorities.js" />
+    <File Path="SiteAssets\js\ADR_MyCompetencies.js" Url="SiteAssets/js/ADR_MyCompetencies.js" />
+    <File Path="SiteAssets\js\ADR_MyEnablers.js" Url="SiteAssets/js/ADR_MyEnablers.js" />
+    <File Path="SiteAssets\js\ADR_MyFunctions.js" Url="SiteAssets/js/ADR_MyFunctions.js" />
+    <File Path="SiteAssets\js\ADR_MyParagraph.js" Url="SiteAssets/js/ADR_MyParagraph.js" />
+    <File Path="SiteAssets\js\ADR_MyParagraph2.js" Url="SiteAssets/js/ADR_MyParagraph2.js" />
+    <File Path="SiteAssets\js\ADR_MyParent2.js" Url="SiteAssets/js/ADR_MyParent2.js" />
+    <File Path="SiteAssets\js\ADR_MySVD.js" Url="SiteAssets/js/ADR_MySVD.js" />
+    <File Path="SiteAssets\js\ADR_Skills_new.js" Url="SiteAssets/js/ADR_Skills_new.js" />
+    <File Path="SiteAssets\js\ADR_Skills_old.js" Url="SiteAssets/js/ADR_Skills_old.js" />
+    <File Path="SiteAssets\js\ADR_SupportAlignment.js" Url="SiteAssets/js/ADR_SupportAlignment.js" />
+    <File Path="SiteAssets\js\ADR_SVD.js" Url="SiteAssets/js/ADR_SVD.js" />
   </Module>
 </Elements>

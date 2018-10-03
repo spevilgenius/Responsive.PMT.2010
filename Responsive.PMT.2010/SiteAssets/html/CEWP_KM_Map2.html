@@ -100,6 +100,17 @@
     }
 
     #legend .alert:first-child { margin-left: 0; }
+
+    /*@media all and (min-width:576px)*/
+    .modal-dialog {
+        max-width: 1000px;
+        margin: 1.75rem auto;
+    }
+
+    .alert {
+        margin-bottom: 0px;
+    }
+
 </style>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4hnXlB4-RJzH8oHOl1v50lTGrDzI0PXg" type="text/javascript"></script>
@@ -128,9 +139,9 @@
     <div id="map_container"></div>
 </div>
 <div id="MarkerPanel" class="markerpanel">
-    <div class="panel panel-info">
-        <div class="panel-heading"><button type="button" class="close markerpanelclose" onclick="CKO.KNOWLEDGEMAP.MAP.Map().closemarker()">&times;</button></div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header"><button type="button" class="close markerpanelclose" onclick="CKO.KNOWLEDGEMAP.MAP.Map().closemarker()">&times;</button></div>
+        <div class="card-body">
             <div class="container-fluid" id="MarkerBody"></div>
         </div>
     </div>

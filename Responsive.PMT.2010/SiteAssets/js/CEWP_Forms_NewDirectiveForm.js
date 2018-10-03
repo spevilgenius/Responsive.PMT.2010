@@ -62,8 +62,8 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
         var monkey = LoadDropdowns();
         jQuery.when.apply(null, monkey).done(function () {
             logit("LoadDropdowns complete.");
-            $("input").addClass("form-control");
-            $("select").addClass("form-control");
+            $("input").addClass("form-control form-control-sm");
+            $("select").addClass("form-control form-control-sm");
             $("textarea").addClass("form-control");
             $("div[role='textbox']").addClass("form-control");
 
@@ -112,90 +112,9 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
                 }
             });
 
-            // allow user to add skills. this is a new form and will not initially have any skills but will need to have ability to add multiple skills
-            // Enable click function to add skill. This will open the form for adding a skill
-
-            //$("#btnAddSkill").click(function (e) {
-            //    e.preventDefault();
-            //    v.directive = String($("input[title='Directive Required Field']").val());
-            //    logit("ADD SKILL DIRECTIVE: " + v.directive);
-            //    if (v.directive.length > 5) {
-            //        //var zurl = fixurl('/Lists/DirectiveSkills/NewForm.aspx?Directive=' + v.directive + '&Action=EditForm&IsDlg=1');
-            //        var zurl = fixurl('/Lists/DirectiveSkills/NewForm.aspx?DirectiveID=' + v.directiveid + '&Action=EditForm&IsDlg=1');
-            //        CKODialog(zurl, 'Add Skill', '800', '500', 'NotificationCallback');
-            //    }
-            //    else {
-            //        alert("You must have a directive name already filled out.");
-            //    }
-            //});
         });
     }
 
-    /*function GetSkills() {
-        logit("GetSkills Called");
-        v.hours = 0;
-        v.html = "";
-        v.directive = String($("input[title='Directive Required Field']").val());
-        // Load the Skills for this Directive on the Skills tab in a table
-        // Managed Metadata not really supported by REST so using CSOM here
-
-        var inc = "Include(";
-        var xml = "<View><Method Name='Read List' /><Query><OrderBy><FieldRef Name='Hours' /></OrderBy><Where><Eq><FieldRef Name='Directive' /><Value Type='Text'>" + v.directive + "</Value></Eq></Where></Query>";
-        var fields = ["Directive", "Skill", "Hours"];
-        xml += "<ViewFields>";
-        for (var z = 0; z <= fields.length - 1; z++) {
-            xml += "<FieldRef Name='" + fields[z] + "'/>";
-            if (z === fields.length - 1) {
-                inc += fields[z] + ")";
-            }
-            else {
-                inc += fields[z] + ", ";
-            }
-        }
-        xml += "<FieldRef Name='ID'/>";
-        xml += "</ViewFields>";
-        xml += "</View>";
-
-        $.when(CKO.CSOM.GetListItems.getitemsfilteredcomplex("current", "DirectiveSkills", xml, inc)).then(function (items) {
-            if (items.get_count() > 0) { //get map data
-                enumerator = items.getEnumerator();
-                while (enumerator.moveNext()) {
-                    var prop = enumerator.get_current();
-                    var hours = parseInt(prop.get_item("Hours"));
-                    var skill = prop.get_item("Skill");
-                    skill = skill.split("|");
-                    v.html += "<tr>";
-                    v.html += "<td><button type='button' data-id='" + prop.get_id() + "' class='btn btn-success btnedit'>Edit</button>";
-                    v.html += "<button type='button' data-id='" + prop.get_id() + "' class='btn btn-danger btndelete'>Delete</button></td>";
-                    v.html += "<td>" + skill[0] + "</td>";
-                    v.html += "<td class='tdHours'>" + prop.get_item("Hours") + "</td>";
-                    v.hours += hours;
-                    v.html += "</tr>";
-                }
-                $("#tblSkillsBody").html("").append(v.html);
-                $("#skilltotal").html("").append(v.hours);
-
-                $(".btnedit").on("click", function () {
-                    var id = $(this).attr("data-id");
-                    var zurl = fixurl('/Lists/DirectiveSkills/EditForm.aspx?ID=' + id + '&Action=EditForm&IsDlg=1');
-                    CKODialog(zurl, 'Edit Skill', '800', '500', 'NotificationCallback');
-                });
-
-                $(".btndelete").on("click", function () {
-                    v.id = $(this).attr("data-id");
-                    v.ctx = new SP.ClientContext.get_current();
-                    v.list = v.ctx.get_web().get_lists().getByTitle("DirectiveSkills");
-                    v.id = v.id.trim();
-                    v.id = parseInt(v.id);
-                    v.listItem = v.list.getItemById(v.id);
-                    v.listItem.deleteObject();
-                    v.ctx.executeQueryAsync(DeleteSkillSucceeded, DeleteSkillFailed);
-                });
-            }
-        }, function (sender, args) {
-            logit("Error getting data from DirectiveSkills list : " + args.get_message());
-        });
-    }*/
 
     function LoadDropdowns() {
         var deferreds = [];
@@ -479,18 +398,8 @@ CKO.FORMS.DIRECTIVES.NewForm = function () {
         SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.cancel);
     }
 
-    //function DeleteSkillSucceeded() {
-    //    SP.UI.Notify.addNotification("Skill Deleted.", false);
-    //    GetSkills();
-    //}
-
-    //function DeleteSkillFailed(sender, args) {
-    //    logit(args.get_message());
-    //}
-
     return {
         Init: Init,
-        //GetSkills: GetSkills,
         changeme: changeme
     }
 }

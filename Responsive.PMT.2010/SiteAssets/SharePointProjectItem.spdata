@@ -170,5 +170,25 @@
     <ProjectItemFile Source="js\ADR_MySkills.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\CEWP_Dashboard_DirectivesExtended.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="html\CEWP_Dashboard_DirectivesExtended.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="html\SiteNavigation2.html" Target="SiteAssets\html\" Type="ElementFile" />
+    <ProjectItemFile Source="css\bootstrap4-hover-navbar.css" Target="SiteAssets\css\" Type="ElementFile" />
+    <ProjectItemFile Source="js\bootstrap4-hover-navbar.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\bootstrap-4-navbar.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_Authorities.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_Competencies.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_Functions.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_My Skills_old.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_MyAuthorities.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_MyCompetencies.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_MyEnablers.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_MyFunctions.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_MyParagraph.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_MyParagraph2.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_MyParent2.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_MySVD.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_Skills_new.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_Skills_old.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_SupportAlignment.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\ADR_SVD.js" Target="SiteAssets\js\" Type="ElementFile" />
   </Files>
 </ProjectItem>

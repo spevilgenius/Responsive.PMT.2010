@@ -14,9 +14,9 @@ CKO.DASHBOARDS.ALLDASHBOARDS.VARIABLES.Parent2 = {
     actions: [],
     json: null,
     totalhours: 0,
-    isdaterange: false,
-    startdate: null,
-    enddate: null,
+    isdaterange: false, //
+    startdate: null,    //
+    enddate: null,      //
     chartdata: [],
     originaltable: null,
     originalhours: 0,
@@ -26,51 +26,51 @@ CKO.DASHBOARDS.ALLDASHBOARDS.VARIABLES.Parent2 = {
     isdrilldown: false,
     parents: [{
         "title": "5.1.3.4.2",
-        "hours": 0, "subtext": "",
+        "hours": 0, "subtext": "KPPM Websites, Portals, WfF, or Online Community support",
         "text": "KPPM Websites, Portals, WfF, or Online Community support",
-        "children": [{ "title": "5.1.3.4.2", "hours": 0, "subtext": "" }, { "title": "5.2.1.1", "hours": 0, "subtext": "" }, { "title": "5.3.1.1", "hours": 0, "subtext": "" }, { "title": "5.4.1.1", "hours": 0, "subtext": "" }, { "title": "5.5.1.1", "hours": 0, "subtext": "" }, { "title": "5.6.1.1", "hours": 0, "subtext": "" }, { "title": "5.7.1.1", "hours": 0, "subtext": "" }, { "title": "5.8.1.1", "hours": 0, "subtext": "" }, { "title": "5.9.1.1", "hours": 0, "subtext": "" }, { "title": "5.10.1.1", "hours": 0, "subtext": "" }, { "title": "5.11.1.1", "hours": 0, "subtext": "" }, { "title": "5.12.1.1", "hours": 0, "subtext": "" }]
+        "children": [{ "title": "5.1.3.4.2", "hours": 0, "subtext": "HQ TRADOC KPPM" }, { "title": "5.2.1.1", "hours": 0, "subtext": "USAREC KPPM Websites, Portals, WfF, or Online Community support" }, { "title": "5.3.1.1", "hours": 0, "subtext": "CAC KPPM Websites, Portals, WfF, or Online Community support" }, { "title": "5.4.1.1", "hours": 0, "subtext": "MCCoE KPPM Websites, Portals, WfF, or Online Community support" }, { "title": "5.5.1.1", "hours": 0, "subtext": "SCoE KPPM Websites, Portals, WfF, or Online Community support" }, { "title": "5.6.1.1", "hours": 0, "subtext": "ACoE KPPM Websites, Portals, WfF, or Online Community support" }, { "title": "5.7.1.1", "hours": 0, "subtext": "CCoE KPPM Websites, Portals, WfF, or Online Community support" }, { "title": "5.8.1.1", "hours": 0, "subtext": "FCoE KPPM Websites, Portals, WfF, or Online Community support" }, { "title": "5.9.1.1", "hours": 0, "subtext": "ICoE KPPM Websites, Portals, WfF, or Online Community support" }, { "title": "5.10.1.1", "hours": 0, "subtext": "MCoE KPPM Websites, Portals, WfF, or Online Community support" }, { "title": "5.11.1.1", "hours": 0, "subtext": "MSCoE KPPM Websites, Portals, WfF, or Online Community support" }, { "title": "5.12.1.1", "hours": 0, "subtext": "USACC KPPM Websites, Portals, WfF, or Online Community support" }]
     },
     {
         "title": "5.1.3.4.5",
-        "hours": 0, "subtext": "",
+        "hours": 0, "subtext": "MS SharePoint and Strategic Management System (SMS) support",
         "text": "MS SharePoint and Strategic Management System (SMS) support",
-        "children": [{ "title": "5.1.3.4.5", "hours": 0, "subtext": "" }, { "title": "5.2.1.2", "hours": 0, "subtext": "" }, { "title": "5.3.1.2", "hours": 0, "subtext": "" }, { "title": "5.4.1.2", "hours": 0, "subtext": "" }, { "title": "5.5.1.2", "hours": 0, "subtext": "" }, { "title": "5.6.1.2", "hours": 0, "subtext": "" }, { "title": "5.7.1.2", "hours": 0, "subtext": "" }, { "title": "5.8.1.2", "hours": 0, "subtext": "" }, { "title": "5.9.1.2", "hours": 0, "subtext": "" }, { "title": "5.10.1.2", "hours": 0, "subtext": "" }, { "title": "5.11.1.2", "hours": 0, "subtext": "" }, { "title": "5.12.1.2", "hours": 0, "subtext": "" }]
+        "children": [{ "title": "5.1.3.4.5", "hours": 0, "subtext": "HQ TRADOC MS SharePoint and Strategic Management System (SMS) support " }, { "title": "5.2.1.2", "hours": 0, "subtext": "USAREC Project Management Documentation and Support" }, { "title": "5.3.1.2", "hours": 0, "subtext": "CAC Project Management Documentation and Support" }, { "title": "5.4.1.2", "hours": 0, "subtext": "MCCoE MS SharePoint and Strategic Management System (SMS) support" }, { "title": "5.5.1.2", "hours": 0, "subtext": "SCoE MS SharePoint and Strategic Management System (SMS) support" }, { "title": "5.6.1.2", "hours": 0, "subtext": "ACoE MS SharePoint and Strategic Management System (SMS) support" }, { "title": "5.7.1.2", "hours": 0, "subtext": "CCoE MS SharePoint and Strategic Management System (SMS) support" }, { "title": "5.8.1.2", "hours": 0, "subtext": "FCoE MS SharePoint and Strategic Management System (SMS) support" }, { "title": "5.9.1.2", "hours": 0, "subtext": "ICoE MS SharePoint and Strategic Management System (SMS) support" }, { "title": "5.10.1.2", "hours": 0, "subtext": "MCoE MS SharePoint and Strategic Management System (SMS) support" }, { "title": "5.11.1.2", "hours": 0, "subtext": "MSCoE MS SharePoint and Strategic Management System (SMS) support" }, { "title": "5.12.1.2", "hours": 0, "subtext": "USACC MS SharePoint and Strategic Management System (SMS) support" }]
     },
     {
         "title": "5.1.1.5",
-        "hours": 0, "subtext": "",
+        "hours": 0, "subtext": "Program Management Support",
         "text": "Program Management Support",
-        "children": [{ "title": "5.1.1.5.1", "hours": 0, "subtext": "" }, { "title": "5.1.1.5.2", "hours": 0, "subtext": "" }, { "title": "5.1.1.5.3", "hours": 0, "subtext": "" }, { "title": "5.1.1.5.4", "hours": 0, "subtext": "" }, { "title": "5.1.1.5.5", "hours": 0, "subtext": "" }, { "title": "5.1.1.5.6", "hours": 0, "subtext": "" }, { "title": "5.1.1.5.7", "hours": 0, "subtext": "" }, { "title": "5.1.1.5.8", "hours": 0, "subtext": "" }, { "title": "5.1.1.5.9", "hours": 0, "subtext": "" }, { "title": "5.2.1.3", "hours": 0, "subtext": "" }, { "title": "5.3.1.3", "hours": 0, "subtext": "" }, { "title": "5.4.1.3", "hours": 0, "subtext": "" }, { "title": "5.5.1.3", "hours": 0, "subtext": "" }, { "title": "5.6.1.3", "hours": 0, "subtext": "" }, { "title": "5.7.1.3", "hours": 0, "subtext": "" }, { "title": "5.8.1.3", "hours": 0, "subtext": "" }, { "title": "5.9.1.3", "hours": 0, "subtext": "" }, { "title": "5.10.1.3", "hours": 0, "subtext": "" }, { "title": "5.11.1.3", "hours": 0, "subtext": "" }, { "title": "5.12.1.3", "hours": 0, "subtext": "" }]
+        "children": [{ "title": "5.1.1.5.1", "hours": 0, "subtext": "HQ TRADOC KPPM Knowledge Map" }, { "title": "5.1.1.5.2", "hours": 0, "subtext": "Performance Management Tool (PMT)" }, { "title": "5.1.1.5.3", "hours": 0, "subtext": "Agile Project Management Plan (APMP)" }, { "title": "5.1.1.5.4", "hours": 0, "subtext": "HQ TRADOC Talent Management Plan (TMP)" }, { "title": "5.1.1.5.5", "hours": 0, "subtext": "Courses of Action (CoA)" }, { "title": "5.1.1.5.6", "hours": 0, "subtext": "HQ TRADOC Governance Documentation" }, { "title": "5.1.1.5.7", "hours": 0, "subtext": "HQ TRADOC Capabilities Adoption Plan (CAP)" }, { "title": "5.1.1.5.8", "hours": 0, "subtext": "Correspondence Documentation" }, { "title": "5.1.1.5.9", "hours": 0, "subtext": "HQ TRADOC Key Performance Indicators (KPI)" }, { "title": "5.2.1.3", "hours": 0, "subtext": "USAREC Project Management Documentation and Support" }, { "title": "5.3.1.3", "hours": 0, "subtext": "CAC Project Management Documentation and Support" }, { "title": "5.4.1.3", "hours": 0, "subtext": "MCCoE Project Management Documentation and Support" }, { "title": "5.5.1.3", "hours": 0, "subtext": "SCoE Project Management Documentation and Support" }, { "title": "5.6.1.3", "hours": 0, "subtext": "ACoE Project Management Documentation and Support" }, { "title": "5.7.1.3", "hours": 0, "subtext": "CCoE Project Management Documentation and Support" }, { "title": "5.8.1.3", "hours": 0, "subtext": "FCoE Project Management Documentation and Support" }, { "title": "5.9.1.3", "hours": 0, "subtext": "ICoE Project Management Documentation and Support" }, { "title": "5.10.1.3", "hours": 0, "subtext": "MCoE Project Management Documentation and Support" }, { "title": "5.11.1.3", "hours": 0, "subtext": "MSCoE Project Management Documentation and Support" }, { "title": "5.12.1.3", "hours": 0, "subtext": "USACC Project Management Documentation and Support" }]
     },
     {
         "title": "5.1.1.6",
-        "hours": 0, "subtext": "",
+        "hours": 0, "subtext": "Program Administrative Support",
         "text": "Program Administrative Support",
-        "children": [{ "title": "5.1.1.6.1", "hours": 0, "subtext": "" }, { "title": "5.1.1.6.2", "hours": 0, "subtext": "" }, { "title": "5.1.1.6.3", "hours": 0, "subtext": "" }, { "title": "5.1.1.6.4", "hours": 0, "subtext": "" }, { "title": "5.1.1.6.5", "hours": 0, "subtext": "" }, { "title": "5.1.1.6.6", "hours": 0, "subtext": "" }, { "title": "5.1.1.6.7", "hours": 0, "subtext": "" }, { "title": "5.1.1.6.8", "hours": 0, "subtext": "" }, { "title": "5.1.1.6.9", "hours": 0, "subtext": "" }, { "title": "5.2.1.4", "hours": 0, "subtext": "" }, { "title": "5.3.1.4", "hours": 0, "subtext": "" }, { "title": "5.4.1.4", "hours": 0, "subtext": "" }, { "title": "5.5.1.4", "hours": 0, "subtext": "" }, { "title": "5.6.1.4", "hours": 0, "subtext": "" }, { "title": "5.7.1.4", "hours": 0, "subtext": "" }, { "title": "5.8.1.4", "hours": 0, "subtext": "" }, { "title": "5.9.1.4", "hours": 0, "subtext": "" }, { "title": "5.10.1.4", "hours": 0, "subtext": "" }, { "title": "5.11.1.4", "hours": 0, "subtext": "" }, { "title": "5.12.1.4", "hours": 0, "subtext": "" }]
+        "children": [{ "title": "5.1.1.6.1", "hours": 0, "subtext": "Taxonomy and File/Records" }, { "title": "5.1.1.6.2", "hours": 0, "subtext": "Meetings" }, { "title": "5.1.1.6.3", "hours": 0, "subtext": "Files/Record Keeping" }, { "title": "5.1.1.6.4", "hours": 0, "subtext": "Meeting Minutes" }, { "title": "5.1.1.6.5", "hours": 0, "subtext": "HQ TRADOC Strategies, Implementation Plans and other documents" }, { "title": "5.1.1.6.6", "hours": 0, "subtext": "Deviations or Out of Tolerance Metrics" }, { "title": "5.1.1.6.7", "hours": 0, "subtext": "KPPM News Letter" }, { "title": "5.1.1.6.8", "hours": 0, "subtext": "PMP / APMP" }, { "title": "5.1.1.6.9", "hours": 0, "subtext": "Program Administration Metrics" }, { "title": "5.2.1.4", "hours": 0, "subtext": "USAREC KPPM Strategy/Plans Support" }, { "title": "5.3.1.4", "hours": 0, "subtext": "CAC KPPM Strategy/Plans Support" }, { "title": "5.4.1.4", "hours": 0, "subtext": "MCCoE KPPM Strategy/Plans Support" }, { "title": "5.5.1.4", "hours": 0, "subtext": "SCoE KPPM Strategy/Plans Support" }, { "title": "5.6.1.4", "hours": 0, "subtext": "ACoE KPPM Strategy/Plans Support" }, { "title": "5.7.1.4", "hours": 0, "subtext": "CCoE KPPM Strategy/Plans Support" }, { "title": "5.8.1.4", "hours": 0, "subtext": "FCoE KPPM Strategy/Plans Support" }, { "title": "5.9.1.4", "hours": 0, "subtext": "ICoE KPPM Strategy/Plans Support" }, { "title": "5.10.1.4", "hours": 0, "subtext": "MCoE KPPM Strategy/Plans Support" }, { "title": "5.11.1.4", "hours": 0, "subtext": "MSCoE KPPM Strategy/Plans Support" }, { "title": "5.12.1.4", "hours": 0, "subtext": "USACC KPPM Strategy/Plans Support" }]
     },
     {
         "title": "5.1.7.7",
-        "hours": 0, "subtext": "",
+        "hours": 0, "subtext": "Training, Education, Professional Development and Performance Support",
         "text": "Training, Education, Professional Development and Performance Support",
-        "children": [{ "title": "5.1.7.7.1", "hours": 0, "subtext": "" }, { "title": "5.1.7.7.2", "hours": 0, "subtext": "" }, { "title": "5.1.7.7.3", "hours": 0, "subtext": "" }, { "title": "5.1.7.7.4", "hours": 0, "subtext": "" }, { "title": "5.1.7.7.5", "hours": 0, "subtext": "" }, { "title": "5.1.7.7.6", "hours": 0, "subtext": "" }, { "title": "5.1.7.7.7", "hours": 0, "subtext": "" }, { "title": "5.1.7.7.8", "hours": 0, "subtext": "" }, { "title": "5.1.7.7.9", "hours": 0, "subtext": "" }, { "title": "5.1.7.7.10", "hours": 0, "subtext": "" }, { "title": "5.1.7.7.11", "hours": 0, "subtext": "" }, { "title": "5.1.7.7.12", "hours": 0, "subtext": "" }, { "title": "5.2.1.5", "hours": 0, "subtext": "" }, { "title": "5.3.1.5", "hours": 0, "subtext": "" }, { "title": "5.4.1.5", "hours": 0, "subtext": "" }, { "title": "5.5.1.5", "hours": 0, "subtext": "" }, { "title": "5.6.1.5", "hours": 0, "subtext": "" }, { "title": "5.7.1.5", "hours": 0, "subtext": "" }, { "title": "5.8.1.5", "hours": 0, "subtext": "" }, { "title": "5.9.1.5", "hours": 0, "subtext": "" }, { "title": "5.10.1.5", "hours": 0, "subtext": "" }, { "title": "5.11.1.5", "hours": 0, "subtext": "" }, { "title": "5.12.1.5", "hours": 0, "subtext": "" }]
+        "children": [{ "title": "5.1.7.7.1", "hours": 0, "subtext": "TPS Plan Updates" }, { "title": "5.1.7.7.2", "hours": 0, "subtext": "TEP Updates" }, { "title": "5.1.7.7.3", "hours": 0, "subtext": "Whiteboard" }, { "title": "5.1.7.7.4", "hours": 0, "subtext": "Brochures" }, { "title": "5.1.7.7.5", "hours": 0, "subtext": "Documentary" }, { "title": "5.1.7.7.6", "hours": 0, "subtext": "Simulation" }, { "title": "5.1.7.7.7", "hours": 0, "subtext": "KPPM Training Support Package (TSP) Content" }, { "title": "5.1.7.7.8", "hours": 0, "subtext": "Platform instruction classes" }, { "title": "5.1.7.7.9", "hours": 0, "subtext": "Web or local recorded training" }, { "title": "5.1.7.7.10", "hours": 0, "subtext": "Community of Learning group" }, { "title": "5.1.7.7.11", "hours": 0, "subtext": "Performance Support system" }, { "title": "5.1.7.7.12", "hours": 0, "subtext": "Training KPI" }, { "title": "5.2.1.5", "hours": 0, "subtext": "USAREC KPPM Training, Education, Assistance and Performance Support" }, { "title": "5.3.1.5", "hours": 0, "subtext": "CAC KPPM Training, Education, Assistance and Performance Support" }, { "title": "5.4.1.5", "hours": 0, "subtext": "MCCoE KPPM Training, Education, Assistance and Performance Support" }, { "title": "5.5.1.5", "hours": 0, "subtext": "SCoE KPPM Training, Education, Assistance and Performance Support" }, { "title": "5.6.1.5", "hours": 0, "subtext": "ACoE KPPM Training, Education, Assistance and Performance Support" }, { "title": "5.7.1.5", "hours": 0, "subtext": "CCoE KPPM Training, Education, Assistance and Performance Support" }, { "title": "5.8.1.5", "hours": 0, "subtext": "FCoE KPPM Training, Education, Assistance and Performance Support" }, { "title": "5.9.1.5", "hours": 0, "subtext": "ICoE KPPM Training, Education, Assistance and Performance Support" }, { "title": "5.10.1.5", "hours": 0, "subtext": "MCoE KPPM Training, Education, Assistance and Performance Support" }, { "title": "5.11.1.5", "hours": 0, "subtext": "MSCoE KPPM Training, Education, Assistance and Performance Support" }, { "title": "5.12.1.5", "hours": 0, "subtext": "USACC KPPM Training, Education, Assistance and Performance Support" }]
     },
     {
         "title": "5.1.2.4.5",
-        "hours": 0, "subtext": "",
+        "hours": 0, "subtext": "Measurement, Analysis and Reporting System (MARS) support",
         "text": "Measurement, Analysis and Reporting System (MARS) support",
-        "children": [{ "title": "5.1.2.4.5", "hours": 0, "subtext": "" }, { "title": "5.2.1.6", "hours": 0, "subtext": "" }, { "title": "5.3.1.6", "hours": 0, "subtext": "" }, { "title": "5.4.1.6", "hours": 0, "subtext": "" }, { "title": "5.5.1.6", "hours": 0, "subtext": "" }, { "title": "5.6.1.6", "hours": 0, "subtext": "" }, { "title": "5.7.1.6", "hours": 0, "subtext": "" }, { "title": "5.8.1.6", "hours": 0, "subtext": "" }, { "title": "5.9.1.6", "hours": 0, "subtext": "" }, { "title": "5.10.1.6", "hours": 0, "subtext": "" }, { "title": "5.11.1.6", "hours": 0, "subtext": "" }, { "title": "5.12.1.6", "hours": 0, "subtext": "" }]
+        "children": [{ "title": "5.1.2.4.5", "hours": 0, "subtext": "HQ TRADOC Measurement, Analysis and Reporting System (MARS) support " }, { "title": "5.2.1.6", "hours": 0, "subtext": "USAREC Measurement, Analysis and Reporting System (MARS) support" }, { "title": "5.3.1.6", "hours": 0, "subtext": "CAC Measurement, Analysis and Reporting System (MARS) support" }, { "title": "5.4.1.6", "hours": 0, "subtext": "MCCoE Measurement, Analysis and Reporting System (MARS) support" }, { "title": "5.5.1.6", "hours": 0, "subtext": "SCoE Measurement, Analysis and Reporting System (MARS) support" }, { "title": "5.6.1.6", "hours": 0, "subtext": "ACoE Measurement, Analysis and Reporting System (MARS) support" }, { "title": "5.7.1.6", "hours": 0, "subtext": "CCoE Measurement, Analysis and Reporting System (MARS) support" }, { "title": "5.8.1.6", "hours": 0, "subtext": "FCoE Measurement, Analysis and Reporting System (MARS) support" }, { "title": "5.9.1.6", "hours": 0, "subtext": "ICoE Measurement, Analysis and Reporting System (MARS) support" }, { "title": "5.10.1.6", "hours": 0, "subtext": "MCoE Measurement, Analysis and Reporting System (MARS) support" }, { "title": "5.11.1.6", "hours": 0, "subtext": "MSCoE Measurement, Analysis and Reporting System (MARS) support" }, { "title": "5.12.1.6", "hours": 0, "subtext": "USACC Measurement, Analysis and Reporting System (MARS) support" }]
     },
     {
         "title": "5.1.2.4.8a",
-        "hours": 0, "subtext": "",
+        "hours": 0, "subtext": "Performance Management Tool (PMT) Input and support",
         "text": "Performance Management Tool (PMT) Input and support",
-        "children": [{ "title": "5.1.2.4.8", "hours": 0, "subtext": "", "8a": true }, { "title": "5.2.1.7", "hours": 0, "subtext": "" }, { "title": "5.3.1.7", "hours": 0, "subtext": "" }, { "title": "5.4.1.7", "hours": 0, "subtext": "" }, { "title": "5.5.1.7", "hours": 0, "subtext": "" }, { "title": "5.6.1.7", "hours": 0, "subtext": "" }, { "title": "5.7.1.7", "hours": 0, "subtext": "" }, { "title": "5.8.1.7", "hours": 0, "subtext": "" }, { "title": "5.9.1.7", "hours": 0, "subtext": "" }, { "title": "5.10.1.7", "hours": 0, "subtext": "" }, { "title": "5.11.1.7", "hours": 0, "subtext": "" }, { "title": "5.12.1.7", "hours": 0, "subtext": "" }]
+        "children": [{ "title": "5.1.2.4.8", "hours": 0, "subtext": "HQ TRADOC Performance Management Tool (PMT) Input and support", "8a": true }, { "title": "5.2.1.7", "hours": 0, "subtext": "USAREC Performance Management Tool (PMT) Input and support" }, { "title": "5.3.1.7", "hours": 0, "subtext": "CAC Performance Management Tool (PMT) Input and support" }, { "title": "5.4.1.7", "hours": 0, "subtext": "MCCoE Performance Management Tool (PMT) Input and support" }, { "title": "5.5.1.7", "hours": 0, "subtext": "SCoE Performance Management Tool (PMT) Input and support" }, { "title": "5.6.1.7", "hours": 0, "subtext": "ACoE Performance Management Tool (PMT) Input and support" }, { "title": "5.7.1.7", "hours": 0, "subtext": "CCoE Performance Management Tool (PMT) Input and support" }, { "title": "5.8.1.7", "hours": 0, "subtext": "FCoE Performance Management Tool (PMT) Input and support" }, { "title": "5.9.1.7", "hours": 0, "subtext": "ICoE Performance Management Tool (PMT) Input and support" }, { "title": "5.10.1.7", "hours": 0, "subtext": "MCoE Performance Management Tool (PMT) Input and support" }, { "title": "5.11.1.7", "hours": 0, "subtext": "MSCoE Performance Management Tool (PMT) Input and support" }, { "title": "5.12.1.7", "hours": 0, "subtext": "USACC Performance Management Tool (PMT) Input and support" }]
     },
     {
         "title": "5.1.2.4.8b",
-        "hours": 0, "subtext": "",
+        "hours": 0, "subtext": "KPPM Metrics, Key Performance Indicators (KPI) and dashboard support",
         "text": "KPPM Metrics, Key Performance Indicators (KPI) and dashboard support",
-        "children": [{ "title": "5.1.2.4.8", "hours": 0, "subtext": "", "8b": true }, { "title": "5.2.1.8", "hours": 0, "subtext": "" }, { "title": "5.3.1.8", "hours": 0, "subtext": "" }, { "title": "5.4.1.8", "hours": 0, "subtext": "" }, { "title": "5.5.1.8", "hours": 0, "subtext": "" }, { "title": "5.6.1.8", "hours": 0, "subtext": "" }, { "title": "5.7.1.8", "hours": 0, "subtext": "" }, { "title": "5.8.1.8", "hours": 0, "subtext": "" }, { "title": "5.9.1.8", "hours": 0, "subtext": "" }, { "title": "5.10.1.8", "hours": 0, "subtext": "" }, { "title": "5.11.1.8", "hours": 0, "subtext": "" }, { "title": "5.12.1.8", "hours": 0, "subtext": "" }]
+        "children": [{ "title": "5.1.2.4.8", "hours": 0, "subtext": "HQ TRADOC KPPM Metrics, Key Performance Indicators (KPI)", "8b": true }, { "title": "5.2.1.8", "hours": 0, "subtext": "USAREC KPPM Metrics, Key Performance Indicators (KPI)" }, { "title": "5.3.1.8", "hours": 0, "subtext": "CAC KPPM Metrics, Key Performance Indicators (KPI)" }, { "title": "5.4.1.8", "hours": 0, "subtext": "MCCoE KPPM Metrics, Key Performance Indicators (KPI)" }, { "title": "5.5.1.8", "hours": 0, "subtext": "SCoE KPPM Metrics, Key Performance Indicators (KPI)" }, { "title": "5.6.1.8", "hours": 0, "subtext": "ACoE KPPM Metrics, Key Performance Indicators (KPI)" }, { "title": "5.7.1.8", "hours": 0, "subtext": "CCoE KPPM Metrics, Key Performance Indicators (KPI)" }, { "title": "5.8.1.8", "hours": 0, "subtext": "FCoE KPPM Metrics, Key Performance Indicators (KPI)" }, { "title": "5.9.1.8", "hours": 0, "subtext": "ICoE KPPM Metrics, Key Performance Indicators (KPI)" }, { "title": "5.10.1.8", "hours": 0, "subtext": "MCoE KPPM Metrics, Key Performance Indicators (KPI)" }, { "title": "5.11.1.8", "hours": 0, "subtext": "MSCoE KPPM Metrics, Key Performance Indicators (KPI)" }, { "title": "5.12.1.8", "hours": 0, "subtext": "USACC KPPM Metrics, Key Performance Indicators (KPI)" }]
     }
     ],
     persontypefilter: "All",
@@ -79,20 +79,20 @@ CKO.DASHBOARDS.ALLDASHBOARDS.VARIABLES.Parent2 = {
     html: null,  //BuildMeATable
     reporttable: null,  //BuildMeATable
     chart: null
-
 };
 
 CKO.DASHBOARDS.ALLDASHBOARDS.Parent2 = function () {
 
     var v = CKO.DASHBOARDS.ALLDASHBOARDS.VARIABLES.Parent2;
 
-    function Init(site, id, persontypefilter, orgfilter, timefilter, isdaterange, start, end) {
+    function Init(site, id, persontypefilter, orgfilter, timefilter, isdaterange, start, end) {     //
         loadCSS('https://hq.tradoc.army.mil/sites/ocko/SiteAssets/css/AllDashboardReports2.css');
         v.site = site;
         v.chart = id;
         v.persontypefilter = persontypefilter;
         v.orgfilter = orgfilter;
         v.timefilter = timefilter;
+
         if (isdaterange) {
             v.startdate = start;
             v.enddate = end;
@@ -134,7 +134,15 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Parent2 = function () {
 
         if (v.url === null) {
             var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
-            urlString += "$select=Id,Title,Expended,DateCompleted,SupportAlignment,EffortTypeValue,PersonTypeValue,OrganizationValue";
+            urlString += "$select=Id,Title,Expended,DateCompleted,SupportAlignment,PersonTypeValue,OrganizationValue";
+            urlString += "&$orderby=SupportAlignment";
+            var today = new Date();                                                                                                                         //
+            var month, quarter, weekstart, weekend;                                                                                                         //
+            var quarters = { "Jan": 2, "Feb": 2, "Mar": 2, "Apr": 3, "May": 3, "Jun": 3, "Jul": 4, "Aug": 4, "Sep": 4, "Oct": 1, "Nov": 1, "Dec": 1 };      //
+            month = today.format("MMM");                                                                                                                    //
+            quarter = quarters[month];                                                                                                                      //
+            weekstart = moment(today).startOf('week');                                                                                                      //
+            weekend = moment(today).endOf('week');
             urlString += "&$filter=";
 
             logit("ACTIONS:  " + urlString);
@@ -170,8 +178,9 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Parent2 = function () {
 
             urlString += " and (startswith(SupportAlignment, '5'))";
             v.url = urlString;
-            logit("Parent Chart Query urlString: " + v.url);
         }
+
+        logit("Standards Chart Query urlString: " + v.url);
 
         jQuery.ajax({
             url: v.url,
@@ -179,7 +188,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Parent2 = function () {
             headers: { 'accept': 'application/json; odata=verbose' },
             error: function (jqXHR, textStatus, errorThrown) {
                 //to do implement logging to a central list
-                logit("Parent Chart: Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
+                logit("Standards Chart: Error Status: " + textStatus + ":: errorThrown: " + errorThrown);
                 $("#SPSTools_Notify").fadeOut("2500", function () {
                     $("#SPSTools_Notify").html("");
                 });
@@ -209,7 +218,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Parent2 = function () {
     }
 
     function DataLoaded() {
-        logit("Parent Chart: All Data Loaded");
+        logit("Standards Chart: All Data Loaded");
         v.totalhours = 0;
         var j = v.json;
         // in this scenario we have the 'children' in the actions and we need to add their hours to their respective parents
@@ -247,7 +256,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Parent2 = function () {
                 tp6 = 0;
             }
             else {
-                for (var r = 0; r < v.parents.length; r++) {
+                for (var r = 0; r < v.parents.length; r++) { 
                     idx = findIndexInData(v.parents[r].children, "title", tp3);
                     if (idx !== -1) {
                         // this item belongs to this parent so add it to the parent hours and the child hours
@@ -260,8 +269,6 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Parent2 = function () {
                 }
             }
         }
-
-        var stop = "stop";
 
         BuildChart();
 
@@ -325,7 +332,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Parent2 = function () {
         var label, flabel;
         label = obj.value;
         if (v.isdrilldown) {
-            label = label.split(".")
+            label = label.split(".");
             flabel = label[0] + "." + label[1];
             var stop = "stop";
             var html;
@@ -386,7 +393,6 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Parent2 = function () {
     }
 
     function drawcharttip(obj) {
-        var stop = "stop";
         var html = "<div style='width: 100%'>";
         html += "<div style='text-align: center;'>" + obj.point.y + " Hours </div>";
         html += "<div style='text-align: center;'>" + obj.point.text + "</div></div>";
@@ -465,7 +471,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Parent2 = function () {
                 }
             },
             title: {
-                text: 'PWS Parent'
+                text: 'Standards'
             },
             xAxis: {
                 type: 'category',
@@ -507,7 +513,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Parent2 = function () {
     }
 
     function BuildMeATable(rows, total) {
-        var newtbl = "<br /><br /><table class='table table-bordered' align = 'CENTER' width = '600' >";
+        var newtbl = "<br /><br /><table class='table table-bordered table-striped' align = 'CENTER' width = '600' >";
         // Write a header row with the key names as the headings
         newtbl += "<tr>";
         newtbl += "<th class='table-heading'>";

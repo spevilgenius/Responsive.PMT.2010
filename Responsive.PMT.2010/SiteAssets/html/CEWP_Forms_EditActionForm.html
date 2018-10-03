@@ -1,5 +1,7 @@
 ﻿<style type="text/css">
     .hidden { display: none; }
+
+    #toggleHelp { position: fixed; top: 140px; right: 20px; }
 </style>
 
 <script language="javascript" type="text/javascript">
@@ -18,120 +20,193 @@
 
 <div data-role="form" style="display:none">
     <div class="container-fluid" id="NewForm">
+        <a id="toggleHelp" style="padding: 11px 15px;" href="#"><i class="fas fa-question-circle" style="color: red; font-size: 22px !important; float: right;"></i></a>
         <div id="divMaintenance" class="alert alert-warning alert-dismissible" role="alert" style="display: none;">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <strong>Warning!</strong> PMT Actions are currently under maintenance.
         </div>
         <div class="form-horizontal">
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Work Type<span title="This is a required field." class="ms-formvalidation"> *</span></label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" help-id="WorkType">
+                    Work Type<span title="This is a required field." class="ms-formvalidation"> *</span>
+                </label>
                 <div class="col-sm-10">
                     <div data-field="EffortType"></div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Objective<span title="This is a required field." class="ms-formvalidation"> *</span></label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" help-id="Objective">
+                    Objective<span title="This is a required field." class="ms-formvalidation"> *</span>
+                </label>
                 <div class="col-sm-10">
-                    <select onchange="CKO.FORMS.ACTIONS.EditForm().changeme(this)" id="ddStandard" class="form-control"></select>
-                    <select onchange="CKO.FORMS.ACTIONS.EditForm().changeme(this)" id="ddDirective" class="form-control" style="display: none;"></select>
+                    <select onchange="CKO.FORMS.ACTIONS.EditForm().changeme(this)" id="ddStandard" class="form-control form-control-sm"></select>
+                    <select onchange="CKO.FORMS.ACTIONS.EditForm().changeme(this)" id="ddDirective" class="form-control form-control-sm" style="display: none;"></select>
                     <div data-field="Title" class="hidden"></div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Intent, End State, and<br />Outcome Description</label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" help-id="divDescription">
+                    Intent, End State, and<br />Outcome Description
+                </label>
                 <div class="col-sm-10" id="divDescription"></div>
             </div>
-            <div class="form-group sagroup">
-                <label class="col-sm-2 control-label">Support Alignment<span title="This is a required field." class="ms-formvalidation"> *</span></label>
+            <div class="form-group row sagroup">
+                <label class="col-sm-2 col-form-label" help-id="ddAlignment">
+                    Support Alignment<span title="This is a required field." class="ms-formvalidation"> *</span>
+                </label>
                 <div class="col-sm-10">
-                    <select id="ddAlignment" class="form-control"></select>
+                    <select id="ddAlignment" class="form-control form-control-sm"></select>
                     <div data-field="SupportAlignment" class="hidden"></div>
                 </div>
             </div>
-            <div class="form-group sagroup">
-                <label class="col-sm-2 control-label">Alignment Description</label>
-                <div class="col-sm-10" id="divSADescription"></div>
+            <div class="form-group row sagroup">
+                <label class="col-sm-2 col-form-label" help-id="AlignmentDescription">
+                    Alignment Description
+                </label>
+                <div class="col-sm-10" id="divSADescription">
+                </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Date Completed<span title="This is a required field." class="ms-formvalidation"> *</span></label>
+            <div class="form-group row sogroup">
+                <label class="col-sm-2 col-form-label" help-id="ddSupportedOrg">
+                    Supported Org
+                </label>
+                <div class="col-sm-10">
+                    <select onchange="CKO.FORMS.ACTIONS.EditForm().changeme(this)" id="ddSupportedOrg" data-function="cascadeselect" data-sourcefield="Supported Org" data-cascadeto="ddSupportedSubOrg" data-lookuplist="SubOrgs" data-orderby="Title" data-filterfield="Organization" data-filtertag="ddSupportedOrg" data-tagtype="select"></select>
+                </div>
+            </div>
+            <div class="form-group row sogroup">
+                <label class="col-sm-2 col-form-label" help-id="SupportedSubOrg">
+                    Supported SubOrg
+                </label>
+                <div class="col-sm-10">
+                    <select onchange="CKO.FORMS.ACTIONS.EditForm().changeme(this)" id="ddSupportedSubOrg" data-function="updatesource" data-sourcefield="Customer" data-lookuplist="SubOrgs" data-orderby="Title" data-filterfield="Organization" data-filtertag="ddSupportedOrg" data-tagtype="select"></select>
+                </div>
+            </div>
+            <div class="form-group row phase">
+                <label class="col-sm-2 col-form-label" help-id="Phase">
+                    Phase<span title="This is a required field." class="ms-formvalidation"> *</span>
+                </label>
+                <div class="col-sm-10">
+                    <div data-field="Phase"></div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" help-id="DateCompleted">
+                    Date Completed<span title="This is a required field." class="ms-formvalidation"> *</span>
+                </label>
                 <div class="col-sm-10">
                     <div data-field="Date Completed"></div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Skill</label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" help-id="Skill">
+                    Skill
+                </label>
                 <div class="col-sm-10">
                     <div data-field="Skill"></div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Function<span title="This is a required field." class="ms-formvalidation"> *</span></label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" help-id="Function" id="function-help">
+                    Function<span title="This is a required field." class="ms-formvalidation"> * </span>
+                    <a title="PMT Function Vignette on Milbook" href="https://www.milsuite.mil/video/watch/video/21136/640/360" target="_blank" alt="PMT Function Vignette on Milbook">
+                        <i class="fas fa-play-circle" style="color: red;"></i>
+                    </a>
+                </label>
                 <div class="col-sm-10">
-                    <select onchange="CKO.FORMS.ACTIONS.EditForm().changeme(this)" id="ddFunction" class="form-control" data-SourceField="Function"></select>
-                    <div data-field="Function" class="hidden"></div>
+                    <select onchange="CKO.FORMS.ACTIONS.EditForm().changeme(this)" id="ddFunction" class="form-control form-control-sm"></select>
+                    <div data-field="Function"></div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Enabler<span title="This is a required field." class="ms-formvalidation"> *</span></label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" help-id="Enabler" id="enabler-help">
+                    Enabler<span title="This is a required field." class="ms-formvalidation"> *&nbsp;</span>
+                    <a title="PMT Enablers Field Vignette" href="https://www.milsuite.mil/video/e/21112/640/360" target="_blank" alt="PMT Enablers Field Vignette">
+                        <i class="fas fa-play-circle" style="color: red;"></i>
+                    </a>
+                </label>
                 <div class="col-sm-10">
-                    <select onchange="CKO.FORMS.ACTIONS.EditForm().changeme(this)" id="ddEnabler" class="form-control" data-SourceField="Enabler"></select>
-                    <div data-field="Enabler" class="hidden"></div>
+                    <select onchange="CKO.FORMS.ACTIONS.EditForm().changeme(this)" id="ddEnabler" class="form-control form-control-sm"></select>
+                    <div data-field="Enabler"></div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Other Enabler</label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Other Enabler</label>
                 <div class="col-sm-10">
                     <div data-field="OtherEnabler"></div>
                 </div>
             </div>
-            <div class="form-group hidden">
-                <label class="col-sm-2 control-label">Customer</label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" help-id="OtherEnabler">
+                    Other Enabler
+                </label>
+                <div class="col-sm-10">
+                    <div data-field="OtherEnabler"></div>
+                </div>
+            </div>
+            <!--<div class="form-group row">
+        <label class="col-sm-2 col-form-label">Other Enabler</label>
+        <div class="col-sm-10">
+            <div data-field="OtherEnabler"></div>
+        </div>
+    </div>-->
+            <div class="form-group row hidden">
+                <label class="col-sm-2 col-form-label">Customer</label>
                 <div class="col-sm-10">
                     <div data-field="Customer"></div>
                 </div>
             </div>
-            <div class="form-group hidden">
-                <label class="col-sm-2 control-label">ParentID</label>
+            <div class="form-group row hidden">
+                <label class="col-sm-2 col-form-label">ParentID</label>
                 <div class="col-sm-10">
                     <div data-field="ParentID"></div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Time<span title="This is a required field." class="ms-formvalidation"> *</span></label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" help-id="Time">
+                    Time<span title="This is a required field." class="ms-formvalidation"> *</span>
+                </label>
                 <div class="col-sm-10">
                     <div data-field="Expended"></div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Comments<br />6 or more characters<span title="This is a required field." class="ms-formvalidation"> *</span></label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" help-id="Comments">
+                    Comments<span title="This is a required field." class="ms-formvalidation"> *</span>
+                </label>
                 <div class="col-sm-10">
                     <div data-field="ActionComments"></div>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">User<span title="This is a required field." class="ms-formvalidation"> *</span></label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" help-id="User">
+                    User<span title="This is a required field." class="ms-formvalidation"> *</span>
+                </label>
                 <div class="col-sm-10">
                     <div data-field="PMTUser"></div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">User Org<span title="This is a required field." class="ms-formvalidation"> *</span></label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" help-id="UserOrg">
+                    User Org<span title="This is a required field." class="ms-formvalidation"> *</span>
+                </label>
                 <div class="col-sm-10">
                     <div data-field="Organization"></div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">User Type<span title="This is a required field." class="ms-formvalidation"> *</span></label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" help-id="UserType">
+                    User Type<span title="This is a required field." class="ms-formvalidation"> *</span>
+                </label>
                 <div class="col-sm-10">
                     <div data-field="PersonType"></div>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group row">
                 <div class="col-sm-12">
-                    <button type="button" id="btnSave" class="btn btn-success">Save</button>
-                    <button type="button" id="btnCancel" class="btn btn-default">Cancel</button>
+                    <button type="button" id="btnSave" class="btn btn-success btn-sm">Save</button>
+                    <button type="button" id="btnCancel" class="btn btn-default btn-sm">Cancel</button>
                 </div>
             </div>
         </div>

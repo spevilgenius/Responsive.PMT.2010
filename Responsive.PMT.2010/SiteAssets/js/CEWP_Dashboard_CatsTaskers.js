@@ -91,7 +91,8 @@ CKO.DASHBOARD.TASKERS.Taskers = function () {
             "scrollY": "300px",
             "scrollCollapse": true,
             "paging": false,
-            "searching": false
+            "searching": false,
+            "ordering": false
         });
         $(".powerTip").powerTip({
             placement: "n"

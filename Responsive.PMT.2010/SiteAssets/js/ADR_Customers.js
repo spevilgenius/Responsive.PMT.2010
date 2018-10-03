@@ -110,7 +110,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Customers = function () {
 
         if (v.url === null) {
             var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
-            urlString += "$select=Id,Title,Expended,Customer,DateCompleted,EffortTypeValue,FY,Quarter,StartOfWeek,Function";
+            urlString += "$select=Id,Title,Expended,Customer,DateCompleted,EffortTypeValue,Function";
             var today = new Date();                                                                                                                         //
             var month, quarter, weekstart, weekend;                                                                                                         //
             var quarters = { "Jan": 2, "Feb": 2, "Mar": 2, "Apr": 3, "May": 3, "Jun": 3, "Jul": 4, "Aug": 4, "Sep": 4, "Oct": 1, "Nov": 1, "Dec": 1 };      //
@@ -263,7 +263,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Customers = function () {
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        format: '<b>{point.name}</b>: {point.percentage:.0f} %',
                         style: {
                             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                         }
@@ -280,7 +280,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Customers = function () {
 
    // function BuildMeATable(rows, keyses) {
     function BuildMeATable(rows) {
-        var newtbl = "<br /><br /><table class='table table-bordered' align = 'CENTER' width = '600' >";
+        var newtbl = "<br /><br /><table class='table table-bordered table-striped' align = 'CENTER' width = '600' >";
         // Write a header row with the key names as the headings
         //for (j = 0; j < keyses.length; j++) {} --could use this if there were more than two columns
         newtbl += "<tr>";

@@ -13,51 +13,70 @@ CKO.DASHBOARDS.ALLDASHBOARDS.VARIABLES.Enablers = {
     data: [],
     json: null,
     totalhours: 0,
+    isdaterange: false, //
+    startdate: null,    //
+    enddate: null,      //
     chartdata: null,
     enablers: [],
     persontypefilter: "All",
     orgfilter: "All",
     timefilter: "M",
-    spt: null,
     html: null,  //BuildMeATable
     reporttable: null,  //BuildMeATable
     chart: null
 
-
-}
+};
 
 CKO.DASHBOARDS.ALLDASHBOARDS.Enablers = function () {
 
     var v = CKO.DASHBOARDS.ALLDASHBOARDS.VARIABLES.Enablers;
 
-    function Init(site, id, persontypefilter, orgfilter, timefilter) {
+    function Init(site, id, persontypefilter, orgfilter, timefilter, isdaterange, start, end) {     //
+        loadCSS('https://hq.tradoc.army.mil/sites/ocko/SiteAssets/css/AllDashboardReports2.css');
         v.site = site;
+        v.chart = id;
         v.persontypefilter = persontypefilter;
         v.orgfilter = orgfilter;
         v.timefilter = timefilter;
-        var inDesignMode = document.forms[MSOWebPartPageFormName].MSOLayout_InDesignMode.value;
-        if (inDesignMode === "1") {
-            $("#Enablers").html("").append("<div style='margin:5px;text-align:center;font-weight:bold;font-size:14px;font-style:italic;'>Query Suspended During Page Edit Mode</div>");
+
+        if (isdaterange) {
+            v.startdate = start;
+            v.enddate = end;
+            v.isdaterange = true;
         }
 
-        //check to see if this is not the first time querying
-        //if ($('#tblFilterEnablers').attr('data-isdrawn') != undefined) {
-        if (persontypefilter != "All" || orgfilter != "All" || timefilter != "M") {
-            $().SPSTools_Notify({ type: 'wait', content: 'Loading Your Content... Please wait...' });
-        } else {
-
-            logit("doing" + id + "variables");
+        if (persontypefilter !== "All" || orgfilter !== "All" || timefilter !== "M") {
+            logit("doing default " + id + "variables");
             v.totalhours = 0;
             v.enablers = [];
-            v.site = site;
             v.data = [];
             v.json = null;
             v.url = null;
             v.reporttable = null;
             v.chartdata = null;
-            v.chart = id;
+
+            $().SPSTools_Notify({ type: 'wait', content: 'Loading Your Filtered Content... Please wait...' });
+
+        } else {
+
+            logit("doing default " + id + "variables");
+            v.totalhours = 0;
+            v.enablers = [];
+            v.data = [];
+            v.json = null;
+            v.url = null;
+            v.reporttable = null;
+            v.chartdata = null;
+
+            $().SPSTools_Notify({ type: 'wait', content: 'Loading Your Default Content... Please wait...' });
 
         }
+
+        if (moment().quarter() === 4) {                                                                                 //
+            v.ThisFY = moment().add('year', 1).format("YYYY");                                                          //
+        } else {                                                                                                        //
+            v.ThisFY = moment().format("YYYY");                                                                         //
+        }   
 
         var zebra = LoadEnablers();
         jQuery.when.apply(null, zebra).done(function () {
@@ -66,16 +85,6 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Enablers = function () {
 
     }
 
-    function ApplyFilters() {
-        v.data = [];
-        v.enablers = [];
-        v.json = null;
-        v.url = null;
-        v.reporttable = null;
-        v.totalhours = 0;
-        v.chartdata = null;
-        ActionsLoaded();
-    };
 
     function LoadEnablers() {
         var deferreds = [];
@@ -89,7 +98,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Enablers = function () {
                 v.enablers.push({
                     "title": j[i]["Title"],
                     "hours": 0 // Need this
-                })
+                });
                 logit("Enablers list data push: " + data);
             }
         }, function (data) {
@@ -103,38 +112,41 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Enablers = function () {
 
     //Get Enablers data from PMT Actions table
     function ActionsLoaded() {
-        //var pfe = document.getElementById("PersonTypeFilter");
-        //var ofe = document.getElementById("OrgFilter");
-        //var tfe = document.getElementById("TimeFilter");
 
-        //var pfe = PersonTypeFilter;
-        //var ofe = OrgFilter;
-        //var tfe = TimeFilter;
-
-        //$().SPSTools_Notify({ type: 'wait', content: 'Loading Your Content... Please wait...' });
-
-        if (v.url == null) {
+        if (v.url === null) {
             var urlString = v.site + "/_vti_bin/listdata.svc/Actions?";
             urlString += "$select=Id,Expended,DateCompleted,EffortTypeValue,PersonTypeValue,Enabler,OrganizationValue";
-            urlString += "&$filter=";
+            var today = new Date();                                                                                                                         //
+            var month, quarter, weekstart, weekend;                                                                                                         //
+            var quarters = { "Jan": 2, "Feb": 2, "Mar": 2, "Apr": 3, "May": 3, "Jun": 3, "Jul": 4, "Aug": 4, "Sep": 4, "Oct": 1, "Nov": 1, "Dec": 1 };      //
+            month = today.format("MMM");                                                                                                                    //
+            quarter = quarters[month];                                                                                                                      //
+            weekstart = moment(today).startOf('week');                                                                                                      //
+            weekend = moment(today).endOf('week');                                                                                                          //
+            urlString += "&$filter=";  
 
-            switch (v.timefilter) {
+            logit("ACTIONS: " + urlString);
+            switch (v.timefilter) {                                                                                                        //
                 case "Y":
-                    urlString += "(DateCompleted ge datetime'" + moment().subtract(1, 'years').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                    urlString += "(DateCompleted ge datetime'" + moment().subtract(1, 'years').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";  //
                     break;
 
                 case "Q":
-                    urlString += "(DateCompleted ge datetime'" + moment().subtract(90, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                    urlString += "(DateCompleted ge datetime'" + moment().subtract(90, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";  //
                     break;
 
                 case "M":
-                    urlString += "(DateCompleted ge datetime'" + moment().subtract(30, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                    urlString += "(DateCompleted ge datetime'" + moment().subtract(30, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";  //
                     break;
 
                 case "W":
-                    urlString += "(DateCompleted ge datetime'" + moment().subtract(7, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";
+                    urlString += "(DateCompleted ge datetime'" + moment().subtract(7, 'days').format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";  //
                     break;
-            }
+
+                case "R":
+                    urlString += "(DateCompleted ge datetime'" + moment(v.startdate).format('YYYY-MM-DD[T]HH:MM:[00Z]') + "') and (DateCompleted le datetime'" + moment(v.enddate).format('YYYY-MM-DD[T]HH:MM:[00Z]') + "')";  //
+                    break;                                                                                                                //
+            } 
 
             //var ptf = pfe.options[pfe.selectedIndex].value;
             if (v.persontypefilter !== "All") {
@@ -149,7 +161,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Enablers = function () {
             v.url = urlString;
         }
 
-        logit("V.URL: " + v.url);
+        logit("Enablers Chart Query urlString: " + urlString);
 
         jQuery.ajax({
             url: v.url,
@@ -186,7 +198,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Enablers = function () {
         for (var i = 0, length = j.length; i < length; i++) {
             // This is all of the actions from the qry so now update the hours for each enabler by adding the hours to that array
             for (var k = 0; k < v.enablers.length; k++) {
-                if (v.enablers[k].title == j[i]["Enabler"]) {
+                if (v.enablers[k].title === j[i]["Enabler"]) {
                     v.enablers[k].hours += j[i]["Expended"];
                     v.totalhours += j[i]["Expended"];
                 }
@@ -194,18 +206,16 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Enablers = function () {
         }
         // Create data for the series using the enablers
         v.chartdata = [];
-        for (var k = 0; k < v.enablers.length; k++) {
+        for (var cd = 0; cd < v.enablers.length; cd++) {
             v.chartdata.push({
-                "name": v.enablers[k]["title"],
-                "y": v.enablers[k]["hours"],
-                "index":v.enablers[k]["index"]
-            })
+                "name": v.enablers[cd]["title"],
+                "y": v.enablers[cd]["hours"],
+                "index": v.enablers[cd]["index"]
+            });
         }
 
         console.log(JSON.stringify(v.chartdata));
         DrawPieChart();
-        //v.reporttable = BuildMeATable(v.enablers, ["title", "hours"]);
-        //$("#tblLegendEnablers").html("").append(v.reporttable);
 
         $("#Enablers_panel").find(".highcharts-root").attr("id", "EnablersSVG");
         var xmlns = "http://www.w3.org/2000/svg";
@@ -218,6 +228,9 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Enablers = function () {
         var TotalText = document.createTextNode("Total Hours: " + v.totalhours);
         TotalBox.appendChild(TotalText);
         document.getElementById("EnablersSVG").appendChild(TotalBox);
+
+        v.reporttable = BuildMeATable(v.chartdata);
+        $("#tblLegend_Enablers").html("").append(v.reporttable);
 
         $("#SPSTools_Notify").fadeOut("2500", function () {
             $("#SPSTools_Notify").html("");
@@ -236,7 +249,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Enablers = function () {
                 buttons: {
                     contextButton: {
                         enabled: true
-                    } 
+                    }
                 }
             },
             title: {
@@ -251,7 +264,7 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Enablers = function () {
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        format: '<b>{point.name}</b>: {point.percentage:.0f} %',
                         style: {
                             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                         }
@@ -266,14 +279,14 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Enablers = function () {
         });
     }
 
-    function BuildMeATable(rows, keyses) {
-
-        var newtbl = "<br /><br /><table class='table table-bordered' align = 'CENTER' width = '600' >";
+   // function BuildMeATable(rows, keyses) {
+    function BuildMeATable(rows) {
+        var newtbl = "<br /><br /><table class='table table-bordered table-striped' align = 'CENTER' width = '600' >";
         // Write a header row with the key names as the headings
         //for (j = 0; j < keyses.length; j++) {} --could use this if there were more than two columns
         newtbl += "<tr>";
         newtbl += "<th class='table-heading'>";
-        newtbl += "Functions";
+        newtbl += "Enablers";
         newtbl += "</th>";
         newtbl += "<th class='table-heading'><span class = 'floatright'>";
         newtbl += "Hours";
@@ -283,12 +296,12 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Enablers = function () {
         newtbl += "<tbody>";
 
         // Write one row for each row                  
-        for (var k = 0; k < rows.length; k++) {
+        for (var r = 0; r < rows.length; r++) {
             newtbl += "<td>";
-            newtbl += rows[k].title;
+            newtbl += rows[r].name;
             newtbl += "</td>";
             newtbl += "<td><span class = 'floatright'>";
-            newtbl += rows[k].hours;
+            newtbl += rows[r].y;
             newtbl += "</span></td>";
             newtbl += "</tr>";
         }
@@ -304,7 +317,6 @@ CKO.DASHBOARDS.ALLDASHBOARDS.Enablers = function () {
     }
 
     return {
-        Init: Init,
-        ApplyFilters: ApplyFilters
-    }
-}
+        Init: Init
+    };
+};

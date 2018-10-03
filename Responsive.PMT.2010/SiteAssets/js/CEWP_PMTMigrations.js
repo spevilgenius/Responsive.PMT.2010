@@ -1,4 +1,6 @@
-﻿var CKO = CKO || {};
+﻿'use strict';
+
+var CKO = CKO || {};
 CKO.AJAX = CKO.AJAX || {};
 CKO.MIGRATIONS = CKO.MIGRATIONS || {};
 CKO.MIGRATIONS.VARIABLES = CKO.MIGRATIONS.VARIABLES || {};
@@ -104,9 +106,9 @@ CKO.MIGRATIONS.Migrate = function () {
     function ActionsLoaded() {
         var j = v.json;
         v.total = j.length;
-        for (i = 0; i < j.length; i++) {
+        for (var i = 0; i < j.length; i++) {
             v.actions.push({
-                id: j[i]["Id"],
+                id: j[i]["Id"]
             });
         }
         $("#txtResults").append("\r\n" + v.actions.length + " Actions Loaded.");
@@ -114,23 +116,23 @@ CKO.MIGRATIONS.Migrate = function () {
     }
 
     function UpdateActions() {
-        for (i = 0; i < v.actions.length; i++) {
+        for (var i = 0; i < v.actions.length; i++) {
             var getitemdata = {};
             getitemdata.itemId = v.actions[i]["id"];
-            GetActionItemById(v.actions[i]["id"]).success(GetActionItemByIdSuccess.bind(getitemdata));
+            GetActionItemById(v.actions[i]["id"]).done(GetActionItemByIdSuccess.bind(getitemdata));
         }        
     }
 
-    GetActionItemById = function (itemId) {
+    function GetActionItemById(itemId) {
         var url = "https://hq.tradoc.army.mil/sites/OCKO/PMT/_vti_bin/listdata.svc/Actions(" + itemId + ")";
         return $.ajax({
             url: url,
             method: "GET",
             headers: { "Accept": "application/json; odata=verbose" }
         });
-    };
+    }
 
-    GetActionItemByIdSuccess = function (data) {
+    function GetActionItemByIdSuccess(data) {
         var getitemdata = this;
         var updateitemdata = {};
         updateitemdata.itemId = getitemdata.itemId;
@@ -139,10 +141,10 @@ CKO.MIGRATIONS.Migrate = function () {
         var itemprops = {
             "Archive": true
         };
-        UpdateActionItem(itemprops, updateitemdata.url, updateitemdata.etag).success(UpdateActionItemSuccess.bind(updateitemdata)).fail(UpdateActionItemFail.bind(updateitemdata));
-    };
+        UpdateActionItem(itemprops, updateitemdata.url, updateitemdata.etag).done(UpdateActionItemSuccess.bind(updateitemdata)).fail(UpdateActionItemFail.bind(updateitemdata));
+    }
 
-    UpdateActionItem = function (itemProperties, url, tag) {
+    function UpdateActionItem(itemProperties, url, tag) {
         return $.ajax({
             type: 'POST',
             url: url,
@@ -157,7 +159,7 @@ CKO.MIGRATIONS.Migrate = function () {
         });
     }
 
-    UpdateActionItemSuccess = function (data) {
+    function UpdateActionItemSuccess(data) {
         var updateitemdata = this;
         //$("#txtResults").append("\r\nWorkflow Started on Item ID " + updateitemdata.itemId);
         v.count += 1;
@@ -170,13 +172,13 @@ CKO.MIGRATIONS.Migrate = function () {
         }
     }
 
-    UpdateActionItemFail = function (data) {
+    function UpdateActionItemFail(data) {
         var updateitemdata = this;
     }
 
     function StartWorkflow(params) {
 
-        params.after = params.after || (function () { });
+        params.after = params.after || function () { };
         if (!params.workflowName) { alert("Please provide the workflow name!"); return; }
 
         $().SPServices({
@@ -186,10 +188,10 @@ CKO.MIGRATIONS.Migrate = function () {
             completefunc: function (xData, Status) {
                 var currentItemURL = this.item;
                 $(xData.responseXML).find("WorkflowTemplates > WorkflowTemplate").each(function (i, e) {
-                    if ($(this).attr("Name") == params.workflowName) {
+                    if ($(this).attr("Name") === params.workflowName) {
                         var guid = $(this).find("WorkflowTemplateIdSet").attr("TemplateId");
                         $("#txtResults").append("\r\nStarting Workflow " + guid + " on Item.");
-                        if (guid != null) {
+                        if (guid !== null) {
                             workflowGUID = "{" + guid + "}";
                             var workflowParameters = "<root />";
                             $().SPServices({
@@ -236,7 +238,7 @@ CKO.MIGRATIONS.Migrate = function () {
         v.listitems = v.list.getItems(v.qry);
         v.ctx.load(v.listitems);
         v.ctx.executeQueryAsync(LoadItemsSucceeded, LoadItemsFailed);
-    };
+    }
 
     function LoadItemsSucceeded() {
         var enumerator = v.listitems.getEnumerator();
