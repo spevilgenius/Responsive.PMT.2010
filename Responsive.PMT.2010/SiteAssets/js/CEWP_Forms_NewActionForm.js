@@ -20,6 +20,9 @@ CKO.FORMS.ACTIONS.VARIABLES = {
     action: jQuery.QueryString["Action"],
     actiondate: jQuery.QueryString["Date"],
     copyid: jQuery.QueryString["CopyId"],
+    userorg: jQuery.QueryString["userorg"],
+    usertype: jQuery.QueryString["usertype"],
+    useraccount: decodeURIComponent(jQuery.QueryString["useraccount"]),
     selects: null
 }
 
@@ -54,18 +57,19 @@ CKO.FORMS.ACTIONS.NewForm = function () {
             CancelAction();
         });
 
-        $("#imgSkill").on("click", function () {//user assistance show and hide
-            $.fn.SPSTools_TermSetDialog({
-                title: 'Select Skill',
-                termstoreid: '0f9c5a00-81d6-4d7b-97c4-19319874f189',
-                termsetid: '9f921997-cab1-47fd-9eb4-cb775840fdf6',
-                weburl: _spPageContextInfo.webServerRelativeUrl,
-                initialtext: $("input[title*='SkillTitle']").val(),
-                callback: function (result) {
-                    $("input[title*='SkillTitle']").val(result);
-                }
-            });
-        });
+        // DRW: 10/10/18 Remmed out this function
+        //$("#imgSkill").on("click", function () {//user assistance show and hide
+        //    $.fn.SPSTools_TermSetDialog({
+        //        title: 'Select Skill',
+        //        termstoreid: '0f9c5a00-81d6-4d7b-97c4-19319874f189',
+        //        termsetid: '9f921997-cab1-47fd-9eb4-cb775840fdf6',
+        //        weburl: _spPageContextInfo.webServerRelativeUrl,
+        //        initialtext: $("input[title*='SkillTitle']").val(),
+        //        callback: function (result) {
+        //            $("input[title*='SkillTitle']").val(result);
+        //        }
+        //    });
+        //});
 
         $(".ms-cui-group").each(function () {
             switch ($(this).attr("id")) {
@@ -135,18 +139,6 @@ CKO.FORMS.ACTIONS.NewForm = function () {
             }
         });
 
-        // get user info step 1
-        v.ctx = new SP.ClientContext.get_current();
-        v.web = v.ctx.get_web();
-        v.user = v.web.get_currentUser();
-        v.ctx.load(v.user);
-        v.ctx.executeQueryAsync(GetUserDataSucceeded, GetUserDataFailed);
-    }
-
-    function GetUserDataSucceeded() {
-        // Have user info so now fill out the PMTUser field
-        v.userID = _spPageContextInfo.userId;
-        console.log("User Information--login: " + CKO.GLOBAL.VARIABLES.currentuser.login + ", org: " + CKO.GLOBAL.VARIABLES.currentuser.org + ", type: " + CKO.GLOBAL.VARIABLES.currentuser.type);
         v.directives = [];
         v.standards = [];
         var thisdiv = $("div[data-field='PMTUser']");
@@ -154,7 +146,7 @@ CKO.FORMS.ACTIONS.NewForm = function () {
         var thisCheckNames = thisdiv.find("img[Title='Check Names']:first");
         //logit("get_loginName() = " + v.user.get_loginName());
         //thisContents.html(v.user.get_loginName());
-        thisContents.html(CKO.GLOBAL.VARIABLES.currentuser.login);
+        thisContents.html(v.useraccount);
         thisCheckNames.click();
 
         $("input[Title='Customer']").prop('readonly', true);
@@ -162,14 +154,14 @@ CKO.FORMS.ACTIONS.NewForm = function () {
         // add the current user information from the global variables
         $("select[title*='Organization'] option").each(function () {
             tp1 = String($(this).html());
-            tp2 = String(CKO.GLOBAL.VARIABLES.currentuser.org);
+            tp2 = String(v.userorg);
             if (tp1 === tp2) {
                 $(this).prop('selected', true);
             }
         });
         $("select[title*='PersonType'] option").each(function () {
             tp1 = new String($(this).html());
-            if (tp1.indexOf(CKO.GLOBAL.VARIABLES.currentuser.type) >= 0) {
+            if (tp1.indexOf(v.usertype) >= 0) {
                 $(this).prop('selected', true);
             }
         });
@@ -219,13 +211,6 @@ CKO.FORMS.ACTIONS.NewForm = function () {
                 }
             });
             DataLoaded();
-        });
-    }
-
-    function GetUserDataFailed(sender, args) {
-        alert("GetUserDataFailed: " + args.get_message());
-        $("#SPSTools_Notify").fadeOut("2500", function () {
-            $("#SPSTools_Notify").html("");
         });
     }
 
@@ -826,6 +811,14 @@ CKO.FORMS.ACTIONS.NewForm = function () {
             else {
                 $("input[title='SupportAlignment']").val("N/A").parent().parent().hide(); // just set the support alignment to NA
             }
+        }        
+        if ($("#ddSupportedOrg option:selected").val() === "Select..." && $("select[title='EffortType'] option:selected").val() === "Standard") {
+            goon = false;
+            v.errortext += "Supported Org ";
+        }
+        if ($("#ddSupportedSubOrg option:selected").val() === "Select..." && $("select[title='EffortType'] option:selected").val() === "Standard") {
+            goon = false;
+            v.errortext += "Supported SubOrg ";
         }
         if ($("#ddStandard option:selected").val() === "Select..." && $("select[title='EffortType'] option:selected").val() === "Standard") {
             goon = false;

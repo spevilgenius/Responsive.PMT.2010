@@ -190,5 +190,53 @@
     <ProjectItemFile Source="js\ADR_Skills_old.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\ADR_SupportAlignment.js" Target="SiteAssets\js\" Type="ElementFile" />
     <ProjectItemFile Source="js\ADR_SVD.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="js\CEWP_Standard_Directive_Report.js" Target="SiteAssets\js\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\amc-logo.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\ARCIC_Logo_50x50.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\army-logo2.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\armyu-logo.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\asaaltlogo.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\AvnCOE.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\awg-logo.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\cac-logo-color.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\CACTLogosmall.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\CadetCommand.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\CALL.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\CGSC.jpg" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\CIMT.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\Cyber_240.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\DLI_FLC.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\Fires_83.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\ICoE.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\MCCoEgreen.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\Mcoe_logo.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\mctp-logo.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\MSCoE.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\peologo.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\REF-logo.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\SATFA_logo.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\SCoE.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\TRAC.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\TRADOC_G2.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\tradoc-logo.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\USAREC.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\USASMA_Ultima_Crest,_2013,_Ft__Bliss_TX.gif" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\black_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\blue_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\brickred_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\bronze_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\cyan_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\darkgreen_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\fucia_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\gold_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\green_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\lightgray_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\mintgreen_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\orange_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\purple_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\red_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\skyblue_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\white_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
+    <ProjectItemFile Source="images\msct\yellow_lno.png" Target="SiteAssets\images\msct\" Type="ElementFile" />
   </Files>
 </ProjectItem>

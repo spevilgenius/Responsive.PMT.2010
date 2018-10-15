@@ -418,7 +418,8 @@ CKO.DASHBOARD.Directives = function () {
                     v.directives[i].Expended = total;
                     if (v.directives[i].PMH === "" || v.directives[i].PMH === null) { /* do nothing */ }
                     else {
-                        var pe = parseFloat((total / v.directives[i].PMH).toFixed(1));
+                        var pe = parseFloat((total / v.directives[i].PMH).toFixed(2));
+                        logit("Directive: " + v.directives[i].Directive + ", total: " + total + ", PMH: " + v.directives[i].PMH + ", Result: " + pe);
                         v.directives[i].PercentExpended = pe;
                     }
                 }
@@ -448,7 +449,8 @@ CKO.DASHBOARD.Directives = function () {
                     v.directives[i].Expended = total; // DRW: Done this way to leave below code intact
                     if (v.directives[i].PMH === "" || v.directives[i].PMH === null) { /* do nothing */ }
                     else {
-                        var pe = parseFloat((total / v.directives[i].PMH).toFixed(1));
+                        var pe = parseFloat((total / v.directives[i].PMH).toFixed(2));
+                        logit("Directive: " + v.directives[i].Directive + ", total: " + total + ", PMH: " + v.directives[i].PMH + ", Result: " + pe);
                         v.directives[i].PercentExpended = pe;
                     }
                 }

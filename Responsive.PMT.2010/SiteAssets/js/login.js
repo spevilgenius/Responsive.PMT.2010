@@ -14,6 +14,8 @@ currentuser: {
 
 var CKO = CKO || {};
 CKO.LOGIN = CKO.LOGIN || {};
+CKO.GLOBAL = CKO.GLOBAL || {};
+
 
 CKO.LOGIN.VARIABLES = {
     newform: null,
@@ -31,36 +33,41 @@ CKO.LOGIN.UserLogin = function () {
     var v = CKO.LOGIN.VARIABLES;
 
     function init() {
-        logit("begin login script..");
+        
         v.userID = _spPageContextInfo.userId;
         var SLASH = "/";
         var tp1 = new String(window.location.protocol);
         var tp2 = new String(window.location.host);
         var tp3 = L_Menu_BaseUrl;
         v.site = tp1 + SLASH + SLASH + tp2 + tp3;
-        v.qry = v.site + "/_vti_bin/listdata.svc/KnowledgeMap?";
-        v.qry += "$select=Id,Title,Organization,SharePointUser,PersonTypeValue";
-        v.qry += "&$expand=SharePointUser";
-        v.qry += "&$filter=(SharePointUser/Id eq " + v.userID + ")";
 
-        jQuery.ajax({
-            url: v.qry,
-            method: "GET",
-            headers: { 'accept': 'application/json; odata=verbose' },
-            error: function (jqXHR, textStatus, errorThrown) {
-                //to do implement logging to a central list
-                logit("Login Error Getting User Info: " + textStatus + ":: errorThrown: " + errorThrown);
-            },
-            success: function (data) {
-                var results = data.d.results;
-                var j = jQuery.parseJSON(JSON.stringify(results));
-                CKO.GLOBAL.VARIABLES.currentuser.id = v.userID;
-                CKO.GLOBAL.VARIABLES.currentuser.org = j[0]["Organization"];
-                CKO.GLOBAL.VARIABLES.currentuser.type = j[0]["PersonTypeValue"];
-                CKO.GLOBAL.VARIABLES.currentuser.login = j[0]["SharePointUser"]["Account"];
-                logit("end login script.");
-            }
-        });
+        // DRW: 10/10/2018 -- Adding check to see if login script as already set the user variables
+        if (CKO.GLOBAL.VARIABLES.currentuser.id === null) {
+            logit("begin login script..");
+            v.qry = v.site + "/_vti_bin/listdata.svc/KnowledgeMap?";
+            v.qry += "$select=Id,Title,Organization,SharePointUser,PersonTypeValue";
+            v.qry += "&$expand=SharePointUser";
+            v.qry += "&$filter=(SharePointUser/Id eq " + v.userID + ")";
+
+            jQuery.ajax({
+                url: v.qry,
+                method: "GET",
+                headers: { 'accept': 'application/json; odata=verbose' },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    //to do implement logging to a central list
+                    logit("Login Error Getting User Info: " + textStatus + ":: errorThrown: " + errorThrown);
+                },
+                success: function (data) {
+                    var results = data.d.results;
+                    var j = jQuery.parseJSON(JSON.stringify(results));
+                    CKO.GLOBAL.VARIABLES.currentuser.id = v.userID;
+                    CKO.GLOBAL.VARIABLES.currentuser.org = j[0]["Organization"];
+                    CKO.GLOBAL.VARIABLES.currentuser.type = j[0]["PersonTypeValue"];
+                    CKO.GLOBAL.VARIABLES.currentuser.login = j[0]["SharePointUser"]["Account"];
+                    logit("end login script.");
+                }
+            });
+        } // END DRW 10/10/2018
     };
 
 

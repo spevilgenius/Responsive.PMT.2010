@@ -263,8 +263,8 @@ CKO.KNOWLEDGEMAP.MAP.Map = function () {
         //var position = getPosition(obj);
         //v.mx = position.x;
         //v.my = position.y;
-        v.mx = ev.wa.clientX;
-        v.my = ev.wa.clientY;
+        v.mx = ev.ta.clientX;
+        v.my = ev.ta.clientY;
         var title = obj.title;
         var data = obj.popupdata;
         var html = "<div class='popdata' id='popcontainer_" + title.replace(/ /g, "_") + "'>";

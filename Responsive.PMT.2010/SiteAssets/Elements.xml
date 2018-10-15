@@ -189,5 +189,53 @@
     <File Path="SiteAssets\js\ADR_Skills_old.js" Url="SiteAssets/js/ADR_Skills_old.js" />
     <File Path="SiteAssets\js\ADR_SupportAlignment.js" Url="SiteAssets/js/ADR_SupportAlignment.js" />
     <File Path="SiteAssets\js\ADR_SVD.js" Url="SiteAssets/js/ADR_SVD.js" />
+    <File Path="SiteAssets\js\CEWP_Standard_Directive_Report.js" Url="SiteAssets/js/CEWP_Standard_Directive_Report.js" />
+    <File Path="SiteAssets\images\msct\amc-logo.png" Url="SiteAssets/images/msct/amc-logo.png" />
+    <File Path="SiteAssets\images\msct\ARCIC_Logo_50x50.png" Url="SiteAssets/images/msct/ARCIC_Logo_50x50.png" />
+    <File Path="SiteAssets\images\msct\army-logo2.png" Url="SiteAssets/images/msct/army-logo2.png" />
+    <File Path="SiteAssets\images\msct\armyu-logo.png" Url="SiteAssets/images/msct/armyu-logo.png" />
+    <File Path="SiteAssets\images\msct\asaaltlogo.png" Url="SiteAssets/images/msct/asaaltlogo.png" />
+    <File Path="SiteAssets\images\msct\AvnCOE.png" Url="SiteAssets/images/msct/AvnCOE.png" />
+    <File Path="SiteAssets\images\msct\awg-logo.png" Url="SiteAssets/images/msct/awg-logo.png" />
+    <File Path="SiteAssets\images\msct\cac-logo-color.png" Url="SiteAssets/images/msct/cac-logo-color.png" />
+    <File Path="SiteAssets\images\msct\CACTLogosmall.png" Url="SiteAssets/images/msct/CACTLogosmall.png" />
+    <File Path="SiteAssets\images\msct\CadetCommand.png" Url="SiteAssets/images/msct/CadetCommand.png" />
+    <File Path="SiteAssets\images\msct\CALL.png" Url="SiteAssets/images/msct/CALL.png" />
+    <File Path="SiteAssets\images\msct\CGSC.jpg" Url="SiteAssets/images/msct/CGSC.jpg" />
+    <File Path="SiteAssets\images\msct\CIMT.png" Url="SiteAssets/images/msct/CIMT.png" />
+    <File Path="SiteAssets\images\msct\Cyber_240.png" Url="SiteAssets/images/msct/Cyber_240.png" />
+    <File Path="SiteAssets\images\msct\DLI_FLC.png" Url="SiteAssets/images/msct/DLI_FLC.png" />
+    <File Path="SiteAssets\images\msct\Fires_83.png" Url="SiteAssets/images/msct/Fires_83.png" />
+    <File Path="SiteAssets\images\msct\ICoE.png" Url="SiteAssets/images/msct/ICoE.png" />
+    <File Path="SiteAssets\images\msct\MCCoEgreen.png" Url="SiteAssets/images/msct/MCCoEgreen.png" />
+    <File Path="SiteAssets\images\msct\Mcoe_logo.png" Url="SiteAssets/images/msct/Mcoe_logo.png" />
+    <File Path="SiteAssets\images\msct\mctp-logo.png" Url="SiteAssets/images/msct/mctp-logo.png" />
+    <File Path="SiteAssets\images\msct\MSCoE.png" Url="SiteAssets/images/msct/MSCoE.png" />
+    <File Path="SiteAssets\images\msct\peologo.png" Url="SiteAssets/images/msct/peologo.png" />
+    <File Path="SiteAssets\images\msct\REF-logo.png" Url="SiteAssets/images/msct/REF-logo.png" />
+    <File Path="SiteAssets\images\msct\SATFA_logo.png" Url="SiteAssets/images/msct/SATFA_logo.png" />
+    <File Path="SiteAssets\images\msct\SCoE.png" Url="SiteAssets/images/msct/SCoE.png" />
+    <File Path="SiteAssets\images\msct\TRAC.png" Url="SiteAssets/images/msct/TRAC.png" />
+    <File Path="SiteAssets\images\msct\TRADOC_G2.png" Url="SiteAssets/images/msct/TRADOC_G2.png" />
+    <File Path="SiteAssets\images\msct\tradoc-logo.png" Url="SiteAssets/images/msct/tradoc-logo.png" />
+    <File Path="SiteAssets\images\msct\USAREC.png" Url="SiteAssets/images/msct/USAREC.png" />
+    <File Path="SiteAssets\images\msct\USASMA_Ultima_Crest,_2013,_Ft__Bliss_TX.gif" Url="SiteAssets/images/msct/USASMA_Ultima_Crest,_2013,_Ft__Bliss_TX.gif" />
+    <File Path="SiteAssets\images\msct\black_lno.png" Url="SiteAssets/images/msct/black_lno.png" />
+    <File Path="SiteAssets\images\msct\blue_lno.png" Url="SiteAssets/images/msct/blue_lno.png" />
+    <File Path="SiteAssets\images\msct\brickred_lno.png" Url="SiteAssets/images/msct/brickred_lno.png" />
+    <File Path="SiteAssets\images\msct\bronze_lno.png" Url="SiteAssets/images/msct/bronze_lno.png" />
+    <File Path="SiteAssets\images\msct\cyan_lno.png" Url="SiteAssets/images/msct/cyan_lno.png" />
+    <File Path="SiteAssets\images\msct\darkgreen_lno.png" Url="SiteAssets/images/msct/darkgreen_lno.png" />
+    <File Path="SiteAssets\images\msct\fucia_lno.png" Url="SiteAssets/images/msct/fucia_lno.png" />
+    <File Path="SiteAssets\images\msct\gold_lno.png" Url="SiteAssets/images/msct/gold_lno.png" />
+    <File Path="SiteAssets\images\msct\green_lno.png" Url="SiteAssets/images/msct/green_lno.png" />
+    <File Path="SiteAssets\images\msct\lightgray_lno.png" Url="SiteAssets/images/msct/lightgray_lno.png" />
+    <File Path="SiteAssets\images\msct\mintgreen_lno.png" Url="SiteAssets/images/msct/mintgreen_lno.png" />
+    <File Path="SiteAssets\images\msct\orange_lno.png" Url="SiteAssets/images/msct/orange_lno.png" />
+    <File Path="SiteAssets\images\msct\purple_lno.png" Url="SiteAssets/images/msct/purple_lno.png" />
+    <File Path="SiteAssets\images\msct\red_lno.png" Url="SiteAssets/images/msct/red_lno.png" />
+    <File Path="SiteAssets\images\msct\skyblue_lno.png" Url="SiteAssets/images/msct/skyblue_lno.png" />
+    <File Path="SiteAssets\images\msct\white_lno.png" Url="SiteAssets/images/msct/white_lno.png" />
+    <File Path="SiteAssets\images\msct\yellow_lno.png" Url="SiteAssets/images/msct/yellow_lno.png" />
   </Module>
 </Elements>

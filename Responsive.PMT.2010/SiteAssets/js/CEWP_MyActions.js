@@ -156,7 +156,11 @@ CKO.ACTIONS.MyActions = function () {
                 $(".btncopy").on("click", function (e) {
                     $("#PMTModal").modal('hide');
                     e.preventDefault();
-                    var zurl = fixurl('/Lists/Actions/NewAction.aspx?Action=Copy&CopyId=' + $(this).attr("data-actionid") + '&IsDlg=1');
+                    var userdata = "";
+                    userdata += "&userorg=" + CKO.GLOBAL.VARIABLES.currentuser.org;
+                    userdata += "&usertype=" + CKO.GLOBAL.VARIABLES.currentuser.type;
+                    userdata += "&useraccount=" + encodeURIComponent(CKO.GLOBAL.VARIABLES.currentuser.login);
+                    var zurl = fixurl('/Lists/Actions/NewAction.aspx?Action=Copy&CopyId=' + $(this).attr("data-actionid") + '&IsDlg=1' + userdata);
                     CKODialog(zurl, 'New Action', '900', '820', 'NotificationCallback');
                 });
                 $(".btnedit").on("click", function (e) {
@@ -184,7 +188,11 @@ CKO.ACTIONS.MyActions = function () {
                 
                 $(".btnadd").on("click", function (e) {
                     e.preventDefault();
-                    var zurl = fixurl('/Lists/Actions/NewAction.aspx?Action=New&Date=' + $(this).attr("data-date") + '&IsDlg=1');
+                    var userdata = "";
+                    userdata += "&userorg=" + CKO.GLOBAL.VARIABLES.currentuser.org;
+                    userdata += "&usertype=" + CKO.GLOBAL.VARIABLES.currentuser.type;
+                    userdata += "&useraccount=" + encodeURIComponent(CKO.GLOBAL.VARIABLES.currentuser.login);
+                    var zurl = fixurl('/Lists/Actions/NewAction.aspx?Action=New&Date=' + $(this).attr("data-date") + '&IsDlg=1' + userdata);
                     CKODialog(zurl, 'Add New Action', '900', '820', 'NotificationCallback');
                 });
 
